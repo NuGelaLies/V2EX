@@ -36,6 +36,13 @@ extension AppSetup {
         IQKeyboardManager.sharedManager().disabledTouchResignedClasses = [
             TopicDetailViewController.self
         ]
+
+//        // 支持 YYTextView
+//        IQKeyboardManager.sharedManager().registerTextFieldViewClass(
+//            YYTextView.self,
+//            didBeginEditingNotificationName: NSNotification.Name.YYTextViewTextDidBeginEditing.rawValue,
+//            didEndEditingNotificationName: NSNotification.Name.YYTextViewTextDidEndEditing.rawValue
+//        )
     }
 
     private static func setupFPS() {

@@ -17,7 +17,7 @@ class TopicDetailViewController: DataViewController, TopicService {
         view.rowHeight = UITableViewAutomaticDimension
         view.estimatedRowHeight = 80
         view.backgroundColor = .clear
-        view.keyboardDismissMode = .onDrag
+//        view.keyboardDismissMode = .onDrag
         view.register(cellWithClass: TopicCommentCell.self)
         var inset = view.contentInset
         inset.top = navigationController?.navigationBar.height ?? 64
@@ -61,7 +61,6 @@ class TopicDetailViewController: DataViewController, TopicService {
         view.isHidden = true
         return view
     }()
-
 
     // MARK: Propertys
 
@@ -249,7 +248,7 @@ class TopicDetailViewController: DataViewController, TopicService {
         var inputViewHeight = KcommentInputViewHeight
 
         if #available(iOS 11.0, *) {
-            inputViewHeight = KcommentInputViewHeight + view.safeAreaInsets.bottom
+            inputViewHeight += view.safeAreaInsets.bottom
         }
 
         tableView.contentInset = UIEdgeInsets(top: tableView.contentInset.top, left: tableView.contentInset.left, bottom: KcommentInputViewHeight, right: tableView.contentInset.right)
@@ -307,7 +306,6 @@ class TopicDetailViewController: DataViewController, TopicService {
                 let heightOffset = self.view.bounds.size.height - convertedFrame.origin.y
                 let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double
                 self.inputViewBottomConstranit?.update(offset: -heightOffset)
-
                 UIView.animate(withDuration: duration ?? 0.25) {
                     self.view.layoutIfNeeded()
                 }
@@ -457,6 +455,8 @@ extension TopicDetailViewController {
     }
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        commentInputView.textView.resignFirstResponder()
+
         // ContentSize 大于 当前视图高度才显示， 滚动到底部/顶部按钮
         // 150 的偏差
         backTopBtn.isHidden = tableView.contentSize.height < (tableView.height + 150)
@@ -644,7 +644,7 @@ extension TopicDetailViewController {
             return
         }
 
-        if commentInputView.textView.text.last != " " {
+        if let lastCharacter = commentInputView.textView.text.last, lastCharacter != " " {
             atUsername.insert(" ", at: commentInputView.textView.text.startIndex)
         }
         atUsername = Preference.shared.atMemberAddFloor ? atUsername + "#" + (selectComment?.floor ?? "") + " " : atUsername
@@ -854,6 +854,7 @@ extension TopicDetailViewController {
 
         commentText = commentInputView.textView.text
         commentInputView.textView.text = nil
+        commentInputView.textView.resignFirstResponder()
 
         HUD.show()
         comment(

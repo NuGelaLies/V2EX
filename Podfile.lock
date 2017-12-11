@@ -1,11 +1,11 @@
 PODS:
-  - Alamofire (4.5.1)
+  - Alamofire (4.6.0)
   - Crashlytics (3.9.3):
     - Fabric (~> 1.7.2)
   - Fabric (1.7.2)
   - IQKeyboardManagerSwift (5.0.6)
   - Kanna (2.1.1)
-  - Kingfisher (4.4.0)
+  - Kingfisher (4.5.0)
   - MarkdownView (1.1.0)
   - NSObject+Rx (4.2.0):
     - RxSwift (~> 4.0)
@@ -64,12 +64,12 @@ CHECKOUT OPTIONS:
     :git: https://github.com/Joe0708/YYText
 
 SPEC CHECKSUMS:
-  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   IQKeyboardManagerSwift: 02bfbb0dff71c66d0ab77d80d25dfce0c3717735
   Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
-  Kingfisher: 62a43e03047a1ac5159d0be3ac62673ef4b99cc3
+  Kingfisher: 26ae0473102b77b575da51960c932431e3745407
   MarkdownView: 80db8e9a27a6c6cc22615e644e3e85c06065bab7
   NSObject+Rx: cbbc05e3cb3ad446cdbced3e00e39c9efaf02925
   PasswordExtension: 80a57bdae651d04437c8d2e07d90d5f18fe73180

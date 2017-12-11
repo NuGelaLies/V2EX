@@ -21,11 +21,12 @@ class CommentInputView: UIView {
         view.scrollsToTop = false
         view.textContainerInset = UIEdgeInsets(top: 8, left: 14, bottom: 5, right: 14)
         view.backgroundColor = Theme.Color.bgColor
-        view.returnKeyType = .send
-        view.enablesReturnKeyAutomatically = true
         view.delegate = self
         view.textParser = MentionedParser()
         view.tintColor = Theme.Color.globalColor
+        var contentInset = view.contentInset
+        contentInset.right = -35
+        view.contentInset = contentInset
         self.addSubview(view)
         return view
     }()
@@ -34,6 +35,16 @@ class CommentInputView: UIView {
         let view = UIButton()
         view.setImage(#imageLiteral(resourceName: "uploadPicture"), for: .normal)
         view.setImage(#imageLiteral(resourceName: "uploadPicture"), for: .selected)
+        self.addSubview(view)
+        return view
+    }()
+
+    private lazy var sendBtn: UIButton = {
+        let view = UIButton()
+        view.setImage(#imageLiteral(resourceName: "send"), for: .normal)
+        view.setImage(#imageLiteral(resourceName: "send"), for: .selected)
+        view.alpha = 0
+        view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         self.addSubview(view)
         return view
     }()
@@ -47,8 +58,8 @@ class CommentInputView: UIView {
     }
 
     private struct Misc {
-        static let maxLine = 5
-        static let textViewContentHeight: CGFloat = KcommentInputViewHeight - 20
+        static let maxLine = 4
+        static let textViewContentHeight: CGFloat = KcommentInputViewHeight - 25
     }
 
     public var sendHandle: Action?
@@ -83,10 +94,20 @@ class CommentInputView: UIView {
             }
         }
 
+        sendBtn.snp.makeConstraints {
+            $0.centerY.size.equalTo(uploadPictureBtn)
+            $0.right.equalTo(textView.snp.right).inset(5)
+        }
+
         uploadPictureBtn.snp.makeConstraints {
             uploadPictureRightConstraint = $0.left.equalTo(snp.right).constraint
-            $0.centerY.equalTo(textView)
-            $0.width.equalTo(32)
+//            $0.bottom.equalTo(textView.bottom).offset(5)
+            if #available(iOS 11.0, *) {
+                $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(12.5)
+            } else {
+                $0.bottom.equalToSuperview().inset(12.5)
+            }
+            $0.size.equalTo(30)
         }
 
         uploadPictureBtn.rx
@@ -94,6 +115,12 @@ class CommentInputView: UIView {
             .subscribeNext { [weak self] in
                 self?.uploadPictureHandle?()
         }.disposed(by: rx.disposeBag)
+
+        sendBtn.rx
+            .tap
+            .subscribeNext { [weak self] in
+                self?.sendHandle?()
+            }.disposed(by: rx.disposeBag)
 
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
@@ -110,23 +137,38 @@ class CommentInputView: UIView {
 
 extension CommentInputView: YYTextViewDelegate {
 
-    func textViewDidBeginEditing(_ textView: YYTextView) {
+    func textViewShouldBeginEditing(_ textView: YYTextView) -> Bool {
+
+        calculateHeight(defaultHeight: KcommentInputViewHeight)
+
         UIView.animate(withDuration: 1) {
             self.uploadPictureRightConstraint?.update(offset: -50)
             self.uploadPictureBtn.layoutIfNeeded()
         }
+
+        return true
     }
 
-    func textViewDidEndEditing(_ textView: YYTextView) {
+    func textViewShouldEndEditing(_ textView: YYTextView) -> Bool {
+        calculateHeight(defaultHeight: inputViewHeight)
         uploadPictureRightConstraint?.update(offset: 0)
+        return true
+    }
+
+    func textViewDidChange(_ textView: YYTextView) {
+        if textView.text.trimmed.isEmpty.boolValue {
+            sendBtn.fadeOut(0.2)
+        } else if textView.text.trimmed.isNotEmpty.boolValue && sendBtn.alpha < .ulpOfOne {
+            self.sendBtn.fadeIn(0.2)
+            UIView.animate(withDuration: 0.5, delay: 0.1, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.2, options: .curveLinear, animations: {
+                self.sendBtn.transform = .identity
+            }, completion: nil)
+        }
+
+        calculateHeight(defaultHeight: KcommentInputViewHeight)
     }
 
     func textView(_ textView: YYTextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
-            sendHandle?()
-            textView.resignFirstResponder()
-            return false
-        }
 
         if text == "@" {
             GCD.delay(0.2, block: {
@@ -136,8 +178,13 @@ extension CommentInputView: YYTextViewDelegate {
         return true
     }
 
-    func textViewDidChange(_ textView: YYTextView) {
-
+    /// 计算文字高度
+    ///
+    /// - Parameter defaultHeight: 默认的高度
+    ///                            针对 iPhone X 做的特殊处理
+    ///                            默认55，iPhone X = 55 + safeAreaInsets.bottom
+    ///                            编辑时默认高度再次变成 55
+    private func calculateHeight(defaultHeight: CGFloat) {
         guard let lineHeight = textView.font?.lineHeight else { return }
 
         // 调用代理方法
@@ -147,9 +194,9 @@ extension CommentInputView: YYTextViewDelegate {
         guard rows <= Misc.maxLine else { return }
 
         var height = Misc.textViewContentHeight * rows.f
-        height = height < inputViewHeight ? inputViewHeight : height
+        height = height < defaultHeight ? defaultHeight : height
 
         log.info("height = ", height)
-        self.updateHeightHandle?(height)
+        updateHeightHandle?(height)
     }
 }

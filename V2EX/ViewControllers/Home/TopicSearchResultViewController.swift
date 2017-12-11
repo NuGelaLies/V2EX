@@ -303,7 +303,7 @@ extension TopicSearchResultViewController: UITableViewDelegate, UITableViewDataS
 
 extension TopicSearchResultViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let query = textField.text else { return true }
+        guard let query = textField.text, query.isNotEmpty else { return false }
         
         search(query: query.trimmed)
         searchHistoryVC?.appendLocal(query)

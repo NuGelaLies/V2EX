@@ -232,7 +232,7 @@ extension HTMLParseService {
 
                 /// 子节点 递归
                 let subnodes = ele.xpath("./node()")
-                if subnodes.first?.tagName != "text" && subnodes.count > 0 {
+                if subnodes.first?.tagName != "text" && subnodes.count.boolValue {
                     wrapperAttributedString(attributedString, node: subnodes)
                 }
 
@@ -253,7 +253,13 @@ extension HTMLParseService {
                     let linkAttrString = wrapperURLAttachment(content, urlString: urlString)
                     attributedString.append(linkAttrString)
                 }
+            } else if tagName == "div" {
+                let subnodes = ele.xpath("./node()")
+                if subnodes.count.boolValue {
+                    wrapperAttributedString(attributedString, node: subnodes)
+                }
             } else if let content = ele.content, content.isNotEmpty {
+                if content.contains("显示 Gist 代码") { continue }
                 let contentAttrString = NSAttributedString(string: content, attributes: [.foregroundColor: ThemeStyle.style.value.titleColor])
                 attributedString.append(contentAttrString)
             }
