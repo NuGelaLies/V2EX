@@ -80,12 +80,13 @@ class CommentInputView: UIView {
 
     func setup() {
 
+        clipsToBounds = true
         backgroundColor = .white
         
         textView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(10).priority(.high)
-            $0.left.equalToSuperview().inset(15).priority(.high)
-            $0.right.equalTo(uploadPictureBtn.snp.left).inset(-15)
+            $0.right.equalToSuperview().inset(15).priority(.high)
+            $0.left.equalTo(uploadPictureBtn.snp.right).inset(-15)
 
             if #available(iOS 11.0, *) {
                 $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(10)
@@ -100,7 +101,7 @@ class CommentInputView: UIView {
         }
 
         uploadPictureBtn.snp.makeConstraints {
-            uploadPictureRightConstraint = $0.left.equalTo(snp.right).constraint
+            uploadPictureRightConstraint = $0.right.equalTo(snp.left).constraint
 //            $0.bottom.equalTo(textView.bottom).offset(5)
             if #available(iOS 11.0, *) {
                 $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(12.5)
@@ -142,7 +143,7 @@ extension CommentInputView: YYTextViewDelegate {
         calculateHeight(defaultHeight: KcommentInputViewHeight)
 
         UIView.animate(withDuration: 1) {
-            self.uploadPictureRightConstraint?.update(offset: -50)
+            self.uploadPictureRightConstraint?.update(offset: 45)
             self.uploadPictureBtn.layoutIfNeeded()
         }
 
@@ -196,7 +197,6 @@ extension CommentInputView: YYTextViewDelegate {
         var height = Misc.textViewContentHeight * rows.f
         height = height < defaultHeight ? defaultHeight : height
 
-        log.info("height = ", height)
         updateHeightHandle?(height)
     }
 }

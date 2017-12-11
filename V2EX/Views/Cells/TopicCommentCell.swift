@@ -258,7 +258,7 @@ class TopicCommentCell: BaseTableViewCell {
                 }
                 gestureView.centerX = center.x + translationX
             }
-            if -translationX >= activationOffset * 0.9 {
+            if -translationX >= activationOffset * 0.85 {
                 replyImageView.fadeIn(0.1)
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.2, options: .curveLinear, animations: {
                     if #available(iOS 10.0, *) {
