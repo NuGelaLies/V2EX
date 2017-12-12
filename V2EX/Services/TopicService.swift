@@ -3,8 +3,6 @@ import Kanna
 
 protocol TopicService: HTMLParseService {
 
-    func homeNodes() -> [NodeModel]
-
     /// 获取 首页 数据
     ///
     /// - Parameters:
@@ -181,29 +179,6 @@ protocol TopicService: HTMLParseService {
 
 extension TopicService {
 
-    /// 首页节点
-    /// 到时候会添加自定义节点的功能
-    /// 所有暂时先这么做
-    func homeNodes() -> [NodeModel] {
-        var nodes = [
-            NodeModel(title: "全部", href: "/?tab=all"),
-            NodeModel(title: "最热", href: "/?tab=hot"),
-            NodeModel(title: "技术", href: "/?tab=tech"),
-            NodeModel(title: "创意", href: "/?tab=creative"),
-            NodeModel(title: "好玩", href: "/?tab=play"),
-            NodeModel(title: "Apple", href: "/?tab=apple"),
-            NodeModel(title: "城市", href: "/?tab=city"),
-            NodeModel(title: "问与答", href: "/?tab=qna"),
-            NodeModel(title: "节点", href: "/?tab=nodes"),
-            NodeModel(title: "R2", href: "/?tab=r2"),
-            NodeModel(title: "交易", href: "/?tab=deals"),
-            NodeModel(title: "酷工作", href: "/?tab=jobs")
-        ]
-        if AccountModel.isLogin {
-            nodes.append(NodeModel(title: "关注", href: "/?tab=members"))
-        }
-        return nodes
-    }
     
     func index(
         success: ((_ nodes: [NodeModel], _ topics: [TopicModel], _ rewardable: Bool) -> Void)?,
@@ -318,11 +293,17 @@ extension TopicService {
                 failure?("数据解析失败")
                 return
             }
-            
-            let contentHTML = html.xpath("//*[@id='Wrapper']//div[@class='topic_content']").first?.toHTML ?? ""
+            let topicContentPath = html.xpath("//*[@id='Wrapper']//div[@class='topic_content']")
+            let contentHTML = topicContentPath.first?.toHTML ?? ""
             let subtleHTML = html.xpath("//*[@id='Wrapper']//div[@class='subtle']").flatMap { $0.toHTML }.joined(separator: "")
-//            let content = self.replacingIframe(text: contentHTML + subtleHTML)
-            let content = contentHTML + subtleHTML
+            var content = contentHTML + subtleHTML
+            //            content = self.replacingIframe(text: content)
+            // 添加 HTTPS: 头
+            topicContentPath.first?.xpath(".//img").forEach({ ele in
+                if let srcURL = ele["src"], srcURL.hasPrefix("//") {
+                    content = content.replacingOccurrences(of: srcURL, with: Constants.Config.URIScheme + srcURL)
+                }
+            })
 
             let comments = self.parseComment(html: html)
 

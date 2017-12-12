@@ -5,7 +5,7 @@ struct RequestReview {
 
     private struct Keys {
         static let runIncrementerSetting = "numberOfRuns"
-        static let minimumRunCount = 10
+        static let minimumRunCount = 30
     }
 
     // app 运行次数计数器
@@ -30,7 +30,7 @@ struct RequestReview {
         // 第一次请求时机是第十次运行
         // 之后每运行 130 次请求一次
         // 但不一定触发
-        if (runs == Keys.minimumRunCount || runs % 130 == 0) {
+        if (runs == Keys.minimumRunCount || runs % 250 == 0) {
             if #available(iOS 10.3, *) {
                 //                 #if !DEBUG
                 //                #endif

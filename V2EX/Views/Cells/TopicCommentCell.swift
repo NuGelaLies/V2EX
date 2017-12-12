@@ -31,11 +31,16 @@ class TopicCommentCell: BaseTableViewCell {
         return view
     }()
 
-    private lazy var hostLabel: UILabel = {
-        let view = UILabel()
+    private lazy var hostLabel: UIInsetLabel = {
+        let view = UIInsetLabel()
         view.text = "楼主"
         view.font = UIFont.systemFont(ofSize: 12)
-        view.textColor = UIColor.hex(0x969696)
+//        view.textColor = UIColor.hex(0x969696)
+        view.textColor = ThemeStyle.style.value.cellBackgroundColor
+        view.backgroundColor = ThemeStyle.style.value.globalColor.withAlphaComponent(0.3)
+        view.layer.cornerRadius = 3
+        view.contentInsets = UIEdgeInsets(top: 1, left: 5, bottom: 1, right: 5)
+        view.layer.masksToBounds = true
         view.isHidden = true
         return view
     }()

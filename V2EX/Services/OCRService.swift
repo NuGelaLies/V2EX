@@ -121,9 +121,11 @@ extension OCRService {
                 log.info("filtered recognize values", chars)
 
                 func mostCharIn(_ text: String) -> String {
+                    guard let firstCharacter = text.first else { return "" }
+
                     var dict: [Character: Int] = [:]
                     for i in 0..<text.count {
-                        let charStr = text[i]
+                        guard let charStr = text[i] else { continue }
 
                         var preCount = 0
                         if let value = dict[charStr] {
@@ -135,7 +137,7 @@ extension OCRService {
                         return lhs.value > rhs.value
                     })
                     log.info(sortDict)
-                    return String(sortDict.first?.key ?? text[0])
+                    return String(sortDict.first?.key ?? firstCharacter)
                 }
 
                 var list: [String] = []

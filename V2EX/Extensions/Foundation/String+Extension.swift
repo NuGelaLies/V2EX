@@ -67,8 +67,10 @@ extension String {
         return String(self[startIndex..<endIndex])
     }
 
-    subscript (i: Int) -> Character {
-        return Array(self)[i]
+    // String[1]
+    public subscript(index: Int) -> Character? {
+        guard let stringIndex = self.index(startIndex, offsetBy: index, limitedBy: endIndex) else { return nil }
+        return self[stringIndex]
     }
 
     /// 剪切空格和换行字符

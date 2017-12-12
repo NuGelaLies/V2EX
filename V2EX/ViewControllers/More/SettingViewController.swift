@@ -6,6 +6,7 @@ class SettingViewController: UITableViewController {
     enum SettingItemType {
         case accounts
         case browser, nightMode, fontSize, baiduOCRConfig, logout, fullScreenBack, shakeFeedback
+        case tabSort
         case floor
     }
     struct SettingItem {
@@ -24,6 +25,7 @@ class SettingViewController: UITableViewController {
             SettingItem(title: "摇一摇反馈", type: .shakeFeedback, rightType: .switch)
         ],
         [
+            SettingItem(title: "节点排序", type: .tabSort, rightType: .arrow),
             SettingItem(title: "调节字体", type: .fontSize, rightType: .arrow),
             SettingItem(title: "@用户时带楼层号(@devjoe #1)", type: .floor, rightType: .switch),
         ],
@@ -124,6 +126,9 @@ extension SettingViewController {
         case .fontSize:
             let adjustFontVC = AdjustFontViewController()
             navigationController?.pushViewController(adjustFontVC, animated: true)
+        case .tabSort:
+            let sortVC = TabSortViewController()
+            navigationController?.pushViewController(sortVC, animated: true)
         case .baiduOCRConfig:
             let vc = OCRConfigViewController()
             navigationController?.pushViewController(vc, animated: true)

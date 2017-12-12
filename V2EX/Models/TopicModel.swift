@@ -44,7 +44,6 @@ struct TopicModel {
     }
 }
 
-
 extension TopicModel: Hashable {
     static func ==(lhs: TopicModel, rhs: TopicModel) -> Bool {
         return lhs.title == rhs.title && lhs.href == rhs.href && lhs.publicTime == rhs.publicTime

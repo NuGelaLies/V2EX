@@ -119,6 +119,7 @@
 		BF9EC8271F95D6EE00E7AA02 /* BasePlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EC8241F95D6EE00E7AA02 /* BasePlaceholderView.swift */; };
 		BF9EC8281F95D6EE00E7AA02 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EC8251F95D6EE00E7AA02 /* EmptyView.swift */; };
 		BF9EC8291F95D6EE00E7AA02 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EC8261F95D6EE00E7AA02 /* LoadingView.swift */; };
+		BFAB3B391FDFCAA6002D7E90 /* TabSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB3B381FDFCAA6002D7E90 /* TabSortViewController.swift */; };
 		BFBA304A1FC2BAE000502E61 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA30491FC2BAE000502E61 /* ViewController.swift */; };
 		BFBCE5A31F90BB9E000106D6 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBCE5A21F90BB9E000106D6 /* HelperFunctions.swift */; };
 		BFBCE5B81F90C4FC000106D6 /* NodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBCE5B71F90C4FC000106D6 /* NodesViewController.swift */; };
@@ -295,6 +296,7 @@
 		BF9EC8241F95D6EE00E7AA02 /* BasePlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePlaceholderView.swift; sourceTree = "<group>"; };
 		BF9EC8251F95D6EE00E7AA02 /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		BF9EC8261F95D6EE00E7AA02 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		BFAB3B381FDFCAA6002D7E90 /* TabSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSortViewController.swift; sourceTree = "<group>"; };
 		BFBA30491FC2BAE000502E61 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BFBCE5A21F90BB9E000106D6 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		BFBCE5B71F90C4FC000106D6 /* NodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesViewController.swift; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 				77D458221FD96FE30004225B /* OCRConfigViewController.swift */,
 				BF2C54CF1FC536EA00B944FB /* AccountsViewController.swift */,
 				BF7AF1B91FBC0C35005427D0 /* AdjustFontViewController.swift */,
+				BFAB3B381FDFCAA6002D7E90 /* TabSortViewController.swift */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -1139,6 +1142,7 @@
 				775E5DBD1FD82A0600D5BB44 /* BaiduOCR.swift in Sources */,
 				BFE8CB291FA051E2007E2F02 /* ViewDialogViewController.swift in Sources */,
 				BFEC91CF1F948D8E0050B7F5 /* RegisterViewController.swift in Sources */,
+				BFAB3B391FDFCAA6002D7E90 /* TabSortViewController.swift in Sources */,
 				BF3AB5C71F97672300043269 /* UIPlaceholderTextView.swift in Sources */,
 				BF1A1EBC1FB58B3900DDBF67 /* GoogleChromeActivity.swift in Sources */,
 				7756CCCC1F92475F00EF47B8 /* NodeDetailViewController.swift in Sources */,

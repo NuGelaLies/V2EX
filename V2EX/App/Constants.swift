@@ -68,15 +68,17 @@ struct Constants {
         static let baiduOauthToken = FileManager.document.appendingPathComponent("BaiduOauthToken")
         
         static let baiduAppearence = FileManager.document.appendingPathComponent("BaiduAppearence")
+
+        static let homeNodes = FileManager.caches.appendingPathComponent("homeNodes")
     }
 
     struct Metric {
-        /// TODO: iPhone X 适配
         static let navigationHeight: CGFloat = 64
         static let tabbarHeight: CGFloat = 49
-        
-        static let screenWidth: CGFloat = UIScreen.main.bounds.width
-        static let screenHeight: CGFloat = UIScreen.main.bounds.height
+
+        // 兼容分屏模式， UIScreen.main.bounds 取的是屏幕高度， 此时拿 Windows.bounds
+        static let screenWidth: CGFloat = UIDevice.isiPad ? AppWindow.shared.window.width : UIScreen.main.bounds.width
+        static let screenHeight: CGFloat = UIDevice.isiPad ? AppWindow.shared.window.height : UIScreen.main.bounds.height
     }
     
     struct BaiduOCR {
@@ -108,6 +110,9 @@ extension Notification.Name {
         
         /// 领取每日奖励通知
         static let DailyRewardMissionName = Notification.Name("DailyRewardMissionName")
+
+        /// 保存节点排序通知
+        static let HomeTabSortFinishName = Notification.Name("HomeTabSortFinishName")
     }
 }
 

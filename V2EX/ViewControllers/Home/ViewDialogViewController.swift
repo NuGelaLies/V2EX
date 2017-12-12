@@ -32,8 +32,8 @@ class ViewDialogViewController: UITableViewController {
         tableView.backgroundColor = ThemeStyle.style.value.bgColor
         tableView.keyboardDismissMode = .onDrag
         tableView.register(cellWithClass: TopicCommentCell.self)
-
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain) { [weak self] in
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel) { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         }
 

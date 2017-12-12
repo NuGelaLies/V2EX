@@ -3,7 +3,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class HomeViewController: BaseViewController, AccountService, TopicService {
+class HomeViewController: BaseViewController, AccountService, TopicService, NodeService {
 
     // MARK: - UI
 
@@ -173,6 +173,19 @@ class HomeViewController: BaseViewController, AccountService, TopicService {
                 })
             }.disposed(by: rx.disposeBag)
 
+//        NotificationCenter.default.rx
+//            .notification(Notification.Name.V2.HomeTabSortFinishName)
+//            .subscribeNext { [weak self] notification in
+//                guard let `self` = self, let nodes = notification.object as? [NodeModel] else { return }
+//                self.nodes = nodes
+//                self.segmentView?.titles = nodes.map { $0.title }
+//                //            let d = childViewControllers.flatMap { $0 as? BaseTopicsViewController }.map { $0.href = nodes}
+//
+//                for (offset, node) in nodes.enumerated() {
+//                    let topicVC = self.childViewControllers[offset] as? BaseTopicsViewController
+//                    topicVC?.href = node.href
+//                }
+//            }.disposed(by: rx.disposeBag)
 
         // 适配屏幕旋转
         NotificationCenter.default.rx

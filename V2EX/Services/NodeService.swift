@@ -2,7 +2,13 @@ import Foundation
 import Kanna
 
 protocol NodeService: HTMLParseService {
-    
+
+    /// 获取首页节点
+    func homeNodes() -> [NodeModel]
+
+    /// 更新首页节点
+    func updateHomeNodes(nodes: [NodeModel]) -> Error?
+
     /// 获取节点导航
     ///
     /// - Parameters:
@@ -46,6 +52,51 @@ protocol NodeService: HTMLParseService {
 }
 
 extension NodeService {
+
+    /// 首页节点
+    func homeNodes() -> [NodeModel] {
+        var nodes: [NodeModel] = [
+            NodeModel(title: "全部", href: "/?tab=all"),
+            NodeModel(title: "最热", href: "/?tab=hot"),
+            NodeModel(title: "技术", href: "/?tab=tech"),
+            NodeModel(title: "创意", href: "/?tab=creative"),
+            NodeModel(title: "好玩", href: "/?tab=play"),
+            NodeModel(title: "Apple", href: "/?tab=apple"),
+            NodeModel(title: "城市", href: "/?tab=city"),
+            NodeModel(title: "问与答", href: "/?tab=qna"),
+            NodeModel(title: "节点", href: "/?tab=nodes"),
+            NodeModel(title: "R2", href: "/?tab=r2"),
+            NodeModel(title: "交易", href: "/?tab=deals"),
+            NodeModel(title: "酷工作", href: "/?tab=jobs")
+        ]
+
+        guard FileManager.default.fileExists(atPath: Constants.Keys.homeNodes) else { return nodes }
+
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: Constants.Keys.homeNodes))
+            nodes = try JSONDecoder().decode([NodeModel].self, from: data)
+        } catch {
+            HUD.showTest(error)
+            log.error(error)
+        }
+
+        if AccountModel.isLogin {
+            nodes.append(NodeModel(title: "关注", href: "/?tab=members"))
+        }
+        return nodes
+    }
+
+    func updateHomeNodes(nodes: [NodeModel]) -> Error? {
+        do {
+            let enc = try JSONEncoder().encode(nodes)
+            let error = FileManager.save(enc, savePath: Constants.Keys.homeNodes)
+            return error
+        } catch {
+            HUD.showTest(error)
+            log.error(error)
+            return error
+        }
+    }
     
     func nodeNavigation(
         success: ((_ nodeCategorys: [NodeCategoryModel]) -> Void)?,
