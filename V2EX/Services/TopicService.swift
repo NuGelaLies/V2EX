@@ -30,7 +30,7 @@ protocol TopicService: HTMLParseService {
     ///   - failure: 失败
     func topics(
         href: String,
-        success: ((_ topics: [TopicModel]) -> Void)?,
+        success: ((_ topics: [TopicModel], _ maxPage: Int) -> Void)?,
         failure: Failure?)
 
     /// 获取 主题 详情数据
@@ -246,11 +246,12 @@ extension TopicService {
     
     func topics(
         href: String,
-        success: ((_ topics: [TopicModel]) -> Void)?,
+        success: ((_ topics: [TopicModel], _ maxPage: Int) -> Void)?,
         failure: Failure?) {
         
+        log.info(href)
         Network.htmlRequest(target: .topics(href: href), success: { html in
-            let topics = self.parseTopic(html: html, type: .index)
+            let topics = self.parseTopic(html: html, type: .nodeDetail)
             
             // 领取今日登录奖励
             if let dailyHref = html.xpath("//*[@id='Wrapper']/div[@class='content']//div[@class='inner']/a").first?["href"],
@@ -263,7 +264,7 @@ extension TopicService {
 //                return
 //            }
 
-            success?(topics)
+            success?(topics, self.parsePage(html: html).max)
         }, failure: failure)
     }
 

@@ -8,6 +8,9 @@ protocol NodeService: HTMLParseService {
 
     /// 更新首页节点
     func updateHomeNodes(nodes: [NodeModel]) -> Error?
+    
+    /// 重置首页显示的节点
+    func resetHomeNodes()
 
     /// 获取节点导航
     ///
@@ -96,6 +99,12 @@ extension NodeService {
             log.error(error)
             return error
         }
+    }
+    
+    func resetHomeNodes() {
+        guard let error = FileManager.delete(at: Constants.Keys.createTopicNodenameDraft) else { return }
+        HUD.showError(error)
+        log.info(error)
     }
     
     func nodeNavigation(

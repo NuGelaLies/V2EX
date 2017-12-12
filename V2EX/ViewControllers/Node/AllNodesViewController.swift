@@ -76,7 +76,6 @@ class AllNodesViewController: DataViewController, NodeService {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "节点导航"
 //        definesPresentationContext = true
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, action: { [weak self] in

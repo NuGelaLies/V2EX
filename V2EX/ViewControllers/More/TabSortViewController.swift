@@ -10,6 +10,12 @@ class TabSortViewController: UITableViewController, NodeService {
         return view
     }()
 
+    private lazy var addItem: UIBarButtonItem = {
+        let view = UIBarButtonItem(title: "添加")
+        view.isEnabled = self.nodes.count < Constants.Config.MaxShowNodeCount
+        return view
+    }()
+    
     // MARK: - Propertys
     
     private var nodes: [NodeModel] = []
@@ -35,24 +41,53 @@ class TabSortViewController: UITableViewController, NodeService {
         tableView.register(cellWithClass: BaseTableViewCell.self)
         tableView.setEditing(true, animated: false)
 
-        navigationItem.rightBarButtonItem = saveItem
+        navigationItem.rightBarButtonItems = [saveItem, addItem]
 
+        setupRx()
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return ThemeStyle.style.value.statusBarStyle
+    }
+    
+    private func setupRx() {
+        
         saveItem.rx.tap
             .subscribeNext { [weak self] in
                 guard let `self` = self else { return }
                 if let error = self.updateHomeNodes(nodes: self.nodes) {
                     HUD.showError(error)
                 } else {
-//                    NotificationCenter.default.post(name: Notification.Name.V2.HomeTabSortFinishName, object: self.nodes)
-                    HUD.showSuccess("保存成功，设置将在App下次启动时生效", duration: 1.5, completionBlock: {
-                        self.navigationController?.popViewController(animated: true)
-                    })
+                    //                    NotificationCenter.default.post(name: Notification.Name.V2.HomeTabSortFinishName, object: self.nodes)
+                    HUD.showSuccess("保存成功，该设置将在App下次启动时生效")
                 }
-        }.disposed(by: rx.disposeBag)
+            }.disposed(by: rx.disposeBag)
+        
+        addItem.rx.tap
+            .subscribeNext { [weak self] in
+                self?.addNodeHandle()
+            }.disposed(by: rx.disposeBag)
     }
+    
+    private func addNodeHandle() {
+        let allNodeVC = AllNodesViewController()
+        allNodeVC.title = "添加节点"
+        let nav = NavigationViewController(rootViewController: allNodeVC)
+        present(nav, animated: true, completion: nil)
+        
+        allNodeVC.didSelectedNodeHandle = { [weak self] node in
+            guard let `self` = self else { return }
+            self.saveItem.isEnabled = true
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return ThemeStyle.style.value.statusBarStyle
+            if let oldIndex = self.nodes.index(of: node) {
+                self.nodes.move(from: oldIndex, to: self.nodes.count - 1)
+                self.tableView.reloadData()
+                return
+            }
+            self.nodes.append(node)
+            self.tableView.reloadData()
+            self.addItem.isEnabled = self.nodes.count < Constants.Config.MaxShowNodeCount
+        }
     }
 }
 
@@ -72,15 +107,22 @@ extension TabSortViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "排序完成后请按 \"存储\" 按钮，该设置将在App下次启动时生效"
+        return "排序完成后请按 \"存储\" 按钮，该设置将在App下次启动时生效\n\n\n点击 \"添加\" 可以添加任意您感兴趣的节点\n目前最多添加 \(Constants.Config.MaxShowNodeCount), 最少保留 \(Constants.Config.MinShowNodeCount) 个节点"
     }
 
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        addItem.isEnabled = self.nodes.count <= Constants.Config.MaxShowNodeCount
+        saveItem.isEnabled = true
+        nodes.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
 
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return .none
+        return nodes.count <= Constants.Config.MinShowNodeCount ? .none : .delete
     }
 
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
@@ -88,8 +130,8 @@ extension TabSortViewController {
     }
 
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        saveItem.isEnabled = true
         guard sourceIndexPath != destinationIndexPath else { return }
+        saveItem.isEnabled = true
         nodes.move(from: sourceIndexPath.row, to : destinationIndexPath.row)
     }
 }

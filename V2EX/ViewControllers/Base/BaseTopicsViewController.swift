@@ -1,7 +1,13 @@
 import UIKit
 
-class BaseTopicsViewController: DataViewController, TopicService {
+class BaseTopicsViewController: DataViewController, TopicService, NodeService {
 
+    private struct Misc {
+        static let allHrefName = "/?tab=all"
+    }
+    
+    /// MARK: - UI
+    
     internal lazy var tableView: UITableView = {
         let view = UITableView()
         view.delegate = self
@@ -13,6 +19,8 @@ class BaseTopicsViewController: DataViewController, TopicService {
         self.view.addSubview(view)
         return view
     }()
+    
+    /// MARK: - Propertys
 
     var topics: [TopicModel] = [] {
         didSet {
@@ -21,22 +29,29 @@ class BaseTopicsViewController: DataViewController, TopicService {
     }
 
     public var href: String
+    
+    public var node: NodeModel?
 
     internal var page = 1, maxPage = 1
 
+    /// MARk: - View Life Cycle
+    
     init(href: String) {
         self.href = href
         super.init(nibName: nil, bundle: nil)
     }
-
-    convenience init() {
-        self.init(href: "")
+    
+    convenience init(node: NodeModel) {
+        self.init(href: node.href.contains("/?tab=") ? node.href : node.path)
+        self.node = node
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Setup
+    
     override func setupSubviews() {
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: tableView)
@@ -46,10 +61,17 @@ class BaseTopicsViewController: DataViewController, TopicService {
     }
 
     func setupRefresh() {
+        setupHeaderRefresh()
+        setupFooterRefresh()
+    }
+    
+    func setupHeaderRefresh() {
         tableView.addHeaderRefresh { [weak self] in
             self?.fetchTopic()
         }
-
+    }
+    
+    func setupFooterRefresh() {
         tableView.addFooterRefresh { [weak self] in
             self?.fetchMoreTopic()
         }
@@ -94,9 +116,11 @@ class BaseTopicsViewController: DataViewController, TopicService {
     }
 
     func fetchTopic() {
-        page = 1
 
-        topics(href: href, success: { [weak self] topic in
+        topics(href: href, success: { [weak self] topic, maxPage in
+            if self?.href != Misc.allHrefName {
+                self?.maxPage = maxPage
+            }
             self?.topics = topic
             self?.endLoading()
             self?.tableView.endHeaderRefresh()
@@ -108,19 +132,31 @@ class BaseTopicsViewController: DataViewController, TopicService {
     }
 
     private func fetchMoreTopic() {
-        let allHref = "/?tab=all"
-        let isAllowRefresh = href.hasPrefix(allHref)
+        let isAllHref = href.hasPrefix(Misc.allHrefName)
+        let nodeDetailRefreshable = href.contains("/?tab=").not && node != nil
+        // 不是全部节点 或者 不包含 "/?tab=" 支持加载更多
+        let isAllowRefresh = isAllHref || nodeDetailRefreshable
         if isAllowRefresh == false {
             tableView.endFooterRefresh(showNoMore: !isAllowRefresh)
         }
 
         guard isAllowRefresh else { return }
+        
+        if isAllHref {
+            fetchRecentTopic()
+            return
+        }
+        
+        fetchMoreNodeTopic()
+    }
+
+    private func fetchRecentTopic() {
 
         recentTopics(page: page, success: { [weak self] topics, maxPage in
             guard let `self` = self else { return }
             self.page += 1
             self.maxPage = maxPage
-
+            
             // 数据去重
             let ts = topics.filter({ rhs -> Bool in
                 !self.topics.contains(where: { lhs -> Bool in
@@ -134,7 +170,31 @@ class BaseTopicsViewController: DataViewController, TopicService {
             HUD.showError(error)
         }
     }
-
+    
+    public func fetchMoreNodeTopic() {
+        guard let node = node else { return }
+        
+        if page >= maxPage {
+            self.tableView.endRefresh(showNoMore: true)
+            return
+        }
+        page += 1
+        nodeDetail(
+            page: page,
+            node: node,
+            success: { [weak self] _, topics, maxPage in
+                guard let `self` = self else { return }
+                
+                self.maxPage = maxPage
+                self.topics.append(contentsOf: topics)
+                self.tableView.endRefresh(showNoMore: self.page >= maxPage)
+        }) { [weak self] error in
+            self?.page -= 1
+            self?.tableView.endFooterRefresh()
+            self?.errorMessage = error
+            self?.endLoading(error: NSError(domain: "V2EX", code: -1, userInfo: nil))
+        }
+    }
 
     func tapHandle(_ type: TapType) {
         switch type {

@@ -205,8 +205,7 @@ extension HomeViewController {
 
         scrollView.contentSize = CGSize(width: nodes.count.f * scrollView.width, height: scrollView.contentSize.height)
         for node in nodes {
-            let topicVC = BaseTopicsViewController()
-            topicVC.href = node.href
+            let topicVC = BaseTopicsViewController(node: node)
             addChildViewController(topicVC)
         }
 

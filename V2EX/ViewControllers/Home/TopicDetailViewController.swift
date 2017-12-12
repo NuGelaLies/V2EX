@@ -804,7 +804,7 @@ extension TopicDetailViewController {
     /// 获取更多评论
     func fetchMoreComment() {
         if page >= maxPage {
-            self.tableView.endRefresh(showNoMore: self.page >= maxPage)
+            self.tableView.endRefresh(showNoMore: true)
             return
         }
 

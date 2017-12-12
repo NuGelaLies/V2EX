@@ -71,7 +71,7 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
 //        if #available(iOS 11.0, *) {
 //            navigationController?.navigationBar.prefersLargeTitles = true
 //        }
-
+        navigationItem.title = "个人"
         guard AccountModel.isLogin else { return }
 
         let createTopicItem = UIBarButtonItem(image: #imageLiteral(resourceName: "edit"), style: .plain, action: { [weak self] in

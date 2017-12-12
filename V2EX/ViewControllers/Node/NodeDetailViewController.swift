@@ -1,6 +1,6 @@
 import UIKit
 
-class NodeDetailViewController: BaseTopicsViewController, NodeService, AccountService {
+class NodeDetailViewController: BaseTopicsViewController, AccountService {
 
     // MARK: - UI
 
@@ -10,22 +10,12 @@ class NodeDetailViewController: BaseTopicsViewController, NodeService, AccountSe
 
     // MARK: - Propertys
 
-    public var node: NodeModel {
+
+    override var node: NodeModel? {
         didSet {
-            title = node.title
-            favoriteTopicItem.image = (node.isFavorite ?? false) ? #imageLiteral(resourceName: "unfavoriteNav") : #imageLiteral(resourceName: "favoriteNav")
+            title = node?.title
+            favoriteTopicItem.image = (node?.isFavorite ?? false) ? #imageLiteral(resourceName: "unfavoriteNav") : #imageLiteral(resourceName: "favoriteNav")
         }
-    }
-
-    // MARK: - View Life Cycle
-
-    init(node: NodeModel) {
-        self.node = node
-        super.init(href: node.path)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
@@ -43,7 +33,7 @@ class NodeDetailViewController: BaseTopicsViewController, NodeService, AccountSe
         }
         
         tableView.addFooterRefresh { [weak self] in
-            self?.fetchMoreTopic()
+            self?.fetchMoreNodeTopic()
         }
     }
     
@@ -93,6 +83,8 @@ extension NodeDetailViewController {
 
     /// 获取节点详情
     func fetchNodeDetail() {
+        guard let node = node else { return }
+        
         page = 1
         startLoading()
 
@@ -101,7 +93,6 @@ extension NodeDetailViewController {
             node: node,
             success: { [weak self] node, topics, maxPage in
                 guard let `self` = self else { return }
-                
                 self.maxPage = maxPage
                 self.node = node
                 self.topics = topics
@@ -115,39 +106,19 @@ extension NodeDetailViewController {
         }
     }
 
-    /// 获取更多主题
-    func fetchMoreTopic() {
-        page += 1
-
-        nodeDetail(
-            page: page,
-            node: node,
-            success: { [weak self] _, topics, maxPage in
-                guard let `self` = self else { return }
-                self.maxPage = maxPage
-                self.topics.append(contentsOf: topics)
-                self.tableView.endFooterRefresh()
-                self.endLoading()
-                self.tableView.endRefresh(showNoMore: self.page >= maxPage)
-        }) { [weak self] error in
-            self?.tableView.endFooterRefresh()
-            self?.errorMessage = error
-            self?.endLoading(error: NSError(domain: "V2EX", code: -1, userInfo: nil))
-        }
-    }
-
     /// 收藏主题
     private func favoriteHandle() {
-        guard let href = node.favoriteOrUnfavoriteHref else {
+        guard let node = node,
+            let href = node.favoriteOrUnfavoriteHref else {
             HUD.showError("收藏失败，请重试")
             return
         }
 
         favorite(href: href, success: { [weak self] in
             guard let `self` = self else { return }
-            self.node.isFavorite = !self.node.isFavorite!
-            HUD.showSuccess("已成功\(self.node.isFavorite! ? "收藏" : "取消收藏") \(self.node.title)")
-            self.favoriteTopicItem.image = self.node.isFavorite! ? #imageLiteral(resourceName: "unfavoriteNav") : #imageLiteral(resourceName: "favoriteNav")
+            self.node?.isFavorite = !node.isFavorite!
+            HUD.showSuccess("已成功\(self.node!.isFavorite! ? "收藏" : "取消收藏") \(node.title)")
+            self.favoriteTopicItem.image = self.node!.isFavorite! ? #imageLiteral(resourceName: "unfavoriteNav") : #imageLiteral(resourceName: "favoriteNav")
         }) { error in
             HUD.showError(error)
         }

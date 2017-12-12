@@ -13,6 +13,14 @@ class TopicFavoriteViewController: BaseTopicsViewController, AccountService {
         }
     }
 
+    init() {
+        super.init(href: "")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: State Handle
 
     override func loadData() {

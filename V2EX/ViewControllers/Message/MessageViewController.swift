@@ -69,6 +69,7 @@ class MessageViewController: DataViewController, AccountService {
     // MARK: - Setup
 
     override func setupSubviews() {
+        navigationItem.title = "消息"
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
     }
 

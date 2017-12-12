@@ -17,6 +17,9 @@ struct Constants {
         static var receiverEmail = "joesir7@foxmail.com"
 
         static var AppID = "1308118507"
+        
+        static var MaxShowNodeCount = 20
+        static var MinShowNodeCount = 6
     }
 
     struct Keys {
@@ -69,7 +72,7 @@ struct Constants {
         
         static let baiduAppearence = FileManager.document.appendingPathComponent("BaiduAppearence")
 
-        static let homeNodes = FileManager.caches.appendingPathComponent("homeNodes")
+        static let homeNodes = FileManager.document.appendingPathComponent("homeNodes")
     }
 
     struct Metric {
