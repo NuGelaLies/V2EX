@@ -80,6 +80,8 @@ class TopicDetailViewController: DataViewController, TopicService {
     }
 
     public var topicID: String
+    
+    public var showInputView: Bool?
 
     // 加工数据
     private var dataSources: [CommentModel] = [] {
@@ -121,6 +123,19 @@ class TopicDetailViewController: DataViewController, TopicService {
         userActivity?.invalidate()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let isShow = showInputView {
+            if isShow == false {
+                commentInputView.isHidden = true
+            }
+        }
+     
+    
+        log.info(commentInputView.isHidden)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
@@ -144,7 +159,7 @@ class TopicDetailViewController: DataViewController, TopicService {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override var canBecomeFirstResponder: Bool {
         return true
     }
@@ -334,7 +349,7 @@ class TopicDetailViewController: DataViewController, TopicService {
     override func hasContent() -> Bool {
         let hasContent = topic != nil
 
-        if hasContent {
+        if hasContent && (showInputView == nil || showInputView == true) {
             commentInputView.isHidden = false
         }
         return hasContent

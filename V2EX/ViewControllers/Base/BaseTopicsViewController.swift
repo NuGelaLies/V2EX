@@ -245,6 +245,7 @@ extension BaseTopicsViewController: UITableViewDelegate, UITableViewDataSource {
 extension BaseTopicsViewController: UIViewControllerPreviewingDelegate {
 
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        (viewControllerToCommit as? TopicDetailViewController)?.showInputView = true
         show(viewControllerToCommit, sender: self)
     }
 
@@ -255,6 +256,7 @@ extension BaseTopicsViewController: UIViewControllerPreviewingDelegate {
         guard let topicID = topics[indexPath.row].topicID else { return nil }
 
         let viewController = TopicDetailViewController(topicID: topicID)
+        viewController.showInputView = false
         previewingContext.sourceRect = cell.frame
         return viewController
     }
