@@ -13,6 +13,16 @@ struct CommentModel {
     var textLayout: YYTextLayout?
 }
 
+extension CommentModel: Hashable {
+    static func ==(lhs: CommentModel, rhs: CommentModel) -> Bool {
+        return lhs.id == rhs.id && lhs.member == rhs.member
+    }
+
+    public var hashValue: Int {
+        return "\(id)-\(member.username)".hashValue
+    }
+}
+
 extension CommentModel {
     
     /// 查找所有回复当中包含指定@用户的对话回复列表

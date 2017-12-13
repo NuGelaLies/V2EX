@@ -10,9 +10,10 @@ class ViewDialogViewController: UITableViewController {
 
     // MARK: - View Life Cycle
 
-    init(comments: [CommentModel]) {
+    init(comments: [CommentModel], username: String) {
         self.comments = comments
         super.init(style: .plain)
+        title = "有关 \(username) 的对话"
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -248,7 +248,7 @@ class TopicDetailViewController: DataViewController, TopicService {
         var inputViewHeight = KcommentInputViewHeight
 
         if #available(iOS 11.0, *) {
-            inputViewHeight += view.safeAreaInsets.bottom
+            inputViewHeight += AppWindow.shared.window.safeAreaInsets.bottom//view.safeAreaInsets.bottom
         }
 
         tableView.contentInset = UIEdgeInsets(top: tableView.contentInset.top, left: tableView.contentInset.left, bottom: KcommentInputViewHeight, right: tableView.contentInset.right)
@@ -336,7 +336,6 @@ class TopicDetailViewController: DataViewController, TopicService {
 
         if hasContent {
             commentInputView.isHidden = false
-            backTopBtn.isHidden = tableView.contentSize.height < (tableView.height + 150)
         }
         return hasContent
     }
@@ -529,7 +528,10 @@ extension TopicDetailViewController {
     ///
     /// - Parameter type: 触发的类型
     private func tapHandle(_ type: TapType) {
-        setStatusBarBackground(.clear)
+        switch type {
+        case .reply, .memberAvatarLongPress: break
+        default: setStatusBarBackground(.clear)
+        }
 
         switch type {
         case .webpage(let url):
@@ -543,10 +545,8 @@ extension TopicDetailViewController {
             commentInputView.textView.text = ""
             atMember(member.atUsername)
         case .imageURL(let src):
-            setStatusBarBackground(.clear)
             showImageBrowser(imageType: .imageURL(src))
         case .image(let image):
-            setStatusBarBackground(.clear)
             showImageBrowser(imageType: .image(image))
         case .node(let node):
             let nodeDetailVC = NodeDetailViewController(node: node)
@@ -635,8 +635,8 @@ extension TopicDetailViewController {
 
     // 如果已经 at 的用户， 让 TextView 选中用户名
     private func atMember(_ atUsername: String?) {
-        commentInputView.textView.becomeFirstResponder()
         guard var `atUsername` = atUsername, atUsername.trimmed.isNotEmpty else { return }
+        commentInputView.textView.becomeFirstResponder()
 
         if commentInputView.textView.text.contains(atUsername) {
             let range = commentInputView.textView.text.NSString.range(of: atUsername)
@@ -765,9 +765,9 @@ extension TopicDetailViewController {
             return
         }
 
-        let viewDialogVC = ViewDialogViewController(comments: dialogs)
+
+        let viewDialogVC = ViewDialogViewController(comments: dialogs, username: selectComment.member.username)
         let nav = NavigationViewController(rootViewController: viewDialogVC)
-        viewDialogVC.title = "有关 \(selectComment.member.username) 的对话"
         present(nav, animated: true, completion: nil)
     }
 
@@ -1083,19 +1083,17 @@ extension TopicDetailViewController: UIViewControllerPreviewingDelegate {
         //        }
         
         let dialogs = CommentModel.atUsernameComments(comments: comments, currentComment: selectComment)
-        
         guard dialogs.count.boolValue else { return nil }
-        
-        let viewDialogVC = ViewDialogViewController(comments: dialogs)
-        viewDialogVC.title = "有关 \(selectComment.member.username) 的对话"
+
+        let viewDialogVC = ViewDialogViewController(comments: dialogs, username: selectComment.member.username)
         previewingContext.sourceRect = cell.frame
-        
-        var contentSize = viewDialogVC.tableView.contentSize
-        let maxHeight = view.height * 0.8.f
-        if contentSize.height > maxHeight {
-            contentSize.height = maxHeight
-        }
-        viewDialogVC.preferredContentSize = contentSize
+//        var contentSize = viewDialogVC.tableView.contentSize
+//        let maxHeight = view.height * 0.8.f
+//        if contentSize.height > maxHeight {
+//            contentSize.height = maxHeight
+//        }
+
+        viewDialogVC.preferredContentSize = CGSize(width: viewDialogVC.tableView.width, height: viewDialogVC.tableView.height * 0.8)//contentSize
         return viewDialogVC
     }
     
