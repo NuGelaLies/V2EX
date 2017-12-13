@@ -324,7 +324,7 @@ open class LoadingButton: UIButton {
         }
 //        self.setImage(nil, for: UIControlState.disabled)
         self.isUserInteractionEnabled = !self.isLoading
-        self.superview?.isUserInteractionEnabled = self.isUserInteractionEnabled
+//        self.superview?.isUserInteractionEnabled = self.isUserInteractionEnabled
         self.setNeedsLayout()
     }
     

@@ -112,6 +112,16 @@ extension SettingViewController {
         cell.switchView.setOn(!cell.switchView.isOn, animated: true)
         let item = sections[indexPath.section][indexPath.row]
 
+        if item.rightType == .switch {
+            if #available(iOS 10.0, *) {
+                let generator = UIImpactFeedbackGenerator(style: .light)
+                generator.prepare()
+                generator.impactOccurred()
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+        
         switch item.type {
         case .accounts:
             navigationController?.pushViewController(AccountsViewController(), animated: true)

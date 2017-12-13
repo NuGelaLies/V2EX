@@ -542,6 +542,7 @@ extension TopicDetailViewController {
         case .memberAvatarLongPress(let member):
             atMember(member.atUsername)
         case .reply(let member):
+            if member.atUsername == commentInputView.textView.text { return }
             commentInputView.textView.text = ""
             atMember(member.atUsername)
         case .imageURL(let src):

@@ -91,6 +91,7 @@ final class HUD {
         messageView.titleLabel?.isHidden = true
         messageView.configureContent(body: text)
         messageView.configureDropShadow()
+        messageView.configureIcon(withSize: CGSize(width: 30, height: 30), contentMode: .scaleAspectFill)
         SwiftMessages.defaultConfig.duration = .seconds(seconds: duration)
         
         let delay: TimeInterval = 0.5

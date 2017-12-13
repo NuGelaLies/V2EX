@@ -39,7 +39,11 @@ func showImageBrowser(imageType: PhotoBrowserType) {
     let photoBrowser = SKPhotoBrowser(photos: [photoItem])
     photoBrowser.initializePageIndex(0)
     photoBrowser.showToolbar(bool: true)
-    AppWindow.shared.window.rootViewController?.present(photoBrowser, animated: true, completion: nil)
+    var currentVC = AppWindow.shared.window.rootViewController?.currentViewController()
+    if currentVC == nil {
+        currentVC = AppWindow.shared.window.rootViewController
+    }
+    currentVC?.present(photoBrowser, animated: true, completion: nil)
 }
 
 /// 设置状态栏背景颜色

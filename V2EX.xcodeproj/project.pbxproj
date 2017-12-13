@@ -212,6 +212,7 @@
 		779B17031F8FA8C100E912E7 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		779B17051F8FAF5A00E912E7 /* UILable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILable+Extension.swift"; sourceTree = "<group>"; };
 		779B17071F8FB0AF00E912E7 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		779E67001FE1549700BD25FD /* CardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		77ABB3801FA36D8300F376DA /* MemberService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberService.swift; sourceTree = "<group>"; };
 		77B75DAB1F94EA8F00B7312B /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
 		77B75DAD1F94FB8C00B7312B /* NodeCollectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeCollectViewController.swift; sourceTree = "<group>"; };
@@ -478,6 +479,7 @@
 				BF701F1F1F98610900761E82 /* MarkdownInputAccessoryView.swift */,
 				776EFDD31F9BB9E70087AECC /* ShareItemView.swift */,
 				776EFDD21F9BB9E70087AECC /* ShareSheetView.swift */,
+				779E67001FE1549700BD25FD /* CardView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
