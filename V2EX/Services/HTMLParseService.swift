@@ -173,7 +173,7 @@ extension HTMLParseService {
             let textContainer = YYTextContainer(size: CGSize(width: Constants.Metric.screenWidth - 30, height: CGFloat.max))
             let textLayout = YYTextLayout(container: textContainer, text: attributedString)
             let thankString = ele.xpath("./table/tr/td[3]/span[2]").first?.content
-            let thankCount = thankString?.components(separatedBy: CharacterSet.init(charactersIn: "0123456789").inverted).joined().int
+            let thankCount = thankString?.components(separatedBy: CharacterSet(charactersIn: "0123456789").inverted).joined().int
             let member = MemberModel(username: username, url: userHref, avatar: userAvatar)
             let isThank = ele.xpath(".//div[@id='thank_area_\(replyID)' and contains(@class, 'thanked')]").count.boolValue
 
@@ -258,6 +258,9 @@ extension HTMLParseService {
                 if subnodes.count.boolValue {
                     wrapperAttributedString(attributedString, node: subnodes)
                 }
+            } else if tagName == "br" {
+                let contentAttrString = NSAttributedString(string: "\n", attributes: [.foregroundColor: ThemeStyle.style.value.titleColor])
+                attributedString.append(contentAttrString)
             } else if let content = ele.content, content.isNotEmpty {
                 if content.contains("显示 Gist 代码") { continue }
                 let contentAttrString = NSAttributedString(string: content, attributes: [.foregroundColor: ThemeStyle.style.value.titleColor])

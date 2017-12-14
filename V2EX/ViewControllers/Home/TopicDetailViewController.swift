@@ -139,6 +139,7 @@ class TopicDetailViewController: DataViewController, TopicService {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
+        commentInputView.textView.resignFirstResponder()
         isShowToolBarVariable.value = false
         setStatusBarBackground(.clear)
     }
@@ -442,7 +443,8 @@ extension TopicDetailViewController: UITableViewDelegate, UITableViewDataSource 
 extension TopicDetailViewController {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
+        commentInputView.textView.resignFirstResponder()
+        
         let isReachedBottom = scrollView.isReachedBottom()
         if backTopBtn.isHidden.not {
             isSelectedVariable.value = isReachedBottom// ? true : scrollView.contentOffset.y > 2000
@@ -469,7 +471,7 @@ extension TopicDetailViewController {
     }
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        commentInputView.textView.resignFirstResponder()
+//        commentInputView.textView.resignFirstResponder()
 
         // ContentSize 大于 当前视图高度才显示， 滚动到底部/顶部按钮
         // 150 的偏差
@@ -557,7 +559,7 @@ extension TopicDetailViewController {
         case .memberAvatarLongPress(let member):
             atMember(member.atUsername)
         case .reply(let member):
-            if member.atUsername == commentInputView.textView.text { return }
+            if member.atUsername == commentInputView.textView.text && commentInputView.textView.isFirstResponder { return }
             commentInputView.textView.text = ""
             atMember(member.atUsername)
         case .imageURL(let src):

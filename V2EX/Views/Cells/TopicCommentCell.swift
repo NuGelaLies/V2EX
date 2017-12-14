@@ -119,7 +119,7 @@ class TopicCommentCell: BaseTableViewCell {
                 thankLabel.text = nil
             }
             
-            thankLabelLeftConstraint?.update(offset: hostLabel.isHidden ? -25 : 10)
+            thankLabelLeftConstraint?.update(offset: hostLabel.isHidden ? -35 : 10)
 
             guard let attachments = contentLabel.textLayout?.attachments else { return }
             for attachment in attachments {
