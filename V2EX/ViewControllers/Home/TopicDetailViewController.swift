@@ -445,7 +445,7 @@ extension TopicDetailViewController {
 
         let isReachedBottom = scrollView.isReachedBottom()
         if backTopBtn.isHidden.not {
-            isSelectedVariable.value = isReachedBottom ? true : scrollView.contentOffset.y > 2000
+            isSelectedVariable.value = isReachedBottom// ? true : scrollView.contentOffset.y > 2000
         }
 
         let contentHeightLessThanViewHeight = scrollView.contentOffset.y < (navigationController?.navigationBar.height ?? 64)
@@ -1103,13 +1103,13 @@ extension TopicDetailViewController: UIViewControllerPreviewingDelegate {
 
         let viewDialogVC = ViewDialogViewController(comments: dialogs, username: selectComment.member.username)
         previewingContext.sourceRect = cell.frame
-//        var contentSize = viewDialogVC.tableView.contentSize
-//        let maxHeight = view.height * 0.8.f
-//        if contentSize.height > maxHeight {
-//            contentSize.height = maxHeight
-//        }
 
-        viewDialogVC.preferredContentSize = CGSize(width: viewDialogVC.tableView.width, height: viewDialogVC.tableView.height * 0.8)//contentSize
+        var contentSize = viewDialogVC.tableView.size
+        if let lastCellBottom = viewDialogVC.tableView.visibleCells.last?.bottom {
+            contentSize.height = lastCellBottom + viewDialogVC.tableView.contentInset.top
+        }
+
+        viewDialogVC.preferredContentSize = contentSize
         return viewDialogVC
     }
     

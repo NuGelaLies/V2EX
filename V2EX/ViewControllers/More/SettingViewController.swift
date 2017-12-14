@@ -21,7 +21,7 @@ class SettingViewController: UITableViewController {
         [
             SettingItem(title: "使用 Safari 浏览网页", type: .browser, rightType: .switch),
             SettingItem(title: "全屏返回手势", type: .fullScreenBack, rightType: .switch),
-            SettingItem(title: "夜间模式", type: .nightMode, rightType: .switch),
+//            SettingItem(title: "夜间模式", type: .nightMode, rightType: .switch),
             SettingItem(title: "摇一摇反馈", type: .shakeFeedback, rightType: .switch)
         ],
         [

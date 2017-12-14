@@ -107,7 +107,7 @@ extension TabSortViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "排序完成后请按 \"存储\" 按钮，该设置将在App下次启动时生效\n\n\n点击 \"添加\" 可以添加任意您感兴趣的节点\n目前最多添加 \(Constants.Config.MaxShowNodeCount), 最少保留 \(Constants.Config.MinShowNodeCount) 个节点"
+        return "排序完成后请按 \"存储\" 按钮，该设置将在App下次启动时生效\n点击 \"添加\" 可以添加任意您感兴趣的节点\n目前最多添加 \(Constants.Config.MaxShowNodeCount), 最少保留 \(Constants.Config.MinShowNodeCount) 个节点"
     }
 
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {

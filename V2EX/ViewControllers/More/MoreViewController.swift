@@ -7,13 +7,14 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
 
     enum MoreItemType {
         case user
-        case createTopic, nodeCollect, myFavorites, follow, myTopic, myReply
+        case createTopic, nodeCollect, myFavorites, follow, myTopic, myReply, nightMode
         case about, setting
     }
     struct MoreItem {
         var icon: UIImage
         var title: String
         var type: MoreItemType
+        var rightType: RightType
     }
 
     // MARK: - UI
@@ -41,18 +42,19 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
     // MARK: - Propertys
 
     private var sections: [[MoreItem]] = [
-        [MoreItem(icon: #imageLiteral(resourceName: "avatar"), title: "请先登录", type: .user)],
+        [MoreItem(icon: #imageLiteral(resourceName: "avatar"), title: "请先登录", type: .user, rightType: .arrow)],
         [
 //            MoreItem(icon: #imageLiteral(resourceName: "createTopic"), title: "创作新主题", type: .createTopic),
-            MoreItem(icon: #imageLiteral(resourceName: "nodeCollect"), title: "节点收藏", type: .nodeCollect),
-            MoreItem(icon: #imageLiteral(resourceName: "topicCollect"), title: "主题收藏", type: .myFavorites),
-            MoreItem(icon: #imageLiteral(resourceName: "concern"), title: "特别关注", type: .follow),
-            MoreItem(icon: #imageLiteral(resourceName: "topic"), title: "我的主题", type: .myTopic),
-            MoreItem(icon: #imageLiteral(resourceName: "myReply"), title: "我的回复", type: .myReply)
+            MoreItem(icon: #imageLiteral(resourceName: "nodeCollect"), title: "节点收藏", type: .nodeCollect, rightType: .arrow),
+            MoreItem(icon: #imageLiteral(resourceName: "topicCollect"), title: "主题收藏", type: .myFavorites, rightType: .arrow),
+            MoreItem(icon: #imageLiteral(resourceName: "concern"), title: "特别关注", type: .follow, rightType: .arrow),
+            MoreItem(icon: #imageLiteral(resourceName: "topic"), title: "我的主题", type: .myTopic, rightType: .arrow),
+            MoreItem(icon: #imageLiteral(resourceName: "myReply"), title: "我的回复", type: .myReply, rightType: .arrow)
         ],
         [
-            MoreItem(icon: #imageLiteral(resourceName: "setting"), title: "设置", type: .setting),
-            MoreItem(icon: #imageLiteral(resourceName: "about"), title: "关于", type: .about)
+            MoreItem(icon: #imageLiteral(resourceName: "nightMode"), title: "夜间模式", type: .nightMode, rightType: .switch),
+            MoreItem(icon: #imageLiteral(resourceName: "setting"), title: "设置", type: .setting, rightType: .arrow),
+            MoreItem(icon: #imageLiteral(resourceName: "about"), title: "关于", type: .about, rightType: .arrow)
         ]
     ]
 
@@ -147,7 +149,14 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.text = item.title
             cell.imageView?.image = item.icon
             cell.selectionStyle = .none
-            cell.rightType = .arrow
+            cell.rightType = item.rightType
+
+            switch item.type {
+            case .nightMode:
+                cell.switchView.isOn = Preference.shared.nightModel
+            default:
+                break
+            }
             return cell
         }
 
@@ -166,6 +175,17 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
         }
 
         let item = sections[indexPath.section][indexPath.row]
+
+        if item.rightType == .switch {
+            if #available(iOS 10.0, *) {
+                let generator = UIImpactFeedbackGenerator(style: .light)
+                generator.prepare()
+                generator.impactOccurred()
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+
         let type = item.type
         var viewController: UIViewController?
         switch type {
@@ -189,11 +209,15 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
             viewController = SettingViewController()
         case .about:
             viewController = AboutViewController()
+        case .nightMode:
+            guard let cell = tableView.cellForRow(at: indexPath) as? BaseTableViewCell else { return }
+            cell.switchView.setOn(!cell.switchView.isOn, animated: true)
+            Preference.shared.nightModel = cell.switchView.isOn
         }
         guard let vc = viewController else { return }
         
         vc.title = item.title
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
 

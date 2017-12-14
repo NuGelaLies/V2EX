@@ -5,7 +5,7 @@ import MessageUI
 class AboutViewController: UITableViewController {
 
     enum AbountItemType {
-        case grade, sourceCode, clearCache, feedback, libs, about
+        case grade, sourceCode, clearCache, feedback, libs, about, share
     }
     struct AbountItem {
         var title: String
@@ -35,11 +35,12 @@ class AboutViewController: UITableViewController {
 
     private var sections: [[AbountItem]] = [
         [
-            AbountItem(title: "给我评分", type: .grade),
             AbountItem(title: "意见反馈", type: .feedback),
             AbountItem(title: "清除缓存", type: .clearCache),
             AbountItem(title: "开源库", type: .libs),
             AbountItem(title: "项目源码", type: .sourceCode),
+            AbountItem(title: "给我评分", type: .grade),
+            AbountItem(title: "推荐给朋友", type: .share),
         ],
         [
             AbountItem(title: "关于 V2EX", type: .about)
@@ -128,6 +129,19 @@ extension AboutViewController {
                 HUD.dismiss()
                 HUD.showSuccess("缓存清理成功", duration: 2)
             })
+        case .share:
+            let controller = UIActivityViewController(
+                activityItems: [
+                    "\(UIApplication.appDisplayName()) - 创意工作者的社区",
+                    #imageLiteral(resourceName: "logo"),
+                    URL(string: "https://itunes.apple.com/cn/app/v2er/id\(Constants.Config.AppID)") ?? ""],
+                applicationActivities: [])
+
+            if let cell = tableView.cellForRow(at: indexPath) {
+                controller.popoverPresentationController?.sourceView = cell
+                controller.popoverPresentationController?.sourceRect = cell.bounds
+            }
+            currentViewController().present(controller, animated: true, completion: nil)
         case .about:
             openWebView(url: API.about.url)
         }

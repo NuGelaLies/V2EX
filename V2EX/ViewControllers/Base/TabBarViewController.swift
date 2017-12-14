@@ -83,7 +83,7 @@ extension TabBarViewController {
         childController.tabBarItem.selectedImage = selectedImageName?.withRenderingMode(.alwaysOriginal)
 //        childController.title = title
         // 图片居中显示，不显示文字
-        let offset: CGFloat = 5
+        let offset: CGFloat = UIDevice.isiPad ? 0 : 5
         childController.tabBarItem.imageInsets = UIEdgeInsets(top: offset, left: 0, bottom: -offset, right: 0)
         let nav = NavigationViewController(rootViewController: childController)
         nav.navigationBar.isTranslucent = false
