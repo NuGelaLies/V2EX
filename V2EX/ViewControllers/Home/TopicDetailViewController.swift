@@ -885,12 +885,7 @@ extension TopicDetailViewController {
 
                 guard self.page == 1 else { return }
                 self.fetchTopicDetail(complete: { [weak self] in
-                    // reloadData 闪烁， 此代码没用
-                    UIView.performWithoutAnimation {
-                        self?.tableView.reloadData {}
-                        self?.tableView.beginUpdates()
-                        self?.tableView.endUpdates()
-                    }
+                    self?.tableView.reloadData {}
                 })
         }) { [weak self] error in
             guard let `self` = self else { return }

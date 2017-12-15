@@ -278,6 +278,10 @@ extension API: TargetType {
             headers["Referer"] = defaultURLString
         case .loginReward:
             headers["Referer"] = baseURL + "/mission/daily"
+        case .comment:
+            if UIDevice.isiPad {
+                headers["User-Agent"] = "Mozilla/5.0 (iPad; CPU OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.3 Mobile/14E277 Safari/603.1.30"
+            }
         default:
             break
         }

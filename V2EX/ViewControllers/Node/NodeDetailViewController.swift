@@ -8,6 +8,10 @@ class NodeDetailViewController: BaseTopicsViewController, AccountService {
         return UIBarButtonItem(image: #imageLiteral(resourceName: "favoriteNav"), style: .plain)
     }()
 
+    private lazy var newTopicItem: UIBarButtonItem = {
+        return UIBarButtonItem(image: #imageLiteral(resourceName: "edit"), style: .plain)
+    }()
+
     // MARK: - Propertys
 
 
@@ -16,12 +20,6 @@ class NodeDetailViewController: BaseTopicsViewController, AccountService {
             title = node?.title
             favoriteTopicItem.image = (node?.isFavorite ?? false) ? #imageLiteral(resourceName: "unfavoriteNav") : #imageLiteral(resourceName: "favoriteNav")
         }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupRightBarButtonItems()
     }
 
     // MARK: - Setup
@@ -38,13 +36,7 @@ class NodeDetailViewController: BaseTopicsViewController, AccountService {
     }
     
     private func setupRightBarButtonItems() {
-        guard AccountModel.isLogin else { return }
-        
-        let newTopicItem = UIBarButtonItem(image: #imageLiteral(resourceName: "edit"), style: .plain, action: { [weak self] in
-            let createTopicVC = CreateTopicViewController()
-            createTopicVC.node = self?.node
-            self?.navigationController?.pushViewController(createTopicVC, animated: true)
-        })
+        guard AccountModel.isLogin && navigationItem.rightBarButtonItems == nil else { return }
         
         navigationItem.rightBarButtonItems = [newTopicItem, favoriteTopicItem]
     }
@@ -55,6 +47,14 @@ class NodeDetailViewController: BaseTopicsViewController, AccountService {
             .tap
             .subscribeNext { [weak self] in
                 self?.favoriteHandle()
+            }.disposed(by: rx.disposeBag)
+
+        newTopicItem.rx
+            .tap
+            .subscribeNext { [weak self] in
+                let createTopicVC = CreateTopicViewController()
+                createTopicVC.node = self?.node
+                self?.navigationController?.pushViewController(createTopicVC, animated: true)
             }.disposed(by: rx.disposeBag)
 
         ThemeStyle.style.asObservable()
@@ -99,6 +99,7 @@ extension NodeDetailViewController {
                 self.tableView.endFooterRefresh()
                 self.endLoading()
                 self.tableView.endRefresh(showNoMore: self.page >= maxPage)
+                self.setupRightBarButtonItems()
         }) { [weak self] error in
             self?.tableView.endFooterRefresh()
             self?.errorMessage = error

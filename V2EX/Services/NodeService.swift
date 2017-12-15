@@ -131,7 +131,13 @@ extension NodeService {
             //            node.icon = nodeIcon
             //            node.intro = nodeIntro
             //            node.topicNumber = topicNumber
-            
+
+            // 需要验证
+            if let error = html.xpath("//*[@id='Main']/div/div//span[@class='negative'][text()]").first?.content {
+                failure?("为了节约大家的时间，维护 V2EX 有建设性的技术讨论氛围，在访问部分被移动至限制节点的内容之前，你的账号需要完成以下验证： \n\(error)")
+                return
+            }
+
             var `node` = node
             if let title = html.xpath("//*[@id='Wrapper']//div[@class='header']/text()[2]").first?.text?.trimmed {
                 node.title = title
@@ -146,6 +152,7 @@ extension NodeService {
                 failure?("查看该节点需要先登录")
                 return
             }
+
             success?(node, topics, page)
         }, failure: failure)
     }

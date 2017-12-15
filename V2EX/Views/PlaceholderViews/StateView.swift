@@ -123,7 +123,7 @@ class StateView: BasePlaceholderView {
         messageLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
-            $0.left.right.equalToSuperview().inset(50)
+            $0.left.right.equalToSuperview().inset(25)
         }
 
         actionButton.snp.makeConstraints {
