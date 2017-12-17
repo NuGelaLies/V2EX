@@ -239,6 +239,7 @@ extension BaseTopicsViewController: UITableViewDelegate, UITableViewDataSource {
             HUD.showError("操作失败，无法解析主题 ID")
             return
         }
+        topics[indexPath.row].isRead = true
         let topicDetailVC = TopicDetailViewController(topicID: topicId)
         self.navigationController?.pushViewController(topicDetailVC, animated: true)
     }

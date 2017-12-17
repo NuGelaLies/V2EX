@@ -131,9 +131,6 @@ class TopicDetailViewController: DataViewController, TopicService {
                 commentInputView.isHidden = true
             }
         }
-     
-    
-        log.info(commentInputView.isHidden)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -500,7 +497,7 @@ extension TopicDetailViewController {
                 self.view.layoutIfNeeded()
                 self.navigationController?.navigationBar.y -= navHeight
                 GCD.delay(0.1, block: {
-                    setStatusBarBackground(ThemeStyle.style.value.whiteColor, borderColor: ThemeStyle.style.value.borderColor)
+                    setStatusBarBackground(ThemeStyle.style.value == .day ? .white : .black, borderColor: ThemeStyle.style.value.borderColor)
                 })
                 self.tableView.height = Constants.Metric.screenHeight
             } else { //显示
@@ -1051,7 +1048,10 @@ extension TopicDetailViewController {
         if isShowOnlyFloor {
             dataSources = comments.filter { $0.member.username == topic?.member?.username }
             if dataSources.count.boolValue.not {
-                tableView.setContentOffset(CGPoint(x: 0, y: -tableView.contentInset.top), animated: true)
+                // 视图错误, 延迟 0.3 秒
+                GCD.delay(0.3, block: {
+                    self.tableView.setContentOffset(CGPoint(x: 0, y: -self.tableView.contentInset.top), animated: true)
+                })
             }
         } else {
             dataSources = comments

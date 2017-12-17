@@ -140,6 +140,8 @@ class TopicCell: BaseTableViewCell {
             replayCountLabel.setTitle(topic.replyCount, for: .normal)
             nodeLabel.text = topic.node?.title
             nodeLabel.isHidden = nodeLabel.text?.isEmpty ?? true
+            
+            titleLabel.textColor = topic.isRead ? ThemeStyle.style.value.titleColor.withAlphaComponent(0.4) : ThemeStyle.style.value.titleColor
         }
     }
 

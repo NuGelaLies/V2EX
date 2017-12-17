@@ -59,7 +59,16 @@ extension HTMLParseService {
                 let username = ele.xpath(".//td/span[@class='small fade']/strong[1]").first?.content else {
                     return nil
             }
-
+            
+//            let startTime = CFAbsoluteTimeGetCurrent()
+            if let words = UserDefaults.get(forKey: Constants.Keys.ignoreWords) as? [String],
+                words.count.boolValue {
+                let isContains = words.contains { topicTitle.lowercased().contains( $0.lowercased()) }
+                if isContains { return nil }
+            }
+//            let linkTime = CFAbsoluteTimeGetCurrent() - startTime
+//            let linkTimeStr = String(format: "Execute time %f ms", linkTime * 1000)
+//            log.info(linkTimeStr)
             
             let replyCount = ele.xpath(".//td/a[@class='count_livid']").first?.content ?? "0"
             

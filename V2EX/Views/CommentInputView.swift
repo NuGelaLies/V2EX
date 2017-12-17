@@ -120,7 +120,9 @@ class CommentInputView: UIView {
         sendBtn.rx
             .tap
             .subscribeNext { [weak self] in
-                self?.sendHandle?()
+                guard let `self` = self else { return }
+                self.sendHandle?()
+                self.calculateHeight(defaultHeight: self.inputViewHeight)
             }.disposed(by: rx.disposeBag)
 
         ThemeStyle.style.asObservable()
@@ -140,7 +142,7 @@ extension CommentInputView: YYTextViewDelegate {
 
     func textViewShouldBeginEditing(_ textView: YYTextView) -> Bool {
 
-        calculateHeight(defaultHeight: KcommentInputViewHeight)
+        calculateHeight()
 
         UIView.animate(withDuration: 1) {
             self.uploadPictureRightConstraint?.update(offset: 45)
@@ -166,7 +168,7 @@ extension CommentInputView: YYTextViewDelegate {
             }, completion: nil)
         }
 
-        calculateHeight(defaultHeight: KcommentInputViewHeight)
+        calculateHeight()
     }
 
     func textView(_ textView: YYTextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -185,7 +187,7 @@ extension CommentInputView: YYTextViewDelegate {
     ///                            针对 iPhone X 做的特殊处理
     ///                            默认55，iPhone X = 55 + safeAreaInsets.bottom
     ///                            编辑时默认高度再次变成 55
-    private func calculateHeight(defaultHeight: CGFloat) {
+    private func calculateHeight(defaultHeight: CGFloat = KcommentInputViewHeight) {
         guard let lineHeight = textView.font?.lineHeight else { return }
 
         // 调用代理方法

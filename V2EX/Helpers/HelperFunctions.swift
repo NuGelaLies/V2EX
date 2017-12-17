@@ -119,7 +119,7 @@ func clickCommentLinkHandle(urlString: String) {
         let member = MemberModel(username: name, url: href, avatar: "")
         let memberPageVC = MemberPageViewController(memberName: member.username)
         AppWindow.shared.window.rootViewController?.currentViewController().navigationController?.pushViewController(memberPageVC, animated: true)
-    } else if URL.path.contains("/t/") {
+    } else if link.lowercased().contains(".v2ex.com") && URL.path.contains("/t/") {
         let topicID = URL.path.lastPathComponent
         let topicDetailVC = TopicDetailViewController(topicID: topicID)
         AppWindow.shared.window.rootViewController?.currentViewController().navigationController?.pushViewController(topicDetailVC, animated: true)

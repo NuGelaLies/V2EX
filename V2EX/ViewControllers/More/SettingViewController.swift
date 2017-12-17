@@ -6,6 +6,7 @@ class SettingViewController: UITableViewController {
     enum SettingItemType {
         case accounts
         case browser, nightMode, fontSize, baiduOCRConfig, logout, fullScreenBack, shakeFeedback
+        case ignoreWords
         case tabSort
         case floor
     }
@@ -25,6 +26,7 @@ class SettingViewController: UITableViewController {
             SettingItem(title: "摇一摇反馈", type: .shakeFeedback, rightType: .switch)
         ],
         [
+            SettingItem(title: "主题屏蔽", type: .ignoreWords, rightType: .arrow),
             SettingItem(title: "节点排序", type: .tabSort, rightType: .arrow),
             SettingItem(title: "调节字体", type: .fontSize, rightType: .arrow),
             SettingItem(title: "@用户时带楼层号(@devjoe #1)", type: .floor, rightType: .switch),
@@ -147,6 +149,9 @@ extension SettingViewController {
             HTTPCookieStorage.shared.cookies?.forEach { HTTPCookieStorage.shared.deleteCookie($0) }
             presentLoginVC()
             tableView.reloadData()
+        case .ignoreWords:
+            let iwVC = IgnoreWordsViewController()
+            navigationController?.pushViewController(iwVC, animated: true)
         case .floor:
             Preference.shared.atMemberAddFloor = cell.switchView.isOn
         }

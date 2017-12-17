@@ -67,6 +67,9 @@ struct Constants {
         
         // 主题搜索历史
         static let topicSearchHistory = "topicSearchHistory"
+        
+        // 屏蔽关键字
+        static let ignoreWords = "ignoreWords"
 
         static let baiduOauthToken = FileManager.document.appendingPathComponent("BaiduOauthToken")
         

@@ -9,6 +9,7 @@ struct TextParser {
 
     // 匹配 @
     static var mentioned: NSRegularExpression? {
+        // \\B@\\w\\S*\\b
         return try? NSRegularExpression(pattern: "@(\\S+)\\s", options: [.caseInsensitive])
     }
 
