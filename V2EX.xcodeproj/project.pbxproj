@@ -70,6 +70,7 @@
 		BF1B1D1B1FA7003400544A11 /* AllNodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1B1D1A1FA7003400544A11 /* AllNodesViewController.swift */; };
 		BF2C54D01FC536EA00B944FB /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2C54CF1FC536EA00B944FB /* AccountsViewController.swift */; };
 		BF2C54D21FC53BF500B944FB /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2C54D11FC53BF500B944FB /* Keychain.swift */; };
+		BF343E911FE763F70003415B /* V2erError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF343E901FE763F70003415B /* V2erError.swift */; };
 		BF39FFE91F9442DA00D6F8BD /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF39FFE81F9442DA00D6F8BD /* LoadingButton.swift */; };
 		BF3AB5C51F9756D500043269 /* CommentInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AB5C41F9756D500043269 /* CommentInputView.swift */; };
 		BF3AB5C71F97672300043269 /* UIPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AB5C61F97672300043269 /* UIPlaceholderTextView.swift */; };
@@ -244,6 +245,7 @@
 		BF1B1D1A1FA7003400544A11 /* AllNodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNodesViewController.swift; sourceTree = "<group>"; };
 		BF2C54CF1FC536EA00B944FB /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		BF2C54D11FC53BF500B944FB /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		BF343E901FE763F70003415B /* V2erError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2erError.swift; sourceTree = "<group>"; };
 		BF39FFE81F9442DA00D6F8BD /* LoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		BF3AB5C41F9756D500043269 /* CommentInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputView.swift; sourceTree = "<group>"; };
 		BF3AB5C61F97672300043269 /* UIPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPlaceholderTextView.swift; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 				BF3AB6B31FA1A61200ACA17A /* ImageAttachment.swift */,
 				BF9554DA1FBD73EE0054FC50 /* Preference.swift */,
 				BFF0A8781FCFFF810055B108 /* RequestReview.swift */,
+				BF343E901FE763F70003415B /* V2erError.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1228,6 +1231,7 @@
 				BFC89B4B1FA033CD00759577 /* FPSLabel.swift in Sources */,
 				BFE3947D1F90823D00D3ED1D /* TopicCommentCell.swift in Sources */,
 				BFCB67481F8F499600D05A90 /* BaseViewController.swift in Sources */,
+				BF343E911FE763F70003415B /* V2erError.swift in Sources */,
 				BF02A2CE1F8F3FE400BEF85E /* AppTheme.swift in Sources */,
 				BFBCE5A31F90BB9E000106D6 /* HelperFunctions.swift in Sources */,
 				BF8062B71FB14CB00024BB37 /* Binder+Extension.swift in Sources */,

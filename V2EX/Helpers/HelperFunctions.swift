@@ -113,19 +113,21 @@ func clickCommentLinkHandle(urlString: String) {
     guard let URL = URL(string: urlString) else { return }
     let link = URL.absoluteString
 
-    if URL.path.contains("/member/") {
-        let href = URL.path
-        let name = href.lastPathComponent
-        let member = MemberModel(username: name, url: href, avatar: "")
-        let memberPageVC = MemberPageViewController(memberName: member.username)
-        AppWindow.shared.window.rootViewController?.currentViewController().navigationController?.pushViewController(memberPageVC, animated: true)
-    } else if link.lowercased().contains(".v2ex.com") && URL.path.contains("/t/") {
-        let topicID = URL.path.lastPathComponent
-        let topicDetailVC = TopicDetailViewController(topicID: topicID)
-        AppWindow.shared.window.rootViewController?.currentViewController().navigationController?.pushViewController(topicDetailVC, animated: true)
-    } else if URL.path.contains("/go/") {
-        let nodeDetailVC = NodeDetailViewController(node: NodeModel(title: "", href: URL.path))
-        AppWindow.shared.window.rootViewController?.currentViewController().navigationController?.pushViewController(nodeDetailVC, animated: true)
+    if URL.host == nil || (URL.host ?? "").lowercased().contains(".v2ex.com") {
+        if URL.path.contains("/member/") {
+            let href = URL.path
+            let name = href.lastPathComponent
+            let member = MemberModel(username: name, url: href, avatar: "")
+            let memberPageVC = MemberPageViewController(memberName: member.username)
+            AppWindow.shared.window.rootViewController?.currentViewController().navigationController?.pushViewController(memberPageVC, animated: true)
+        } else if URL.path.contains("/t/") {
+            let topicID = URL.path.lastPathComponent
+            let topicDetailVC = TopicDetailViewController(topicID: topicID)
+            AppWindow.shared.window.rootViewController?.currentViewController().navigationController?.pushViewController(topicDetailVC, animated: true)
+        } else if URL.path.contains("/go/") {
+            let nodeDetailVC = NodeDetailViewController(node: NodeModel(title: "", href: URL.path))
+            AppWindow.shared.window.rootViewController?.currentViewController().navigationController?.pushViewController(nodeDetailVC, animated: true)
+        }
     } else if link.hasPrefix("https://") || link.hasPrefix("http://"){
         openWebView(url: URL)
     }
