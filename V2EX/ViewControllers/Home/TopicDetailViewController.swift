@@ -448,7 +448,14 @@ extension TopicDetailViewController {
         }
 
         let contentHeightLessThanViewHeight = scrollView.contentOffset.y < (navigationController?.navigationBar.height ?? 64)
-        if contentHeightLessThanViewHeight || isReachedBottom || scrollView.contentOffset.y < 0 { return }
+        let isReachedTop = scrollView.contentOffset.y < 0
+        if isReachedTop {
+            isShowToolBarVariable.value = false
+            return
+        }
+        if contentHeightLessThanViewHeight || isReachedBottom {
+            return
+        }
 
         //获取到拖拽的速度 >0 向下拖动 <0 向上拖动
         let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
@@ -1024,7 +1031,6 @@ extension TopicDetailViewController {
 
     /// 打开系统分享
     func systemShare() {
-
         guard let url = API.topicDetail(topicID: topicID, page: page).url else { return }
 
         let controller = UIActivityViewController(

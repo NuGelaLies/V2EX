@@ -312,39 +312,25 @@ extension TopicDetailHeaderView: WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if let url = navigationAction.request.url {
-            let urlString = url.absoluteString
-            if url.scheme == "v2ex-image" {
-                let src = urlString.replacingOccurrences(of: "v2ex-image:", with: "")
-                tapHandle?(.imageURL(src))
-                decisionHandler(.cancel)
-                return
-            }else if urlString.hasPrefix("https://") || urlString.hasPrefix("http://") {
-                if navigationAction.navigationType == .linkActivated {
-                    if url.path.hasPrefix("/t/") {
-                        let comps = url.path.components(separatedBy: "/")
-                        if [3, 4].contains(comps.count) {
-                            let id = comps[2]
-                            tapHandle?(.topic(id))
-                        } else {
-                            tapHandle?(.webpage(url))
-                        }
-                    } else {
-                        tapHandle?(.webpage(url))
-                    }
-                    decisionHandler(.cancel)
-                    return
-                }
-            } else if urlString.hasPrefix("/member/") {
-                let href = url.path
-                let name = href.lastPathComponent
-                tapHandle?(.member(MemberModel(username: name, url: href, avatar: "")))
-            } else if urlString.hasPrefix("/t/") {
-                tapHandle?(.topic(url.lastPathComponent))
-            } else if urlString.hasPrefix("/go/") {
-                tapHandle?(.node(NodeModel(title: "", href: urlString)))
-            }
+        if let url = navigationAction.request.url, url.scheme == "v2ex-image" {
+            let src = url.absoluteString.deleteOccurrences(target: "v2ex-image:")
+            tapHandle?(.imageURL(src))
+            decisionHandler(.cancel)
+            return
         }
-        decisionHandler(.allow)
+        
+        guard navigationAction.navigationType == .linkActivated,
+            let url = navigationAction.request.url else {
+                decisionHandler(.allow)
+                return
+        }
+        
+        let urlString = url.absoluteString
+        
+        log.info(url, urlString)
+        
+        clickCommentLinkHandle(urlString: urlString)
+        
+        decisionHandler(.cancel)
     }
 }
