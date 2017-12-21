@@ -76,30 +76,18 @@ class AllNodesViewController: DataViewController, NodeService {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        definesPresentationContext = true
-
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, action: { [weak self] in
             self?.dismiss()
         })
 
         if let callback = didSelectedNodeHandle {
+            definesPresentationContext = true
             searchResultVC.didSelectedNodeHandle = { [weak self] node in
                 self?.dismiss(animated: true, completion: {
                     callback(node)
                 })
             }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.navigationBar.isTranslucent = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isTranslucent = false
     }
     
     override func viewDidAppear(_ animated: Bool) {

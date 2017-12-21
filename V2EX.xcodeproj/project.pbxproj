@@ -8,6 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		2679076A484F9440FD8C14A2 /* Pods_V2EXTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69E17711CA7552BBF8B34515 /* Pods_V2EXTests.framework */; };
+		771502BE1FEBE6F6008BB161 /* iPad App-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AB1FEBE6F6008BB161 /* iPad App-76.png */; };
+		771502BF1FEBE6F6008BB161 /* iPad App-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AC1FEBE6F6008BB161 /* iPad App-76@2x.png */; };
+		771502C01FEBE6F6008BB161 /* iPad Notifications-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AD1FEBE6F6008BB161 /* iPad Notifications-20.png */; };
+		771502C11FEBE6F6008BB161 /* iPad Notifications-20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AE1FEBE6F6008BB161 /* iPad Notifications-20@2x.png */; };
+		771502C21FEBE6F6008BB161 /* iPad Pro App-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AF1FEBE6F6008BB161 /* iPad Pro App-83.5@2x.png */; };
+		771502C31FEBE6F6008BB161 /* iPad Settings-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B01FEBE6F6008BB161 /* iPad Settings-29.png */; };
+		771502C41FEBE6F6008BB161 /* iPad Settings-29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B11FEBE6F6008BB161 /* iPad Settings-29@2x.png */; };
+		771502C51FEBE6F6008BB161 /* iPad Spotlight-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B21FEBE6F6008BB161 /* iPad Spotlight-40.png */; };
+		771502C61FEBE6F6008BB161 /* iPad Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B31FEBE6F6008BB161 /* iPad Spotlight-40@2x.png */; };
+		771502C71FEBE6F6008BB161 /* iPhone App-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B41FEBE6F6008BB161 /* iPhone App-60@2x.png */; };
+		771502C81FEBE6F6008BB161 /* iPhone App-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B51FEBE6F6008BB161 /* iPhone App-60@3x.png */; };
+		771502C91FEBE6F6008BB161 /* iPhone Notification-20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B61FEBE6F6008BB161 /* iPhone Notification-20@2x.png */; };
+		771502CA1FEBE6F6008BB161 /* iPhone Notification-20@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B71FEBE6F6008BB161 /* iPhone Notification-20@3x.png */; };
+		771502CB1FEBE6F6008BB161 /* iPhone Settings-29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B81FEBE6F6008BB161 /* iPhone Settings-29@2x.png */; };
+		771502CC1FEBE6F6008BB161 /* iPhone Settings-29@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B91FEBE6F6008BB161 /* iPhone Settings-29@3x.png */; };
+		771502CD1FEBE6F6008BB161 /* iPhone Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502BA1FEBE6F6008BB161 /* iPhone Spotlight-40@2x.png */; };
+		771502CE1FEBE6F6008BB161 /* iPhone Spotlight-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502BB1FEBE6F6008BB161 /* iPhone Spotlight-40@3x.png */; };
+		771502D01FEBF298008BB161 /* UIViewController+AlternateIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771502CF1FEBF298008BB161 /* UIViewController+AlternateIcon.swift */; };
 		77269F601FAA0AF000DE6617 /* day.css in Resources */ = {isa = PBXBuildFile; fileRef = 77269F5F1FAA0AF000DE6617 /* day.css */; };
 		77269F641FAA0B5C00DE6617 /* night.css in Resources */ = {isa = PBXBuildFile; fileRef = 77269F631FAA0B5C00DE6617 /* night.css */; };
 		772A577B1F9786EB003FBE1A /* CreateTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A577A1F9786EB003FBE1A /* CreateTopicViewController.swift */; };
@@ -178,6 +196,24 @@
 		038B6C7B12D8A9D80518EA73 /* Pods-V2EXUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EXUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EXUITests/Pods-V2EXUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		40829FCF6DA7112AC68BAE24 /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
 		69E17711CA7552BBF8B34515 /* Pods_V2EXTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2EXTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		771502AB1FEBE6F6008BB161 /* iPad App-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad App-76.png"; sourceTree = "<group>"; };
+		771502AC1FEBE6F6008BB161 /* iPad App-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad App-76@2x.png"; sourceTree = "<group>"; };
+		771502AD1FEBE6F6008BB161 /* iPad Notifications-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad Notifications-20.png"; sourceTree = "<group>"; };
+		771502AE1FEBE6F6008BB161 /* iPad Notifications-20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad Notifications-20@2x.png"; sourceTree = "<group>"; };
+		771502AF1FEBE6F6008BB161 /* iPad Pro App-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad Pro App-83.5@2x.png"; sourceTree = "<group>"; };
+		771502B01FEBE6F6008BB161 /* iPad Settings-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad Settings-29.png"; sourceTree = "<group>"; };
+		771502B11FEBE6F6008BB161 /* iPad Settings-29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad Settings-29@2x.png"; sourceTree = "<group>"; };
+		771502B21FEBE6F6008BB161 /* iPad Spotlight-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad Spotlight-40.png"; sourceTree = "<group>"; };
+		771502B31FEBE6F6008BB161 /* iPad Spotlight-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad Spotlight-40@2x.png"; sourceTree = "<group>"; };
+		771502B41FEBE6F6008BB161 /* iPhone App-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone App-60@2x.png"; sourceTree = "<group>"; };
+		771502B51FEBE6F6008BB161 /* iPhone App-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone App-60@3x.png"; sourceTree = "<group>"; };
+		771502B61FEBE6F6008BB161 /* iPhone Notification-20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone Notification-20@2x.png"; sourceTree = "<group>"; };
+		771502B71FEBE6F6008BB161 /* iPhone Notification-20@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone Notification-20@3x.png"; sourceTree = "<group>"; };
+		771502B81FEBE6F6008BB161 /* iPhone Settings-29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone Settings-29@2x.png"; sourceTree = "<group>"; };
+		771502B91FEBE6F6008BB161 /* iPhone Settings-29@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone Settings-29@3x.png"; sourceTree = "<group>"; };
+		771502BA1FEBE6F6008BB161 /* iPhone Spotlight-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone Spotlight-40@2x.png"; sourceTree = "<group>"; };
+		771502BB1FEBE6F6008BB161 /* iPhone Spotlight-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone Spotlight-40@3x.png"; sourceTree = "<group>"; };
+		771502CF1FEBF298008BB161 /* UIViewController+AlternateIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+AlternateIcon.swift"; sourceTree = "<group>"; };
 		77269F5F1FAA0AF000DE6617 /* day.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = day.css; sourceTree = "<group>"; };
 		77269F631FAA0B5C00DE6617 /* night.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = night.css; sourceTree = "<group>"; };
 		772A577A1F9786EB003FBE1A /* CreateTopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTopicViewController.swift; sourceTree = "<group>"; };
@@ -392,6 +428,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		771502A81FEBE6F6008BB161 /* AlternateIcon */ = {
+			isa = PBXGroup;
+			children = (
+				771502AB1FEBE6F6008BB161 /* iPad App-76.png */,
+				771502AC1FEBE6F6008BB161 /* iPad App-76@2x.png */,
+				771502AD1FEBE6F6008BB161 /* iPad Notifications-20.png */,
+				771502AE1FEBE6F6008BB161 /* iPad Notifications-20@2x.png */,
+				771502AF1FEBE6F6008BB161 /* iPad Pro App-83.5@2x.png */,
+				771502B01FEBE6F6008BB161 /* iPad Settings-29.png */,
+				771502B11FEBE6F6008BB161 /* iPad Settings-29@2x.png */,
+				771502B21FEBE6F6008BB161 /* iPad Spotlight-40.png */,
+				771502B31FEBE6F6008BB161 /* iPad Spotlight-40@2x.png */,
+				771502B41FEBE6F6008BB161 /* iPhone App-60@2x.png */,
+				771502B51FEBE6F6008BB161 /* iPhone App-60@3x.png */,
+				771502B61FEBE6F6008BB161 /* iPhone Notification-20@2x.png */,
+				771502B71FEBE6F6008BB161 /* iPhone Notification-20@3x.png */,
+				771502B81FEBE6F6008BB161 /* iPhone Settings-29@2x.png */,
+				771502B91FEBE6F6008BB161 /* iPhone Settings-29@3x.png */,
+				771502BA1FEBE6F6008BB161 /* iPhone Spotlight-40@2x.png */,
+				771502BB1FEBE6F6008BB161 /* iPhone Spotlight-40@3x.png */,
+			);
+			path = AlternateIcon;
+			sourceTree = "<group>";
+		};
 		778AC6AC1F9AF07F0072C6E9 /* Highlighter */ = {
 			isa = PBXGroup;
 			children = (
@@ -582,6 +642,7 @@
 				779064471F9B72C1001A5ABA /* UIViewChain.swift */,
 				BF9554D61FBD653E0054FC50 /* ReuseCell.swift */,
 				BFF178961FCD07F0004A5F43 /* UIAlertController+Extension.swift */,
+				771502CF1FEBF298008BB161 /* UIViewController+AlternateIcon.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -745,6 +806,7 @@
 		BFCB67541F8F500D00D05A90 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				771502A81FEBE6F6008BB161 /* AlternateIcon */,
 				BF1B1D161FA6F25100544A11 /* README.md */,
 				BF65BDBE1F8E12C80010B4C9 /* Assets.xcassets */,
 				BF65BDC01F8E12C80010B4C9 /* LaunchScreen.storyboard */,
@@ -900,9 +962,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				77269F601FAA0AF000DE6617 /* day.css in Resources */,
+				771502C61FEBE6F6008BB161 /* iPad Spotlight-40@2x.png in Resources */,
+				771502C81FEBE6F6008BB161 /* iPhone App-60@3x.png in Resources */,
+				771502C51FEBE6F6008BB161 /* iPad Spotlight-40.png in Resources */,
+				771502C91FEBE6F6008BB161 /* iPhone Notification-20@2x.png in Resources */,
+				771502C31FEBE6F6008BB161 /* iPad Settings-29.png in Resources */,
 				BFE394841F909CC600D3ED1D /* style.css in Resources */,
+				771502CA1FEBE6F6008BB161 /* iPhone Notification-20@3x.png in Resources */,
+				771502BF1FEBE6F6008BB161 /* iPad App-76@2x.png in Resources */,
+				771502C21FEBE6F6008BB161 /* iPad Pro App-83.5@2x.png in Resources */,
+				771502CB1FEBE6F6008BB161 /* iPhone Settings-29@2x.png in Resources */,
+				771502C11FEBE6F6008BB161 /* iPad Notifications-20@2x.png in Resources */,
+				771502BE1FEBE6F6008BB161 /* iPad App-76.png in Resources */,
+				771502C71FEBE6F6008BB161 /* iPhone App-60@2x.png in Resources */,
 				BF65BDC21F8E12C80010B4C9 /* LaunchScreen.storyboard in Resources */,
 				77269F641FAA0B5C00DE6617 /* night.css in Resources */,
+				771502C01FEBE6F6008BB161 /* iPad Notifications-20.png in Resources */,
+				771502CE1FEBE6F6008BB161 /* iPhone Spotlight-40@3x.png in Resources */,
+				771502C41FEBE6F6008BB161 /* iPad Settings-29@2x.png in Resources */,
+				771502CC1FEBE6F6008BB161 /* iPhone Settings-29@3x.png in Resources */,
+				771502CD1FEBE6F6008BB161 /* iPhone Spotlight-40@2x.png in Resources */,
 				BF65BDBF1F8E12C80010B4C9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1237,6 +1316,7 @@
 				BF8062B71FB14CB00024BB37 /* Binder+Extension.swift in Sources */,
 				7794DA2E1FD2D88600B7B299 /* String+Pin.swift in Sources */,
 				778AC6A01F9A29730072C6E9 /* SearchResultModel.swift in Sources */,
+				771502D01FEBF298008BB161 /* UIViewController+AlternateIcon.swift in Sources */,
 				BF8062B81FB14CB00024BB37 /* Observable+Operators.swift in Sources */,
 				778AC6A81F9A2D540072C6E9 /* TopicSearchResultCell.swift in Sources */,
 				BF1B1D191FA6F2A500544A11 /* TwoStepVerificationViewController.swift in Sources */,

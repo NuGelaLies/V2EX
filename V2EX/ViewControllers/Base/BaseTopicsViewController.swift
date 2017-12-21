@@ -50,12 +50,6 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.navigationBar.isTranslucent = false
-    }
-    
     // MARK: - Setup
     
     override func setupSubviews() {

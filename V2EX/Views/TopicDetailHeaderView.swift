@@ -303,8 +303,10 @@ extension TopicDetailHeaderView: WKNavigationDelegate {
             var imgs = document.getElementsByTagName('img');
             for (var i = 0; i < imgs.length; ++i) {
                 var img = imgs[i];
-                img.onclick = function () {
-                    window.location.href = 'v2ex-image:' + this.src;
+                if (img.parentNode.tagName != "A") {
+                    img.onclick = function () {
+                        window.location.href = 'v2ex-image:' + this.src;
+                    }
                 }
             }
             """

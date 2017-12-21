@@ -50,6 +50,7 @@ extension TabBarViewController {
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 self?.tabBar.barStyle = theme == .day ? .default : .black
+                self?.tabBar.barTintColor = theme.navColor
             }.disposed(by: rx.disposeBag)
         
         tabBar.isTranslucent = false
@@ -86,7 +87,6 @@ extension TabBarViewController {
         let offset: CGFloat = UIDevice.isiPad ? 0 : 5
         childController.tabBarItem.imageInsets = UIEdgeInsets(top: offset, left: 0, bottom: -offset, right: 0)
         let nav = NavigationViewController(rootViewController: childController)
-        nav.navigationBar.isTranslucent = false
         addChildViewController(nav)
     }
     

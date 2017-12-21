@@ -123,6 +123,7 @@ func clickCommentLinkHandle(urlString: String) {
         } else if url.path.contains("/t/") {
             let topicID = url.path.lastPathComponent
             let topicDetailVC = TopicDetailViewController(topicID: topicID)
+//            topicDetailVC.anchor = url.fragment?.deleteOccurrences(target: "reply").int
             AppWindow.shared.window.rootViewController?.currentViewController().navigationController?.pushViewController(topicDetailVC, animated: true)
         } else if url.path.contains("/go/") {
             let nodeDetailVC = NodeDetailViewController(node: NodeModel(title: "", href: url.path))

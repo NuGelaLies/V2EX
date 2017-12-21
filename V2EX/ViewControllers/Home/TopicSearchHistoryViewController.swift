@@ -84,7 +84,7 @@ extension TopicSearchHistoryViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: BaseTableViewCell.self)!
-        cell.backgroundColor = .clear
+        cell.backgroundColor = ThemeStyle.style.value.cellBackgroundColor
         cell.imageView?.image = #imageLiteral(resourceName: "searchHistory")
         cell.textLabel?.text = historys[indexPath.row]
         cell.textLabel?.textColor = UIColor.hex(0x6C7273)

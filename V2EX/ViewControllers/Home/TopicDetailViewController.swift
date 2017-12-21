@@ -72,6 +72,8 @@ class TopicDetailViewController: DataViewController, TopicService {
         }
     }
 
+    public var anchor: Int?
+    
     private var selectComment: CommentModel? {
         guard let selectIndexPath = tableView.indexPathForSelectedRow else {
             return nil
@@ -193,6 +195,24 @@ class TopicDetailViewController: DataViewController, TopicService {
             self?.headerView.isHidden = false
             self?.tableView.reloadData()
             self?.setupRefresh()
+            
+            guard let `self` = self else { return }
+            guard let anchor = self.anchor,
+                self.tableView.numberOfRows(inSection: 0) >= anchor else { return }
+            let indexPath = IndexPath(row: anchor - 1, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            log.info(anchor, indexPath)
+            self.anchor = nil
+
+            GCD.delay(1, block: {
+                UIView.animate(withDuration: 1, delay: 0, options: .curveLinear,  animations: {
+                    self.tableView.cellForRow(at: indexPath)?.backgroundColor = UIColor.hex(0xB3DBE8).withAlphaComponent(0.3)
+                }, completion: { _ in
+                    UIView.animate(withDuration: 0.5, delay: 0.8, options: .curveLinear,  animations: {
+                        self.tableView.cellForRow(at: indexPath)?.backgroundColor = ThemeStyle.style.value.cellBackgroundColor
+                    })
+                })
+            })
         }
 
         commentInputView.sendHandle = { [weak self] in
@@ -281,7 +301,7 @@ class TopicDetailViewController: DataViewController, TopicService {
     override func setupRx() {
         ThemeStyle.style.asObservable()
             .subscribeNext { theme in
-                setStatusBarBackground(theme == .day ? .white : .black, borderColor: .clear)
+                setStatusBarBackground(theme.navColor, borderColor: .clear)
             }.disposed(by: rx.disposeBag)
         
         NotificationCenter.default.rx
@@ -323,6 +343,13 @@ class TopicDetailViewController: DataViewController, TopicService {
                     self.view.layoutIfNeeded()
                 }
             }.disposed(by: rx.disposeBag)
+        
+//        NotificationCenter.default.rx
+//            .notification(.UIApplicationUserDidTakeScreenshot)
+//            .subscribeNext { noti in
+//                guard let img = AppWindow.shared.window.screenshot else { return }
+//                showImageBrowser(imageType: .image(img))
+//        }.disposed(by: rx.disposeBag)
 
         isSelectedVariable.asObservable()
             .distinctUntilChanged()
@@ -502,9 +529,9 @@ extension TopicDetailViewController {
             if hidden {
                 self.inputViewBottomConstranit?.update(inset: -self.commentInputView.height)
                 self.view.layoutIfNeeded()
-                self.navigationController?.navigationBar.y -= navHeight
+                self.navigationController?.navigationBar.y -= navHeight + UIApplication.shared.statusBarFrame.height
                 GCD.delay(0.1, block: {
-                    setStatusBarBackground(ThemeStyle.style.value == .day ? .white : .black, borderColor: ThemeStyle.style.value.borderColor)
+                    setStatusBarBackground(ThemeStyle.style.value.navColor, borderColor: ThemeStyle.style.value.borderColor)
                 })
                 self.tableView.height = Constants.Metric.screenHeight
             } else { //显示
@@ -813,7 +840,7 @@ extension TopicDetailViewController {
             self.topic = topic
             self.tableView.endHeaderRefresh()
             self.maxPage = maxPage
-
+    
             complete?()
             }, failure: { [weak self] error in
                 self?.errorMessage = error
@@ -993,20 +1020,16 @@ extension TopicDetailViewController {
     /// 举报主题， 主要是过审核用
     private func reportHandle() {
 
-        let alert = UIAlertController(title: "举报", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "举报", message: "请填写举报原因，举报后将通知管理员", preferredStyle: .alert)
         alert.addTextField(configurationHandler: { textView in
-            textView.placeholder = "请填写举报原因"
+            textView.placeholder = "举报原因"
         })
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
 
-        alert.addAction(UIAlertAction(title: "确定举报", style: .destructive, handler: { _ in
-            guard let text = alert.textFields?.first?.text, text.isNotEmpty else {
-                HUD.showError("请输入举报原因")
-                self.reportHandle()
-                return
-            }
+        let sureAction = UIAlertAction(title: "确定举报", style: .destructive, handler: { _ in
+            guard let text = alert.textFields?.first?.text else { return }
             HUD.show()
-
+            
             self.comment(
                 once: self.topic?.once ?? "",
                 topicID: self.topicID,
@@ -1016,14 +1039,24 @@ extension TopicDetailViewController {
             }) { error in
                 log.error(error)
             }
-        }))
+        })
+        
+        alert.addAction(sureAction)
+        
+        _ = alert.textFields?.first?.rx
+            .text
+            .filterNil()
+            .takeUntil(alert.rx.deallocated)
+            .map { $0.trimmed.isNotEmpty }
+            .bind(to: sureAction.rx.isEnabled)
+        
         present(alert, animated: true, completion: nil)
     }
 }
 
 // MARK: - Action Handle
 extension TopicDetailViewController {
-    
+
     private func copyLink() {
         UIPasteboard.general.string = API.topicDetail(topicID: topicID, page: page).defaultURLString
         HUD.showSuccess("链接已复制")

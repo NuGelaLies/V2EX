@@ -181,8 +181,6 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
                 let generator = UIImpactFeedbackGenerator(style: .light)
                 generator.prepare()
                 generator.impactOccurred()
-            } else {
-                // Fallback on earlier versions
             }
         }
 
@@ -213,6 +211,15 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.cellForRow(at: indexPath) as? BaseTableViewCell else { return }
             cell.switchView.setOn(!cell.switchView.isOn, animated: true)
             Preference.shared.nightModel = cell.switchView.isOn
+            
+            if #available(iOS 10.3, *) {
+                let name = cell.switchView.isOn ? "dark" : nil
+                UIApplication.shared.setAlternateIconName(name) { error in
+                    if let err = error {
+                        HUD.showTest(err)
+                    }
+                }
+            }
         }
         guard let vc = viewController else { return }
         

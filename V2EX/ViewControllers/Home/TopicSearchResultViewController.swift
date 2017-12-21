@@ -209,12 +209,11 @@ class TopicSearchResultViewController: DataViewController, TopicService {
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 self?.tableView.separatorColor = theme.borderColor
-                self?.containerView.backgroundColor = theme.whiteColor
+                self?.containerView.backgroundColor = theme.navColor
                 self?.searchTextField.keyboardAppearance = theme == .day ? .default : .dark
                 self?.searchTextField.backgroundColor = theme.bgColor
                 self?.searchTextField.textColor = theme.titleColor
                 self?.containerView.borderBottom = Border(color: theme.borderColor)
-                self?.containerView.backgroundColor = theme == .day ? .white : .black
                 self?.searchTextField.setValue(theme.dateColor, forKeyPath: "_placeholderLabel.textColor")
             }.disposed(by: rx.disposeBag)
     }

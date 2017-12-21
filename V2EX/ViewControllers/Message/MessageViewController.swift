@@ -273,6 +273,7 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let topicID = messages[indexPath.row].topic.topicID else { return }
         let topicDetailVC = TopicDetailViewController(topicID: topicID)
+        topicDetailVC.anchor = messages[indexPath.row].topic.anchor
         navigationController?.pushViewController(topicDetailVC, animated: true)
     }
 

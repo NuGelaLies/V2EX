@@ -13,6 +13,7 @@ struct AppSetup {
         setupCrashlytics()
         setupTheme()
         setupLog()
+        UIViewController.swizzleMethod()
     }
 }
 

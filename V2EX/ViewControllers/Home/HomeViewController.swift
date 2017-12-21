@@ -106,7 +106,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
 
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
-                segmentV.backgroundColor = theme == .day ? .white : .black
+                segmentV.backgroundColor = theme.navColor
                 AppWindow.shared.window.backgroundColor = theme.whiteColor
                 UIApplication.shared.statusBarStyle = theme.statusBarStyle
                 self?.setNeedsStatusBarAppearanceUpdate()

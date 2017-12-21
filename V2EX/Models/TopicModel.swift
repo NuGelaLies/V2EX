@@ -23,10 +23,16 @@ struct TopicModel {
     var topicID: String? {
         let isTopic = href.hasPrefix("/t/")
         guard isTopic,
-            let topicID = href.replacingOccurrences(of: "/t/", with: "").components(separatedBy: "#").first else {
+            let topicID = try? href.asURL().path.lastPathComponent else {
                 return nil
         }
         return topicID
+    }
+    
+    var anchor: Int? {
+        let url = try? href.asURL()
+        let anchor = url?.fragment?.deleteOccurrences(target: "reply").int
+        return anchor
     }
 
     init(member: MemberModel?, node: NodeModel?, title: String, href: String, lastReplyTime: String? = "", replyCount: String = "0") {
