@@ -13,7 +13,6 @@ class AllNodesViewController: DataViewController, NodeService {
         view.sectionIndexTrackingBackgroundColor = Theme.Color.bgColor
         view.hideEmptyCells()
         view.backgroundColor = .clear
-        view.tableHeaderView = searchController.searchBar
         self.view.addSubview(view)
         return view
     }()
@@ -58,9 +57,17 @@ class AllNodesViewController: DataViewController, NodeService {
 
     private var groups: [NodeCategoryModel] = [] {
         didSet {
+            tableView.tableHeaderView = searchController.searchBar
             tableView.reloadData()
             tableView.tableFooterView = footerLabel
             searchResultVC.originData = groups.flatMap { $0.nodes }
+            
+            if let _ = didSelectedNodeHandle {
+                self.searchController.isActive = true
+                GCD.delay(0.8) {
+                    self.searchController.searchBar.becomeFirstResponder()
+                }
+            }
         }
     }
 
@@ -90,17 +97,6 @@ class AllNodesViewController: DataViewController, NodeService {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if let _ = didSelectedNodeHandle {
-            self.searchController.isActive = true
-            GCD.delay(0.2) {
-                self.searchController.searchBar.becomeFirstResponder()
-            }
-        }
-    }
-
     // MARK: - Setup
 
     override func setupConstraints() {

@@ -11,6 +11,8 @@ public typealias Action = () -> Void
 
 /// Present 登录
 func presentLoginVC() {
+    AccountModel.delete()
+    HTTPCookieStorage.shared.cookies?.forEach { HTTPCookieStorage.shared.deleteCookie($0) }
     let nav = NavigationViewController(rootViewController: LoginViewController())
     AppWindow.shared.window.rootViewController?.present(nav, animated: true, completion: nil)
 }

@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 
+
 class MemberPageViewController: BaseViewController, MemberService, AccountService {
 
     // MARK: - UI
@@ -47,6 +48,7 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
         view.setCornerRadius = 17.5
         view.layer.borderColor = UIColor.white.cgColor
         view.layer.borderWidth = 1
+        view.isHidden = true
         return view
     }()
     
@@ -58,6 +60,13 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
         view.setCornerRadius = 17.5
         view.layer.borderColor = UIColor.white.cgColor
         view.layer.borderWidth = 1
+        view.isHidden = true
+        return view
+    }()
+    
+    private lazy var segmentViewContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = ThemeStyle.style.value.cellBackgroundColor
         return view
     }()
 
@@ -69,16 +78,15 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
         view.tintColor = Theme.Color.globalColor
         view.selectedSegmentIndex = 0
         view.sizeToFit()
-        view.tintColor = .clear
-        view.setTitleTextAttributes([
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
-            NSAttributedStringKey.foregroundColor: UIColor.black
-            ], for: .normal)
-        view.setTitleTextAttributes(
-            [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
-             NSAttributedStringKey.foregroundColor: Theme.Color.globalColor
-            ], for: .selected)
-        view.backgroundColor = .white
+//        view.tintColor = .clear
+//        view.setTitleTextAttributes([
+//            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
+//            NSAttributedStringKey.foregroundColor: UIColor.black
+//            ], for: .normal)
+//        view.setTitleTextAttributes(
+//            [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
+//             NSAttributedStringKey.foregroundColor: Theme.Color.globalColor
+//            ], for: .selected)
         return view
     }()
 
@@ -100,7 +108,6 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
 
     public var memberName: String
 
-    private var statusBarShouldLight = true
     private var headerViewTopConstraint: Constraint?
     private var lastOffsetY: CGFloat!
 
@@ -114,6 +121,9 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
             headerView.image = avatarView.image
             blockBtn.isSelected = member.isBlock
             followBtn.isSelected = member.isFollow
+            
+            followBtn.isHidden = !AccountModel.isLogin
+            blockBtn.isHidden = followBtn.isHidden
         }
     }
 
@@ -133,6 +143,10 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
         fatalError("init(coder:) has not been implemented")
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // TODO: 手势冲突
@@ -157,9 +171,6 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
         replyVC.scrollViewDidScroll = { scrollView in
             self.scrollViewDidScroll(scrollView)
         }
-
-        followBtn.isHidden = !AccountModel.isLogin
-        blockBtn.isHidden = followBtn.isHidden
 
         loadData()
     }
@@ -195,15 +206,11 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
         navigationController?.navigationBar.isTranslucent = false
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return statusBarShouldLight ? .lightContent : .default
-    }
-
-
     // MARK: - Setup
     
     override func setupSubviews() {
-        view.addSubviews(headerView, segmentView, scrollView)
+        view.addSubviews(headerView, segmentViewContainer, scrollView)
+        segmentViewContainer.addSubview(segmentView)
         headerView.addSubviews(blurView, avatarView, usernameLabel, joinTimeLabel, followBtn, blockBtn)
     }
 
@@ -249,15 +256,20 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
             $0.top.equalTo(usernameLabel.snp.bottom).offset(15)
         }
 
-        segmentView.snp.makeConstraints {
+        segmentViewContainer.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.top.equalTo(headerView.snp.bottom).offset(10)
+            $0.top.equalTo(headerView.snp.bottom)
             $0.height.equalTo(44)
+        }
+        
+        segmentView.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(20)
+            $0.top.bottom.equalToSuperview().inset(8)
         }
 
         scrollView.snp.makeConstraints {
             $0.left.bottom.right.equalToSuperview()
-            $0.top.equalTo(segmentView.snp.bottom).offset(1)
+            $0.top.equalTo(segmentViewContainer.snp.bottom).offset(1)
         }
     }
 
@@ -325,40 +337,21 @@ extension MemberPageViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffsetY = scrollView.contentOffset.y
         guard contentOffsetY > 30 else { return }
-
-        let showNavBarOffsetY = 200 - topLayoutGuide.length
+        
+        let betwent: CGFloat = 180
 
         let delta = contentOffsetY - lastOffsetY
 
-        let headOffset = 200 - delta
+        let headOffset = betwent - delta
 
 
-        if contentOffsetY > 200 {
-            headerViewTopConstraint?.update(inset: -200)
+        if contentOffsetY > betwent {
+            headerViewTopConstraint?.update(inset: -betwent)
         } else {
-            headerViewTopConstraint?.update(inset: headOffset)
+            log.info( "headOffset ", headOffset + 64)
+            let hf = headOffset + 64
+            headerViewTopConstraint?.update(inset: hf > 0 ? 0 : hf)
         }
-
-        //navigationBar alpha
-        if contentOffsetY > showNavBarOffsetY  {
-            var navAlpha = (contentOffsetY - (showNavBarOffsetY)) / 40.0
-            if navAlpha > 1 {
-                navAlpha = 1
-            }
-            navBarBgAlpha = navAlpha
-            if navAlpha > 0.8 {
-                navBarTintColor = UIColor.defaultNavBarTintColor
-                statusBarShouldLight = false
-            }else{
-                navBarTintColor = .white
-                statusBarShouldLight = true
-            }
-        }else{
-            navBarBgAlpha = 0
-            navBarTintColor = .white
-            statusBarShouldLight = true
-        }
-        setNeedsStatusBarAppearanceUpdate()
     }
 
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {

@@ -255,7 +255,8 @@ extension BaseTopicsViewController: UIViewControllerPreviewingDelegate {
         guard let indexPath = tableView.indexPathForRow(at: location),
             let cell = tableView.cellForRow(at: indexPath) else { return nil }
         guard let topicID = topics[indexPath.row].topicID else { return nil }
-
+        topics[indexPath.row].isRead = true
+        
         let viewController = TopicDetailViewController(topicID: topicID)
         viewController.showInputView = false
         previewingContext.sourceRect = cell.frame

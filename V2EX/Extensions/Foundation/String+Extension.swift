@@ -184,10 +184,7 @@ extension String {
 extension String {
     /// 是否是邮箱
     func isEmail() -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
-        //        let emailRegex = "^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$"
-        let testPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
-        return testPredicate.evaluate(with: self)
+        return isMatch(regEx: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}")
     }
 
     /// 判断是否为字母
@@ -201,8 +198,10 @@ extension String {
     /// 是否是V2EX的验证码
     /// 数字、英语结合，8个字符
     func isV2EXCaptcha() -> Bool {
-        let regex = "[a-zA-Z0-9]{8}"
-        let testPredicate = NSPredicate(format:"SELF MATCHES %@", regex)
-        return testPredicate.evaluate(with: self)
+        return isMatch(regEx: "[a-zA-Z0-9]{8}")
+    }
+    
+    public func isMatch(regEx: String) -> Bool {
+        return NSPredicate(format: "SELF MATCHES %@", regEx).evaluate(with: self)
     }
 }

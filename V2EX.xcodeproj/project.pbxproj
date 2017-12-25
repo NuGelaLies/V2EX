@@ -53,7 +53,6 @@
 		778AC6B81F9AF07F0072C6E9 /* NSAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AC6B21F9AF07F0072C6E9 /* NSAttributedString+Extensions.swift */; };
 		778AC6B91F9AF07F0072C6E9 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AC6B31F9AF07F0072C6E9 /* String+Extensions.swift */; };
 		779064481F9B72C1001A5ABA /* UIViewChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779064471F9B72C1001A5ABA /* UIViewChain.swift */; };
-		7794DA2E1FD2D88600B7B299 /* String+Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794DA2D1FD2D88600B7B299 /* String+Pin.swift */; };
 		7794DA301FD2E04A00B7B299 /* FenCiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794DA2F1FD2E04A00B7B299 /* FenCiViewController.swift */; };
 		7794DA321FD2E2A500B7B299 /* FenCiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794DA311FD2E2A500B7B299 /* FenCiCell.swift */; };
 		779B16FE1F8FA5DE00E912E7 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B16FD1F8FA5DE00E912E7 /* AccountModel.swift */; };
@@ -242,7 +241,6 @@
 		778AC6B21F9AF07F0072C6E9 /* NSAttributedString+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extensions.swift"; sourceTree = "<group>"; };
 		778AC6B31F9AF07F0072C6E9 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		779064471F9B72C1001A5ABA /* UIViewChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewChain.swift; sourceTree = "<group>"; };
-		7794DA2D1FD2D88600B7B299 /* String+Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Pin.swift"; sourceTree = "<group>"; };
 		7794DA2F1FD2E04A00B7B299 /* FenCiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenCiViewController.swift; sourceTree = "<group>"; };
 		7794DA311FD2E2A500B7B299 /* FenCiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenCiCell.swift; sourceTree = "<group>"; };
 		779B16FD1F8FA5DE00E912E7 /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
@@ -638,7 +636,6 @@
 				779B17051F8FAF5A00E912E7 /* UILable+Extension.swift */,
 				779B17071F8FB0AF00E912E7 /* UIImageView+Extension.swift */,
 				773CD8F71F9B141200D5578F /* UIScrollView+Extension.swift */,
-				77507E681F9B168800D62286 /* String+PinYin.swift */,
 				779064471F9B72C1001A5ABA /* UIViewChain.swift */,
 				BF9554D61FBD653E0054FC50 /* ReuseCell.swift */,
 				BFF178961FCD07F0004A5F43 /* UIAlertController+Extension.swift */,
@@ -796,7 +793,7 @@
 			isa = PBXGroup;
 			children = (
 				BFCB674E1F8F4A4000D05A90 /* String+Extension.swift */,
-				7794DA2D1FD2D88600B7B299 /* String+Pin.swift */,
+				77507E681F9B168800D62286 /* String+PinYin.swift */,
 				BFCB674C1F8F4A2200D05A90 /* Foundation+Extension.swift */,
 				BF45E0041F9EFEE30001BEB2 /* EnumCollection.swift */,
 			);
@@ -1314,7 +1311,6 @@
 				BF02A2CE1F8F3FE400BEF85E /* AppTheme.swift in Sources */,
 				BFBCE5A31F90BB9E000106D6 /* HelperFunctions.swift in Sources */,
 				BF8062B71FB14CB00024BB37 /* Binder+Extension.swift in Sources */,
-				7794DA2E1FD2D88600B7B299 /* String+Pin.swift in Sources */,
 				778AC6A01F9A29730072C6E9 /* SearchResultModel.swift in Sources */,
 				771502D01FEBF298008BB161 /* UIViewController+AlternateIcon.swift in Sources */,
 				BF8062B81FB14CB00024BB37 /* Observable+Operators.swift in Sources */,

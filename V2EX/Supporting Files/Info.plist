@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>V2er</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
 	<dict>
 		<key>CFBundleAlternateIcons</key>
@@ -33,12 +39,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>V2er</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -50,7 +50,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.3.1</string>
 	<key>CFBundleVersion</key>
-	<string>42</string>
+	<string>43</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>

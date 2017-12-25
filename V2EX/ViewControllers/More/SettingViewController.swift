@@ -145,8 +145,6 @@ extension SettingViewController {
             let vc = OCRConfigViewController()
             navigationController?.pushViewController(vc, animated: true)
         case .logout:
-            AccountModel.delete()
-            HTTPCookieStorage.shared.cookies?.forEach { HTTPCookieStorage.shared.deleteCookie($0) }
             presentLoginVC()
             tableView.reloadData()
         case .ignoreWords:

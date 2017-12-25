@@ -19,7 +19,7 @@ a:link, a:visited, a:active {
     background-color: #243447;
 }
 
-.topic_content {
+.topic_content, th, td {
     color: #818281;
 }
 

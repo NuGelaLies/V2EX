@@ -58,6 +58,26 @@ extension Bool {
 
 // MARK: - UserDefaults
 extension UserDefaults {
+    
+    public subscript(key: String) -> Any? {
+        get { return value(forKey: key) as Any }
+        set {
+            switch newValue {
+            case let value as Int: set(value, forKey: key)
+            case let value as Double: set(value, forKey: key)
+            case let value as Bool: set(value, forKey: key)
+            case let value as String: set(value, forKey: key)
+            case nil: removeObject(forKey: key)
+            default: assertionFailure("Invalid value type.")
+            synchronize()
+            }
+        }
+    }
+    
+    public func hasKey(_ key: String) -> Bool {
+        return nil != object(forKey: key)
+    }
+    
     static func save(at value: Any?, forKey key: String) {
         UserDefaults.standard.set(value, forKey: key)
         UserDefaults.standard.synchronize()
