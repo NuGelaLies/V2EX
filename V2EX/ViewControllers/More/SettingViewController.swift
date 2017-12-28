@@ -6,7 +6,7 @@ class SettingViewController: UITableViewController {
     enum SettingItemType {
         case accounts
         case browser, nightMode, fontSize, baiduOCRConfig, logout, fullScreenBack, shakeFeedback
-        case ignoreWords
+        case ignoreWords, recognizeClipboardLink
         case tabSort
         case floor
     }
@@ -21,6 +21,7 @@ class SettingViewController: UITableViewController {
     private var sections: [[SettingItem]] = [
         [
             SettingItem(title: "使用 Safari 浏览网页", type: .browser, rightType: .switch),
+            SettingItem(title: "识别剪切板链接", type: .recognizeClipboardLink, rightType: .switch),
             SettingItem(title: "全屏返回手势", type: .fullScreenBack, rightType: .switch),
 //            SettingItem(title: "夜间模式", type: .nightMode, rightType: .switch),
             SettingItem(title: "摇一摇反馈", type: .shakeFeedback, rightType: .switch)
@@ -103,6 +104,8 @@ extension SettingViewController {
             cell.switchView.isOn = Preference.shared.shakeFeedback
         case .floor:
             cell.switchView.isOn = Preference.shared.atMemberAddFloor
+        case .recognizeClipboardLink:
+            cell.switchView.isOn = Preference.shared.recognizeClipboardLink
         default:
             break
         }
@@ -135,6 +138,8 @@ extension SettingViewController {
             Preference.shared.nightModel = cell.switchView.isOn
         case .shakeFeedback:
             Preference.shared.shakeFeedback = cell.switchView.isOn
+        case .recognizeClipboardLink:
+            Preference.shared.recognizeClipboardLink = cell.switchView.isOn
         case .fontSize:
             let adjustFontVC = AdjustFontViewController()
             navigationController?.pushViewController(adjustFontVC, animated: true)

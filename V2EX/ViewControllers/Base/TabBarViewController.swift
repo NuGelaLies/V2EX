@@ -5,6 +5,14 @@ import RxOptional
 
 class TabBarViewController: UITabBarController {
     
+    private lazy var bounceAnimation: CAKeyframeAnimation = {
+         let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
+        bounceAnimation.values = [1.0, 0.95, 1.05, 1.0]
+        bounceAnimation.duration = 0.4
+        bounceAnimation.calculationMode = kCAAnimationCubic
+        return bounceAnimation
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -91,7 +99,10 @@ extension TabBarViewController {
     }
     
     private func clickBackTop() {
-        self.rx.didSelect
+        rx.didSelect
+            .do(onNext: { [weak self] viewController in
+                self?.bounceAnimation(selectedController: viewController)
+            })
             .scan((nil, nil)) { state, viewController in
                 return (state.1, viewController)
             }
@@ -103,6 +114,15 @@ extension TabBarViewController {
                 self?.scrollToTop(viewController)
             })
             .disposed(by: rx.disposeBag)
+    }
+    
+    private func bounceAnimation(selectedController: UIViewController) {
+        guard let index = childViewControllers.index(of: selectedController),
+            let tabBarButtonClass = NSClassFromString("UITabBarButton") else { return }
+        var tabBarButtons = tabBar.subviews.filter { $0.isKind(of: tabBarButtonClass) }
+
+        tabBarButtons[index].layer.removeAllAnimations()
+        tabBarButtons[index].layer.add(bounceAnimation, forKey: nil)
     }
     
     private func scrollToTop(_ viewController: UIViewController) {
