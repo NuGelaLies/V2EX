@@ -4,7 +4,6 @@ class MessageCell: BaseTableViewCell {
 
     private lazy var avatarView: UIImageView = {
         let view = UIImageView()
-        view.isUserInteractionEnabled = true
         view.setCornerRadius = 5
         return view
     }()
@@ -50,11 +49,8 @@ class MessageCell: BaseTableViewCell {
             contentLabel
         )
 
-        let avatarTapGesture = UITapGestureRecognizer()
-        avatarView.addGestureRecognizer(avatarTapGesture)
-
-        avatarTapGesture.rx
-            .event
+        avatarView.rx
+            .tapGesture
             .subscribeNext { [weak self] _ in
                 guard let `self` = self else { return }
                 self.avatarTapHandle?(self)

@@ -78,6 +78,8 @@ public protocol TargetType {
     /// }
     /// ```
     var httpHeaderFields: [String: String]? { get }
+    
+    var useCache: Bool { get }
 }
 
 public extension TargetType {
@@ -100,6 +102,10 @@ public extension TargetType {
 
     public var httpHeaderFields: [String: String]? {
         return nil
+    }
+    
+    var useCache: Bool {
+        return false
     }
 }
 

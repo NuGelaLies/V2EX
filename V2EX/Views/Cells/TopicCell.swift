@@ -1,10 +1,11 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
 class TopicCell: BaseTableViewCell {
 
     private lazy var avatarView: UIImageView = {
         let view = UIImageView()
-        view.isUserInteractionEnabled = true
         view.setCornerRadius = 5
         return view
     }()
@@ -31,7 +32,6 @@ class TopicCell: BaseTableViewCell {
         view.textColor = UIColor.hex(0x999999)
         view.backgroundColor = UIColor.hex(0xf5f5f5)
         view.contentInsets = UIEdgeInsets(top: 2, left: 3, bottom: 2, right: 3)
-        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -66,21 +66,18 @@ class TopicCell: BaseTableViewCell {
             replayCountLabel
         )
 
-        let avatarTapGesture = UITapGestureRecognizer()
-        avatarView.addGestureRecognizer(avatarTapGesture)
-
-        let nodeTapGesture = UITapGestureRecognizer()
-        nodeLabel.addGestureRecognizer(nodeTapGesture)
-
-        avatarTapGesture.rx
-            .event
+        avatarView.rx
+            .tapGesture
+            .throttle(0.3, scheduler: MainScheduler.instance)
             .subscribeNext { [weak self] _ in
                 guard let member = self?.topic?.member else { return }
                 self?.tapHandle?(.member(member))
-            }.disposed(by: rx.disposeBag)
+        }.disposed(by: rx.disposeBag)
+    
 
-        nodeTapGesture.rx
-            .event
+        nodeLabel.rx
+            .tapGesture
+            .throttle(0.3, scheduler: MainScheduler.instance)
             .subscribeNext { [weak self] _ in
                 guard let node = self?.topic?.node else { return }
                 self?.tapHandle?(.node(node))

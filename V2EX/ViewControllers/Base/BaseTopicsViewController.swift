@@ -164,6 +164,7 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
             })
             self.topics.append(contentsOf: ts)
             self.tableView.endFooterRefresh(showNoMore: self.page >= maxPage)
+            self.tableView.reloadData()
         }) { [weak self] error in
             self?.tableView.endFooterRefresh()
             HUD.showError(error)

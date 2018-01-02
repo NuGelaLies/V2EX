@@ -118,7 +118,8 @@ public class SQLiteDatabase {
         title TEXT NOT NULL,
         username TEXT NOT NULL,
         avatarURL TEXT NOT NULL,
-        created DATETIME NOT NULL)
+        created DATETIME NOT NULL,
+        commentCount INTEGER NOT NULL)
         """
         try excute(sql: tbHistorySql)
         log.verbose("success create table: \n\(TABLE_READ_HISTORY)")
@@ -136,7 +137,7 @@ public class SQLiteDatabase {
     // 新增 or 更新 浏览历史
     func addHistory(tid: Int, title: String, username: String, avatarURL: String) {
         let sql = """
-        REPLACE INTO \(TABLE_READ_HISTORY)(tid,title,username,avatarURL,created) VALUES (?,?,?,?,CURRENT_TIMESTAMP)
+        REPLACE INTO \(TABLE_READ_HISTORY)(tid,title,username,avatarURL,created,commentCount) VALUES (?,?,?,?,CURRENT_TIMESTAMP,-1)
         """
         guard let statemet = try? prepare(statement: sql) else {
             log.error(errorMessage)
@@ -146,9 +147,9 @@ public class SQLiteDatabase {
             sqlite3_finalize(statemet)
         }
         guard sqlite3_bind_int(statemet, 1, Int32(tid)) == SQLITE_OK &&
-                      sqlite3_bind_text(statemet, 2, NSString(string: title).utf8String, -1, nil) == SQLITE_OK &&
-                      sqlite3_bind_text(statemet, 3, NSString(string: username).utf8String, -1, nil) == SQLITE_OK &&
-                      sqlite3_bind_text(statemet, 4, NSString(string: avatarURL).utf8String, -1, nil) == SQLITE_OK else {
+            sqlite3_bind_text(statemet, 2, NSString(string: title).utf8String, -1, nil) == SQLITE_OK &&
+            sqlite3_bind_text(statemet, 3, NSString(string: username).utf8String, -1, nil) == SQLITE_OK &&
+            sqlite3_bind_text(statemet, 4, NSString(string: avatarURL).utf8String, -1, nil) == SQLITE_OK else {
             log.error(errorMessage)
             return
         }
@@ -206,6 +207,7 @@ public class SQLiteDatabase {
             let username = String(cString: sqlite3_column_text(statement, 2))
             let avatarURL = String(cString: sqlite3_column_text(statement, 3))
 //            let created = String(cString: sqlite3_column_text(statement, 4))
+//            let commentCount = String(cString: sqlite3_column_text(statement, 5))
             topics.append(TopicModel(member: MemberModel(username: username, url: username, avatar: avatarURL), node: nil, title: title, href: tid.description))
         }
 

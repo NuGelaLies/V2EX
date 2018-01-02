@@ -288,6 +288,15 @@ extension API: TargetType {
         return headers
     }
     
+    var useCache: Bool {
+        switch self {
+        case .nodes:
+            return true
+        default:
+            return false
+        }
+    }
+    
     /// The type of HTTP task to be performed.
     var task: Task {
         switch self {

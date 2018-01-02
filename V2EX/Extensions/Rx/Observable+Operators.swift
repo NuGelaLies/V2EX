@@ -232,9 +232,12 @@ extension ObservableType {
 }
 
 extension SharedSequenceConvertibleType where Self.SharingStrategy == RxCocoa.DriverSharingStrategy {
-    
     func debug(_ id: String) -> Disposable {
         return self.asObservable().debug(id)
     }
-    
 }
+
+func void<T>(_: T) {
+    return Void()
+}
+

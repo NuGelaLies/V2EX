@@ -55,6 +55,7 @@
 		779064481F9B72C1001A5ABA /* UIViewChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779064471F9B72C1001A5ABA /* UIViewChain.swift */; };
 		7794DA301FD2E04A00B7B299 /* FenCiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794DA2F1FD2E04A00B7B299 /* FenCiViewController.swift */; };
 		7794DA321FD2E2A500B7B299 /* FenCiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794DA311FD2E2A500B7B299 /* FenCiCell.swift */; };
+		77981D311FFB751500F1C48C /* UIView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77981D301FFB751400F1C48C /* UIView+Rx.swift */; };
 		779B16FE1F8FA5DE00E912E7 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B16FD1F8FA5DE00E912E7 /* AccountModel.swift */; };
 		779B17001F8FA87A00E912E7 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B16FF1F8FA87A00E912E7 /* UITableView+Extension.swift */; };
 		779B17021F8FA8A900E912E7 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B17011F8FA8A900E912E7 /* TopicCell.swift */; };
@@ -248,6 +249,7 @@
 		779064471F9B72C1001A5ABA /* UIViewChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewChain.swift; sourceTree = "<group>"; };
 		7794DA2F1FD2E04A00B7B299 /* FenCiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenCiViewController.swift; sourceTree = "<group>"; };
 		7794DA311FD2E2A500B7B299 /* FenCiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenCiCell.swift; sourceTree = "<group>"; };
+		77981D301FFB751400F1C48C /* UIView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Rx.swift"; sourceTree = "<group>"; };
 		779B16FD1F8FA5DE00E912E7 /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		779B16FF1F8FA87A00E912E7 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		779B17011F8FA8A900E912E7 /* TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
@@ -761,6 +763,7 @@
 				BF8062B21FB14CAF0024BB37 /* Swift+Extension.swift */,
 				BF8062B31FB14CAF0024BB37 /* UIBarButtonItem+ClosureAction.swift */,
 				BF8062B61FB14CAF0024BB37 /* UIViewController+Rx.swift */,
+				77981D301FFB751400F1C48C /* UIView+Rx.swift */,
 			);
 			path = Rx;
 			sourceTree = "<group>";
@@ -1235,6 +1238,7 @@
 				779064481F9B72C1001A5ABA /* UIViewChain.swift in Sources */,
 				77B161731FE6246000487F4F /* IgnoreWordsViewController.swift in Sources */,
 				BFC89B491FA0283800759577 /* TextParser.swift in Sources */,
+				77981D311FFB751500F1C48C /* UIView+Rx.swift in Sources */,
 				77B0A7581FFB47AA003ED8F6 /* ReadHistoryViewController.swift in Sources */,
 				77D458231FD96FE30004225B /* OCRConfigViewController.swift in Sources */,
 				773CD8F81F9B141200D5578F /* UIScrollView+Extension.swift in Sources */,

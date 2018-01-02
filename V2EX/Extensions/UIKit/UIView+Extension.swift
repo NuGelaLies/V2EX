@@ -61,7 +61,21 @@ extension UIView {
         subviews.forEach (addSubview)
         return self
     }
-
+    
+    func addTapGesture() -> UITapGestureRecognizer {
+        let tapGesture = UITapGestureRecognizer()
+        addGestureRecognizer(tapGesture)
+        isUserInteractionEnabled = true
+        return tapGesture
+    }
+    
+    func addLongPressGesture() -> UILongPressGestureRecognizer {
+        let longPressGesture = UILongPressGestureRecognizer()
+        addGestureRecognizer(longPressGesture)
+        isUserInteractionEnabled = true
+        return longPressGesture
+    }
+    
     /// 删除所有View
     public func removeAllSubviews() {
         while subviews.count != 0 {

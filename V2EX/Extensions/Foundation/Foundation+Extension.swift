@@ -12,6 +12,19 @@ extension URLComponents {
     }
 }
 
+extension URL {
+    var fragmemts: [String: String] {
+        var results = [String: String]()
+        guard let urlComponets = URLComponents(string: self.absoluteString),
+            let items = urlComponets.queryItems else {
+                return results
+        }
+        for item in items {
+            results[item.name] = item.value
+        }
+        return results
+    }
+}
 
 extension FileManager {
     /// 存文件到沙盒

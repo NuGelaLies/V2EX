@@ -299,7 +299,8 @@ extension TopicService {
                 failure?("数据解析失败")
                 return
             }
-            let topicContentPath = html.xpath("//*[@id='Wrapper']//div[@class='topic_content']")
+            let topicContentPath = html.xpath("//*[@id='Wrapper']/div[@class='content']//div[@class='cell']//div[@class='topic_content']")
+//            let topicContentPath = html.xpath("//*[@id='Wrapper']//div[@class='topic_content']")
             let contentHTML = topicContentPath.first?.toHTML ?? ""
             let subtleHTML = html.xpath("//*[@id='Wrapper']//div[@class='subtle']").flatMap { $0.toHTML }.joined(separator: "")
             var content = contentHTML + subtleHTML

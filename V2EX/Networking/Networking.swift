@@ -15,6 +15,49 @@ enum NetworkStatus {
     case reachableViaWWAN
 }
 
+extension Alamofire.SessionManager{
+    
+//    @discardableResult
+//    public func request(
+//        _ url: URLConvertible,
+//        method: HTTPMethod = .get,
+//        parameters: Parameters? = nil,
+//        encoding: ParameterEncoding = URLEncoding.default,
+//        headers: HTTPHeaders? = nil)
+//        -> DataRequest
+//    {
+//        return SessionManager.default.request(
+//            url,
+//            method: method,
+//            parameters: parameters,
+//            encoding: encoding,
+//            headers: headers
+//        )
+//    }
+    
+    @discardableResult
+    open func request(
+        _ url: URLConvertible,
+        method: HTTPMethod = .get,
+        parameters: Parameters? = nil,
+        encoding: ParameterEncoding = URLEncoding.default,
+        headers: HTTPHeaders? = nil,
+        useCache: Bool = false)
+        -> DataRequest
+    {
+        do {
+            var urlRequest = try URLRequest(url: url, method: method, headers: headers)
+            urlRequest.cachePolicy = useCache ? .useProtocolCachePolicy : .reloadIgnoringLocalCacheData
+            let encodedURLRequest = try encoding.encode(urlRequest, with: parameters)
+            return request(encodedURLRequest)
+        } catch {
+            // TODO: find a better way to handle error
+            print(error)
+            return request(URLRequest(url: URL(string: "http://example.com/wrong_request")!))
+        }
+    }
+}
+
 /// 处理所有网络请求
 final class Networking {
 
@@ -70,11 +113,12 @@ final class Networking {
         switch target.task {
         case .request: // 普通请求操作
 
-            Alamofire.request(url,
+            Alamofire.SessionManager.default.request(url,
                               method: target.route.method,
                               parameters: target.parameters,
                               encoding: target.parameterEncoding,
-                              headers: target.httpHeaderFields)
+                              headers: target.httpHeaderFields,
+                              useCache: false)
                 .responseData(completionHandler: { [weak self] (dataResponse) in
                     self?.responseHandle(target: target, success: success, failure: failure, dataResponse: dataResponse)
                 })
