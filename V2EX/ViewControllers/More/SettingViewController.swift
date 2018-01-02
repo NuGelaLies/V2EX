@@ -1,7 +1,7 @@
 import UIKit
 
 
-class SettingViewController: UITableViewController {
+class SettingViewController: BaseTableViewController {
 
     enum SettingItemType {
         case accounts
@@ -49,22 +49,11 @@ class SettingViewController: UITableViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return ThemeStyle.style.value.statusBarStyle
-    }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.register(cellWithClass: BaseTableViewCell.self)
-
-        ThemeStyle.style
-            .asObservable()
-            .subscribeNext { [weak self] theme in
-                self?.tableView.backgroundColor = theme.bgColor
-                self?.tableView.separatorColor = theme.borderColor
-        }.disposed(by: rx.disposeBag)
 
 //        if AccountModel.isLogin {
 //            let section = [SettingItem(title: "账号管理", type: .accounts, rightType: .arrow)]

@@ -48,6 +48,7 @@ extension TopicFavoriteViewController {
             self?.topics = topics
             self?.endLoading()
             self?.tableView.endHeaderRefresh()
+            self?.tableView.reloadData()
             }, failure: { [weak self] error in
                 self?.tableView.endHeaderRefresh()
                 self?.endLoading(error: NSError(domain: "V2EX", code: -1, userInfo: nil))
@@ -75,5 +76,27 @@ extension TopicFavoriteViewController {
             self?.endLoading(error: NSError(domain: "V2EX", code: -1, userInfo: nil))
             self?.page -= 1
         }
+    }
+}
+
+extension TopicFavoriteViewController {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+
+        let unfavoriteAction = UITableViewRowAction(
+            style: .destructive,
+            title: "取消收藏") { [weak self] _, indexPath in
+                guard let topicID = self?.topics[indexPath.row].topicID else { return }
+                HUD.show()
+                self?.unfavoriteTopic(topicFavoriteType: .list, topicID: topicID, token: "", success: {
+                    self?.topics.remove(at: indexPath.row)
+                    self?.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    HUD.showSuccess("操作成功")
+                    HUD.dismiss()
+                }, failure: { error in
+                    HUD.showError(error)
+                    HUD.dismiss()
+                })
+        }
+        return [unfavoriteAction]
     }
 }

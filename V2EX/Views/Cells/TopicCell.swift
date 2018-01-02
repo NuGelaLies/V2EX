@@ -137,11 +137,12 @@ class TopicCell: BaseTableViewCell {
             usernameLabel.text = user.username
             titleLabel.text = topic.title
             lastReplyLabel.text = topic.lastReplyTime
-            replayCountLabel.setTitle(topic.replyCount, for: .normal)
+            replayCountLabel.setTitle(" " + topic.replyCount, for: .normal)
             nodeLabel.text = topic.node?.title
             nodeLabel.isHidden = nodeLabel.text?.isEmpty ?? true
             
-            titleLabel.textColor = topic.isRead ? ThemeStyle.style.value.titleColor.withAlphaComponent(0.4) : ThemeStyle.style.value.titleColor
+            let titleColor = ThemeStyle.style.value.titleColor
+            titleLabel.textColor = topic.isRead ? titleColor.withAlphaComponent(0.4) : titleColor
         }
     }
 

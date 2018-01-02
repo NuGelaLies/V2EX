@@ -24,7 +24,8 @@ struct TopicModel {
         let isTopic = href.hasPrefix("/t/")
         guard isTopic,
             let topicID = try? href.asURL().path.lastPathComponent else {
-                return nil
+                // href 可能是 topic id
+                return href.int == nil ? nil : href
         }
         return topicID
     }

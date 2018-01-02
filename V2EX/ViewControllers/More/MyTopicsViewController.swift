@@ -64,6 +64,7 @@ class MyTopicsViewController: BaseTopicsViewController, MemberService {
                 self?.endLoading()
                 self?.tableView.endRefresh()
                 self?.maxPage = maxPage
+                self?.tableView.reloadData()
         }) { [weak self] error in
             self?.tableView.endRefresh()
             self?.endLoading(error: NSError(domain: "V2EX", code: -1, userInfo: nil))

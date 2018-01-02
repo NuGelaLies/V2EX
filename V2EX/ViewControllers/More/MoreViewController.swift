@@ -7,7 +7,7 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
 
     enum MoreItemType {
         case user
-        case createTopic, nodeCollect, myFavorites, follow, myTopic, myReply, nightMode
+        case createTopic, nodeCollect, myFavorites, follow, myTopic, myReply, nightMode, readHistory
         case about, setting
     }
     struct MoreItem {
@@ -39,6 +39,28 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
         return view
     }()
 
+//    private lazy var headerView: UIView = {
+//        let view = UIView()
+//        view.height = 1200
+//        view.width = self.view.width
+//        view.backgroundColor = UIColor.hex(0x393C46)// ThemeStyle.style.value.globalColor
+//        self.view.addSubview(view)
+//        return view
+//    }()
+//
+//    private lazy var avatarView: UIImageView = {
+//        let view = UIImageView()
+//        self.headerView.addSubview(view)
+//        return view
+//    }()
+//
+//    private lazy var usernameLabel: UILabel = {
+//        let view = UILabel()
+//        self.headerView.addSubview(view)
+//        view.textColor = .white
+//        return view
+//    }()
+    
     // MARK: - Propertys
 
     private var sections: [[MoreItem]] = [
@@ -49,7 +71,8 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
             MoreItem(icon: #imageLiteral(resourceName: "topicCollect"), title: "主题收藏", type: .myFavorites, rightType: .arrow),
 //            MoreItem(icon: #imageLiteral(resourceName: "concern"), title: "特别关注", type: .follow, rightType: .arrow),
             MoreItem(icon: #imageLiteral(resourceName: "topic"), title: "我的主题", type: .myTopic, rightType: .arrow),
-            MoreItem(icon: #imageLiteral(resourceName: "myReply"), title: "我的回复", type: .myReply, rightType: .arrow)
+            MoreItem(icon: #imageLiteral(resourceName: "myReply"), title: "我的回复", type: .myReply, rightType: .arrow),
+            MoreItem(icon: #imageLiteral(resourceName: "history"), title: "浏览历史", type: .readHistory, rightType: .arrow)
         ],
         [
             MoreItem(icon: #imageLiteral(resourceName: "nightMode"), title: "夜间模式", type: .nightMode, rightType: .switch),
@@ -70,10 +93,10 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
     // MARK: - Setup
 
     override func setupSubviews() {
-//        if #available(iOS 11.0, *) {
-//            navigationController?.navigationBar.prefersLargeTitles = true
-//        }
+        navigationController?.delegate = self
         navigationItem.title = "个人"
+//        tableView.tableHeaderView = headerView
+//        tableView.contentInset = UIEdgeInsetsMake(-1050, tableView.contentInset.left, tableView.contentInset.bottom, tableView.contentInset.right)
         guard AccountModel.isLogin else { return }
 
         let createTopicItem = UIBarButtonItem(image: #imageLiteral(resourceName: "edit"), style: .plain, action: { [weak self] in
@@ -87,6 +110,22 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+//        avatarView.snp.makeConstraints {
+//            $0.centerX.equalToSuperview()
+//            $0.bottom.equalTo(usernameLabel.snp.top).inset(-10)
+//            $0.size.equalTo(60)
+//        }
+//
+//        avatarView.setCornerRadius = 30
+//
+//        usernameLabel.snp.makeConstraints {
+//            $0.centerX.equalToSuperview()
+//            $0.bottom.equalToSuperview().inset(30)
+//        }
+//
+//        usernameLabel.text = AccountModel.current?.username
+//        avatarView.setImage(urlString: AccountModel.current?.avatarNormalSrc)
     }
 
     override func setupRx() {
@@ -129,6 +168,12 @@ extension MoreViewController {
             log.error(error)
         }
     }
+}
+
+extension MoreViewController: UINavigationControllerDelegate {
+//    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+//        navigationController.setNavigationBarHidden(viewController.isKind(of: MoreViewController.self), animated: true)
+//    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -203,6 +248,8 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
             viewController = BaseTopicsViewController(href: API.following.path)
         case .myFavorites:
             viewController = TopicFavoriteViewController()
+        case .readHistory:
+            viewController = ReadHistoryViewController()
         case .setting:
             viewController = SettingViewController()
         case .about:
@@ -236,15 +283,15 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 20
     }
-    
+
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.01
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
     }
-    
+
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
     }
@@ -288,7 +335,7 @@ extension MoreViewController {
 }
 
 // MARK: - UIImagePickerControllerDelegate
-extension MoreViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension MoreViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         dismiss(animated: true, completion: nil)
         guard var image = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
@@ -304,5 +351,3 @@ extension MoreViewController: UIImagePickerControllerDelegate, UINavigationContr
         uploadAvatarHandle(path)
     }
 }
-
-

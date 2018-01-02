@@ -111,11 +111,12 @@ class MessageViewController: DataViewController, AccountService {
     }
 
     override func errorView(_ errorView: ErrorView, didTapActionButton _: UIButton) {
-        if status == .noAuth {
+        switch status {
+        case .noAuth:
             presentLoginVC()
-            return
+        default:
+            fetchNotifications()
         }
-        fetchNotifications()
     }
 
     override func emptyView(_ emptyView: EmptyView, didTapActionButton sender: UIButton) {

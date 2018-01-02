@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MemberListViewController: UITableViewController {
+class MemberListViewController: BaseTableViewController {
 
     // MARK: - Propertys
     
@@ -32,9 +32,6 @@ class MemberListViewController: UITableViewController {
         log.verbose("DEINIT MemberListViewController")
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return ThemeStyle.style.value.statusBarStyle
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,8 +40,6 @@ class MemberListViewController: UITableViewController {
         tableView.allowsMultipleSelection = true
         tableView.setEditing(true, animated: true)
         tableView.tintColor = Theme.Color.globalColor
-        tableView.backgroundColor = ThemeStyle.style.value.bgColor
-        tableView.separatorColor = ThemeStyle.style.value.borderColor
         tableView.rowHeight = 55
         tableView.register(cellWithClass: MemberCell.self)
         

@@ -58,8 +58,8 @@ class CommentInputView: UIView {
     }
 
     private struct Misc {
-        static let maxLine = 4
-        static let textViewContentHeight: CGFloat = KcommentInputViewHeight - 25
+        static let maxHeight = (UIScreen.main.bounds.height / 5).rounded(.down)// 200
+        static let textViewContentHeight: CGFloat = KcommentInputViewHeight - 22
     }
 
     public var sendHandle: Action?
@@ -188,17 +188,22 @@ extension CommentInputView: YYTextViewDelegate {
     ///                            默认55，iPhone X = 55 + safeAreaInsets.bottom
     ///                            编辑时默认高度再次变成 55
     private func calculateHeight(defaultHeight: CGFloat = KcommentInputViewHeight) {
-        guard let lineHeight = textView.font?.lineHeight else { return }
+//        guard let lineHeight = textView.font?.lineHeight else { return }
+//
+//        // 调用代理方法
+//        let contentHeight = (textView.contentSize.height - textView.textContainerInset.top - textView.textContainerInset.bottom)
+//        let rows =  Int(contentHeight / lineHeight)
+//
+//        guard rows <= Misc.maxLine else { return }
+//
+//        var height = Misc.textViewContentHeight * rows.f
+//        height = height < defaultHeight ? defaultHeight : height
 
-        // 调用代理方法
-        let contentHeight = (textView.contentSize.height - textView.textContainerInset.top - textView.textContainerInset.bottom)
-        let rows =  Int(contentHeight / lineHeight)
-
-        guard rows <= Misc.maxLine else { return }
-
-        var height = Misc.textViewContentHeight * rows.f
+        let maxTextViewSize = CGSize(width: textView.bounds.width, height: .greatestFiniteMagnitude)
+        var height = textView.sizeThatFits(maxTextViewSize).height.rounded(.down)
+        height = height + textView.textContainerInset.top + textView.textContainerInset.bottom + 8
         height = height < defaultHeight ? defaultHeight : height
-
+        height = height > Misc.maxHeight ? Misc.maxHeight : height
         updateHeightHandle?(height)
     }
 }

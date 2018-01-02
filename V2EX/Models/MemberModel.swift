@@ -36,7 +36,7 @@ struct MemberModel {
     }
 
     public var avatarSrc: String {
-        return Constants.Config.URIScheme + avatar
+        return avatar.hasPrefix("http") ? avatar : Constants.Config.URIScheme + avatar
     }
 
     public var atUsername: String {

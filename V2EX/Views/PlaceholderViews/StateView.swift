@@ -3,7 +3,7 @@ import UIKit
 
 
 enum StatusType {
-    case empty, normal, error, notNet, noAuth, noSearchResult
+    case empty, emptyNoRetry, normal, error, notNet, noAuth, noSearchResult
 
     var image: UIImage? {
         switch self {
@@ -15,7 +15,7 @@ enum StatusType {
 
     var title: String {
         switch self {
-        case .empty:
+        case .empty, .emptyNoRetry:
             return "没有数据"
         case .notNet:
             return "无网络连接"
@@ -39,7 +39,7 @@ enum StatusType {
         switch self {
         case .noAuth:
             return "点击登录"
-        case .noSearchResult:
+        case .noSearchResult, .emptyNoRetry:
             return nil
         default:
             return "重试"

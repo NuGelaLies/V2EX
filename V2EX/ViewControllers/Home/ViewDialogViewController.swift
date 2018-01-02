@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class ViewDialogViewController: UITableViewController {
+class ViewDialogViewController: BaseTableViewController {
 
     // MARK: - Propertys
 
@@ -30,7 +30,6 @@ class ViewDialogViewController: UITableViewController {
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80
-        tableView.backgroundColor = ThemeStyle.style.value.bgColor
         tableView.keyboardDismissMode = .onDrag
         tableView.register(cellWithClass: TopicCommentCell.self)
         
@@ -52,9 +51,6 @@ class ViewDialogViewController: UITableViewController {
         tableView.contentInset = UIEdgeInsetsMake(-44, 0, 0, 0)
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return ThemeStyle.style.value.statusBarStyle
-    }
 }
 
 // MARK: - UITableViewDelegate

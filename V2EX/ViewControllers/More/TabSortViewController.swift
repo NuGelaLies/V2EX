@@ -1,6 +1,6 @@
 import UIKit
 
-class TabSortViewController: UITableViewController, NodeService {
+class TabSortViewController: BaseTableViewController, NodeService {
 
     // MARK: - UI
 
@@ -30,8 +30,6 @@ class TabSortViewController: UITableViewController, NodeService {
         nodes = homeNodes().filter { $0.title != "关注" }
         title = "节点排序"
 
-        tableView.backgroundColor = ThemeStyle.style.value.bgColor
-        tableView.separatorColor = ThemeStyle.style.value.borderColor
         tableView.register(cellWithClass: BaseTableViewCell.self)
         tableView.setEditing(true, animated: false)
 
@@ -40,10 +38,6 @@ class TabSortViewController: UITableViewController, NodeService {
         setupRx()
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return ThemeStyle.style.value.statusBarStyle
-    }
-    
     private func setupRx() {
         
         saveItem.rx.tap

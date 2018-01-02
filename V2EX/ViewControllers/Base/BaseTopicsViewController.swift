@@ -22,11 +22,7 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
     
     /// MARK: - Propertys
 
-    var topics: [TopicModel] = [] {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var topics: [TopicModel] = []
 
     public var href: String
     
@@ -34,7 +30,7 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
 
     internal var page = 1, maxPage = 1
 
-    /// MARk: - View Life Cycle
+    /// MARK: - View Life Cycle
     
     init(href: String) {
         self.href = href
@@ -92,6 +88,7 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
                 self?.tableView.separatorColor = theme.borderColor
             }.disposed(by: rx.disposeBag)
     }
+    
     // MARK: State Handle
 
     override func loadData() {
@@ -121,9 +118,11 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
             if self?.href != Misc.allHrefName {
                 self?.maxPage = maxPage
             }
+//            self?.topics = SQLiteDatabase.instance?.setReadHistory(topics: topic) ?? topic
             self?.topics = topic
             self?.endLoading()
             self?.tableView.endHeaderRefresh()
+            self?.tableView.reloadData()
             }, failure: { [weak self] error in
                 self?.tableView.endHeaderRefresh()
                 self?.endLoading(error: NSError(domain: "V2EX", code: -1, userInfo: nil))
@@ -187,6 +186,7 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
                 
                 self.maxPage = maxPage
                 self.topics.append(contentsOf: topics)
+                self.tableView.reloadData()
                 self.tableView.endRefresh(showNoMore: self.page >= maxPage)
         }) { [weak self] error in
             self?.page -= 1
@@ -196,7 +196,9 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
         }
     }
 
-    func tapHandle(_ type: TapType) {
+    /// MARK: - Actions
+    
+    public func tapHandle(_ type: TapType) {
         switch type {
         case .member(let member):
             let memberPageVC = MemberPageViewController(memberName: member.username)
@@ -206,6 +208,18 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
             navigationController?.pushViewController(nodeDetailVC, animated: true)
         default:
             break
+        }
+    }
+    
+    private func makeAsRead(indexPath: IndexPath) {
+        let topic = topics[indexPath.row]
+        guard let topicID = topic.topicID?.int else { return }
+        
+        topics[indexPath.row].isRead = true
+        self.tableView.reloadRows(at: [indexPath], with: .none)
+        guard let member = topic.member else { return }
+        GCD.runOnBackgroundThread {
+            SQLiteDatabase.instance?.addHistory(tid: topicID, title: topic.title, username: member.username, avatarURL: member.avatarSrc)
         }
     }
 }
@@ -233,9 +247,9 @@ extension BaseTopicsViewController: UITableViewDelegate, UITableViewDataSource {
             HUD.showError("操作失败，无法解析主题 ID")
             return
         }
-        topics[indexPath.row].isRead = true
         let topicDetailVC = TopicDetailViewController(topicID: topicId)
         self.navigationController?.pushViewController(topicDetailVC, animated: true)
+        makeAsRead(indexPath: indexPath)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -244,7 +258,7 @@ extension BaseTopicsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension BaseTopicsViewController: UIViewControllerPreviewingDelegate {
-
+    
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         (viewControllerToCommit as? TopicDetailViewController)?.showInputView = true
         show(viewControllerToCommit, sender: self)
@@ -255,7 +269,7 @@ extension BaseTopicsViewController: UIViewControllerPreviewingDelegate {
         guard let indexPath = tableView.indexPathForRow(at: location),
             let cell = tableView.cellForRow(at: indexPath) else { return nil }
         guard let topicID = topics[indexPath.row].topicID else { return nil }
-        topics[indexPath.row].isRead = true
+        makeAsRead(indexPath: indexPath)
         
         let viewController = TopicDetailViewController(topicID: topicID)
         viewController.showInputView = false

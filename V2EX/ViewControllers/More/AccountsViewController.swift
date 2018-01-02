@@ -1,6 +1,6 @@
 import UIKit
 
-class AccountsViewController: UITableViewController {
+class AccountsViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -99,8 +99,8 @@ extension HTMLParseService {
 
             return TopicModel(member: member, node: node, title: topicTitle, href: topicHref, lastReplyTime: lastReplyAndTime, replyCount: replyCount)
         })
-        
-        return topics
+        return SQLiteDatabase.instance?.setReadHistory(topics: topics) ?? topics
+//        return topics
     }
     
     /// 解析节点导航

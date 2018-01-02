@@ -100,6 +100,7 @@ extension NodeDetailViewController {
                 self.endLoading()
                 self.tableView.endRefresh(showNoMore: self.page >= maxPage)
                 self.setupRightBarButtonItems()
+                self.tableView.reloadData()
         }) { [weak self] error in
             self?.tableView.endFooterRefresh()
             self?.errorMessage = error

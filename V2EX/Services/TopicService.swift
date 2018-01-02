@@ -1,6 +1,10 @@
 import Foundation
 import Kanna
 
+enum TopicFavoriteType {
+    case detail, list
+}
+
 protocol TopicService: HTMLParseService {
 
     /// 获取 首页 数据
@@ -135,7 +139,8 @@ protocol TopicService: HTMLParseService {
     ///   - token: token
     ///   - success: 成功
     ///   - failure: 失败
-    func favoriteTopic(topicID: String,
+    func favoriteTopic(topicFavoriteType: TopicFavoriteType,
+                       topicID: String,
                        token: String,
                        success: Action?,
                        failure: Failure?)
@@ -147,7 +152,8 @@ protocol TopicService: HTMLParseService {
     ///   - token: token
     ///   - success: 成功
     ///   - failure: 失败
-    func unfavoriteTopic(topicID: String,
+    func unfavoriteTopic(topicFavoriteType: TopicFavoriteType,
+                         topicID: String,
                          token: String,
                          success: Action?,
                          failure: Failure?)
@@ -178,7 +184,6 @@ protocol TopicService: HTMLParseService {
 }
 
 extension TopicService {
-
     
     func index(
         success: ((_ nodes: [NodeModel], _ topics: [TopicModel], _ rewardable: Bool) -> Void)?,
@@ -458,7 +463,8 @@ extension TopicService {
         }, failure: failure)
     }
     
-    func favoriteTopic(topicID: String,
+    func favoriteTopic(topicFavoriteType: TopicFavoriteType = .detail,
+                       topicID: String,
                        token: String,
                        success: Action?,
                        failure: Failure?) {
@@ -467,12 +473,46 @@ extension TopicService {
         }, failure: failure)
     }
     
-    func unfavoriteTopic(topicID: String,
+    func unfavoriteTopic(topicFavoriteType: TopicFavoriteType = .detail,
+                         topicID: String,
                          token: String,
                          success: Action?,
                          failure: Failure?) {
-        Network.htmlRequest(target: .unfavoriteTopic(topicID: topicID, token: token), success: { html in
-            success?()
+        
+        guard topicFavoriteType == .list else {
+            Network.htmlRequest(target: .unfavoriteTopic(topicID: topicID, token: token), success: { html in
+                success?()
+            }, failure: failure)
+            return
+        }
+        
+        Network.htmlRequest(target: .topicDetail(topicID: topicID, page: 1), success: { html in
+            guard let _ = html.xpath("//*[@id='Wrapper']//div[@class='header']/small/text()[2]").first?.text else {
+                // 需要登录
+                if let error = html.xpath("//*[@id='Wrapper']/div[2]/div[2]").first?.content {
+                    failure?(error)
+                    return
+                }
+                // 需要验证
+                // 被重定向到首页, 无法查看
+                if html.xpath("//*[@id='Main']/div/div//span[@class='negative'][text()]").first?.content != nil ||
+                    html.title == "V2EX" {
+                    failure?("无法获取该主题 Token，请确保能正常浏览此主题")
+                    return
+                }
+                failure?("数据解析失败")
+                return
+            }
+            
+            // 获取 token
+            guard let csrfTokenPath = html.xpath("//*[@id='Wrapper']/div[@class='content']/div/div[@class='inner']//a[1]").first?["href"],
+                let csrfToken = URLComponents(string: csrfTokenPath)?["t"] else {
+                    failure?("无法获取 Token")
+                    return
+            }
+            Network.htmlRequest(target: .unfavoriteTopic(topicID: topicID, token: csrfToken), success: { html in
+                success?()
+            }, failure: failure)
         }, failure: failure)
     }
     

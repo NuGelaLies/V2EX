@@ -2,7 +2,7 @@ import UIKit
 import StoreKit
 import MessageUI
 
-class AboutViewController: UITableViewController {
+class AboutViewController: BaseTableViewController {
 
     enum AbountItemType {
         case grade, sourceCode, clearCache, feedback, libs, about, share
@@ -57,11 +57,6 @@ class AboutViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Status Bar Style
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return ThemeStyle.style.value.statusBarStyle
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -70,8 +65,6 @@ class AboutViewController: UITableViewController {
         headerContainerView.height = 170
         headerContainerView.addSubviews(logoView, versionLabel)
         tableView.tableHeaderView = headerContainerView
-        tableView.backgroundColor = ThemeStyle.style.value.bgColor
-        tableView.separatorColor = ThemeStyle.style.value.borderColor
 
         setupConstraints()
     }
