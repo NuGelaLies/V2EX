@@ -232,7 +232,7 @@ extension HTMLParseService {
                 attributedString.append(imageAttachment)
             } else if tagName == "a", let content = ele.content, let urlString = ele["href"] {
                 // 是图片链接
-                if ["jpg", "png", "jpeg", "gif"].contains(urlString.pathExtension.lowercased()),
+                if ["jpg", "png", "jpeg", "jpe", "gif"].contains(urlString.pathExtension.lowercased()),
                     let url = URL(string: urlString) {
                     let imageAttachment = wrapperImageAttachment(url)
                     attributedString.append(imageAttachment)

@@ -60,7 +60,7 @@ class ReadHistoryViewController: DataViewController {
 
     override func loadData() {
         startLoading()
-        readHistorys = SQLiteDatabase.instance?.loadReadHistory(count: 1000) ?? []
+        readHistorys = SQLiteDatabase.instance?.loadReadHistory(count: 2000) ?? []
     }
     
     override func hasContent() -> Bool {
@@ -80,9 +80,6 @@ extension ReadHistoryViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: ReadHistoryCell.self)!
         cell.topic = readHistorys[indexPath.row]
-        //        cell.tapHandle = { [weak self] type in
-        //            self?.tapHandle(type)
-        //        }
         return cell
     }
     

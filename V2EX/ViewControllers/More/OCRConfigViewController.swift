@@ -155,6 +155,7 @@ class OCRConfigViewController: BaseViewController {
                 
                 log.info("AppKey = \(appKey) , secretKey = \(secretKey)")
                 
+                AnswersEvents.logConfigOCR()
                 BaiduAppearence(appkey: appKey, secretKey: secretKey).save()
                 BaiduOauthToken.remove()
                 HUD.showSuccess("保存成功", duration: 2, completionBlock: { [weak self] in

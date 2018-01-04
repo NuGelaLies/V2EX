@@ -3,9 +3,9 @@ PODS:
   - Crashlytics (3.9.3):
     - Fabric (~> 1.7.2)
   - Fabric (1.7.2)
-  - IQKeyboardManagerSwift (5.0.6)
+  - IQKeyboardManagerSwift (5.0.7)
   - Kanna (2.1.1)
-  - Kingfisher (4.5.0)
+  - Kingfisher (4.6.1)
   - MarkdownView (1.1.0)
   - NSObject+Rx (4.2.0):
     - RxSwift (~> 4.0)
@@ -13,13 +13,13 @@ PODS:
   - PKHUD (5.0.0)
   - PullToRefreshKit (0.8.2)
   - Reveal-SDK (8)
-  - RxCocoa (4.0.0):
+  - RxCocoa (4.1.0):
     - RxSwift (~> 4.0)
   - RxOptional (3.3.0):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxSwift (4.0.0)
-  - SKPhotoBrowser (5.0.0)
+  - RxSwift (4.1.0)
+  - SKPhotoBrowser (5.0.3)
   - SnapKit (4.0.0)
   - StatefulViewController (3.0)
   - SwiftMessages (4.1.0)
@@ -67,19 +67,19 @@ SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
-  IQKeyboardManagerSwift: 02bfbb0dff71c66d0ab77d80d25dfce0c3717735
+  IQKeyboardManagerSwift: 30fb3a61de1af53a95e02b80fb54ed0a19d5ede5
   Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
-  Kingfisher: 26ae0473102b77b575da51960c932431e3745407
+  Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
   MarkdownView: 80db8e9a27a6c6cc22615e644e3e85c06065bab7
   NSObject+Rx: cbbc05e3cb3ad446cdbced3e00e39c9efaf02925
   PasswordExtension: 80a57bdae651d04437c8d2e07d90d5f18fe73180
   PKHUD: 3c001512c6e002091184197a8de7a20420786e3b
   PullToRefreshKit: 57bcedad80fbe081c410c6889a744fe8b53c98d7
   Reveal-SDK: 43be4e662864e937960d0d04d005135e29c4e53b
-  RxCocoa: d62846ca96495d862fa4c59ea7d87e5031d7340e
+  RxCocoa: cc1fec49cdc8fabe645964de7c51c099a36c2aa8
   RxOptional: e5448d3e21024489e07c31f6a262f2b50c975367
-  RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
-  SKPhotoBrowser: fe936f878955a568c726bf05d14e1d2717d91ce0
+  RxSwift: 4219941c1244c88002901bd87a69d3aea9ae71f0
+  SKPhotoBrowser: 6de77f7004442e79059f19d86e2e7e6a03b43a13
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931
   SwiftMessages: 1bacc783c8f10bdfdc57c14860cae8a1f1fa6591

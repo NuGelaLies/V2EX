@@ -134,6 +134,7 @@ extension AboutViewController {
                 controller.popoverPresentationController?.sourceView = cell
                 controller.popoverPresentationController?.sourceRect = cell.bounds
             }
+            AnswersEvents.logInvite()
             currentViewController().present(controller, animated: true, completion: nil)
         case .about:
             openWebView(url: API.about.url)

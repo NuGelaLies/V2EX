@@ -90,7 +90,6 @@ extension TopicFavoriteViewController {
                 self?.unfavoriteTopic(topicFavoriteType: .list, topicID: topicID, token: "", success: {
                     self?.topics.remove(at: indexPath.row)
                     self?.tableView.deleteRows(at: [indexPath], with: .automatic)
-                    HUD.showSuccess("操作成功")
                     HUD.dismiss()
                 }, failure: { error in
                     HUD.showError(error)

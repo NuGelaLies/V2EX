@@ -102,7 +102,7 @@ class TopicDetailViewController: DataViewController, TopicService {
     private var commentText: String = ""
     private var isShowOnlyFloor: Bool = false
 
-    private var page = 1, maxPage = 1
+    private var page = 1, maxPage = 1, currentPage = 1, size = 100
 
     private var inputViewBottomConstranit: Constraint?
     private var inputViewHeightConstraint: Constraint?
@@ -327,6 +327,35 @@ class TopicDetailViewController: DataViewController, TopicService {
                 }
         }.disposed(by: rx.disposeBag)
         
+        backTopBtn.rx.longPressGesture
+            .subscribeNext { [weak self] _ in
+                guard let `self` = self, self.maxPage > 1 else { return }
+                let alertController = UIAlertController(title: "切换分页", message: nil, preferredStyle: .actionSheet)
+                
+                let rows = self.tableView.numberOfRows(inSection: 0)
+                
+                if self.currentPage > 1 {
+                    alertController.addAction(UIAlertAction(title: "上一页", style: .default, handler: { alertAction in
+                        self.currentPage -= 1
+                        let previousRow = ((self.currentPage - 1) * self.size)
+                        guard rows >= previousRow else { return }
+                        self.tableView.scrollToRow(at: IndexPath(row: previousRow, section: 0), at: .top, animated: true)
+                    }))
+                }
+                
+                if self.currentPage < self.maxPage {
+                    alertController.addAction(UIAlertAction(title: "下一页", style: .default, handler: { alertAction in
+                        let nextRow = (self.currentPage) * self.size
+                        guard rows >= nextRow else { return }
+                        self.tableView.scrollToRow(at: IndexPath(row: rows > nextRow ? nextRow : nextRow - 1, section: 0), at: .top, animated: true)
+                        self.currentPage += 1
+                    }))
+                }
+                alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                alertController.show(self, sourceView: self.backTopBtn)
+        }.disposed(by: rx.disposeBag)
+    
+        
         Observable.of(NotificationCenter.default.rx.notification(.UIKeyboardWillShow),
                       NotificationCenter.default.rx.notification(.UIKeyboardWillHide),
                       NotificationCenter.default.rx.notification(.UIKeyboardDidShow),
@@ -467,6 +496,11 @@ extension TopicDetailViewController: UITableViewDelegate, UITableViewDataSource 
 extension TopicDetailViewController {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if let currentIndexPath = self.tableView.indexPathsForVisibleRows?.last?.row {
+            currentPage = (currentIndexPath / size) + 1
+            log.info(currentPage)
+        }
         commentInputView.textView.resignFirstResponder()
         
         let isReachedBottom = scrollView.isReachedBottom()

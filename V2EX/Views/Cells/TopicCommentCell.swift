@@ -120,12 +120,6 @@ class TopicCommentCell: BaseTableViewCell {
             }
             
             thankLabelLeftConstraint?.update(offset: hostLabel.isHidden ? -35 : 10)
-
-            guard let attachments = contentLabel.textLayout?.attachments else { return }
-            for attachment in attachments {
-                guard let imageView = attachment.content as? ImageAttachment else { continue }
-                imageView.delegate = self
-            }
         }
     }
 
@@ -296,11 +290,3 @@ class TopicCommentCell: BaseTableViewCell {
         replyImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
     }
 }
-
-extension TopicCommentCell: ImageAttachmentDelegate {
-    func imageAttachmentTap(_ imageView: UIImageView) {
-        guard let image = imageView.image else { return }
-        tapHandle?(.image(image))
-    }
-}
-

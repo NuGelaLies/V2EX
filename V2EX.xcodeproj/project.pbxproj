@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2679076A484F9440FD8C14A2 /* Pods_V2EXTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69E17711CA7552BBF8B34515 /* Pods_V2EXTests.framework */; };
+		7703598F1FFDCFC3000A6C7A /* AnswersEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7703598E1FFDCFC3000A6C7A /* AnswersEvents.swift */; };
+		770359901FFDD3F3000A6C7A /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 779E67001FE1549700BD25FD /* CardView.xib */; };
 		771502BE1FEBE6F6008BB161 /* iPad App-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AB1FEBE6F6008BB161 /* iPad App-76.png */; };
 		771502BF1FEBE6F6008BB161 /* iPad App-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AC1FEBE6F6008BB161 /* iPad App-76@2x.png */; };
 		771502C01FEBE6F6008BB161 /* iPad Notifications-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AD1FEBE6F6008BB161 /* iPad Notifications-20.png */; };
@@ -201,6 +203,7 @@
 		038B6C7B12D8A9D80518EA73 /* Pods-V2EXUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EXUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EXUITests/Pods-V2EXUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		40829FCF6DA7112AC68BAE24 /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
 		69E17711CA7552BBF8B34515 /* Pods_V2EXTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2EXTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7703598E1FFDCFC3000A6C7A /* AnswersEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswersEvents.swift; sourceTree = "<group>"; };
 		771502AB1FEBE6F6008BB161 /* iPad App-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad App-76.png"; sourceTree = "<group>"; };
 		771502AC1FEBE6F6008BB161 /* iPad App-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad App-76@2x.png"; sourceTree = "<group>"; };
 		771502AD1FEBE6F6008BB161 /* iPad Notifications-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad Notifications-20.png"; sourceTree = "<group>"; };
@@ -588,6 +591,7 @@
 				BF9554DA1FBD73EE0054FC50 /* Preference.swift */,
 				BFF0A8781FCFFF810055B108 /* RequestReview.swift */,
 				BF343E901FE763F70003415B /* V2erError.swift */,
+				7703598E1FFDCFC3000A6C7A /* AnswersEvents.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -984,6 +988,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				770359901FFDD3F3000A6C7A /* CardView.xib in Resources */,
 				77269F601FAA0AF000DE6617 /* day.css in Resources */,
 				771502C61FEBE6F6008BB161 /* iPad Spotlight-40@2x.png in Resources */,
 				771502C81FEBE6F6008BB161 /* iPhone App-60@3x.png in Resources */,
@@ -1277,6 +1282,7 @@
 				77C8DF721F930B0E009DE52C /* LoginForm.swift in Sources */,
 				77C8DF741F9316F1009DE52C /* UITextField+Extension.swift in Sources */,
 				779B17061F8FAF5A00E912E7 /* UILable+Extension.swift in Sources */,
+				7703598F1FFDCFC3000A6C7A /* AnswersEvents.swift in Sources */,
 				BF2C54D21FC53BF500B944FB /* Keychain.swift in Sources */,
 				BFE8CB2D1FA09A9D007E2F02 /* MentionedParser.swift in Sources */,
 				BF45E00C1F9F0A400001BEB2 /* StateView.swift in Sources */,

@@ -2,15 +2,9 @@ import UIKit
 import Foundation
 import Kingfisher
 
-protocol ImageAttachmentDelegate : class {
-    func imageAttachmentTap(_ imageView: UIImageView)
-}
-
 class ImageAttachment: AnimatedImageView {
 
     public var url: URL?
-
-    weak var delegate : ImageAttachmentDelegate?
 
     init(url: URL?) {
         self.url = url
@@ -45,14 +39,15 @@ class ImageAttachment: AnimatedImageView {
         let tapCount = touch?.tapCount
         if let tapCount = tapCount {
             if tapCount == 1 {
-                self.handleSingleTap(touch!)
+                handleSingleTap()
             }
         }
         //取消后续的事件响应
         next?.touchesCancelled(touches, with: event)
     }
 
-    func handleSingleTap(_ touch:UITouch){
-        delegate?.imageAttachmentTap(self)
+    private func handleSingleTap(){
+        guard let img = image else { return }
+        showImageBrowser(imageType: .image(img))
     }
 }

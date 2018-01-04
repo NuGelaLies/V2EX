@@ -243,6 +243,9 @@ extension TopicSearchResultViewController {
     /// 获取搜索结果
     private func fecthResult() {
         guard let `query` = query else { return }
+        
+        AnswersEvents.logSearch(for: query)
+        
         startLoading()
 
         search(query: query, offset: offset, size: size, sortType: sortType, success: { [weak self] results in
@@ -264,6 +267,13 @@ extension TopicSearchResultViewController {
     /// - Parameter query: 关键字
     public func search(query: String?) {
         guard let `query` = query?.trimmed, query.isNotEmpty else { return }
+        
+        if query.hasPrefix("https://www.v2ex.com/t/") {
+            let topicID = query.lastPathComponent
+            let vc = TopicDetailViewController(topicID: topicID)
+            navigationController?.pushViewController(vc, animated: true)
+            return
+        }
         searchHistoryVC?.view.isHidden = true
         tableView.isHidden = false
 

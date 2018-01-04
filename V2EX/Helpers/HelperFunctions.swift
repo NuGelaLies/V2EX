@@ -36,11 +36,12 @@ func showImageBrowser(imageType: PhotoBrowserType) {
     guard let photoItem = photo else { return }
     SKPhotoBrowserOptions.bounceAnimation = true
     SKPhotoBrowserOptions.enableSingleTapDismiss = true
-    SKPhotoBrowserOptions.displayCloseButton = false
+//    SKPhotoBrowserOptions.displayCloseButton = false
     SKPhotoBrowserOptions.displayStatusbar = false
+    
     let photoBrowser = SKPhotoBrowser(photos: [photoItem])
     photoBrowser.initializePageIndex(0)
-    photoBrowser.showToolbar(bool: true)
+//    photoBrowser.showToolbar(bool: true)
     var currentVC = AppWindow.shared.window.rootViewController?.currentViewController()
     if currentVC == nil {
         currentVC = AppWindow.shared.window.rootViewController

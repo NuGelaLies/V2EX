@@ -52,6 +52,8 @@ enum API {
     case notifications(page: Int)
     // 删除通知
     case deleteNotification(notifacationID: String, once: String)
+    // 绑定手机
+    case bindPhone(callingCode: String, phoneNumber: String, password: String, once: String)
 
     // MARK: - 节点操作相关接口
 
@@ -195,6 +197,8 @@ extension API: TargetType {
             return .get("/notifications?p=\(page)")
         case let .deleteNotification(notifacationID, once):
             return .post("/delete/notification/\(notifacationID)?once=\(once)")
+        case .bindPhone:
+            return .post("/settings/phone")
         case .memberHome(let username):
             return .get("/member/\(username)")
         case .memberTopics(let username, let page):
@@ -248,6 +252,11 @@ extension API: TargetType {
             param["sort"] = sortType
         case .updateAvatar(_, let once):
             param["once"] = once
+        case let .bindPhone(callingCode, phoneNumber, password, once):
+            param["once"] = once
+            param["new_calling_code"] = callingCode // 86_CN
+            param["new_phone_number"] = phoneNumber
+            param["p"] = password
         case let .baiduAccessToken(clientId, clientSecret):
             param["grant_type"] = "client_credentials"
             param["client_id"] = clientId
