@@ -11,6 +11,7 @@ enum TapType {
     case image(UIImage)
     case webpage(URL)
     case topic(String)
+    case foreword(CommentModel)
 }
 
 class TopicDetailHeaderView: UIView {

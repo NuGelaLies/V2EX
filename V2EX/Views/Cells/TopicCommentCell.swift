@@ -52,6 +52,18 @@ class TopicCommentCell: BaseTableViewCell {
         return view
     }()
 
+    private lazy var forewordLabel: UIInsetLabel = {
+        let view = UIInsetLabel()
+        view.numberOfLines = 0
+        view.contentInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        view.backgroundColor = ThemeStyle.style.value.bgColor
+        view.textColor = ThemeStyle.style.value.titleColor
+        view.font = UIFont.preferredFont(forTextStyle: .body)
+        view.layer.cornerRadius = 3
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
     private lazy var contentLabel: YYLabel = {
         let view = YYLabel()
         view.numberOfLines = 0
@@ -84,6 +96,7 @@ class TopicCommentCell: BaseTableViewCell {
     }()
 
     private var thankLabelLeftConstraint: Constraint?
+    private var contentLabelTopConstraint: Constraint?
     
     public var tapHandle: ((_ type: TapType) -> Void)?
 
@@ -95,6 +108,19 @@ class TopicCommentCell: BaseTableViewCell {
 
     private let activationOffset: CGFloat = 70
     
+    public var forewordComment: CommentModel? {
+        didSet {
+            guard let comment = forewordComment else {
+                forewordLabel.text = nil
+                return
+            }
+            
+            let username = comment.member.username + ":"
+            forewordLabel.text = username + "  " + comment.content
+            forewordLabel.makeSubstringColor(username, color: ThemeStyle.style.value.linkColor)
+        }
+    }
+    
     public var comment: CommentModel? {
         didSet {
             guard let `comment` = comment else { return }
@@ -105,6 +131,8 @@ class TopicCommentCell: BaseTableViewCell {
             timeLabel.text =  comment.publicTime
 
             contentLabel.textLayout = comment.textLayout
+            forewordLabel.isHidden = forewordComment == nil
+            contentLabelTopConstraint?.update(offset: forewordLabel.isHidden ? -20 : 10)
 
             hostLabel.isHidden = (hostUsername ?? "")  != comment.member.username
             
@@ -120,6 +148,7 @@ class TopicCommentCell: BaseTableViewCell {
             }
             
             thankLabelLeftConstraint?.update(offset: hostLabel.isHidden ? -35 : 10)
+            backgroundColor = ThemeStyle.style.value.cellBackgroundColor
         }
     }
 
@@ -132,9 +161,6 @@ class TopicCommentCell: BaseTableViewCell {
         let avatarLongPressGesture = UILongPressGestureRecognizer()
         avatarLongPressGesture.minimumPressDuration = 0.25
         avatarView.addGestureRecognizer(avatarLongPressGesture)
-
-        let textViewLongPressGesture = UILongPressGestureRecognizer()
-        contentLabel.addGestureRecognizer(textViewLongPressGesture)
         
         let replyPanGesture = UIPanGestureRecognizer(target: self, action: #selector(replyPanGestureRecognizerHandle))
         replyPanGesture.delegate = self
@@ -150,12 +176,16 @@ class TopicCommentCell: BaseTableViewCell {
         avatarLongPressGesture.rx
             .event
             .subscribeNext { [weak self] gesture in
-
                 guard gesture.state == .began else { return }
                 guard let member = self?.comment?.member else { return }
                 self?.tapHandle?(.memberAvatarLongPress(member))
         }.disposed(by: rx.disposeBag)
         
+        forewordLabel.rx.tapGesture
+            .subscribeNext { [weak self] _ in
+                guard let `self` = self, let comment = self.forewordComment else { return }
+                self.tapHandle?(.foreword(comment))
+        }.disposed(by: rx.disposeBag)
         
         contentView.addSubviews(
             avatarView,
@@ -164,6 +194,7 @@ class TopicCommentCell: BaseTableViewCell {
             floorLabel,
             hostLabel,
             thankLabel,
+            forewordLabel,
             contentLabel,
             lineView,
             replyContainerView
@@ -210,9 +241,14 @@ class TopicCommentCell: BaseTableViewCell {
             $0.centerY.equalTo(usernameLaebl)
         }
 
+        forewordLabel.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(15)
+            $0.top.equalTo(avatarView.snp.bottom).offset(10)
+        }
+        
         contentLabel.snp.makeConstraints {
             $0.left.right.bottom.equalToSuperview().inset(15)
-            $0.top.equalTo(avatarView.snp.bottom).offset(10)
+            contentLabelTopConstraint = $0.top.equalTo(forewordLabel.snp.bottom).offset(10).constraint
         }
 
         lineView.snp.makeConstraints {

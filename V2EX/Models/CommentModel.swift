@@ -25,13 +25,34 @@ extension CommentModel: Hashable {
 
 extension CommentModel {
     
+    /// 查找上一个引用的回复
+    ///
+    /// - Parameters:
+    ///   - comments: 所有回复列表
+    ///   - currentComment: 当前所选回复
+    /// - Returns: 引用的回复
+    static func forewordComment(comments: [CommentModel], currentComment: CommentModel) -> CommentModel? {
+        guard let atUsers = CommentModel.atUsernames(currentComment),
+        let list = comments.split(separator: currentComment).first else { return nil }
+
+        let coms = list.filter { comment -> Bool in
+            guard var commentUsers = CommentModel.atUsernames(comment) else { return false }
+            commentUsers.insert(comment.member.atUsernameWithoutSpace)
+            let intersetions = commentUsers.intersection(atUsers)
+            if commentUsers.count > 0 && intersetions.count <= 0 { return false }
+            return atUsers.contains(comment.member.atUsernameWithoutSpace)
+        }
+        
+        return coms.last
+    }
+    
     /// 查找所有回复当中包含指定@用户的对话回复列表
     ///
     /// - Parameters:
     ///   - comments: 所有回复列表
     ///   - currentComment: 当前所选回复
     /// - Returns: 包含当前所选回复中所有@用户的对话回复列表
-    static func atUsernameComments(comments: [CommentModel], currentComment:CommentModel) -> [CommentModel] {
+    static func atUsernameComments(comments: [CommentModel], currentComment: CommentModel) -> [CommentModel] {
         guard var atUsers = CommentModel.atUsernames(currentComment) else { return [] }
 //        let ats = atUsers
         atUsers.insert(currentComment.member.atUsernameWithoutSpace)

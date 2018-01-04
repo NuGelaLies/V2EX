@@ -429,6 +429,8 @@ extension TopicDetailViewController: UITableViewDelegate, UITableViewDataSource 
         let cell = tableView.dequeueReusableCell(withClass: TopicCommentCell.self)!
         let comment = dataSources[indexPath.row]
         cell.hostUsername = topic?.member?.username ?? ""
+        let forewordComment = CommentModel.forewordComment(comments: comments, currentComment: comment)
+        cell.forewordComment = forewordComment
         cell.comment = comment
         cell.tapHandle = { [weak self] type in
             self?.tapHandle(type)
@@ -637,6 +639,20 @@ extension TopicDetailViewController {
         case .topic(let topicID):
             let topicDetailVC = TopicDetailViewController(topicID: topicID)
             self.navigationController?.pushViewController(topicDetailVC, animated: true)
+        case .foreword(let comment):
+            guard let floor = comment.floor.int else { return }
+            let forewordIndexPath = IndexPath(row: floor - 1, section: 0)
+            tableView.scrollToRow(at: forewordIndexPath, at: .top, animated: true)
+            
+            GCD.delay(0.6, block: {
+                UIView.animate(withDuration: 1, delay: 0, options: .curveLinear,  animations: {
+                    self.tableView.cellForRow(at: forewordIndexPath)?.backgroundColor = UIColor.hex(0xB3DBE8).withAlphaComponent(0.3)
+                }, completion: { _ in
+                    UIView.animate(withDuration: 0.5, delay: 0.8, options: .curveLinear,  animations: {
+                        self.tableView.cellForRow(at: forewordIndexPath)?.backgroundColor = ThemeStyle.style.value.cellBackgroundColor
+                    })
+                })
+            })
         }
     }
 

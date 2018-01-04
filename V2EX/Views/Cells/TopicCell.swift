@@ -85,10 +85,13 @@ class TopicCell: BaseTableViewCell {
 
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
-                self?.titleLabel.textColor = theme.titleColor
-                self?.nodeLabel.backgroundColor = theme == .day ? UIColor.hex(0xf5f5f5) : theme.bgColor
-                self?.usernameLabel.textColor = theme.titleColor
-                self?.lastReplyLabel.textColor = theme.dateColor
+                guard let `self` = self else { return }
+                let titleColor = theme.titleColor
+                self.titleLabel.textColor = (self.topic?.isRead ?? false) ? titleColor.withAlphaComponent(0.4) : titleColor
+//                self?.titleLabel.textColor = theme.titleColor
+                self.nodeLabel.backgroundColor = theme == .day ? UIColor.hex(0xf5f5f5) : theme.bgColor
+                self.usernameLabel.textColor = theme.titleColor
+                self.lastReplyLabel.textColor = theme.dateColor
             }.disposed(by: rx.disposeBag)
     }
     
