@@ -4,7 +4,8 @@ class ReplyCell: BaseTableViewCell {
     
     private var replyDesLabel: UILabel?
     
-    private var contentLabel: UILabel!
+    private var contentLabel: UILabel?
+    
     override func initialize() {
         separatorInset = .zero
         selectionStyle = .none
@@ -21,7 +22,7 @@ class ReplyCell: BaseTableViewCell {
         }
         self.replyDesLabel = replyDesLabel
         
-        contentLabel = UILabel()
+        let contentLabel = UILabel()
             .hand.adhere(toSuperView: contentView)
             .hand.layout {
                 $0.top.equalTo(replyDesLabel.snp.bottom).offset(10)
@@ -35,17 +36,18 @@ class ReplyCell: BaseTableViewCell {
                     label.adjustsFontForContentSizeCategory = true
                 }
         }
+        self.contentLabel = contentLabel
 
         ThemeStyle.style.asObservable()
-            .subscribeNext { [weak self] theme in
-                self?.contentLabel.textColor = theme.titleColor
+            .subscribeNext { theme in
+                contentLabel.textColor = theme.titleColor
             }.disposed(by: rx.disposeBag)
     }
     
     public var message: MessageModel? {
         didSet {
             guard let `message` = message else { return }
-            contentLabel.text = message.content
+            contentLabel?.text = message.content
             replyDesLabel?.text = message.replyTypeStr
             replyDesLabel?.makeSubstringColor(message.topic.title, color: Theme.Color.linkColor)
             //            replyDesLabel.makeSubstringColor(message.time, color: UIColor.hex(0xe2e2e2))

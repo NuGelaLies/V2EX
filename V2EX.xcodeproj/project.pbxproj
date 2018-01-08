@@ -10,6 +10,9 @@
 		2679076A484F9440FD8C14A2 /* Pods_V2EXTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69E17711CA7552BBF8B34515 /* Pods_V2EXTests.framework */; };
 		7703598F1FFDCFC3000A6C7A /* AnswersEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7703598E1FFDCFC3000A6C7A /* AnswersEvents.swift */; };
 		770359901FFDD3F3000A6C7A /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 779E67001FE1549700BD25FD /* CardView.xib */; };
+		770FFD122000B0A5000F3CA9 /* BlockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770FFD112000B0A5000F3CA9 /* BlockListViewController.swift */; };
+		770FFD142000BA7C000F3CA9 /* FilterNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770FFD132000BA7C000F3CA9 /* FilterNil.swift */; };
+		770FFD162000BEAA000F3CA9 /* BlockedMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770FFD152000BEAA000F3CA9 /* BlockedMemberCell.swift */; };
 		771502BE1FEBE6F6008BB161 /* iPad App-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AB1FEBE6F6008BB161 /* iPad App-76.png */; };
 		771502BF1FEBE6F6008BB161 /* iPad App-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AC1FEBE6F6008BB161 /* iPad App-76@2x.png */; };
 		771502C01FEBE6F6008BB161 /* iPad Notifications-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AD1FEBE6F6008BB161 /* iPad Notifications-20.png */; };
@@ -204,6 +207,9 @@
 		40829FCF6DA7112AC68BAE24 /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
 		69E17711CA7552BBF8B34515 /* Pods_V2EXTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2EXTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7703598E1FFDCFC3000A6C7A /* AnswersEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswersEvents.swift; sourceTree = "<group>"; };
+		770FFD112000B0A5000F3CA9 /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListViewController.swift; sourceTree = "<group>"; };
+		770FFD132000BA7C000F3CA9 /* FilterNil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterNil.swift; sourceTree = "<group>"; };
+		770FFD152000BEAA000F3CA9 /* BlockedMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedMemberCell.swift; sourceTree = "<group>"; };
 		771502AB1FEBE6F6008BB161 /* iPad App-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad App-76.png"; sourceTree = "<group>"; };
 		771502AC1FEBE6F6008BB161 /* iPad App-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad App-76@2x.png"; sourceTree = "<group>"; };
 		771502AD1FEBE6F6008BB161 /* iPad Notifications-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad Notifications-20.png"; sourceTree = "<group>"; };
@@ -490,6 +496,7 @@
 			isa = PBXGroup;
 			children = (
 				77C8DF6A1F92FD8F009DE52C /* MoreViewController.swift */,
+				770FFD112000B0A5000F3CA9 /* BlockListViewController.swift */,
 				77B0A7571FFB47AA003ED8F6 /* ReadHistoryViewController.swift */,
 				BFCB729C1FAB163900F1BDCA /* LibrarysViewController.swift */,
 				77B75DAD1F94FB8C00B7312B /* NodeCollectViewController.swift */,
@@ -524,6 +531,7 @@
 				7794DA311FD2E2A500B7B299 /* FenCiCell.swift */,
 				77B161741FE625D500487F4F /* WordCell.swift */,
 				77B0A7591FFB4957003ED8F6 /* ReadHistoryCell.swift */,
+				770FFD152000BEAA000F3CA9 /* BlockedMemberCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -826,6 +834,7 @@
 				77507E681F9B168800D62286 /* String+PinYin.swift */,
 				BFCB674C1F8F4A2200D05A90 /* Foundation+Extension.swift */,
 				BF45E0041F9EFEE30001BEB2 /* EnumCollection.swift */,
+				770FFD132000BA7C000F3CA9 /* FilterNil.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -1271,6 +1280,7 @@
 				7756CCCC1F92475F00EF47B8 /* NodeDetailViewController.swift in Sources */,
 				77B75DAE1F94FB8C00B7312B /* NodeCollectViewController.swift in Sources */,
 				BFF178971FCD07F0004A5F43 /* UIAlertController+Extension.swift in Sources */,
+				770FFD142000BA7C000F3CA9 /* FilterNil.swift in Sources */,
 				BF5A6B8B1F99E9DB00CF6BA1 /* ReplyCell.swift in Sources */,
 				BF9EC8201F95C39A00E7AA02 /* MemberPageViewController.swift in Sources */,
 				BF45E00A1F9F08A90001BEB2 /* DataViewController.swift in Sources */,
@@ -1284,6 +1294,7 @@
 				779B17061F8FAF5A00E912E7 /* UILable+Extension.swift in Sources */,
 				7703598F1FFDCFC3000A6C7A /* AnswersEvents.swift in Sources */,
 				BF2C54D21FC53BF500B944FB /* Keychain.swift in Sources */,
+				770FFD162000BEAA000F3CA9 /* BlockedMemberCell.swift in Sources */,
 				BFE8CB2D1FA09A9D007E2F02 /* MentionedParser.swift in Sources */,
 				BF45E00C1F9F0A400001BEB2 /* StateView.swift in Sources */,
 				77C8DF6B1F92FD8F009DE52C /* MoreViewController.swift in Sources */,
@@ -1357,6 +1368,7 @@
 				BF5A6B6B1F99851500CF6BA1 /* MessageCell.swift in Sources */,
 				BF4D779E1F9D896500FAEB7C /* MarkdownPreviewViewController.swift in Sources */,
 				77B0A75C1FFB4A32003ED8F6 /* BaseTableViewController.swift in Sources */,
+				770FFD122000B0A5000F3CA9 /* BlockListViewController.swift in Sources */,
 				BF45DFD21F9ED9140001BEB2 /* ErrorView.swift in Sources */,
 				77D0DDF31F9F677500DDC366 /* MemberCell.swift in Sources */,
 				BF7B111A1F91E5A3003815C1 /* HUD.swift in Sources */,

@@ -153,7 +153,9 @@ class TopicCommentCell: BaseTableViewCell {
     }
 
     override func initialize() {
-        selectionStyle = .none
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = UIColor.hex(0xB3DBE8).withAlphaComponent(0.3)
+        selectedBackgroundView = bgColorView
         
         let avatarTapGesture = UITapGestureRecognizer()
         avatarView.addGestureRecognizer(avatarTapGesture)
@@ -313,8 +315,8 @@ class TopicCommentCell: BaseTableViewCell {
             }, completion: { _ in
                 self.resetState()
                 guard -translationX >= self.activationOffset else { return }
-                guard let member = self.comment?.member else { return }
-                self.tapHandle?(.reply(member))
+                guard let comment = self.comment else { return }
+                self.tapHandle?(.reply(comment))
             })
         default:
             break
@@ -324,5 +326,13 @@ class TopicCommentCell: BaseTableViewCell {
     private func resetState() {
         replyImageView.fadeOut()
         replyImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+    }
+    
+    // 选中cell时背景颜色会同化, 重新覆盖
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: true)
+        
+        forewordLabel.backgroundColor = ThemeStyle.style.value.bgColor
+        hostLabel.backgroundColor = ThemeStyle.style.value.globalColor.withAlphaComponent(0.3)
     }
 }

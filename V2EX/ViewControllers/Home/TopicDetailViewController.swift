@@ -149,7 +149,7 @@ class TopicDetailViewController: DataViewController, TopicService {
         setStatusBarBackground(.clear)
         isShowToolBarVariable.value = false
     }
-
+    
     init(topicID: String) {
         self.topicID = topicID
 
@@ -203,13 +203,13 @@ class TopicDetailViewController: DataViewController, TopicService {
             self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
             log.info(anchor, indexPath)
             self.anchor = nil
-
+            
             GCD.delay(1, block: {
                 UIView.animate(withDuration: 1, delay: 0, options: .curveLinear,  animations: {
-                    self.tableView.cellForRow(at: indexPath)?.backgroundColor = UIColor.hex(0xB3DBE8).withAlphaComponent(0.3)
+                    self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                 }, completion: { _ in
                     UIView.animate(withDuration: 0.5, delay: 0.8, options: .curveLinear,  animations: {
-                        self.tableView.cellForRow(at: indexPath)?.backgroundColor = ThemeStyle.style.value.cellBackgroundColor
+                        self.tableView.deselectRow(at: indexPath, animated: true)
                     })
                 })
             })
@@ -371,6 +371,9 @@ class TopicDetailViewController: DataViewController, TopicService {
                 UIView.animate(withDuration: duration ?? 0.25) {
                     self.view.layoutIfNeeded()
                 }
+                if self.commentInputView.textView.isFirstResponder {
+                    _ = self.selectComment
+                }
             }.disposed(by: rx.disposeBag)
         
 //        NotificationCenter.default.rx
@@ -395,6 +398,29 @@ class TopicDetailViewController: DataViewController, TopicService {
             .subscribeNext { [weak self] isShow in
                 guard let `self` = self else { return }
                 self.setTabBarHiddn(isShow)
+            }.disposed(by: rx.disposeBag)
+        
+//        tableView.rx.tapGesture
+//            .subscribeNext { [weak self] gesture in
+//                guard let `self` = self else { return }
+//                let point = gesture.location(in: self.tableView)
+//                guard let indexPath = self.tableView.indexPathForRow(at: point) else { return }
+//                self.didSelectRowAt(indexPath, point: point)
+//        }.disposed(by: rx.disposeBag)
+        
+        NotificationCenter.default.rx
+            .notification(Notification.Name.UIMenuControllerDidHideMenu)
+            .subscribeNext { [weak self] _ in
+                guard let selectIndexPath = self?.tableView.indexPathForSelectedRow else { return }
+                GCD.delay(0.3, block: {
+                    if UIMenuController.shared.isMenuVisible.not {
+                        self?.tableView.deselectRow(at: selectIndexPath, animated: false)
+                    }
+                    log.info(UIMenuController.shared.isMenuVisible)
+                    //                    if UIMenuController.shared.isMenuVisible {
+                    //                        self?.tableView.selectRow(at: selectIndexPath, animated: true, scrollPosition: .none)
+                    //                    }
+                })
             }.disposed(by: rx.disposeBag)
     }
 
@@ -437,24 +463,28 @@ extension TopicDetailViewController: UITableViewDelegate, UITableViewDataSource 
         }
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        
         // 强制结束 HeaderView 中 WebView 的第一响应者， 不然无法显示 MenuView
-        if !commentInputView.textView.isFirstResponder {
-            view.endEditing(true)
-        }
-
+        if !commentInputView.textView.isFirstResponder { view.endEditing(true) }
+        
         // 如果当前控制器不是第一响应者不显示 MenuView
-        guard isFirstResponder else { return }
+        if isFirstResponder.not { commentInputView.textView.resignFirstResponder() }
+        
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
-
+        
         let comment = dataSources[indexPath.row]
         let menuVC = UIMenuController.shared
         var targetRectangle = cell.frame
-        targetRectangle.origin.y = targetRectangle.height * 0.4
-        targetRectangle.size.height = 1
-
+        let cellFrame = tableView.convert(tableView.rectForRow(at: indexPath), to: tableView.superview)
+        let cellbottom = cellFrame.maxY
+        let cellTop = cellFrame.origin.y
+        
+        let cellBottomVisibleHeight = (cellFrame.height - (cellbottom - view.height) - (isShowToolBarVariable.value.not ? commentInputView.height : 0)).half
+        let cellTopVisibleHeight = fabs(cellTop) + ((cellFrame.height - fabs(cellTop)).half)
+        targetRectangle.origin.y = cellbottom > tableView.height ? cellBottomVisibleHeight : cellTop < tableView.y ? cellTopVisibleHeight : targetRectangle.height.half
+        
         let replyItem = UIMenuItem(title: "回复", action: #selector(replyCommentAction))
         let atUserItem = UIMenuItem(title: "@TA", action: #selector(atMemberAction))
         let copyItem = UIMenuItem(title: "复制", action: #selector(copyCommentAction))
@@ -474,7 +504,7 @@ extension TopicDetailViewController: UITableViewDelegate, UITableViewDataSource 
         // 3. 当前点击的回复是登录用户本人
         if comment.isThank ||
             (topic?.member?.username == comment.member.username &&
-            AccountModel.current?.username == topic?.member?.username) ||
+                AccountModel.current?.username == topic?.member?.username) ||
             AccountModel.current?.username == comment.member.username {
         } else {
             menuVC.menuItems?.insert(thankItem, at: 1)
@@ -487,10 +517,6 @@ extension TopicDetailViewController: UITableViewDelegate, UITableViewDataSource 
             generator.prepare()
             generator.impactOccurred()
         }
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
     }
 }
 
@@ -625,10 +651,13 @@ extension TopicDetailViewController {
             self.navigationController?.pushViewController(memberPageVC, animated: true)
         case .memberAvatarLongPress(let member):
             atMember(member.atUsername)
-        case .reply(let member):
-            if member.atUsername == commentInputView.textView.text && commentInputView.textView.isFirstResponder { return }
+        case .reply(let comment):
+            if comment.member.atUsername == commentInputView.textView.text && commentInputView.textView.isFirstResponder { return }
             commentInputView.textView.text = ""
-            atMember(member.atUsername)
+//            if let index = comments.index(of: comment) {
+//                tableView.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .none)
+//            }
+            atMember(comment.member.atUsername, comment: comment)
         case .imageURL(let src):
             showImageBrowser(imageType: .imageURL(src))
         case .image(let image):
@@ -642,14 +671,20 @@ extension TopicDetailViewController {
         case .foreword(let comment):
             guard let floor = comment.floor.int else { return }
             let forewordIndexPath = IndexPath(row: floor - 1, section: 0)
-            tableView.scrollToRow(at: forewordIndexPath, at: .top, animated: true)
+        
+            // 在当前可视范围内 并且 cell没有超出屏幕外
+            if let cell = tableView.cellForRow(at: forewordIndexPath),
+                (tableView.visibleCells.contains(cell) && (cell.y - tableView.contentOffset.y > 10 || cell.y - tableView.contentOffset.y > cell.height)) {
+            } else {
+                tableView.scrollToRow(at: forewordIndexPath, at: .top, animated: true)
+            }
             
             GCD.delay(0.6, block: {
                 UIView.animate(withDuration: 1, delay: 0, options: .curveLinear,  animations: {
-                    self.tableView.cellForRow(at: forewordIndexPath)?.backgroundColor = UIColor.hex(0xB3DBE8).withAlphaComponent(0.3)
+                    self.tableView.selectRow(at: forewordIndexPath, animated: true, scrollPosition: .none)
                 }, completion: { _ in
                     UIView.animate(withDuration: 0.5, delay: 0.8, options: .curveLinear,  animations: {
-                        self.tableView.cellForRow(at: forewordIndexPath)?.backgroundColor = ThemeStyle.style.value.cellBackgroundColor
+                        self.tableView.deselectRow(at: forewordIndexPath, animated: true)
                     })
                 })
             })
@@ -733,7 +768,7 @@ extension TopicDetailViewController {
 extension TopicDetailViewController {
 
     // 如果已经 at 的用户， 让 TextView 选中用户名
-    private func atMember(_ atUsername: String?) {
+    private func atMember(_ atUsername: String?, comment: CommentModel? = nil) {
         guard var `atUsername` = atUsername, atUsername.trimmed.isNotEmpty else { return }
         commentInputView.textView.becomeFirstResponder()
 
@@ -746,7 +781,13 @@ extension TopicDetailViewController {
         if let lastCharacter = commentInputView.textView.text.last, lastCharacter != " " {
             atUsername.insert(" ", at: commentInputView.textView.text.startIndex)
         }
-        atUsername = Preference.shared.atMemberAddFloor ? atUsername + "#" + (selectComment?.floor ?? "") + " " : atUsername
+        let selectedComment = comment ?? selectComment
+        if Preference.shared.atMemberAddFloor, let floor = selectedComment?.floor {
+            atUsername += ("#" + floor + " ")
+            
+            // 如果设置了 selectedRange, 文本会被替换, 故重新设置 range
+            commentInputView.textView.selectedRange = NSRange(location: commentInputView.textView.text.count, length: 0)
+        }
         commentInputView.textView.insertText(atUsername)
     }
 
@@ -1156,6 +1197,63 @@ extension TopicDetailViewController {
                 return
         }
         UIApplication.shared.openURL(url)
+    }
+    
+    private func didSelectRowAt(_ indexPath: IndexPath, point: CGPoint) {
+        // 强制结束 HeaderView 中 WebView 的第一响应者， 不然无法显示 MenuView
+        if !commentInputView.textView.isFirstResponder {
+            view.endEditing(true)
+        }
+        
+        // 如果当前控制器不是第一响应者不显示 MenuView
+        //        guard isFirstResponder else { return }
+        if isFirstResponder.not {
+            commentInputView.textView.resignFirstResponder()
+        }
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+        
+        let comment = dataSources[indexPath.row]
+        let menuVC = UIMenuController.shared
+        
+        var targetRectangle = cell.frame
+        let pointCell = tableView.convert(point, to: cell)
+        
+        targetRectangle.origin.y = pointCell.y//targetRectangle.height * 0.4
+        targetRectangle.size.height = 1
+        
+        let replyItem = UIMenuItem(title: "回复", action: #selector(replyCommentAction))
+        let atUserItem = UIMenuItem(title: "@TA", action: #selector(atMemberAction))
+        let copyItem = UIMenuItem(title: "复制", action: #selector(copyCommentAction))
+        let fenCiItem = UIMenuItem(title: "分词", action: #selector(fenCiAction))
+        let thankItem = UIMenuItem(title: "感谢", action: #selector(thankCommentAction))
+        let viewDialogItem = UIMenuItem(title: "对话", action: #selector(viewDialogAction))
+        menuVC.setTargetRect(targetRectangle, in: cell)
+        menuVC.menuItems = [replyItem, copyItem, atUserItem, viewDialogItem]
+        
+        if comment.content.trimmed.isNotEmpty {
+            menuVC.menuItems?.insert(fenCiItem, at: 2)
+        }
+        
+        // 不显示感谢的情况
+        // 1. 已经感谢
+        // 2. 当前题主是登录用户本人 && 点击的回复是题主本人
+        // 3. 当前点击的回复是登录用户本人
+        if comment.isThank ||
+            (topic?.member?.username == comment.member.username &&
+                AccountModel.current?.username == topic?.member?.username) ||
+            AccountModel.current?.username == comment.member.username {
+        } else {
+            menuVC.menuItems?.insert(thankItem, at: 1)
+        }
+        
+        menuVC.setMenuVisible(true, animated: true)
+        
+        if #available(iOS 10.0, *) {
+            let generator = UIImpactFeedbackGenerator(style: .light)
+            generator.prepare()
+            generator.impactOccurred()
+        }
     }
 }
 

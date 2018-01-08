@@ -22,6 +22,7 @@ public extension FloatLiteralType {
 
 extension CGFloat {
 
+    /// 一半
     public var half: CGFloat {
         return self * 0.5
     }
@@ -194,7 +195,7 @@ extension UIDevice {
         case "iPhone7,1":                               return "iPhone 6 Plus"
         case "iPhone8,1":                               return "iPhone 6s"
         case "iPhone8,2":                               return "iPhone 6s Plus"
-        case "iPhone8,4":                               return "iPhone 5SE"
+        case "iPhone8,4":                               return "iPhone SE"
         case "iPhone9,1":                               return "iPhone 7"
         case "iPhone9,2":                               return "iPhone 7 Plus"
         case "iPhone10,1", "iPhone10,4":                return "iPhone 8"

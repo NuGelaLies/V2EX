@@ -186,7 +186,13 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
                 guard let `self` = self else { return }
                 
                 self.maxPage = maxPage
-                self.topics.append(contentsOf: topics)
+                // 数据去重
+                let ts = topics.filter({ rhs -> Bool in
+                    !self.topics.contains(where: { lhs -> Bool in
+                        return lhs.title == rhs.title
+                    })
+                })
+                self.topics.append(contentsOf: ts)
                 self.tableView.reloadData()
                 self.tableView.endRefresh(showNoMore: self.page >= maxPage)
         }) { [weak self] error in
@@ -242,6 +248,18 @@ extension BaseTopicsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         view.endEditing(true)
+        
+//        let webViewVC = SweetWebViewController()
+//        webViewVC.url = URL(string: API.currency(href: "").defaultURLString)
+//        webViewVC.webViewdidFinish = { [weak self] webView, url in
+//
+//            webView.evaluateJavaScript("document.getElementsByTagName('html')[0].innerHTML") { blocked, error in
+//                log.info(blocked, error)
+//            }
+//        }
+//        self.navigationController?.pushViewController(webViewVC, animated: true)
+//
+//        return
         
         let topic = topics[indexPath.row]
         guard let topicId = topic.topicID else {

@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppWindow.shared.prepare()
         AppSetup.prepare()
         SQLiteDatabase.initDatabase()
-        
         return true
     }
 

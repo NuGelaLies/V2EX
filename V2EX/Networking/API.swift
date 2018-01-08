@@ -6,10 +6,24 @@ enum CaptchaType: String {
     case forgot = "/forgot"
 }
 
+enum PrimaryKeyType {
+    case id(Int), username(String)
+    
+    var param: String {
+        switch self {
+        case .id(let id):
+            return "id=\(id)"
+        case .username(let username):
+            return "username=\(username)"
+        }
+    }
+}
+
 // V2EX js
 // https://www.v2ex.com/static/js/v2ex.js?v=2658dbd9f54ebdeb51d27a0611b2ba96
 //
 // 定义所有的请求接口
+
 
 enum API {
 
@@ -43,7 +57,7 @@ enum API {
     // 上传头像
     case updateAvatar(localURL: String, once: String)
     // 账号信息
-    case memberIntro(username: String)
+    case memberIntro(primartKeyType: PrimaryKeyType)
     // 特别关注
     case following
     // 我收藏的收藏
@@ -54,7 +68,9 @@ enum API {
     case deleteNotification(notifacationID: String, once: String)
     // 绑定手机
     case bindPhone(callingCode: String, phoneNumber: String, password: String, once: String)
-
+    // 取消屏蔽
+    case unblock(userID: Int, t: Int)
+    
     // MARK: - 节点操作相关接口
 
     // 我的节点
@@ -122,6 +138,8 @@ enum API {
     // OCR 识别
     case baiduOCRRecognize(accessToken: String, imgBase64: String)
     
+    // block List
+    case blockList
 }
 
 extension API: TargetType {
@@ -176,8 +194,9 @@ extension API: TargetType {
             return .get(url)
         case .updateAvatar:
             return .post("/settings/avatar")
-        case .memberIntro(let username):
-            return .get("/api/members/show.json?username=\(username)")
+        case .memberIntro(let primaryType):
+//            memberIntro(primartKeyType: PrimaryKeyType)
+            return .get("/api/members/show.json?\(primaryType.param)")
         case .nodes:
             return .get("/api/nodes/all.json")
         case let .nodeDetail(href, page):
@@ -199,6 +218,8 @@ extension API: TargetType {
             return .post("/delete/notification/\(notifacationID)?once=\(once)")
         case .bindPhone:
             return .post("/settings/phone")
+        case let .unblock(userID, t):
+            return .get("/unblock/\(userID)?t=\(t)")
         case .memberHome(let username):
             return .get("/member/\(username)")
         case .memberTopics(let username, let page):
@@ -278,10 +299,23 @@ extension API: TargetType {
         return Alamofire.URLEncoding()
     }
     
+    private enum UserAgentType {
+        case phone, pad
+        
+        var description: String {
+            switch self {
+            case .phone:
+               return "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.3 Mobile/14E277 Safari/603.1.30"
+            case .pad:
+                return "Mozilla/5.0 (iPad; CPU OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.3 Mobile/14E277 Safari/603.1.30"
+            }
+        }
+    }
+    
     // Returns HTTP header values.
     var httpHeaderFields: [String: String]? {
         var headers: [String: String] = [:]
-        headers["User-Agent"] = "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.3 Mobile/14E277 Safari/603.1.30"
+        headers["User-Agent"] = UserAgentType.phone.description
         switch self {
         case .signin, .forgot, .createTopic, .updateAvatar:
             headers["Referer"] = defaultURLString
@@ -289,8 +323,10 @@ extension API: TargetType {
             headers["Referer"] = baseURL + "/mission/daily"
         case .comment:
             if UIDevice.isiPad {
-                headers["User-Agent"] = "Mozilla/5.0 (iPad; CPU OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.3 Mobile/14E277 Safari/603.1.30"
+                headers["User-Agent"] = UserAgentType.pad.description
             }
+        case .blockList:
+            headers["User-Agent"] = UserAgentType.pad.description
         default:
             break
         }
@@ -299,7 +335,7 @@ extension API: TargetType {
     
     var useCache: Bool {
         switch self {
-        case .nodes:
+        case .nodes, .memberIntro, .blockList:
             return true
         default:
             return false

@@ -147,7 +147,14 @@ extension Date {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.string(from: self)
     }
+    
+    public var YYYYMMDDHHMMSSDateString: String {
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return dateFormatter.string(from: self)
+    }
 
+    
     public func description(dateSeparator: String = "/", usFormat: Bool = false, nanosecond: Bool = false) -> String {
         var description: String
 

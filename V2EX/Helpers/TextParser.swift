@@ -31,6 +31,14 @@ struct TextParser {
             return try? NSRegularExpression(pattern: regex, options: [.caseInsensitive])
         }
     }
+    
+    /// blocklist
+    static var blockList: NSRegularExpression? {
+        get {
+            let regex: String = "blocked = \\[(.*?)\\]"
+            return try? NSRegularExpression(pattern: regex, options: [.caseInsensitive])
+        }
+    }
 
     /// 匹配链接和@
     static var linkAndAt: NSRegularExpression? {
@@ -52,12 +60,21 @@ extension TextParser {
     /// - Parameter str: 文本
     /// - Returns: 结果集
     static func extractLink(_ str: String) -> [String] {
-        var urls = [String]()
+        var urls: [String] = []
         guard let res = TextParser.link?.matches(in: str, options: [.withoutAnchoringBounds], range: NSRange(location: 0, length: str.count)) else { return []}
         for checkingRes in res {
             urls.append((str.NSString).substring(with: checkingRes.range))
         }
         return urls
+    }
+    
+    /// 提取 blocklist
+    static func extractBlockList(_ str: String) -> [Int] {
+        guard let res = TextParser.blockList?.matches(in: str, options: [.withoutAnchoringBounds], range: NSRange(location: 0, length: str.count)).first else { return [] }
+        var blockListStr = (str.NSString).substring(with: res.range).deleteOccurrences(target: "blocked = ")
+        blockListStr.removeFirst()
+        blockListStr.removeLast()
+        return blockListStr.components(separatedBy: ",").map { $0.trimmed.int }.filterNil()
     }
 }
 

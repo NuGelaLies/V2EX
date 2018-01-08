@@ -20,7 +20,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
         view.addSubview(scrollView)
         return scrollView
     }()
-
+    
     // MARK: - Propertys
     
     private var nodes: [NodeModel] = []
@@ -32,7 +32,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupSegmentView()
         fetchData()
 
@@ -255,7 +255,6 @@ extension HomeViewController: UIScrollViewDelegate {
         segmentView?.setSelectIndex(index: index)
 
         let willShowVC = childViewControllers[index]
-
         if willShowVC.isViewLoaded { return }
         willShowVC.view.frame = scrollView.bounds
         scrollView.addSubview(willShowVC.view)

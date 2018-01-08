@@ -211,6 +211,7 @@ public class SQLiteDatabase {
             topics.append(TopicModel(member: MemberModel(username: username, url: username, avatar: avatarURL), node: nil, title: title, href: tid.description))
         }
 
+        log.verbose(topics.count)
         return topics
     }
 

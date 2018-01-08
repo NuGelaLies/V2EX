@@ -74,6 +74,27 @@ protocol AccountService: HTMLParseService {
         href: String,
         success: Action?,
         failure: Failure?)
+    
+    /// 取消屏蔽 用户
+    ///
+    /// - Parameters:
+    ///   - userID: 用户id
+    ///   - success: 成功
+    ///   - failure: 失败
+    func unblock(
+        userID: Int,
+        success: Action?,
+        failure: Failure?)
+    
+    /// 查看所有block用户
+    ///
+    /// - Parameters:
+    ///   - success: 成功
+    ///   - failure: 失败
+    /// - Returns: block member list
+    func blockedMember(
+        success: (([AccountModel]) -> Void)?,
+        failure: Failure?)
 
     /// 收藏 或 取消收藏 节点， 根据 href 决定
     ///
@@ -86,6 +107,12 @@ protocol AccountService: HTMLParseService {
         success: Action?,
         failure: Failure?)
 
+    /// 收藏列表
+    ///
+    /// - Parameters:
+    ///   - page: page
+    ///   - success: 成功
+    ///   - failure: 失败
     func myFavorite(
         page: Int,
         success: @escaping ((_ topics: [TopicModel], _ maxPage: Int) -> Void),
@@ -383,7 +410,8 @@ extension AccountService {
         username: String,
         success: @escaping ((AccountModel) -> Void),
         failure: Failure?) {
-        Network.request(target: .memberIntro(username: username), success: { data in
+
+        Network.request(target: .memberIntro(primartKeyType: .username(username)), success: { data in
             guard let account = AccountModel.account(data: data) else {
                 failure?("未知错误")
                 return
@@ -412,7 +440,57 @@ extension AccountService {
             success?()
         }, failure: failure)
     }
-
+    
+    func unblock(
+        userID: Int,
+        success: Action?,
+        failure: Failure?) {
+        guard let username = AccountModel.current?.username else {
+            failure?("当前登录状态异常，请尝试重新登录")
+            return
+        }
+        userIntro(username: username, success: { account in
+            guard let created = account.created else {
+                failure?("操作失败，无法获取 created，请尝试重新操作")
+                return
+            }
+            Network.htmlRequest(target: API.unblock(userID: userID, t: created), success: { html in
+                success?()
+            }, failure: failure)
+        }, failure: failure)
+    }
+    
+    func blockedMember(
+        success: (([AccountModel]) -> Void)?,
+        failure: Failure?) {
+        Network.htmlRequest(target: .blockList, success: { html in
+            guard let content = html.content,
+                content.contains("blocked") else {
+                    failure?("无法获取 blocked 列表")
+                    return
+            }
+            let blockedIDs = TextParser.extractBlockList(content)
+            guard blockedIDs.count.boolValue else {
+                success?([])
+                return
+            }
+            
+            var accounts: [AccountModel] = []
+            
+            for id in blockedIDs {
+                Network.request(target: .memberIntro(primartKeyType: .id(id)), success: { data in
+                    guard let account = AccountModel.account(data: data) else {
+                        failure?("未知错误")
+                        return
+                    }
+                    accounts.append(account)
+                    success?(accounts)
+                }, failure: { error in
+                    log.info(error)
+                })
+            }
+        }, failure: failure)
+    }
 
     func favorite(
         href: String,

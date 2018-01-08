@@ -40,8 +40,8 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
         return view
     }()
     
-    private lazy var followBtn: UIButton = {
-        let view = UIButton()
+    private lazy var followBtn: LoadingButton = {
+        let view = LoadingButton()
         view.setTitle("关注", for: .normal)
         view.setTitle("已关注", for: .selected)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 14)
@@ -52,8 +52,8 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
         return view
     }()
     
-    private lazy var blockBtn: UIButton = {
-        let view = UIButton()
+    private lazy var blockBtn: LoadingButton = {
+        let view = LoadingButton()
         view.setTitle("屏蔽", for: .normal)
         view.setTitle("已屏蔽", for: .selected)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 14)
@@ -312,20 +312,26 @@ extension MemberPageViewController {
 
     private func blockUserHandle() {
         guard let member = member, let href = member.blockOrUnblockHref else { return }
+        blockBtn.isLoading = true
         block(href: href, success: { [weak self] in
             self?.member?.isBlock = !member.isBlock
             HUD.showSuccess("已成功\(!member.isBlock ? "屏蔽" : "取消屏蔽")用户 \(member.username)")
-        }) { error in
+            self?.blockBtn.isLoading = false
+        }) { [weak self] error in
+            self?.blockBtn.isLoading = false
             HUD.showError(error)
         }
     }
 
     private func followUserHandle() {
         guard let member = member, let href = member.followOrUnfollowHref else { return }
+        followBtn.isLoading = true
         follow(href: href, success: { [weak self] in
             self?.member?.isFollow = !member.isFollow
             HUD.showSuccess("已成功\(!member.isFollow ? "关注" : "取消关注")用户 \(member.username)")
-        }) { error in
+            self?.followBtn.isLoading = false
+        }) { [weak self] error in
+            self?.followBtn.isLoading = false
             HUD.showError(error)
         }
     }
