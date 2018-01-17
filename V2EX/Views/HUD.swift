@@ -30,7 +30,7 @@ final class HUD {
         case success, info, warning, error
     }
     
-    private static var isShown:Bool = false
+    private static var isShown: Bool = false
 
     class func configureAppearance() {
         

@@ -191,28 +191,14 @@ class TopicDetailViewController: DataViewController, TopicService {
         }
 
         headerView.webLoadComplete = { [weak self] in
-            self?.endLoading()
-            self?.headerView.isHidden = false
-            self?.tableView.reloadData()
-            self?.setupRefresh()
-            
             guard let `self` = self else { return }
-            guard let anchor = self.anchor,
-                self.tableView.numberOfRows(inSection: 0) >= anchor else { return }
-            let indexPath = IndexPath(row: anchor - 1, section: 0)
-            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-            log.info(anchor, indexPath)
-            self.anchor = nil
+
+            self.endLoading()
+            self.headerView.isHidden = false
+            self.tableView.reloadData()
+            self.setupRefresh()
             
-            GCD.delay(1, block: {
-                UIView.animate(withDuration: 1, delay: 0, options: .curveLinear,  animations: {
-                    self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
-                }, completion: { _ in
-                    UIView.animate(withDuration: 0.5, delay: 0.8, options: .curveLinear,  animations: {
-                        self.tableView.deselectRow(at: indexPath, animated: true)
-                    })
-                })
-            })
+            self.perform(#selector(self.scrollToAnchor), with: nil, afterDelay: 0.5)
         }
 
         commentInputView.sendHandle = { [weak self] in
@@ -252,6 +238,26 @@ class TopicDetailViewController: DataViewController, TopicService {
         tableView.addFooterRefresh { [weak self] in
             self?.fetchMoreComment()
         }
+    }
+    
+    // 滚动到锚点位置
+    @objc private func scrollToAnchor() {
+        guard let anchor = self.anchor,
+            tableView.numberOfRows(inSection: 0) >= anchor else { return }
+        self.anchor = nil
+        
+        let indexPath = IndexPath(row: anchor - 1, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        
+        GCD.delay(1, block: {
+            UIView.animate(withDuration: 1, delay: 0, options: .curveLinear,  animations: {
+                self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+            }, completion: { _ in
+                UIView.animate(withDuration: 0.5, delay: 0.8, options: .curveLinear,  animations: {
+                    self.tableView.deselectRow(at: indexPath, animated: true)
+                })
+            })
+        })
     }
 
     private func interactHook(_ URL: URL) {

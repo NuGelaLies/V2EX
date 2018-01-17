@@ -487,10 +487,13 @@ extension SweetWebViewController: WKNavigationDelegate {
 private extension SweetWebViewController {
     
     func becomeCurrent(_ webView: WKWebView) {
-        if webView.userActivity == nil && webView.url?.scheme != nil {
-            webView.userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
-            webView.userActivity?.webpageURL = webView.url
-        }
+        guard webView.userActivity == nil,
+            let url = webView.url,
+            let _ = url.scheme,
+            UIApplication.shared.canOpenURL(url) else { return }
+        
+        webView.userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+        webView.userActivity?.webpageURL = webView.url
         webView.userActivity?.becomeCurrent()
     }
     

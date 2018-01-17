@@ -67,11 +67,6 @@ public struct Logger {
         DispatchQueue.main.async {
             didAddLog?()
         }
-        if type == .error {
-            AnswersEvents.logError(logString)
-        } else if type == .warning {
-            AnswersEvents.logWarning(logString)
-        }
         self.detailedLog += logMessage
     }
 
