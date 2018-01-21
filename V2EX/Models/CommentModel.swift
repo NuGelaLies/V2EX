@@ -33,8 +33,10 @@ extension CommentModel {
     /// - Returns: 引用的回复
     static func forewordComment(comments: [CommentModel], currentComment: CommentModel) -> CommentModel? {
         guard let atUsers = CommentModel.atUsernames(currentComment),
-        let list = comments.split(separator: currentComment).first else { return nil }
-
+            /// 分离数组
+            /// omittingEmptySubsequences = false, 允许返回空的数组
+            let list = comments.split(separator: currentComment, maxSplits: 2, omittingEmptySubsequences: false).first else { return nil }
+        
         let coms = list.filter { comment -> Bool in
             guard var commentUsers = CommentModel.atUsernames(comment) else { return false }
             commentUsers.insert(comment.member.atUsernameWithoutSpace)
