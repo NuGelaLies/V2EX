@@ -38,6 +38,178 @@
 		773CD8F81F9B141200D5578F /* UIScrollView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773CD8F71F9B141200D5578F /* UIScrollView+Extension.swift */; };
 		77507E691F9B168800D62286 /* String+PinYin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77507E681F9B168800D62286 /* String+PinYin.swift */; };
 		77507E6B1F9B176700D62286 /* NodeSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77507E6A1F9B176700D62286 /* NodeSearchResultViewController.swift */; };
+		7752ACE02019BFFA0039DAF6 /* HighlightableContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AC6AE1F9AF07F0072C6E9 /* HighlightableContainer.swift */; };
+		7752ACE12019BFFA0039DAF6 /* RequestReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF0A8781FCFFF810055B108 /* RequestReview.swift */; };
+		7752ACE22019BFFA0039DAF6 /* ReadHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B0A7591FFB4957003ED8F6 /* ReadHistoryCell.swift */; };
+		7752ACE32019BFFA0039DAF6 /* SFHandoffSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777772621FD1A4FC00C8EB8B /* SFHandoffSafariViewController.swift */; };
+		7752ACE42019BFFA0039DAF6 /* WordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B161741FE625D500487F4F /* WordCell.swift */; };
+		7752ACE52019BFFA0039DAF6 /* UIViewChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779064471F9B72C1001A5ABA /* UIViewChain.swift */; };
+		7752ACE62019BFFA0039DAF6 /* IgnoreWordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B161721FE6246000487F4F /* IgnoreWordsViewController.swift */; };
+		7752ACE72019BFFA0039DAF6 /* TextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC89B481FA0283800759577 /* TextParser.swift */; };
+		7752ACE82019BFFA0039DAF6 /* UIView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77981D301FFB751400F1C48C /* UIView+Rx.swift */; };
+		7752ACE92019BFFA0039DAF6 /* ReadHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B0A7571FFB47AA003ED8F6 /* ReadHistoryViewController.swift */; };
+		7752ACEA2019BFFA0039DAF6 /* OCRConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D458221FD96FE30004225B /* OCRConfigViewController.swift */; };
+		7752ACEB2019BFFA0039DAF6 /* UIScrollView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773CD8F71F9B141200D5578F /* UIScrollView+Extension.swift */; };
+		7752ACEC2019BFFA0039DAF6 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2C54CF1FC536EA00B944FB /* AccountsViewController.swift */; };
+		7752ACED2019BFFA0039DAF6 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AC6B31F9AF07F0072C6E9 /* String+Extensions.swift */; };
+		7752ACEE2019BFFA0039DAF6 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC91D01F9490570050B7F5 /* ForgotPasswordViewController.swift */; };
+		7752ACEF2019BFFA0039DAF6 /* MemberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFAFDE81F9F4428000EB91C /* MemberListViewController.swift */; };
+		7752ACF02019BFFA0039DAF6 /* Swift+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8062B21FB14CAF0024BB37 /* Swift+Extension.swift */; };
+		7752ACF12019BFFA0039DAF6 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5A6B671F99834400CF6BA1 /* MessageViewController.swift */; };
+		7752ACF22019BFFA0039DAF6 /* TopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB67691F8F721700D05A90 /* TopicModel.swift */; };
+		7752ACF32019BFFA0039DAF6 /* NodeSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77507E6A1F9B176700D62286 /* NodeSearchResultViewController.swift */; };
+		7752ACF42019BFFA0039DAF6 /* Highlightable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AC6AD1F9AF07F0072C6E9 /* Highlightable.swift */; };
+		7752ACF52019BFFA0039DAF6 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B17071F8FB0AF00E912E7 /* UIImageView+Extension.swift */; };
+		7752ACF62019BFFA0039DAF6 /* NodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756CCC71F92360F00EF47B8 /* NodeCell.swift */; };
+		7752ACF72019BFFA0039DAF6 /* Scheduler+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8062B11FB14CAF0024BB37 /* Scheduler+Rx.swift */; };
+		7752ACF82019BFFA0039DAF6 /* BrowserActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1A1EB81FB58B3900DDBF67 /* BrowserActivity.swift */; };
+		7752ACF92019BFFA0039DAF6 /* NodeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756CCC91F923D6100EF47B8 /* NodeHeaderView.swift */; };
+		7752ACFA2019BFFA0039DAF6 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF45FCCC1F906E0D006B2C2F /* TopicDetailViewController.swift */; };
+		7752ACFB2019BFFA0039DAF6 /* BaiduOCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775E5DBC1FD82A0600D5BB44 /* BaiduOCR.swift */; };
+		7752ACFC2019BFFA0039DAF6 /* ViewDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE8CB281FA051E2007E2F02 /* ViewDialogViewController.swift */; };
+		7752ACFD2019BFFA0039DAF6 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC91CE1F948D8E0050B7F5 /* RegisterViewController.swift */; };
+		7752ACFE2019BFFA0039DAF6 /* TabSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB3B381FDFCAA6002D7E90 /* TabSortViewController.swift */; };
+		7752ACFF2019BFFA0039DAF6 /* UIPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AB5C61F97672300043269 /* UIPlaceholderTextView.swift */; };
+		7752AD002019BFFA0039DAF6 /* GoogleChromeActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1A1EB91FB58B3900DDBF67 /* GoogleChromeActivity.swift */; };
+		7752AD012019BFFA0039DAF6 /* NodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756CCCB1F92475F00EF47B8 /* NodeDetailViewController.swift */; };
+		7752AD022019BFFA0039DAF6 /* NodeCollectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B75DAD1F94FB8C00B7312B /* NodeCollectViewController.swift */; };
+		7752AD032019BFFA0039DAF6 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF178961FCD07F0004A5F43 /* UIAlertController+Extension.swift */; };
+		7752AD042019BFFA0039DAF6 /* FilterNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770FFD132000BA7C000F3CA9 /* FilterNil.swift */; };
+		7752AD052019BFFA0039DAF6 /* ReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5A6B8A1F99E9DB00CF6BA1 /* ReplyCell.swift */; };
+		7752AD062019BFFA0039DAF6 /* MemberPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EC81F1F95C39A00E7AA02 /* MemberPageViewController.swift */; };
+		7752AD072019BFFA0039DAF6 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF45E0091F9F08A90001BEB2 /* DataViewController.swift */; };
+		7752AD082019BFFA0039DAF6 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB67571F8F50E600D05A90 /* Networking.swift */; };
+		7752AD092019BFFA0039DAF6 /* CommentInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AB5C41F9756D500043269 /* CommentInputView.swift */; };
+		7752AD0A2019BFFA0039DAF6 /* MyTopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5A6B861F99D3D800CF6BA1 /* MyTopicsViewController.swift */; };
+		7752AD0B2019BFFA0039DAF6 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB67581F8F50E600D05A90 /* TargetType.swift */; };
+		7752AD0C2019BFFA0039DAF6 /* BasePlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EC8241F95D6EE00E7AA02 /* BasePlaceholderView.swift */; };
+		7752AD0D2019BFFA0039DAF6 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C8DF711F930B0E009DE52C /* LoginForm.swift */; };
+		7752AD0E2019BFFA0039DAF6 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C8DF731F9316F0009DE52C /* UITextField+Extension.swift */; };
+		7752AD0F2019BFFA0039DAF6 /* UILable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B17051F8FAF5A00E912E7 /* UILable+Extension.swift */; };
+		7752AD102019BFFA0039DAF6 /* AnswersEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7703598E1FFDCFC3000A6C7A /* AnswersEvents.swift */; };
+		7752AD112019BFFA0039DAF6 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2C54D11FC53BF500B944FB /* Keychain.swift */; };
+		7752AD122019BFFA0039DAF6 /* BlockedMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770FFD152000BEAA000F3CA9 /* BlockedMemberCell.swift */; };
+		7752AD132019BFFA0039DAF6 /* MentionedParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE8CB2C1FA09A9D007E2F02 /* MentionedParser.swift */; };
+		7752AD142019BFFA0039DAF6 /* StateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF45E00B1F9F0A400001BEB2 /* StateView.swift */; };
+		7752AD152019BFFA0039DAF6 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C8DF6A1F92FD8F009DE52C /* MoreViewController.swift */; };
+		7752AD162019BFFA0039DAF6 /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9554DA1FBD73EE0054FC50 /* Preference.swift */; };
+		7752AD172019BFFA0039DAF6 /* HTMLParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756CCCF1F924F7A00EF47B8 /* HTMLParseService.swift */; };
+		7752AD182019BFFA0039DAF6 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776EFDD21F9BB9E70087AECC /* ShareSheetView.swift */; };
+		7752AD192019BFFA0039DAF6 /* Foundation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB674C1F8F4A2200D05A90 /* Foundation+Extension.swift */; };
+		7752AD1A2019BFFA0039DAF6 /* NodeCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EC81B1F95928E00E7AA02 /* NodeCollectCell.swift */; };
+		7752AD1B2019BFFA0039DAF6 /* BaseTopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5A6B841F99D05800CF6BA1 /* BaseTopicsViewController.swift */; };
+		7752AD1C2019BFFA0039DAF6 /* ReplyMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8043F21FA3369900AD3C49 /* ReplyMessageViewController.swift */; };
+		7752AD1D2019BFFA0039DAF6 /* FenCiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794DA2F1FD2E04A00B7B299 /* FenCiViewController.swift */; };
+		7752AD1E2019BFFA0039DAF6 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EC8251F95D6EE00E7AA02 /* EmptyView.swift */; };
+		7752AD1F2019BFFA0039DAF6 /* TopicSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AC6A51F9A2C810072C6E9 /* TopicSearchResultViewController.swift */; };
+		7752AD202019BFFA0039DAF6 /* GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB675F1F8F52B700D05A90 /* GCD.swift */; };
+		7752AD212019BFFA0039DAF6 /* NodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756CCCD1F9248CF00EF47B8 /* NodeService.swift */; };
+		7752AD222019BFFA0039DAF6 /* TopicSearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7737D7F71FD2B3AF00CBB5B8 /* TopicSearchHistoryViewController.swift */; };
+		7752AD232019BFFA0039DAF6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB675D1F8F521D00D05A90 /* Constants.swift */; };
+		7752AD242019BFFA0039DAF6 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB67501F8F4B2300D05A90 /* UIView+Extension.swift */; };
+		7752AD252019BFFA0039DAF6 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5A6B6C1F99889400CF6BA1 /* MessageModel.swift */; };
+		7752AD262019BFFA0039DAF6 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B16FD1F8FA5DE00E912E7 /* AccountModel.swift */; };
+		7752AD272019BFFA0039DAF6 /* UIBarButtonItem+ClosureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8062B31FB14CAF0024BB37 /* UIBarButtonItem+ClosureAction.swift */; };
+		7752AD282019BFFA0039DAF6 /* Highlightables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AC6AF1F9AF07F0072C6E9 /* Highlightables.swift */; };
+		7752AD292019BFFA0039DAF6 /* ReuseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9554D61FBD653E0054FC50 /* ReuseCell.swift */; };
+		7752AD2A2019BFFA0039DAF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA30491FC2BAE000502E61 /* ViewController.swift */; };
+		7752AD2B2019BFFA0039DAF6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB67491F8F49BD00D05A90 /* Logger.swift */; };
+		7752AD2C2019BFFA0039DAF6 /* CreateTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772A577A1F9786EB003FBE1A /* CreateTopicViewController.swift */; };
+		7752AD2D2019BFFA0039DAF6 /* NSAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AC6B21F9AF07F0072C6E9 /* NSAttributedString+Extensions.swift */; };
+		7752AD2E2019BFFA0039DAF6 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7AF1BB1FBC2CA5005427D0 /* AboutViewController.swift */; };
+		7752AD2F2019BFFA0039DAF6 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF39FFE81F9442DA00D6F8BD /* LoadingButton.swift */; };
+		7752AD302019BFFA0039DAF6 /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B0A7531FFB3CDD003ED8F6 /* SQLiteDatabase.swift */; };
+		7752AD312019BFFA0039DAF6 /* MemberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ABB3801FA36D8300F376DA /* MemberService.swift */; };
+		7752AD322019BFFA0039DAF6 /* EnumCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF45E0041F9EFEE30001BEB2 /* EnumCollection.swift */; };
+		7752AD332019BFFA0039DAF6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C8DF6D1F92FDE2009DE52C /* LoginViewController.swift */; };
+		7752AD342019BFFA0039DAF6 /* AllNodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1B1D1A1FA7003400544A11 /* AllNodesViewController.swift */; };
+		7752AD352019BFFA0039DAF6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756CCC51F92354B00EF47B8 /* LeftAlignedCollectionViewFlowLayout.swift */; };
+		7752AD362019BFFA0039DAF6 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02A2D41F8F433C00BEF85E /* NavigationViewController.swift */; };
+		7752AD372019BFFA0039DAF6 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB674E1F8F4A4000D05A90 /* String+Extension.swift */; };
+		7752AD382019BFFA0039DAF6 /* TopicFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FD14F31FAB51ED00F2FFF4 /* TopicFavoriteViewController.swift */; };
+		7752AD392019BFFA0039DAF6 /* UIInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7B11171F91E473003815C1 /* UIInsetLabel.swift */; };
+		7752AD3A2019BFFA0039DAF6 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF45FCCE1F906E74006B2C2F /* CommentModel.swift */; };
+		7752AD3B2019BFFA0039DAF6 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7AF1B71FBC02D1005427D0 /* SettingViewController.swift */; };
+		7752AD3C2019BFFA0039DAF6 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B17011F8FA8A900E912E7 /* TopicCell.swift */; };
+		7752AD3D2019BFFA0039DAF6 /* MarkdownInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF701F1F1F98610900761E82 /* MarkdownInputAccessoryView.swift */; };
+		7752AD3E2019BFFA0039DAF6 /* UIKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC91CB1F94782A0050B7F5 /* UIKit+Extension.swift */; };
+		7752AD3F2019BFFA0039DAF6 /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B75DAB1F94EA8F00B7312B /* MemberModel.swift */; };
+		7752AD402019BFFA0039DAF6 /* NodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB67671F8F716600D05A90 /* NodeModel.swift */; };
+		7752AD412019BFFA0039DAF6 /* UIScrollView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8043EC1FA2FD7C00AD3C49 /* UIScrollView+Refresh.swift */; };
+		7752AD422019BFFA0039DAF6 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02A2CC1F8F3F3E00BEF85E /* TabBarViewController.swift */; };
+		7752AD432019BFFA0039DAF6 /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8062B61FB14CAF0024BB37 /* UIViewController+Rx.swift */; };
+		7752AD442019BFFA0039DAF6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB67451F8F498900D05A90 /* HomeViewController.swift */; };
+		7752AD452019BFFA0039DAF6 /* FenCiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794DA311FD2E2A500B7B299 /* FenCiCell.swift */; };
+		7752AD462019BFFA0039DAF6 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB67631F8F666100D05A90 /* API.swift */; };
+		7752AD472019BFFA0039DAF6 /* NodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBCE5B71F90C4FC000106D6 /* NodesViewController.swift */; };
+		7752AD482019BFFA0039DAF6 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C76BB1FA1E57900E4D418 /* UIImage+Extension.swift */; };
+		7752AD492019BFFA0039DAF6 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02A2D11F8F425C00BEF85E /* UIColor+Extension.swift */; };
+		7752AD4A2019BFFA0039DAF6 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EC8261F95D6EE00E7AA02 /* LoadingView.swift */; };
+		7752AD4B2019BFFA0039DAF6 /* FPSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC89B4A1FA033CD00759577 /* FPSLabel.swift */; };
+		7752AD4C2019BFFA0039DAF6 /* TopicCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE3947C1F90823D00D3ED1D /* TopicCommentCell.swift */; };
+		7752AD4D2019BFFA0039DAF6 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB67471F8F499600D05A90 /* BaseViewController.swift */; };
+		7752AD4E2019BFFA0039DAF6 /* V2erError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF343E901FE763F70003415B /* V2erError.swift */; };
+		7752AD4F2019BFFA0039DAF6 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02A2CD1F8F3FE400BEF85E /* AppTheme.swift */; };
+		7752AD502019BFFA0039DAF6 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBCE5A21F90BB9E000106D6 /* HelperFunctions.swift */; };
+		7752AD512019BFFA0039DAF6 /* Binder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8062AF1FB14CAF0024BB37 /* Binder+Extension.swift */; };
+		7752AD522019BFFA0039DAF6 /* SQLiteError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B0A7541FFB3CDD003ED8F6 /* SQLiteError.swift */; };
+		7752AD532019BFFA0039DAF6 /* SearchResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AC69F1F9A29730072C6E9 /* SearchResultModel.swift */; };
+		7752AD542019BFFA0039DAF6 /* UIViewController+AlternateIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771502CF1FEBF298008BB161 /* UIViewController+AlternateIcon.swift */; };
+		7752AD552019BFFA0039DAF6 /* Observable+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8062B01FB14CAF0024BB37 /* Observable+Operators.swift */; };
+		7752AD562019BFFA0039DAF6 /* TopicSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AC6A71F9A2D540072C6E9 /* TopicSearchResultCell.swift */; };
+		7752AD572019BFFA0039DAF6 /* TwoStepVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1B1D181FA6F2A500544A11 /* TwoStepVerificationViewController.swift */; };
+		7752AD582019BFFA0039DAF6 /* ETNavBarTransparent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF796F7F1FA46921002E1B5E /* ETNavBarTransparent.swift */; };
+		7752AD592019BFFA0039DAF6 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5A6B6A1F99851500CF6BA1 /* MessageCell.swift */; };
+		7752AD5A2019BFFA0039DAF6 /* MarkdownPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4D779D1F9D896500FAEB7C /* MarkdownPreviewViewController.swift */; };
+		7752AD5B2019BFFA0039DAF6 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B0A75B1FFB4A32003ED8F6 /* BaseTableViewController.swift */; };
+		7752AD5C2019BFFA0039DAF6 /* BlockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770FFD112000B0A5000F3CA9 /* BlockListViewController.swift */; };
+		7752AD5D2019BFFA0039DAF6 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF45DFD11F9ED9140001BEB2 /* ErrorView.swift */; };
+		7752AD5E2019BFFA0039DAF6 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0DDF21F9F677500DDC366 /* MemberCell.swift */; };
+		7752AD5F2019BFFA0039DAF6 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7B11191F91E5A3003815C1 /* HUD.swift */; };
+		7752AD602019BFFA0039DAF6 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C8DF6F1F9305F8009DE52C /* AccountService.swift */; };
+		7752AD612019BFFA0039DAF6 /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB67651F8F709F00D05A90 /* TopicService.swift */; };
+		7752AD622019BFFA0039DAF6 /* AdjustFontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7AF1B91FBC0C35005427D0 /* AdjustFontViewController.swift */; };
+		7752AD632019BFFA0039DAF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF65BDB71F8E12C80010B4C9 /* AppDelegate.swift */; };
+		7752AD642019BFFA0039DAF6 /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AB5C81F976D7000043269 /* UIView+Border.swift */; };
+		7752AD652019BFFA0039DAF6 /* SegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9ACB2B1FC414550073122C /* SegmentView.swift */; };
+		7752AD662019BFFA0039DAF6 /* AppSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02A2C11F8F3E3800BEF85E /* AppSetup.swift */; };
+		7752AD672019BFFA0039DAF6 /* ShareItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776EFDD31F9BB9E70087AECC /* ShareItemView.swift */; };
+		7752AD682019BFFA0039DAF6 /* VFooterRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8043F01FA3007800AD3C49 /* VFooterRefresh.swift */; };
+		7752AD692019BFFA0039DAF6 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B17031F8FA8C100E912E7 /* BaseTableViewCell.swift */; };
+		7752AD6A2019BFFA0039DAF6 /* MyReplyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5A6B881F99DBB600CF6BA1 /* MyReplyViewController.swift */; };
+		7752AD6B2019BFFA0039DAF6 /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1A1EB71FB58B3900DDBF67 /* SafariActivity.swift */; };
+		7752AD6C2019BFFA0039DAF6 /* OCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775E5DBE1FD8347800D5BB44 /* OCRService.swift */; };
+		7752AD6D2019BFFA0039DAF6 /* ImageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AB6B31FA1A61200ACA17A /* ImageAttachment.swift */; };
+		7752AD6E2019BFFA0039DAF6 /* SweetWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EC81D1F95BFC800E7AA02 /* SweetWebViewController.swift */; };
+		7752AD6F2019BFFA0039DAF6 /* LibrarysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB729C1FAB163900F1BDCA /* LibrarysViewController.swift */; };
+		7752AD702019BFFA0039DAF6 /* TopicDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE3947A1F90822E00D3ED1D /* TopicDetailHeaderView.swift */; };
+		7752AD712019BFFA0039DAF6 /* String+PinYin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77507E681F9B168800D62286 /* String+PinYin.swift */; };
+		7752AD722019BFFA0039DAF6 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B16FF1F8FA87A00E912E7 /* UITableView+Extension.swift */; };
+		7752AD732019BFFA0039DAF6 /* AppWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF45E0061F9F03380001BEB2 /* AppWindow.swift */; };
+		7752AD752019BFFA0039DAF6 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEF560D2C703ABBF56BE30E /* Pods_V2EX.framework */; };
+		7752AD772019BFFA0039DAF6 /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 779E67001FE1549700BD25FD /* CardView.xib */; };
+		7752AD782019BFFA0039DAF6 /* day.css in Resources */ = {isa = PBXBuildFile; fileRef = 77269F5F1FAA0AF000DE6617 /* day.css */; };
+		7752AD792019BFFA0039DAF6 /* iPad Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B31FEBE6F6008BB161 /* iPad Spotlight-40@2x.png */; };
+		7752AD7A2019BFFA0039DAF6 /* iPhone App-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B51FEBE6F6008BB161 /* iPhone App-60@3x.png */; };
+		7752AD7B2019BFFA0039DAF6 /* iPad Spotlight-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B21FEBE6F6008BB161 /* iPad Spotlight-40.png */; };
+		7752AD7C2019BFFA0039DAF6 /* iPhone Notification-20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B61FEBE6F6008BB161 /* iPhone Notification-20@2x.png */; };
+		7752AD7D2019BFFA0039DAF6 /* iPad Settings-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B01FEBE6F6008BB161 /* iPad Settings-29.png */; };
+		7752AD7E2019BFFA0039DAF6 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = BFE3947E1F909B1400D3ED1D /* style.css */; };
+		7752AD7F2019BFFA0039DAF6 /* iPhone Notification-20@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B71FEBE6F6008BB161 /* iPhone Notification-20@3x.png */; };
+		7752AD802019BFFA0039DAF6 /* iPad App-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AC1FEBE6F6008BB161 /* iPad App-76@2x.png */; };
+		7752AD812019BFFA0039DAF6 /* iPad Pro App-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AF1FEBE6F6008BB161 /* iPad Pro App-83.5@2x.png */; };
+		7752AD822019BFFA0039DAF6 /* iPhone Settings-29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B81FEBE6F6008BB161 /* iPhone Settings-29@2x.png */; };
+		7752AD832019BFFA0039DAF6 /* iPad Notifications-20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AE1FEBE6F6008BB161 /* iPad Notifications-20@2x.png */; };
+		7752AD842019BFFA0039DAF6 /* iPad App-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AB1FEBE6F6008BB161 /* iPad App-76.png */; };
+		7752AD852019BFFA0039DAF6 /* iPhone App-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B41FEBE6F6008BB161 /* iPhone App-60@2x.png */; };
+		7752AD862019BFFA0039DAF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF65BDC01F8E12C80010B4C9 /* LaunchScreen.storyboard */; };
+		7752AD872019BFFA0039DAF6 /* night.css in Resources */ = {isa = PBXBuildFile; fileRef = 77269F631FAA0B5C00DE6617 /* night.css */; };
+		7752AD882019BFFA0039DAF6 /* iPad Notifications-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502AD1FEBE6F6008BB161 /* iPad Notifications-20.png */; };
+		7752AD892019BFFA0039DAF6 /* iPhone Spotlight-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502BB1FEBE6F6008BB161 /* iPhone Spotlight-40@3x.png */; };
+		7752AD8A2019BFFA0039DAF6 /* iPad Settings-29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B11FEBE6F6008BB161 /* iPad Settings-29@2x.png */; };
+		7752AD8B2019BFFA0039DAF6 /* iPhone Settings-29@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502B91FEBE6F6008BB161 /* iPhone Settings-29@3x.png */; };
+		7752AD8C2019BFFA0039DAF6 /* iPhone Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 771502BA1FEBE6F6008BB161 /* iPhone Spotlight-40@2x.png */; };
+		7752AD8D2019BFFA0039DAF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF65BDBE1F8E12C80010B4C9 /* Assets.xcassets */; };
 		7756CCC61F92354B00EF47B8 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756CCC51F92354B00EF47B8 /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		7756CCC81F92360F00EF47B8 /* NodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756CCC71F92360F00EF47B8 /* NodeCell.swift */; };
 		7756CCCA1F923D6100EF47B8 /* NodeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756CCC91F923D6100EF47B8 /* NodeHeaderView.swift */; };
@@ -235,6 +407,8 @@
 		773CD8F71F9B141200D5578F /* UIScrollView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extension.swift"; sourceTree = "<group>"; };
 		77507E681F9B168800D62286 /* String+PinYin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+PinYin.swift"; sourceTree = "<group>"; };
 		77507E6A1F9B176700D62286 /* NodeSearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeSearchResultViewController.swift; sourceTree = "<group>"; };
+		7752AD942019BFFA0039DAF6 /* V2EX TF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "V2EX TF.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7752AD952019BFFA0039DAF6 /* V2EX Beta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "V2EX Beta.plist"; path = "/Users/joe-c/Desktop/V2EX/V2EX/Supporting Files/V2EX Beta.plist"; sourceTree = "<absolute>"; };
 		7756CCC51F92354B00EF47B8 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		7756CCC71F92360F00EF47B8 /* NodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeCell.swift; sourceTree = "<group>"; };
 		7756CCC91F923D6100EF47B8 /* NodeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeHeaderView.swift; sourceTree = "<group>"; };
@@ -397,6 +571,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7752AD742019BFFA0039DAF6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7752AD752019BFFA0039DAF6 /* Pods_V2EX.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BF65BDB11F8E12C80010B4C9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -717,6 +899,7 @@
 				BF65BDB41F8E12C80010B4C9 /* V2EX.app */,
 				BF65BDC81F8E12C80010B4C9 /* V2EXTests.xctest */,
 				BF65BDD31F8E12C80010B4C9 /* V2EXUITests.xctest */,
+				7752AD942019BFFA0039DAF6 /* V2EX TF.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -847,6 +1030,7 @@
 				BF65BDBE1F8E12C80010B4C9 /* Assets.xcassets */,
 				BF65BDC01F8E12C80010B4C9 /* LaunchScreen.storyboard */,
 				BF65BDC31F8E12C80010B4C9 /* Info.plist */,
+				7752AD952019BFFA0039DAF6 /* V2EX Beta.plist */,
 				BFE3947E1F909B1400D3ED1D /* style.css */,
 				77269F5F1FAA0AF000DE6617 /* day.css */,
 				77269F631FAA0B5C00DE6617 /* night.css */,
@@ -879,6 +1063,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7752ACDD2019BFFA0039DAF6 /* V2EX TF */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7752AD912019BFFA0039DAF6 /* Build configuration list for PBXNativeTarget "V2EX TF" */;
+			buildPhases = (
+				7752ACDE2019BFFA0039DAF6 /* [CP] Check Pods Manifest.lock */,
+				7752ACDF2019BFFA0039DAF6 /* Sources */,
+				7752AD742019BFFA0039DAF6 /* Frameworks */,
+				7752AD762019BFFA0039DAF6 /* Resources */,
+				7752AD8E2019BFFA0039DAF6 /* [CP] Embed Pods Frameworks */,
+				7752AD8F2019BFFA0039DAF6 /* [CP] Copy Pods Resources */,
+				7752AD902019BFFA0039DAF6 /* Crashlytics */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "V2EX TF";
+			productName = V2EX;
+			productReference = 7752AD942019BFFA0039DAF6 /* V2EX TF.app */;
+			productType = "com.apple.product-type.application";
+		};
 		BF65BDB31F8E12C80010B4C9 /* V2EX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF65BDDC1F8E12C80010B4C9 /* Build configuration list for PBXNativeTarget "V2EX" */;
@@ -952,6 +1157,9 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Joe;
 				TargetAttributes = {
+					7752ACDD2019BFFA0039DAF6 = {
+						ProvisioningStyle = Automatic;
+					};
 					BF65BDB31F8E12C80010B4C9 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
@@ -988,11 +1196,42 @@
 				BF65BDB31F8E12C80010B4C9 /* V2EX */,
 				BF65BDC71F8E12C80010B4C9 /* V2EXTests */,
 				BF65BDD21F8E12C80010B4C9 /* V2EXUITests */,
+				7752ACDD2019BFFA0039DAF6 /* V2EX TF */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7752AD762019BFFA0039DAF6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7752AD772019BFFA0039DAF6 /* CardView.xib in Resources */,
+				7752AD782019BFFA0039DAF6 /* day.css in Resources */,
+				7752AD792019BFFA0039DAF6 /* iPad Spotlight-40@2x.png in Resources */,
+				7752AD7A2019BFFA0039DAF6 /* iPhone App-60@3x.png in Resources */,
+				7752AD7B2019BFFA0039DAF6 /* iPad Spotlight-40.png in Resources */,
+				7752AD7C2019BFFA0039DAF6 /* iPhone Notification-20@2x.png in Resources */,
+				7752AD7D2019BFFA0039DAF6 /* iPad Settings-29.png in Resources */,
+				7752AD7E2019BFFA0039DAF6 /* style.css in Resources */,
+				7752AD7F2019BFFA0039DAF6 /* iPhone Notification-20@3x.png in Resources */,
+				7752AD802019BFFA0039DAF6 /* iPad App-76@2x.png in Resources */,
+				7752AD812019BFFA0039DAF6 /* iPad Pro App-83.5@2x.png in Resources */,
+				7752AD822019BFFA0039DAF6 /* iPhone Settings-29@2x.png in Resources */,
+				7752AD832019BFFA0039DAF6 /* iPad Notifications-20@2x.png in Resources */,
+				7752AD842019BFFA0039DAF6 /* iPad App-76.png in Resources */,
+				7752AD852019BFFA0039DAF6 /* iPhone App-60@2x.png in Resources */,
+				7752AD862019BFFA0039DAF6 /* LaunchScreen.storyboard in Resources */,
+				7752AD872019BFFA0039DAF6 /* night.css in Resources */,
+				7752AD882019BFFA0039DAF6 /* iPad Notifications-20.png in Resources */,
+				7752AD892019BFFA0039DAF6 /* iPhone Spotlight-40@3x.png in Resources */,
+				7752AD8A2019BFFA0039DAF6 /* iPad Settings-29@2x.png in Resources */,
+				7752AD8B2019BFFA0039DAF6 /* iPhone Settings-29@3x.png in Resources */,
+				7752AD8C2019BFFA0039DAF6 /* iPhone Spotlight-40@2x.png in Resources */,
+				7752AD8D2019BFFA0039DAF6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BF65BDB21F8E12C80010B4C9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1160,6 +1399,107 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-V2EXUITests/Pods-V2EXUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7752ACDE2019BFFA0039DAF6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-V2EX-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7752AD8E2019BFFA0039DAF6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-V2EX/Pods-V2EX-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Kanna/Kanna.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/MarkdownView/MarkdownView.framework",
+				"${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework",
+				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/PasswordExtension/PasswordExtension.framework",
+				"${BUILT_PRODUCTS_DIR}/PullToRefreshKit/PullToRefreshKit.framework",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-8/iOS/RevealServer.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxOptional/RxOptional.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SKPhotoBrowser/SKPhotoBrowser.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/StatefulViewController/StatefulViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
+				"${BUILT_PRODUCTS_DIR}/UIView+Positioning/UIView_Positioning.framework",
+				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kanna.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarkdownView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSObject_Rx.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PasswordExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PullToRefreshKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxOptional.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SKPhotoBrowser.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StatefulViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIView_Positioning.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-V2EX/Pods-V2EX-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7752AD8F2019BFFA0039DAF6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-V2EX/Pods-V2EX-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7752AD902019BFFA0039DAF6 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 33cd2af14c3e3eab3742353e1fb6e272b19ef683 39f7175dcad496b599e26dca106e9a365ba8e8ae7fed561d5a515fe9724eb441";
+		};
 		7F95D5870A86E06F4B63EB0D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1240,6 +1580,161 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7752ACDF2019BFFA0039DAF6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7752ACE02019BFFA0039DAF6 /* HighlightableContainer.swift in Sources */,
+				7752ACE12019BFFA0039DAF6 /* RequestReview.swift in Sources */,
+				7752ACE22019BFFA0039DAF6 /* ReadHistoryCell.swift in Sources */,
+				7752ACE32019BFFA0039DAF6 /* SFHandoffSafariViewController.swift in Sources */,
+				7752ACE42019BFFA0039DAF6 /* WordCell.swift in Sources */,
+				7752ACE52019BFFA0039DAF6 /* UIViewChain.swift in Sources */,
+				7752ACE62019BFFA0039DAF6 /* IgnoreWordsViewController.swift in Sources */,
+				7752ACE72019BFFA0039DAF6 /* TextParser.swift in Sources */,
+				7752ACE82019BFFA0039DAF6 /* UIView+Rx.swift in Sources */,
+				7752ACE92019BFFA0039DAF6 /* ReadHistoryViewController.swift in Sources */,
+				7752ACEA2019BFFA0039DAF6 /* OCRConfigViewController.swift in Sources */,
+				7752ACEB2019BFFA0039DAF6 /* UIScrollView+Extension.swift in Sources */,
+				7752ACEC2019BFFA0039DAF6 /* AccountsViewController.swift in Sources */,
+				7752ACED2019BFFA0039DAF6 /* String+Extensions.swift in Sources */,
+				7752ACEE2019BFFA0039DAF6 /* ForgotPasswordViewController.swift in Sources */,
+				7752ACEF2019BFFA0039DAF6 /* MemberListViewController.swift in Sources */,
+				7752ACF02019BFFA0039DAF6 /* Swift+Extension.swift in Sources */,
+				7752ACF12019BFFA0039DAF6 /* MessageViewController.swift in Sources */,
+				7752ACF22019BFFA0039DAF6 /* TopicModel.swift in Sources */,
+				7752ACF32019BFFA0039DAF6 /* NodeSearchResultViewController.swift in Sources */,
+				7752ACF42019BFFA0039DAF6 /* Highlightable.swift in Sources */,
+				7752ACF52019BFFA0039DAF6 /* UIImageView+Extension.swift in Sources */,
+				7752ACF62019BFFA0039DAF6 /* NodeCell.swift in Sources */,
+				7752ACF72019BFFA0039DAF6 /* Scheduler+Rx.swift in Sources */,
+				7752ACF82019BFFA0039DAF6 /* BrowserActivity.swift in Sources */,
+				7752ACF92019BFFA0039DAF6 /* NodeHeaderView.swift in Sources */,
+				7752ACFA2019BFFA0039DAF6 /* TopicDetailViewController.swift in Sources */,
+				7752ACFB2019BFFA0039DAF6 /* BaiduOCR.swift in Sources */,
+				7752ACFC2019BFFA0039DAF6 /* ViewDialogViewController.swift in Sources */,
+				7752ACFD2019BFFA0039DAF6 /* RegisterViewController.swift in Sources */,
+				7752ACFE2019BFFA0039DAF6 /* TabSortViewController.swift in Sources */,
+				7752ACFF2019BFFA0039DAF6 /* UIPlaceholderTextView.swift in Sources */,
+				7752AD002019BFFA0039DAF6 /* GoogleChromeActivity.swift in Sources */,
+				7752AD012019BFFA0039DAF6 /* NodeDetailViewController.swift in Sources */,
+				7752AD022019BFFA0039DAF6 /* NodeCollectViewController.swift in Sources */,
+				7752AD032019BFFA0039DAF6 /* UIAlertController+Extension.swift in Sources */,
+				7752AD042019BFFA0039DAF6 /* FilterNil.swift in Sources */,
+				7752AD052019BFFA0039DAF6 /* ReplyCell.swift in Sources */,
+				7752AD062019BFFA0039DAF6 /* MemberPageViewController.swift in Sources */,
+				7752AD072019BFFA0039DAF6 /* DataViewController.swift in Sources */,
+				7752AD082019BFFA0039DAF6 /* Networking.swift in Sources */,
+				7752AD092019BFFA0039DAF6 /* CommentInputView.swift in Sources */,
+				7752AD0A2019BFFA0039DAF6 /* MyTopicsViewController.swift in Sources */,
+				7752AD0B2019BFFA0039DAF6 /* TargetType.swift in Sources */,
+				7752AD0C2019BFFA0039DAF6 /* BasePlaceholderView.swift in Sources */,
+				7752AD0D2019BFFA0039DAF6 /* LoginForm.swift in Sources */,
+				7752AD0E2019BFFA0039DAF6 /* UITextField+Extension.swift in Sources */,
+				7752AD0F2019BFFA0039DAF6 /* UILable+Extension.swift in Sources */,
+				7752AD102019BFFA0039DAF6 /* AnswersEvents.swift in Sources */,
+				7752AD112019BFFA0039DAF6 /* Keychain.swift in Sources */,
+				7752AD122019BFFA0039DAF6 /* BlockedMemberCell.swift in Sources */,
+				7752AD132019BFFA0039DAF6 /* MentionedParser.swift in Sources */,
+				7752AD142019BFFA0039DAF6 /* StateView.swift in Sources */,
+				7752AD152019BFFA0039DAF6 /* MoreViewController.swift in Sources */,
+				7752AD162019BFFA0039DAF6 /* Preference.swift in Sources */,
+				7752AD172019BFFA0039DAF6 /* HTMLParseService.swift in Sources */,
+				7752AD182019BFFA0039DAF6 /* ShareSheetView.swift in Sources */,
+				7752AD192019BFFA0039DAF6 /* Foundation+Extension.swift in Sources */,
+				7752AD1A2019BFFA0039DAF6 /* NodeCollectCell.swift in Sources */,
+				7752AD1B2019BFFA0039DAF6 /* BaseTopicsViewController.swift in Sources */,
+				7752AD1C2019BFFA0039DAF6 /* ReplyMessageViewController.swift in Sources */,
+				7752AD1D2019BFFA0039DAF6 /* FenCiViewController.swift in Sources */,
+				7752AD1E2019BFFA0039DAF6 /* EmptyView.swift in Sources */,
+				7752AD1F2019BFFA0039DAF6 /* TopicSearchResultViewController.swift in Sources */,
+				7752AD202019BFFA0039DAF6 /* GCD.swift in Sources */,
+				7752AD212019BFFA0039DAF6 /* NodeService.swift in Sources */,
+				7752AD222019BFFA0039DAF6 /* TopicSearchHistoryViewController.swift in Sources */,
+				7752AD232019BFFA0039DAF6 /* Constants.swift in Sources */,
+				7752AD242019BFFA0039DAF6 /* UIView+Extension.swift in Sources */,
+				7752AD252019BFFA0039DAF6 /* MessageModel.swift in Sources */,
+				7752AD262019BFFA0039DAF6 /* AccountModel.swift in Sources */,
+				7752AD272019BFFA0039DAF6 /* UIBarButtonItem+ClosureAction.swift in Sources */,
+				7752AD282019BFFA0039DAF6 /* Highlightables.swift in Sources */,
+				7752AD292019BFFA0039DAF6 /* ReuseCell.swift in Sources */,
+				7752AD2A2019BFFA0039DAF6 /* ViewController.swift in Sources */,
+				7752AD2B2019BFFA0039DAF6 /* Logger.swift in Sources */,
+				7752AD2C2019BFFA0039DAF6 /* CreateTopicViewController.swift in Sources */,
+				7752AD2D2019BFFA0039DAF6 /* NSAttributedString+Extensions.swift in Sources */,
+				7752AD2E2019BFFA0039DAF6 /* AboutViewController.swift in Sources */,
+				7752AD2F2019BFFA0039DAF6 /* LoadingButton.swift in Sources */,
+				7752AD302019BFFA0039DAF6 /* SQLiteDatabase.swift in Sources */,
+				7752AD312019BFFA0039DAF6 /* MemberService.swift in Sources */,
+				7752AD322019BFFA0039DAF6 /* EnumCollection.swift in Sources */,
+				7752AD332019BFFA0039DAF6 /* LoginViewController.swift in Sources */,
+				7752AD342019BFFA0039DAF6 /* AllNodesViewController.swift in Sources */,
+				7752AD352019BFFA0039DAF6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
+				7752AD362019BFFA0039DAF6 /* NavigationViewController.swift in Sources */,
+				7752AD372019BFFA0039DAF6 /* String+Extension.swift in Sources */,
+				7752AD382019BFFA0039DAF6 /* TopicFavoriteViewController.swift in Sources */,
+				7752AD392019BFFA0039DAF6 /* UIInsetLabel.swift in Sources */,
+				7752AD3A2019BFFA0039DAF6 /* CommentModel.swift in Sources */,
+				7752AD3B2019BFFA0039DAF6 /* SettingViewController.swift in Sources */,
+				7752AD3C2019BFFA0039DAF6 /* TopicCell.swift in Sources */,
+				7752AD3D2019BFFA0039DAF6 /* MarkdownInputAccessoryView.swift in Sources */,
+				7752AD3E2019BFFA0039DAF6 /* UIKit+Extension.swift in Sources */,
+				7752AD3F2019BFFA0039DAF6 /* MemberModel.swift in Sources */,
+				7752AD402019BFFA0039DAF6 /* NodeModel.swift in Sources */,
+				7752AD412019BFFA0039DAF6 /* UIScrollView+Refresh.swift in Sources */,
+				7752AD422019BFFA0039DAF6 /* TabBarViewController.swift in Sources */,
+				7752AD432019BFFA0039DAF6 /* UIViewController+Rx.swift in Sources */,
+				7752AD442019BFFA0039DAF6 /* HomeViewController.swift in Sources */,
+				7752AD452019BFFA0039DAF6 /* FenCiCell.swift in Sources */,
+				7752AD462019BFFA0039DAF6 /* API.swift in Sources */,
+				7752AD472019BFFA0039DAF6 /* NodesViewController.swift in Sources */,
+				7752AD482019BFFA0039DAF6 /* UIImage+Extension.swift in Sources */,
+				7752AD492019BFFA0039DAF6 /* UIColor+Extension.swift in Sources */,
+				7752AD4A2019BFFA0039DAF6 /* LoadingView.swift in Sources */,
+				7752AD4B2019BFFA0039DAF6 /* FPSLabel.swift in Sources */,
+				7752AD4C2019BFFA0039DAF6 /* TopicCommentCell.swift in Sources */,
+				7752AD4D2019BFFA0039DAF6 /* BaseViewController.swift in Sources */,
+				7752AD4E2019BFFA0039DAF6 /* V2erError.swift in Sources */,
+				7752AD4F2019BFFA0039DAF6 /* AppTheme.swift in Sources */,
+				7752AD502019BFFA0039DAF6 /* HelperFunctions.swift in Sources */,
+				7752AD512019BFFA0039DAF6 /* Binder+Extension.swift in Sources */,
+				7752AD522019BFFA0039DAF6 /* SQLiteError.swift in Sources */,
+				7752AD532019BFFA0039DAF6 /* SearchResultModel.swift in Sources */,
+				7752AD542019BFFA0039DAF6 /* UIViewController+AlternateIcon.swift in Sources */,
+				7752AD552019BFFA0039DAF6 /* Observable+Operators.swift in Sources */,
+				7752AD562019BFFA0039DAF6 /* TopicSearchResultCell.swift in Sources */,
+				7752AD572019BFFA0039DAF6 /* TwoStepVerificationViewController.swift in Sources */,
+				7752AD582019BFFA0039DAF6 /* ETNavBarTransparent.swift in Sources */,
+				7752AD592019BFFA0039DAF6 /* MessageCell.swift in Sources */,
+				7752AD5A2019BFFA0039DAF6 /* MarkdownPreviewViewController.swift in Sources */,
+				7752AD5B2019BFFA0039DAF6 /* BaseTableViewController.swift in Sources */,
+				7752AD5C2019BFFA0039DAF6 /* BlockListViewController.swift in Sources */,
+				7752AD5D2019BFFA0039DAF6 /* ErrorView.swift in Sources */,
+				7752AD5E2019BFFA0039DAF6 /* MemberCell.swift in Sources */,
+				7752AD5F2019BFFA0039DAF6 /* HUD.swift in Sources */,
+				7752AD602019BFFA0039DAF6 /* AccountService.swift in Sources */,
+				7752AD612019BFFA0039DAF6 /* TopicService.swift in Sources */,
+				7752AD622019BFFA0039DAF6 /* AdjustFontViewController.swift in Sources */,
+				7752AD632019BFFA0039DAF6 /* AppDelegate.swift in Sources */,
+				7752AD642019BFFA0039DAF6 /* UIView+Border.swift in Sources */,
+				7752AD652019BFFA0039DAF6 /* SegmentView.swift in Sources */,
+				7752AD662019BFFA0039DAF6 /* AppSetup.swift in Sources */,
+				7752AD672019BFFA0039DAF6 /* ShareItemView.swift in Sources */,
+				7752AD682019BFFA0039DAF6 /* VFooterRefresh.swift in Sources */,
+				7752AD692019BFFA0039DAF6 /* BaseTableViewCell.swift in Sources */,
+				7752AD6A2019BFFA0039DAF6 /* MyReplyViewController.swift in Sources */,
+				7752AD6B2019BFFA0039DAF6 /* SafariActivity.swift in Sources */,
+				7752AD6C2019BFFA0039DAF6 /* OCRService.swift in Sources */,
+				7752AD6D2019BFFA0039DAF6 /* ImageAttachment.swift in Sources */,
+				7752AD6E2019BFFA0039DAF6 /* SweetWebViewController.swift in Sources */,
+				7752AD6F2019BFFA0039DAF6 /* LibrarysViewController.swift in Sources */,
+				7752AD702019BFFA0039DAF6 /* TopicDetailHeaderView.swift in Sources */,
+				7752AD712019BFFA0039DAF6 /* String+PinYin.swift in Sources */,
+				7752AD722019BFFA0039DAF6 /* UITableView+Extension.swift in Sources */,
+				7752AD732019BFFA0039DAF6 /* AppWindow.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BF65BDB01F8E12C80010B4C9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1439,6 +1934,51 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7752AD922019BFFA0039DAF6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40829FCF6DA7112AC68BAE24 /* Pods-V2EX.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = T8CE5P8P3Y;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"BETA=1",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/V2EX/Supporting Files/V2EX Beta.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DBETA";
+				PRODUCT_BUNDLE_IDENTIFIER = com.joe78.v2er;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7752AD932019BFFA0039DAF6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E337C44E6CA49FA430E4D9C1 /* Pods-V2EX.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T8CE5P8P3Y;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"BETA=1",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/V2EX/Supporting Files/V2EX Beta.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DBETA";
+				PRODUCT_BUNDLE_IDENTIFIER = com.joe78.v2er;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		BF65BDDA1F8E12C80010B4C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1556,6 +2096,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = T8CE5P8P3Y;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"BETA=0",
+				);
 				INFOPLIST_FILE = "V2EX/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joe78.v2er;
@@ -1572,6 +2117,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T8CE5P8P3Y;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"BETA=0",
+				);
 				INFOPLIST_FILE = "V2EX/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joe78.v2er;
@@ -1654,6 +2204,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7752AD912019BFFA0039DAF6 /* Build configuration list for PBXNativeTarget "V2EX TF" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7752AD922019BFFA0039DAF6 /* Debug */,
+				7752AD932019BFFA0039DAF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BF65BDAF1F8E12C80010B4C9 /* Build configuration list for PBXProject "V2EX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

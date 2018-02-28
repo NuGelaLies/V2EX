@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>V2er</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>dark</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>iPad App-76</string>
+					<string>iPad App-76@2x.png</string>
+					<string>iPad Notifications-20.png</string>
+					<string>iPad Notifications-20@2x.png</string>
+					<string>iPad Pro App-83.5@2x.png</string>
+					<string>iPad Settings-29.png</string>
+					<string>iPad Settings-29@2x.png</string>
+					<string>iPad Spotlight-40.png</string>
+					<string>iPad Spotlight-40@2x.png</string>
+					<string>iPhone App-60@2x.png</string>
+					<string>iPhone App-60@3x.png</string>
+					<string>iPhone Notification-20@2x.png</string>
+					<string>iPhone Notification-20@3x.png</string>
+					<string>iPhone Settings-29@2x.png</string>
+					<string>iPhone Settings-29@3x.png</string>
+					<string>iPhone Spotlight-40@2x.png</string>
+					<string>iPhone Spotlight-40@3x.png</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.3.4</string>
+	<key>CFBundleVersion</key>
+	<string>54</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>33cd2af14c3e3eab3742353e1fb6e272b19ef683</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>googlechrome</string>
+		<string>googlechromes</string>
+		<string>org-appextension-feature-password-management</string>
+		<string>itms-apps</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>需要获得您的许可才能访问相机</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>需要获得您的许可才能存储图像</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要获得您的许可才能访问相册</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UIRequiresFullScreen</key>
+	<false/>
+	<key>UIStatusBarHidden</key>
+	<true/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
+</dict>
+</plist>

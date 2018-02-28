@@ -108,7 +108,6 @@ class LoginViewController: BaseViewController, AccountService, TopicService, OCR
         view.backgroundColor = Theme.Color.globalColor.withAlphaComponent(0.8)
         view.setTitle("    Sign in with Google", for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        view.isHidden = true
         return view
     }()
     
@@ -155,8 +154,7 @@ class LoginViewController: BaseViewController, AccountService, TopicService, OCR
             UserDefaults.save(at: true, forKey: self.className)
             HUD.showInfo("""
                         验证码自动识别中，如识别失败或结果不准确，可通过摇一摇（或点击验证码图片）重新识别。如多次不准确，建议您手动输入。
-                        目前使用 百度文字识别 API，每天500次免费额度。所有 V2er 用户共享额度，额度使用完后，将不能识别，建议您在设置中添加自己的 AppKey
-                        """, duration: 10)
+                        """, duration: 7)
         }
         
         guard PasswordExtension.shared.isAvailable() else { return }
@@ -174,7 +172,7 @@ class LoginViewController: BaseViewController, AccountService, TopicService, OCR
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.isTranslucent = true
         //        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         //        navigationController?.navigationBar.shadowImage = UIImage()
         navBarBgAlpha = 0
@@ -265,7 +263,7 @@ class LoginViewController: BaseViewController, AccountService, TopicService, OCR
         captchaBtn.snp.makeConstraints {
             $0.top.bottom.equalTo(captchaTextField)
             $0.right.equalTo(accountTextField)
-            $0.width.equalTo(180)
+            $0.width.equalTo(164)
         }
         
         loginBtn.snp.makeConstraints {
@@ -369,7 +367,12 @@ class LoginViewController: BaseViewController, AccountService, TopicService, OCR
                 //                self?.navigationController?.pushViewController(RegisterViewController(), animated: true)
                 
             }.disposed(by: rx.disposeBag)
-
+        
+        googleLoginBtn.rx
+            .tap
+            .subscribeNext { [weak self] in
+                self?.googleLoginHandle()
+            }.disposed(by: rx.disposeBag)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -405,6 +408,99 @@ extension LoginViewController {
         }
     }
     
+    /// Google 登录
+    private func googleLoginHandle() {
+        
+        guard let once = AccountModel.getOnce() else {
+            HUD.showError("无法获取 once")
+            return
+        }
+        
+        HUD.showInfo(
+            """
+            请确保能正常访问 Google
+            如没有自动跳转到 Google 登录页面，请手动点击 "Sign in with Google"
+            输入完账号密码后请勿关闭网页, 加载成功后会自动关闭
+            """,
+            duration: 5.5)
+        
+        let dictionaty = ["UserAgent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36"]
+        UserDefaults.standard.register(defaults: dictionaty)
+        
+        navBarBgAlpha = 1
+        let webViewVC = SweetWebViewController()
+        webViewVC.url = URL(string: API.googleSignin(once: once).defaultURLString)
+        webViewVC.webViewdidFinish = { [weak self] webView, url in
+            log.info("webView.webViewdidFinish url", url)
+            
+            guard ["https://www.v2ex.com/#", "https://www.v2ex.com/"].contains(url.absoluteString) else { return }
+            
+            self?.analysisLoginResult(webView)
+        }
+        navigationController?.pushViewController(webViewVC, animated: true)
+    }
+    
+    private func analysisLoginResult(_ webView: WKWebView) {
+        
+        // Google 登录后，本地 Cookie 时有时无，所以直接获取 Cookie 手动存储
+        webView.evaluateJavaScript("document.cookie") { cookie, error in
+            guard let `cookie` = cookie as? String else { return }
+            let cookieString = cookie.components(separatedBy: ";").filter { $0.trimmed.hasPrefix("A2") }.first
+            guard let a2CookieStr = cookieString else { return }
+            let a2Cookie = a2CookieStr.split(separator: "=", maxSplits: 1, omittingEmptySubsequences: true)
+            guard let key = a2Cookie.first,
+                let value = a2Cookie.last else { return }
+            
+            // 过期时间1年
+            let expires: TimeInterval = 60 * 60 * 24 * 365
+            let properties: [HTTPCookiePropertyKey: Any] = [
+                .path: "/",
+                .name: String(key).trimmed,
+                .value: String(value).trimmed,
+                .domain: ".v2ex.com",
+                .expires: Date(timeIntervalSinceNow: expires),
+                .version: 0
+            ]
+            guard let httpCookie = HTTPCookie(properties: properties) else { return }
+            HTTPCookieStorage.shared.setCookie(httpCookie)
+        }
+        
+        webView.evaluateJavaScript("document.body.outerHTML") { [weak self] html, error in
+            guard let `self` = self else { return }
+            if let error = error {
+                log.error(error)
+                return
+            }
+            guard let htmlString = html as? String,
+                let html = HTML(html: htmlString, encoding: .utf8),
+                let innerHTML = html.innerHTML else {
+                    HUD.showError("登录失败, 请尝试重启 App")
+                    return
+            }
+            
+            guard innerHTML.contains("notifications") else {
+                HUD.showError("登录失败, 请重试")
+                return
+            }
+            self.accountParse(html)
+        }
+    }
+    
+    /// 解析账号
+    private func accountParse(_ html: HTMLDocument) {
+        if let avatarNode = html.xpath("//*[@id='Rightbar']/div[2]/div[1]/table[1]/tbody/tr/td/a[1]/img[1]").first,
+            
+            let avatarPath = avatarNode["src"],
+            let href = avatarNode.parent?["href"] {
+            let username = href.lastPathComponent
+            AccountModel(username: username, url: href, avatar: avatarPath).save()
+            NotificationCenter.default.post(.init(name: Notification.Name.V2.LoginSuccessName))
+            self.dismiss()
+        } else {
+            HUD.showError("登录失败, 请重试")
+        }
+    }
+    
     /// 获取验证码
     @objc func fetchCode() {
         captchaBtn.isLoading = true
@@ -426,7 +522,9 @@ extension LoginViewController {
     }
     
     /// OCR 识别
-    private func ocrRecognize(isShake: Bool = false) {
+    ///
+    /// - Parameter updateCaptchaImg: 是否更新当前验证码的图片
+    private func ocrRecognize(updateCaptchaImg: Bool = false) {
         
         guard let once = loginForm?.once,
             let url = API.captchaImageData(once: once).url
@@ -450,19 +548,18 @@ extension LoginViewController {
             guard let data = try? Data(contentsOf: url),
                 let img = UIImage(data: data) else { continue }
             
-            if index == 0 && isShake {
+            if index == 0 {
                 GCD.runOnMainThread {
-                    self.captchaBtn.setImage(UIImage(data: data), for: .normal)
+                    // 更新当前验证码图片
+                    if updateCaptchaImg {
+                        self.captchaBtn.setImage(UIImage(data: data), for: .normal)
+                    } else if let currentCaptchaImg = self.captchaBtn.currentImage {
+                        // 加入当前显示的图片
+                        imgs.append(currentCaptchaImg)
+                    }
                 }
             }
             imgs.append(img)
-        }
-    
-        // 加入当前显示的图片
-        GCD.runOnMainThread {
-            if let currentCaptchaImg = self.captchaBtn.currentImage {
-                imgs.append(currentCaptchaImg)
-            }
         }
         
         let imgW = 200
@@ -529,6 +626,8 @@ extension LoginViewController {
         signin(loginForm: form, success: { [weak self] in
             HUD.dismiss()
             NotificationCenter.default.post(.init(name: Notification.Name.V2.LoginSuccessName))
+            
+            AnswersEvents.logLogin(for: .app)
             self?.dismiss()
         }) { [weak self] error, form, is2Fa in
             HUD.dismiss()
@@ -540,13 +639,13 @@ extension LoginViewController {
                 self?.navigationController?.pushViewController(twoSetpV, animated: true)
                 return
             }
-            
             HUD.showError(error)
             self?.captchaTextField.becomeFirstResponder()
             self?.captchaTextField.text = ""
             if let `form` = form {
-                self?.captchaBtn.setImage(UIImage(data: form.captchaImageData), for: .normal)
+                //                self?.captchaBtn.setImage(UIImage(data: form.captchaImageData), for: .normal)
                 self?.loginForm = form
+                self?.ocrRecognize(updateCaptchaImg: true)
             }
         }
     }
@@ -561,7 +660,11 @@ extension LoginViewController: UITextFieldDelegate {
         case accountTextField:
             passwordTextField.becomeFirstResponder()
         case passwordTextField:
-            captchaTextField.becomeFirstResponder()
+            if let captcha = captchaTextField.text, captcha.isV2EXCaptcha() {
+                loginHandle()
+            } else {
+                captchaTextField.becomeFirstResponder()
+            }
         default:
             loginHandle()
             return true
@@ -575,7 +678,7 @@ extension LoginViewController {
     override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
         
-        ocrRecognize(isShake: true)
+        ocrRecognize(updateCaptchaImg: true)
     }
 }
 

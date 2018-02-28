@@ -70,6 +70,7 @@ class CreateTopicViewController: BaseViewController, TopicService {
         view.keyboardDismissMode = .onDrag
         view.textParser = markdownParser
         view.isEditable = true
+        view.delegate = self
         view.inputAccessoryView = markdownToolbar
         return view
     }()
@@ -149,6 +150,12 @@ class CreateTopicViewController: BaseViewController, TopicService {
         EULAHandle()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        selectNodeBtnBottomConstranit?.update(offset: -20)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
@@ -317,7 +324,8 @@ extension CreateTopicViewController {
         }
 
         HUD.show()
-        createTopic(nodename: selectedNodename, title: title, body: bodyTextView.text, success: { [weak self] in
+        let bodyText = bodyTextView.text.replacingOccurrences(of: "\n", with: "<br>").replacingOccurrences(of: "\r", with: "<br>")
+        createTopic(nodename: selectedNodename, title: title, body: bodyText, success: { [weak self] in
             HUD.dismiss()
             HUD.showSuccess("发布成功")
             self?.titleFieldView.text = nil
@@ -415,6 +423,16 @@ extension CreateTopicViewController {
             Preference.shared.agreementOfConsent = true
         }))
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension CreateTopicViewController: YYTextViewDelegate {
+    func textViewDidBeginEditing(_ textView: YYTextView) {
+        self.selectNodeBtn.isHidden = true
+    }
+    
+    func textViewDidEndEditing(_ textView: YYTextView) {
+        self.selectNodeBtn.isHidden = false
     }
 }
 

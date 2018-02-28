@@ -30,6 +30,17 @@ class AboutViewController: BaseTableViewController {
         view.font = UIFont.systemFont(ofSize: 15)
         return view
     }()
+    
+    private lazy var footerLabel: UILabel = {
+        let footerLabel = UILabel()
+        footerLabel.text = "TestFight 申请"
+        footerLabel.sizeToFit()
+        footerLabel.textColor = .gray
+        footerLabel.textAlignment = .center
+        footerLabel.height = 100
+        footerLabel.font = UIFont.systemFont(ofSize: 12)
+        return footerLabel
+    }()
 
     // MARK: - Propertys
 
@@ -61,7 +72,15 @@ class AboutViewController: BaseTableViewController {
         super.viewDidLoad()
 
         tableView.register(cellWithClass: BaseTableViewCell.self)
-
+        
+//        #if !BETA
+//            tableView.tableFooterView = footerLabel
+//
+//            footerLabel.rx.tapGesture.subscribeNext({ _ in
+//                openWebView(url: "https://v2er.herokuapp.com/")
+//            }).disposed(by: rx.disposeBag)
+//        #endif
+        
         headerContainerView.height = 170
         headerContainerView.addSubviews(logoView, versionLabel)
         tableView.tableHeaderView = headerContainerView
