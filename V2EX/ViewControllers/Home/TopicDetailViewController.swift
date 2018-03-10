@@ -73,6 +73,7 @@ class TopicDetailViewController: DataViewController, TopicService {
     }
 
     public var anchor: Int?
+    private var isAnimation = true
     
     private var selectComment: CommentModel? {
         guard let selectIndexPath = tableView.indexPathForSelectedRow else {
@@ -133,6 +134,14 @@ class TopicDetailViewController: DataViewController, TopicService {
                 commentInputView.isHidden = true
             }
         }
+        
+        if self.anchor != nil { return }
+        guard let topicID = topicID.int else { return }
+        guard let anchor = SQLiteDatabase.instance?.getAnchor(topicID: topicID) else { return }
+        guard anchor != -1 else { return }
+        self.anchor = anchor
+        isAnimation = false
+        log.info(anchor)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -141,6 +150,9 @@ class TopicDetailViewController: DataViewController, TopicService {
         commentInputView.textView.resignFirstResponder()
         isShowToolBarVariable.value = false
         setStatusBarBackground(.clear)
+        guard let topicID = topicID.int,
+            let anchor = tableView.indexPathsForVisibleRows?.first?.row else { return }
+        SQLiteDatabase.instance?.setAnchor(topicID: topicID, anchor: anchor)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -242,12 +254,15 @@ class TopicDetailViewController: DataViewController, TopicService {
     
     // 滚动到锚点位置
     @objc private func scrollToAnchor() {
-        guard let anchor = self.anchor,
+        guard var anchor = self.anchor,
+            anchor > 0,
             tableView.numberOfRows(inSection: 0) >= anchor else { return }
         self.anchor = nil
-        
-        let indexPath = IndexPath(row: anchor - 1, section: 0)
+        anchor = isAnimation ? anchor - 1 : anchor
+        let indexPath = IndexPath(row: anchor, section: 0)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        
+        guard isAnimation else { return }
         
         GCD.delay(1, block: {
             UIView.animate(withDuration: 1, delay: 0, options: .curveLinear,  animations: {

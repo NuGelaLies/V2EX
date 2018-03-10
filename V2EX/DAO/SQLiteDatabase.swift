@@ -112,6 +112,7 @@ public class SQLiteDatabase {
 
     // 创建表
     func createTables() throws {
+        // commentCount 当楼层使用
         let tbHistorySql = """
         CREATE TABLE IF NOT EXISTS \(TABLE_READ_HISTORY) (
         tid INTEGER primary key,
@@ -137,7 +138,7 @@ public class SQLiteDatabase {
     // 新增 or 更新 浏览历史
     func addHistory(tid: Int, title: String, username: String, avatarURL: String) {
         let sql = """
-        REPLACE INTO \(TABLE_READ_HISTORY)(tid,title,username,avatarURL,created,commentCount) VALUES (?,?,?,?,CURRENT_TIMESTAMP,-1)
+        REPLACE INTO \(TABLE_READ_HISTORY)(tid,title,username,avatarURL,created,commentCount) VALUES (?,?,?,?,CURRENT_TIMESTAMP,?)
         """
         guard let statemet = try? prepare(statement: sql) else {
             log.error(errorMessage)
@@ -149,7 +150,8 @@ public class SQLiteDatabase {
         guard sqlite3_bind_int(statemet, 1, Int32(tid)) == SQLITE_OK &&
             sqlite3_bind_text(statemet, 2, NSString(string: title).utf8String, -1, nil) == SQLITE_OK &&
             sqlite3_bind_text(statemet, 3, NSString(string: username).utf8String, -1, nil) == SQLITE_OK &&
-            sqlite3_bind_text(statemet, 4, NSString(string: avatarURL).utf8String, -1, nil) == SQLITE_OK else {
+            sqlite3_bind_text(statemet, 4, NSString(string: avatarURL).utf8String, -1, nil) == SQLITE_OK &&
+            sqlite3_bind_int(statemet, 5, Int32(getAnchor(topicID: tid) ?? -1)) == SQLITE_OK else {
             log.error(errorMessage)
             return
         }
@@ -162,6 +164,30 @@ public class SQLiteDatabase {
         log.verbose("Successfully inserted history row.")
     }
 
+    // 判断 topics 是否为已读并修改返回
+    func setAnchor(topicID: Int, anchor: Int) {
+        let sql = "UPDATE \(TABLE_READ_HISTORY) set commentCount = \(anchor) where tid = \(topicID)"
+        try? excute(sql: sql)
+    }
+    
+    
+    // 加载浏览历史
+    func getAnchor(topicID: Int) -> Int? {
+        var topics = [TopicModel]()
+        let sql = "SELECT * FROM \(TABLE_READ_HISTORY) where tid = \(topicID)"
+        guard let statement = try? prepare(statement: sql) else {
+            return nil
+        }
+        
+        defer {
+            sqlite3_finalize(statement)
+        }
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            return String(cString: sqlite3_column_text(statement, 5)).int
+        }
+        return nil
+    }
+    
     // 判断 topics 是否为已读并修改返回
     func setReadHistory(topics: [TopicModel]) -> [TopicModel]{
         var `topics` = topics
