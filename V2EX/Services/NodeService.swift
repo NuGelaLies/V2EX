@@ -161,7 +161,7 @@ extension NodeService {
         success: ((_ nodes: [NodeModel]) -> Void)?,
         failure: Failure?) {
         Network.htmlRequest(target: .myNodes, success: { html in
-            let nodes = html.xpath("//*[@id='MyNodes']/a/div").flatMap({ (ele) -> NodeModel? in
+            let nodes = html.xpath("//*[@id='MyNodes']/a/div").compactMap({ (ele) -> NodeModel? in
                 guard let imageSrc = ele.xpath("./img").first?["src"],
                     let comment = ele.xpath("./span").first?.content,
                     let title = ele.parent?.xpath("./div/text()").first?.content,

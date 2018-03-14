@@ -225,7 +225,7 @@ extension Networking {
         failure: Failure?
         ) {
         request(target: target, success: { data in
-            guard let html = HTML(html: data, encoding: .utf8) else {
+            guard let html = try? HTML(html: data, encoding: .utf8) else {
                 failure?("数据解析失败")
                 return
             }

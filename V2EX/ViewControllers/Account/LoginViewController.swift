@@ -471,8 +471,9 @@ extension LoginViewController {
                 log.error(error)
                 return
             }
+            
             guard let htmlString = html as? String,
-                let html = HTML(html: htmlString, encoding: .utf8),
+                let html = try? HTML(html: htmlString, encoding: .utf8),
                 let innerHTML = html.innerHTML else {
                     HUD.showError("登录失败, 请尝试重启 App")
                     return

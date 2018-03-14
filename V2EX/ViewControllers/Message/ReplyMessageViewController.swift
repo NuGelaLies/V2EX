@@ -40,7 +40,7 @@ class ReplyMessageViewController: BaseViewController, TopicService {
 
     private lazy var sendBtn: UIButton = {
         let view = UIButton()
-        view.setImage(#imageLiteral(resourceName: "send"), for: .normal)
+        view.setImage(#imageLiteral(resourceName: "message_send"), for: .normal)
         return view
     }()
 

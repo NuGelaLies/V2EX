@@ -215,7 +215,7 @@ extension TopicService {
             //  已登录 div[2] / 没登录 div[1]
             let nodePath = html.xpath("//*[@id='Wrapper']/div[@class='content']/div/div[\(isLogin ? 2 : 1)]/a")
             
-            let nodes = nodePath.flatMap({ ele -> NodeModel? in
+            let nodes = nodePath.compactMap({ ele -> NodeModel? in
                 guard let href = ele["href"],
                     let title = ele.content else {
                         return nil
@@ -302,7 +302,7 @@ extension TopicService {
             let topicContentPath = html.xpath("//*[@id='Wrapper']/div[@class='content']//div[@class='cell']//div[@class='topic_content']")
 //            let topicContentPath = html.xpath("//*[@id='Wrapper']//div[@class='topic_content']")
             let contentHTML = topicContentPath.first?.toHTML ?? ""
-            let subtleHTML = html.xpath("//*[@id='Wrapper']//div[@class='subtle']").flatMap { $0.toHTML }.joined(separator: "")
+            let subtleHTML = html.xpath("//*[@id='Wrapper']//div[@class='subtle']").compactMap { $0.toHTML }.joined(separator: "")
             var content = contentHTML + subtleHTML
             //            content = self.replacingIframe(text: content)
             // 添加 HTTPS: 头

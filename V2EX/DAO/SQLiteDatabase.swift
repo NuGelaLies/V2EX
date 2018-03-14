@@ -1,6 +1,13 @@
 import Foundation
 import SQLite3
 
+public enum SQLiteError: Error {
+    case OpenDatabase(message: String)
+    case Prepare(message: String)
+    case Step(message: String)
+    case Bind(message: String)
+}
+
 // 数据库用于保存浏览历史，可以查看浏览历史 如果一个帖子已经查看在帖子列表页面此帖子标题灰色显示
 public class SQLiteDatabase {
     private let TABLE_READ_HISTORY = "readHistory"

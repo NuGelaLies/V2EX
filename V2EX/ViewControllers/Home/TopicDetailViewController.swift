@@ -814,7 +814,7 @@ extension TopicDetailViewController {
 
     private func atMembers() {
         // 解层
-        let members = self.comments.flatMap { $0.member }
+        let members = self.comments.compactMap { $0.member }
         let memberSet = Set<MemberModel>(members)
         let uniqueMembers = Array(memberSet).filter { $0.username != AccountModel.current?.username }
         let memberListVC = MemberListViewController(members: uniqueMembers )

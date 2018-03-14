@@ -50,7 +50,7 @@ extension HTMLParseService {
 
         guard let rootPath = rootPathOp else { return [] }
 
-        let topics = rootPath.flatMap({ ele -> TopicModel? in
+        let topics = rootPath.compactMap({ ele -> TopicModel? in
             guard let userPage = ele.xpath(".//td/a").first?["href"],
                 let avatarSrc = ele.xpath(".//td/a/img").first?["src"],
                 let topicPath = ele.xpath(".//td/span[@class='item_title']/a").first,
@@ -109,9 +109,9 @@ extension HTMLParseService {
     /// - Returns: node model
     func parseNodeNavigation(html: HTMLDocument) -> [NodeCategoryModel] {
         let nodesPath = html.xpath("//*[@id='Wrapper']//div[@class='box'][last()]/div/table/tr")
-        let nodeCategorys = nodesPath.flatMap { (ele) -> NodeCategoryModel? in
+        let nodeCategorys = nodesPath.compactMap { (ele) -> NodeCategoryModel? in
             guard let sectionName = ele.xpath("./td[1]/span").first?.content else { return nil }
-            let nodes = ele.xpath("./td[2]/a").flatMap({ (ele) -> NodeModel? in
+            let nodes = ele.xpath("./td[2]/a").compactMap({ (ele) -> NodeModel? in
                 guard let title = ele.content, let href = ele["href"] else { return nil }
                 return NodeModel(title: title, href: href)
             })
@@ -163,7 +163,7 @@ extension HTMLParseService {
     /// - Parameter html: HTMLDoc
     func parseComment(html: HTMLDocument) -> [CommentModel] {
         let commentPath = html.xpath("//*[@id='Wrapper']//div[@class='box'][2]/div[contains(@id, 'r_')]")
-        let comments = commentPath.flatMap({ ele -> CommentModel? in
+        let comments = commentPath.compactMap({ ele -> CommentModel? in
             guard let replyID = ele["id"]?.deleteOccurrences(target: "r_"),
                 let userAvatar = ele.xpath("./table/tr/td/img").first?["src"],
                 let userPath = ele.xpath("./table/tr/td[3]/strong/a").first,
@@ -326,7 +326,7 @@ extension HTMLParseService {
         let titlePath = html.xpath("//*[@id='Wrapper']//div[@class='dock_area']")
         let contentPath = html.xpath("//*[@id='Wrapper']//div[@class='reply_content']")
 
-        let messages = titlePath.enumerated().flatMap({ index, ele -> MessageModel? in
+        let messages = titlePath.enumerated().compactMap({ index, ele -> MessageModel? in
             guard let replyContent = contentPath[index].text,
                 let replyNode = ele.xpath(".//tr[1]/td[1]/span").first,
                 let replyDes = ele.content?.trimmed,
@@ -353,7 +353,7 @@ extension HTMLParseService {
     func parseMemberTopics(html: HTMLDocument) -> [TopicModel] {
         
         let rootPath = html.xpath("//*[@id='Wrapper']/div/div/div[@class='cell item']")
-        let topics = rootPath.flatMap({ ele -> TopicModel? in
+        let topics = rootPath.compactMap({ ele -> TopicModel? in
             guard let userNode = ele.xpath(".//td//span/strong/a").first,
                 let userPage = userNode["href"],
                 let username = userNode.content,

@@ -28,7 +28,7 @@ target 'V2EX' do
     pod 'PullToRefreshKit' , git: 'https://github.com/Joe0708/PullToRefreshKit.git'
 
     # Parse
-    pod 'Kanna', '~> 2.1.0'
+    pod 'Kanna', '~> 4.0.0'
 
     # Rich text
     pod 'YYText', git: 'https://github.com/Joe0708/YYText'
@@ -57,15 +57,15 @@ target 'V2EX' do
 
 end
 
-post_install do |installer|
-
-    # 需要指定编译版本的第三方库名称
-    swift3_targets = ['Kanna']
-    installer.pods_project.targets.each do |target|
-        if swift3_targets.include? target.name
-            target.build_configurations.each do |config|
-                config.build_settings['SWIFT_VERSION'] = '3.0'
-            end
-        end
-    end
-end
+#post_install do |installer|
+#
+#    # 需要指定编译版本的第三方库名称
+#    swift3_targets = ['Kanna']
+#    installer.pods_project.targets.each do |target|
+#        if swift3_targets.include? target.name
+#            target.build_configurations.each do |config|
+#                config.build_settings['SWIFT_VERSION'] = '3.0'
+#            end
+#        end
+#    end
+#end

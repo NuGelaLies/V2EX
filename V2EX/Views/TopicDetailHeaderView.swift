@@ -148,8 +148,8 @@ class TopicDetailHeaderView: UIView {
 
         webView.scrollView.rx
             .observe(CGSize.self, "contentSize")
-            .distinctUntilChanged()
             .filterNil()
+            .distinctUntilChanged()
             .filter { $0.height >= 100 }
             .subscribeNext { [weak self] size in
                 self?.htmlHeight = size.height
