@@ -225,9 +225,9 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
         topics[indexPath.row].isRead = true
         self.tableView.reloadRows(at: [indexPath], with: .none)
         guard let member = topic.member else { return }
-        GCD.runOnBackgroundThread {
+//        GCD.runOnBackgroundThread {
             SQLiteDatabase.instance?.addHistory(tid: topicID, title: topic.title, username: member.username, avatarURL: member.avatarSrc)
-        }
+//        }
     }
 }
 

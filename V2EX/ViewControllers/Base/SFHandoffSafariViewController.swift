@@ -4,7 +4,7 @@ open class SFHandoffSafariViewController: SFSafariViewController {
 
     override public init(url URL: URL, entersReaderIfAvailable: Bool) {
         super.init(url: URL, entersReaderIfAvailable: entersReaderIfAvailable)
-        if userActivity == nil {
+        if userActivity == nil && URL.scheme != nil {
             userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
         }
         userActivity?.webpageURL = URL

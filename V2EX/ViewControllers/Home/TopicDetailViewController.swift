@@ -150,9 +150,13 @@ class TopicDetailViewController: DataViewController, TopicService {
         commentInputView.textView.resignFirstResponder()
         isShowToolBarVariable.value = false
         setStatusBarBackground(.clear)
-        guard let topicID = topicID.int,
-            let anchor = tableView.indexPathsForVisibleRows?.first?.row else { return }
-        SQLiteDatabase.instance?.setAnchor(topicID: topicID, anchor: anchor)
+        
+        guard let topicID = topicID.int
+//            ,let anchor = tableView.indexPathsForVisibleRows?.first?.row
+            else { return }
+//        SQLiteDatabase.instance?.setAnchor(topicID: topicID, anchor: anchor)
+        let y = Int(self.tableView.contentOffset.y)
+        SQLiteDatabase.instance?.setAnchor(topicID: topicID, anchor: y)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -254,6 +258,13 @@ class TopicDetailViewController: DataViewController, TopicService {
     
     // 滚动到锚点位置
     @objc private func scrollToAnchor() {
+        
+        if let offsetY = self.anchor, !isAnimation {
+            self.tableView.setContentOffset(CGPoint(x: 0, y: offsetY), animated: true)
+            self.anchor = nil
+            return
+        }
+        
         guard var anchor = self.anchor,
             anchor > 0,
             tableView.numberOfRows(inSection: 0) >= anchor else { return }
