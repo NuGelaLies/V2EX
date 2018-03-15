@@ -98,9 +98,9 @@ final class HUD {
         let duration = isShown ? duration + delay : duration
         
         if isShown {
-            GCD.delay(0.5, block: {
+            GCD.delay(delay, block: {
                 SwiftMessages.hideAll()
-                GCD.delay(0.5, block: {
+                GCD.delay(delay, block: {
                     SwiftMessages.show(view: messageView)
                 })
             })
@@ -126,3 +126,25 @@ final class HUD {
     }
 }
 
+extension HUD {
+    
+    public class func showBackBrowseLocationView(_ text: String, duration: TimeInterval = 3, tapBlock: Action?) {
+
+        let messageView: LastBrowseView = try! SwiftMessages.viewFromNib()
+        messageView.configureDropShadow()
+        messageView.cancelAction = {
+            tapBlock?()
+            SwiftMessages.hideAll()
+        }
+        
+        SwiftMessages.defaultConfig.duration = .seconds(seconds: duration)
+        
+        if isShown {
+                SwiftMessages.hideAll()
+                SwiftMessages.show(view: messageView)
+        } else {
+            SwiftMessages.show(view: messageView)
+        }
+        
+    }
+}

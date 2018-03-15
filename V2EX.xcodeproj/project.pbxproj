@@ -256,6 +256,8 @@
 		77D458231FD96FE30004225B /* OCRConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D458221FD96FE30004225B /* OCRConfigViewController.swift */; };
 		77FD14F41FAB51ED00F2FFF4 /* TopicFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FD14F31FAB51ED00F2FFF4 /* TopicFavoriteViewController.swift */; };
 		80BDADB66F39CEA2AACC3733 /* Pods_V2EXUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B6818F911EA9C433951F18 /* Pods_V2EXUITests.framework */; };
+		B13B0736205A229100B8D69C /* LastBrowseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B13B0734205A229000B8D69C /* LastBrowseView.xib */; };
+		B13B0737205A229100B8D69C /* LastBrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13B0735205A229000B8D69C /* LastBrowseView.swift */; };
 		BF02A2C21F8F3E3800BEF85E /* AppSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02A2C11F8F3E3800BEF85E /* AppSetup.swift */; };
 		BF02A2CE1F8F3FE400BEF85E /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02A2CD1F8F3FE400BEF85E /* AppTheme.swift */; };
 		BF02A2D21F8F42B600BEF85E /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02A2D11F8F425C00BEF85E /* UIColor+Extension.swift */; };
@@ -457,6 +459,8 @@
 		79E9C346121D264309381B21 /* Pods-V2EXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EXTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EXTests/Pods-V2EXTests.release.xcconfig"; sourceTree = "<group>"; };
 		A06D4C2BE8DE9A7F928C74E5 /* Pods-V2EXTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EXTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EXTests/Pods-V2EXTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A3FD0254BCE3292D3FCA0608 /* Pods-V2EXUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EXUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EXUITests/Pods-V2EXUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B13B0734205A229000B8D69C /* LastBrowseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LastBrowseView.xib; sourceTree = "<group>"; };
+		B13B0735205A229000B8D69C /* LastBrowseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastBrowseView.swift; sourceTree = "<group>"; };
 		BF02A2C11F8F3E3800BEF85E /* AppSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSetup.swift; sourceTree = "<group>"; };
 		BF02A2CC1F8F3F3E00BEF85E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		BF02A2CD1F8F3FE400BEF85E /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
@@ -758,6 +762,8 @@
 				776EFDD31F9BB9E70087AECC /* ShareItemView.swift */,
 				776EFDD21F9BB9E70087AECC /* ShareSheetView.swift */,
 				779E67001FE1549700BD25FD /* CardView.xib */,
+				B13B0735205A229000B8D69C /* LastBrowseView.swift */,
+				B13B0734205A229000B8D69C /* LastBrowseView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1242,6 +1248,7 @@
 				771502C21FEBE6F6008BB161 /* iPad Pro App-83.5@2x.png in Resources */,
 				771502CB1FEBE6F6008BB161 /* iPhone Settings-29@2x.png in Resources */,
 				771502C11FEBE6F6008BB161 /* iPad Notifications-20@2x.png in Resources */,
+				B13B0736205A229100B8D69C /* LastBrowseView.xib in Resources */,
 				771502BE1FEBE6F6008BB161 /* iPad App-76.png in Resources */,
 				771502C71FEBE6F6008BB161 /* iPhone App-60@2x.png in Resources */,
 				BF65BDC21F8E12C80010B4C9 /* LaunchScreen.storyboard in Resources */,
@@ -1721,6 +1728,7 @@
 				BFBA304A1FC2BAE000502E61 /* ViewController.swift in Sources */,
 				BFCB674A1F8F49EA00D05A90 /* Logger.swift in Sources */,
 				772A577B1F9786EB003FBE1A /* CreateTopicViewController.swift in Sources */,
+				B13B0737205A229100B8D69C /* LastBrowseView.swift in Sources */,
 				778AC6B81F9AF07F0072C6E9 /* NSAttributedString+Extensions.swift in Sources */,
 				BF7AF1BC1FBC2CA5005427D0 /* AboutViewController.swift in Sources */,
 				BF39FFE91F9442DA00D6F8BD /* LoadingButton.swift in Sources */,

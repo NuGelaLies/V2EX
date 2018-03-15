@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="JI3-gM-XBO" userLabel="Card View" customClass="LastBrowseView" customModule="V2EX" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="438" height="177"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dp3-Ae-zep" userLabel="Background view">
+                    <rect key="frame" x="30" y="66" width="398" height="101"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RJH-Fp-YDa" userLabel="Content view">
+                            <rect key="frame" x="126.66666666666666" y="0.0" width="144.99999999999997" height="101"/>
+                            <subviews>
+                                <button opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFi-Ik-klX">
+                                    <rect key="frame" x="0.0" y="0.0" width="145" height="101"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <state key="normal" title="回到上次浏览位置">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="15"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="cancel" destination="JI3-gM-XBO" eventType="touchUpInside" id="0BO-De-YH2"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="145" id="LT2-gf-Ubo"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="RJH-Fp-YDa" secondAttribute="bottom" id="3t4-62-KuN"/>
+                        <constraint firstItem="RJH-Fp-YDa" firstAttribute="centerX" secondItem="dp3-Ae-zep" secondAttribute="centerX" id="4Oc-D3-bzD"/>
+                        <constraint firstItem="RJH-Fp-YDa" firstAttribute="top" secondItem="dp3-Ae-zep" secondAttribute="top" id="6rK-Yv-gKZ"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="dp3-Ae-zep" secondAttribute="trailing" constant="10" id="gGP-zK-6VU"/>
+                <constraint firstItem="dp3-Ae-zep" firstAttribute="leading" secondItem="JI3-gM-XBO" secondAttribute="leadingMargin" constant="10" id="gyP-aD-uO3"/>
+                <constraint firstAttribute="bottomMargin" secondItem="dp3-Ae-zep" secondAttribute="bottom" constant="10" id="le8-gK-lcY"/>
+                <constraint firstItem="dp3-Ae-zep" firstAttribute="top" secondItem="JI3-gM-XBO" secondAttribute="topMargin" constant="66" id="s15-z9-aHc"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="bounceAnimationOffset">
+                    <real key="value" value="0.0"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="statusBarOffset">
+                    <real key="value" value="10"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="safeAreaTopOffset">
+                    <real key="value" value="-8"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="safeAreaBottomOffset">
+                    <real key="value" value="-18"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="backgroundView" destination="dp3-Ae-zep" id="ZiK-GN-SXH"/>
+            </connections>
+            <point key="canvasLocation" x="261" y="680.5"/>
+        </view>
+    </objects>
+</document>

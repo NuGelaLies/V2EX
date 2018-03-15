@@ -73,7 +73,7 @@ class TopicDetailViewController: DataViewController, TopicService {
     }
 
     public var anchor: Int?
-    private var isAnimation = true
+    private var isShowBackLastBrowseView: Bool = false
     
     private var selectComment: CommentModel? {
         guard let selectIndexPath = tableView.indexPathForSelectedRow else {
@@ -134,14 +134,6 @@ class TopicDetailViewController: DataViewController, TopicService {
                 commentInputView.isHidden = true
             }
         }
-        
-        if self.anchor != nil { return }
-        guard let topicID = topicID.int else { return }
-        guard let anchor = SQLiteDatabase.instance?.getAnchor(topicID: topicID) else { return }
-        guard anchor != -1 else { return }
-        self.anchor = anchor
-        isAnimation = false
-        log.info(anchor)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -256,24 +248,30 @@ class TopicDetailViewController: DataViewController, TopicService {
         }
     }
     
+    private func scrollToLastBrwoseLocation() {
+        guard let topicID = topicID.int, !isShowBackLastBrowseView else { return }
+        guard let offsetY = SQLiteDatabase.instance?.getAnchor(topicID: topicID)?.f else { return }
+        guard offsetY != -1, offsetY > tableView.height || CGFloat(offsetY) > headerView.height else { return }
+        isShowBackLastBrowseView = true
+        HUD.showBackBrowseLocationView("回到上次浏览位置") { [weak self] in
+            self?.tableView.setContentOffset(CGPoint(x: 0, y: offsetY), animated: true)
+        }
+    }
+    
     // 滚动到锚点位置
     @objc private func scrollToAnchor() {
-        
-        if let offsetY = self.anchor, !isAnimation {
-            self.tableView.setContentOffset(CGPoint(x: 0, y: offsetY), animated: true)
-            self.anchor = nil
+        if self.anchor == nil {
+            scrollToLastBrwoseLocation()
             return
         }
         
-        guard var anchor = self.anchor,
+        guard let anchor = self.anchor,
             anchor > 0,
             tableView.numberOfRows(inSection: 0) >= anchor else { return }
         self.anchor = nil
-        anchor = isAnimation ? anchor - 1 : anchor
+        isShowBackLastBrowseView = true
         let indexPath = IndexPath(row: anchor, section: 0)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-        
-        guard isAnimation else { return }
         
         GCD.delay(1, block: {
             UIView.animate(withDuration: 1, delay: 0, options: .curveLinear,  animations: {
@@ -559,7 +557,7 @@ extension TopicDetailViewController {
         
         if let currentIndexPath = self.tableView.indexPathsForVisibleRows?.last?.row {
             currentPage = (currentIndexPath / size) + 1
-            log.info(currentPage)
+//            log.info(currentPage)
         }
         commentInputView.textView.resignFirstResponder()
         
