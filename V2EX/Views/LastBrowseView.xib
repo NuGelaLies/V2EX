@@ -17,16 +17,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dp3-Ae-zep" userLabel="Background view">
-                    <rect key="frame" x="30" y="66" width="398" height="101"/>
+                    <rect key="frame" x="30" y="10" width="398" height="91"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RJH-Fp-YDa" userLabel="Content view">
-                            <rect key="frame" x="126.66666666666666" y="0.0" width="144.99999999999997" height="101"/>
+                            <rect key="frame" x="107.33333333333334" y="0.0" width="185.00000000000003" height="91"/>
                             <subviews>
-                                <button opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFi-Ik-klX">
-                                    <rect key="frame" x="0.0" y="0.0" width="145" height="101"/>
+                                <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFi-Ik-klX">
+                                    <rect key="frame" x="0.0" y="0.0" width="185" height="91"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <state key="normal" title="回到上次浏览位置">
+                                    <inset key="titleEdgeInsets" minX="-55" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="145" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="回到上次浏览位置" image="arrowDown">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
@@ -40,7 +42,7 @@
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="width" constant="145" id="LT2-gf-Ubo"/>
+                                <constraint firstAttribute="width" constant="185" id="LT2-gf-Ubo"/>
                             </constraints>
                         </stackView>
                     </subviews>
@@ -60,8 +62,8 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="dp3-Ae-zep" secondAttribute="trailing" constant="10" id="gGP-zK-6VU"/>
                 <constraint firstItem="dp3-Ae-zep" firstAttribute="leading" secondItem="JI3-gM-XBO" secondAttribute="leadingMargin" constant="10" id="gyP-aD-uO3"/>
-                <constraint firstAttribute="bottomMargin" secondItem="dp3-Ae-zep" secondAttribute="bottom" constant="10" id="le8-gK-lcY"/>
-                <constraint firstItem="dp3-Ae-zep" firstAttribute="top" secondItem="JI3-gM-XBO" secondAttribute="topMargin" constant="66" id="s15-z9-aHc"/>
+                <constraint firstAttribute="bottomMargin" secondItem="dp3-Ae-zep" secondAttribute="bottom" constant="76" id="le8-gK-lcY"/>
+                <constraint firstItem="dp3-Ae-zep" firstAttribute="top" secondItem="JI3-gM-XBO" secondAttribute="topMargin" constant="10" id="s15-z9-aHc"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <userDefinedRuntimeAttributes>
@@ -84,4 +86,7 @@
             <point key="canvasLocation" x="261" y="680.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="arrowDown" width="28" height="28"/>
+    </resources>
 </document>

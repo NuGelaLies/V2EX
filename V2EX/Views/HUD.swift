@@ -136,8 +136,8 @@ extension HUD {
             tapBlock?()
             SwiftMessages.hideAll()
         }
-        
         SwiftMessages.defaultConfig.duration = .seconds(seconds: duration)
+        SwiftMessages.defaultConfig.presentationStyle = .bottom
         
         if isShown {
                 SwiftMessages.hideAll()
