@@ -74,7 +74,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
         nodes = homeNodes()
 
         let segmentV = SegmentView(frame: CGRect(x: 0, y: 0, width: view.width, height: 40),
-                                   titles: nodes.compactMap { $0.title })
+                                   titles: nodes.flatMap { $0.title })
         segmentV.backgroundColor = .white
         segmentView = segmentV
         view.addSubview(segmentV)

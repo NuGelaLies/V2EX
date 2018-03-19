@@ -19,7 +19,7 @@ class AllNodesViewController: DataViewController, NodeService {
 
     private lazy var footerLabel: UILabel = {
         let footerLabel = UILabel()
-        let nodeTotalCount = groups.compactMap { $0.nodes.count }.reduce(0, +)
+        let nodeTotalCount = groups.flatMap { $0.nodes.count }.reduce(0, +)
         footerLabel.text = "\(nodeTotalCount) 个节点"
         footerLabel.sizeToFit()
         footerLabel.textColor = .gray

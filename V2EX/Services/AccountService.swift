@@ -163,7 +163,7 @@ extension AccountService {
                 if let dailyHref = html.xpath("//*[@id='Wrapper']/div[@class='content']//div[@class='inner']/a").first?["href"],
                     dailyHref == "/mission/daily" {
                 }
-
+                
                 UserDefaults.save(at: loginForm.username, forKey: Constants.Keys.loginAccount)
                 if let account = self.parseLoginUser(html: html) {
                     account.save()
@@ -304,7 +304,7 @@ extension AccountService {
         Network.htmlRequest(target: .notifications(page: page), success: { html in
             let cellPath = html.xpath("//*[@id='Wrapper']/div/div/div[@class='cell']")
 
-            let messages = cellPath.compactMap({ ele -> MessageModel? in
+            let messages = cellPath.flatMap({ ele -> MessageModel? in
                 guard let id = ele["id"]?.deleteOccurrences(target: "n_"),
                     let userNode = ele.xpath("table/tr/td[1]/a/img").first,
                     let userPageHref = userNode.parent?["href"],

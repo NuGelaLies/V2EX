@@ -48,7 +48,7 @@ extension String {
     func hash() -> Int {
         let sum =  self
             .map { String($0).unicodeScalars.first?.value }
-            .compactMap { $0 }
+            .flatMap { $0 }
             .reduce(0, +)
         return Int(sum)
     }

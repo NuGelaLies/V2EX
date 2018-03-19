@@ -9,10 +9,16 @@ public typealias Action = () -> Void
 
 //typealias L10n = R.string.localizable
 
-/// Present 登录
-func presentLoginVC() {
+
+func clearAccount() {
     AccountModel.delete()
     HTTPCookieStorage.shared.cookies?.forEach { HTTPCookieStorage.shared.deleteCookie($0) }
+    URLCache.shared.removeAllCachedResponses()
+}
+
+/// Present 登录
+func presentLoginVC() {
+    clearAccount()
     let nav = NavigationViewController(rootViewController: LoginViewController())
     AppWindow.shared.window.rootViewController?.present(nav, animated: true, completion: nil)
 }

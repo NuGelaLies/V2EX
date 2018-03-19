@@ -699,6 +699,12 @@ extension TopicDetailViewController {
             let topicDetailVC = TopicDetailViewController(topicID: topicID)
             self.navigationController?.pushViewController(topicDetailVC, animated: true)
         case .foreword(let comment):
+            
+            if isShowOnlyFloor {
+                HUD.showInfo("当前为\"只看楼主\"模式，请切换到\"查看所有\"模式下查看")
+                return
+            }
+            
             guard let floor = comment.floor.int else { return }
             let forewordIndexPath = IndexPath(row: floor - 1, section: 0)
         
@@ -823,7 +829,7 @@ extension TopicDetailViewController {
 
     private func atMembers() {
         // 解层
-        let members = self.comments.compactMap { $0.member }
+        let members = self.comments.flatMap { $0.member }
         let memberSet = Set<MemberModel>(members)
         let uniqueMembers = Array(memberSet).filter { $0.username != AccountModel.current?.username }
         let memberListVC = MemberListViewController(members: uniqueMembers )
@@ -961,6 +967,7 @@ extension TopicDetailViewController {
             self.topic = topic
             self.tableView.endHeaderRefresh()
             self.maxPage = maxPage
+            self.isShowOnlyFloor = false
     
             complete?()
             }, failure: { [weak self] error in

@@ -93,7 +93,7 @@ final class HUD {
         messageView.configureDropShadow()
         messageView.configureIcon(withSize: CGSize(width: 30, height: 30), contentMode: .scaleAspectFill)
         SwiftMessages.defaultConfig.duration = .seconds(seconds: duration)
-        
+        SwiftMessages.defaultConfig.presentationStyle = .top
         let delay: TimeInterval = 0.5
         let duration = isShown ? duration + delay : duration
         

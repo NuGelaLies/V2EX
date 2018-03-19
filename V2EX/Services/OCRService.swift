@@ -108,7 +108,7 @@ extension OCRService {
                     failure?("识别失败"); return
                 }
 
-                let wrapperChars: [String] = wordsResult.compactMap({ word in
+                let wrapperChars: [String] = wordsResult.flatMap({ word in
                     return word.words.deleteOccurrences(target: " ").deleteOccurrences(target: "-").uppercased()
                 })
 
@@ -142,7 +142,7 @@ extension OCRService {
 
                 var list: [String] = []
                 for offset in 0..<8 {
-                    let col = chars.compactMap { $0[offset] }
+                    let col = chars.flatMap { $0[offset] }
                     let char = mostCharIn(String(col))
                     list.append(char)
                 }

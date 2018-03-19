@@ -46,7 +46,7 @@ class FenCiViewController: UICollectionViewController {
     
     private var selectWords: [String] {
         guard let selectedItems = collectionView?.indexPathsForSelectedItems else { return [] }
-        return selectedItems.sorted().compactMap { indexPath -> String? in
+        return selectedItems.sorted().flatMap { indexPath -> String? in
             return words[indexPath.row]
         }
     }
