@@ -264,13 +264,19 @@ class TopicDetailViewController: DataViewController, TopicService {
             scrollToLastBrwoseLocation()
             return
         }
+        guard let maxFloor = dataSources.last?.floor.int else { return }
         
         guard let anchor = self.anchor,
-            anchor > 0,
-            tableView.numberOfRows(inSection: 0) >= anchor else { return }
+            maxFloor >= anchor else { return }
+//            tableView.numberOfRows(inSection: 0) >= anchor else { return }
+
         self.anchor = nil
         isShowBackLastBrowseView = true
-        let indexPath = IndexPath(row: anchor, section: 0)
+
+        guard let index = (dataSources.index { $0.floor == anchor.description }) else { return }
+        let indexPath = IndexPath(row: Int(index), section: 0)
+        guard indexPath.row < tableView.numberOfRows(inSection: 0) else { return }
+        
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         
         GCD.delay(1, block: {
@@ -505,6 +511,7 @@ extension TopicDetailViewController: UITableViewDelegate, UITableViewDataSource 
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         
         let comment = dataSources[indexPath.row]
+        
         let menuVC = UIMenuController.shared
         var targetRectangle = cell.frame
         let cellFrame = tableView.convert(tableView.rectForRow(at: indexPath), to: tableView.superview)
@@ -705,8 +712,10 @@ extension TopicDetailViewController {
                 return
             }
             
-            guard let floor = comment.floor.int else { return }
-            let forewordIndexPath = IndexPath(row: floor - 1, section: 0)
+            // 主题可能被抽层, 不在依赖 floor, 而去数据源中查
+//            guard let floor = comment.floor.int else { return }
+            guard let index = dataSources.index(of: comment) else { return }
+            let forewordIndexPath = IndexPath(row: Int(index), section: 0)
         
             // 在当前可视范围内 并且 cell没有超出屏幕外
             if let cell = tableView.cellForRow(at: forewordIndexPath),
