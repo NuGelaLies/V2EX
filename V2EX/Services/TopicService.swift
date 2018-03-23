@@ -416,6 +416,12 @@ extension TopicService {
         failure: @escaping Failure) {
         
         Network.htmlRequest(target: .createTopic(nodename: nodename, dict: [:]), success: { html in
+            if let htmlStr = html.body?.toHTML {
+                if htmlStr.contains("你的帐号刚刚注册") {
+                    failure("你的帐号刚刚注册，暂时无法发帖。")
+                    return                    
+                }
+            }
             guard let once = self.parseOnce(html: html) else {
                 failure("操作失败，无法获取 once")
                 return
