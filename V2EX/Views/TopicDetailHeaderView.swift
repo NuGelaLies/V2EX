@@ -41,7 +41,7 @@ class TopicDetailHeaderView: UIView {
             case .bigger: return 16
             case .small: return 11
             case .subtle: return 12
-            case .topicContent: return 15
+            case .topicContent: return 13
             }
         }
     }
@@ -259,7 +259,7 @@ class TopicDetailHeaderView: UIView {
                     let themeFilePath = Bundle.main.path(forResource: fileName, ofType: "") {
                     var cssString = try String(contentsOfFile: filePath)
 
-                    let scale = Preference.shared.webViewFontScale
+                    let scale = Preference.shared.webViewFontScale * 0.1 + 1.05
                     for tag in HTMLTag.allValues {
                         let fontpx = scale * Float(tag.fontSize)
                         cssString = cssString.replacingOccurrences(of: tag.key, with: "\(fontpx)px")

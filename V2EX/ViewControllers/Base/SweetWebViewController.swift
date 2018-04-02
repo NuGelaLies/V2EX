@@ -35,15 +35,14 @@ public enum NavigationBarPosition {
     @objc optional func sweetWebViewController(_ controller: SweetWebViewController, decidePolicy url: URL, navigationType: NavigationType) -> Bool
 }
 
-let estimatedProgressKeyPath = "estimatedProgress"
-let titleKeyPath = "title"
-let cookieKey = "Cookie"
+
 
 open class SweetWebViewController: UIViewController {
 
     private struct Keys {
         static let estimatedProgressKeyPath = "estimatedProgress"
         static let titleKeyPath = "title"
+        static let cookieKey = "Cookie"
     }
 
     open var url: URL?
@@ -95,9 +94,9 @@ open class SweetWebViewController: UIViewController {
     }()
 
     deinit {
-        webView.removeObserver(self, forKeyPath: estimatedProgressKeyPath)
+        webView.removeObserver(self, forKeyPath: Keys.estimatedProgressKeyPath)
         if websiteTitleInNavigationBar {
-            webView.removeObserver(self, forKeyPath: titleKeyPath)
+            webView.removeObserver(self, forKeyPath: Keys.titleKeyPath)
         }
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         log.info("DEINIT: SweetWebViewController")
@@ -112,9 +111,9 @@ open class SweetWebViewController: UIViewController {
         webView.allowsBackForwardNavigationGestures = true
         webView.isMultipleTouchEnabled = true
 
-        webView.addObserver(self, forKeyPath: estimatedProgressKeyPath, options: .new, context: nil)
+        webView.addObserver(self, forKeyPath: Keys.estimatedProgressKeyPath, options: .new, context: nil)
         if websiteTitleInNavigationBar {
-            webView.addObserver(self, forKeyPath: titleKeyPath, options: .new, context: nil)
+            webView.addObserver(self, forKeyPath: Keys.titleKeyPath, options: .new, context: nil)
         }
 
         view = webView
@@ -214,7 +213,7 @@ private extension SweetWebViewController {
 
         // Set up Cookies
         if let cookies = availableCookies {
-            request.setValue(HTTPCookie.requestHeaderFields(with: cookies)[cookieKey], forHTTPHeaderField: cookieKey)
+            request.setValue(HTTPCookie.requestHeaderFields(with: cookies)[Keys.cookieKey], forHTTPHeaderField: Keys.cookieKey)
         }
 
         return request
@@ -447,7 +446,7 @@ extension SweetWebViewController: WKNavigationDelegate {
         }
         var actionPolicy: WKNavigationActionPolicy = .allow
         if url.host == self.url?.host, let cookies = availableCookies, cookies.count > 0 {
-            if let headerFields = navigationAction.request.allHTTPHeaderFields, let cookieString = headerFields[cookieKey] {
+            if let headerFields = navigationAction.request.allHTTPHeaderFields, let cookieString = headerFields[Keys.cookieKey] {
                 let requestCookies = cookieString.components(separatedBy: ";").map {
                     cookie in
                     return cookie.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: "=")

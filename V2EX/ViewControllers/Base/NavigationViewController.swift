@@ -71,9 +71,10 @@ extension NavigationViewController {
 extension NavigationViewController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
     
-//        if (topViewController as BaseViewController).interactivePopDisabled {
-//            return false
-//        }
+        var disabled = false
+        if (topViewController as? BaseViewController)?.interactivePopDisabled ?? false {
+            disabled = true
+        }
 
         if childViewControllers.count <= 1 {
             return false
@@ -85,7 +86,7 @@ extension NavigationViewController: UIGestureRecognizerDelegate {
         let offset = panGestureRecognizer.translation(in: panGestureRecognizer.view)
         //        let ret = 0 < offset.x && location.x <= 40 // x < 40 可以响应返回手势
         //        let ret =  0 < offset.x && location.x < view.width // 全屏返回手势
-        let area = Preference.shared.enableFullScreenGesture ? view.width : 50
+        let area = disabled ? 30 : Preference.shared.enableFullScreenGesture ? view.width : 50
         let ret =  0 < offset.x && location.x < area
         return ret
     }

@@ -258,6 +258,7 @@
 		80BDADB66F39CEA2AACC3733 /* Pods_V2EXUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B6818F911EA9C433951F18 /* Pods_V2EXUITests.framework */; };
 		B13B0736205A229100B8D69C /* LastBrowseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B13B0734205A229000B8D69C /* LastBrowseView.xib */; };
 		B13B0737205A229100B8D69C /* LastBrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13B0735205A229000B8D69C /* LastBrowseView.swift */; };
+		B1A31C452072127000C2DE26 /* DiscreteSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A31C442072127000C2DE26 /* DiscreteSliderView.swift */; };
 		BF02A2C21F8F3E3800BEF85E /* AppSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02A2C11F8F3E3800BEF85E /* AppSetup.swift */; };
 		BF02A2CE1F8F3FE400BEF85E /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02A2CD1F8F3FE400BEF85E /* AppTheme.swift */; };
 		BF02A2D21F8F42B600BEF85E /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02A2D11F8F425C00BEF85E /* UIColor+Extension.swift */; };
@@ -461,6 +462,7 @@
 		A3FD0254BCE3292D3FCA0608 /* Pods-V2EXUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EXUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EXUITests/Pods-V2EXUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B13B0734205A229000B8D69C /* LastBrowseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LastBrowseView.xib; sourceTree = "<group>"; };
 		B13B0735205A229000B8D69C /* LastBrowseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastBrowseView.swift; sourceTree = "<group>"; };
+		B1A31C442072127000C2DE26 /* DiscreteSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscreteSliderView.swift; sourceTree = "<group>"; };
 		BF02A2C11F8F3E3800BEF85E /* AppSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSetup.swift; sourceTree = "<group>"; };
 		BF02A2CC1F8F3F3E00BEF85E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		BF02A2CD1F8F3FE400BEF85E /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
@@ -764,6 +766,7 @@
 				779E67001FE1549700BD25FD /* CardView.xib */,
 				B13B0735205A229000B8D69C /* LastBrowseView.swift */,
 				B13B0734205A229000B8D69C /* LastBrowseView.xib */,
+				B1A31C442072127000C2DE26 /* DiscreteSliderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1755,6 +1758,7 @@
 				BFCB67461F8F498900D05A90 /* HomeViewController.swift in Sources */,
 				7794DA321FD2E2A500B7B299 /* FenCiCell.swift in Sources */,
 				BFCB67641F8F666100D05A90 /* API.swift in Sources */,
+				B1A31C452072127000C2DE26 /* DiscreteSliderView.swift in Sources */,
 				BFBCE5B81F90C4FC000106D6 /* NodesViewController.swift in Sources */,
 				BF6C76BC1FA1E57A00E4D418 /* UIImage+Extension.swift in Sources */,
 				BF02A2D21F8F42B600BEF85E /* UIColor+Extension.swift in Sources */,
