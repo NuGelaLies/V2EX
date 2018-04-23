@@ -201,7 +201,7 @@ extension Networking {
                 // 重定向到 signin ， 代表需要登录
                 if (dataResponse.response?.url?.absoluteString ?? "").contains(API.signin(dict: [:]).defaultURLString) {
                     AccountModel.delete()
-                    failure?("您要查看的页面需要先登录")
+                    failure?("登录已失效或没登录，请在登录后查看")
                     return
                 }
             }

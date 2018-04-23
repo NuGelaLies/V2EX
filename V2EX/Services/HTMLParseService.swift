@@ -44,6 +44,8 @@ extension HTMLParseService {
         switch type {
         case .index, .member:
             rootPathOp = html.xpath("//*[@id='Wrapper']/div/div/div[@class='cell item']")
+        case .topicCollect:
+            rootPathOp = html.xpath("//*[@id='Wrapper']/div[@class='content']//div[contains(@class, 'cell item')]")
         default://.nodeDetail:
             rootPathOp = html.xpath("//*[@id='Wrapper']/div[@class='content']//div[contains(@class, 'cell')]")
         }
@@ -51,14 +53,18 @@ extension HTMLParseService {
         guard let rootPath = rootPathOp else { return [] }
 
         let topics = rootPath.flatMap({ ele -> TopicModel? in
-            guard let userPage = ele.xpath(".//td/a").first?["href"],
+            guard let userPage = ele.at_xpath(".//td/a")?["href"],
                 let avatarSrc = ele.xpath(".//td/a/img").first?["src"],
                 let topicPath = ele.xpath(".//td/span[@class='item_title']/a").first,
                 let topicTitle = topicPath.content,
-                let topicHref = topicPath["href"],
-                let username = ele.xpath(".//td/span[@class='small fade']/strong[1]").first?.content else {
+                let topicHref = topicPath["href"] else {
                     return nil
             }
+            
+            guard
+                let username = ele.xpath(".//td/span[@class='small fade']/strong[1]").first?.content ??
+                    ele.at_xpath(".//td/span[@class='topic_info']/strong[1]")?.content
+                else { return nil }
             
 //            let startTime = CFAbsoluteTimeGetCurrent()
             if let words = UserDefaults.get(forKey: Constants.Keys.ignoreWords) as? [String],
@@ -70,7 +76,7 @@ extension HTMLParseService {
 //            let linkTimeStr = String(format: "Execute time %f ms", linkTime * 1000)
 //            log.info(linkTimeStr)
             
-            let replyCount = ele.xpath(".//td/a[@class='count_livid']").first?.content ?? "0"
+            let replyCount = ele.xpath(".//td/a[@class='count_livid']").first?.content ?? ele.xpath(".//td/a[@class='count_orange']").first?.content ?? "0"
             
             let homeXPath = ele.xpath(".//td/span[3]/text()").first
             let nodeDetailXPath = ele.xpath(".//td/span[2]/text()").first
