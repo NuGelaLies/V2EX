@@ -181,6 +181,18 @@ protocol TopicService: HTMLParseService {
                     token: String,
                     success: Action?,
                     failure: Failure?)
+    
+    /// 报告主题
+    ///
+    /// - Parameters:
+    ///   - topicID: 主题id
+    ///   - token: token
+    ///   - success: 成功
+    ///   - failure: 失败
+    func reportTopic(topicID: String,
+                    token: String,
+                    success: Action?,
+                    failure: Failure?)
 }
 
 extension TopicService {
@@ -215,7 +227,7 @@ extension TopicService {
             //  已登录 div[2] / 没登录 div[1]
             let nodePath = html.xpath("//*[@id='Wrapper']/div[@class='content']/div/div[\(isLogin ? 2 : 1)]/a")
             
-            let nodes = nodePath.flatMap({ ele -> NodeModel? in
+            let nodes = nodePath.compactMap({ ele -> NodeModel? in
                 guard let href = ele["href"],
                     let title = ele.content else {
                         return nil
@@ -302,7 +314,7 @@ extension TopicService {
             let topicContentPath = html.xpath("//*[@id='Wrapper']/div[@class='content']//div[@class='cell']//div[@class='topic_content']")
 //            let topicContentPath = html.xpath("//*[@id='Wrapper']//div[@class='topic_content']")
             let contentHTML = topicContentPath.first?.toHTML ?? ""
-            let subtleHTML = html.xpath("//*[@id='Wrapper']//div[@class='subtle']").flatMap { $0.toHTML }.joined(separator: "")
+            let subtleHTML = html.xpath("//*[@id='Wrapper']//div[@class='subtle']").compactMap { $0.toHTML }.joined(separator: "")
             var content = contentHTML + subtleHTML
             //            content = self.replacingIframe(text: content)
             // 添加 HTTPS: 头
@@ -328,7 +340,7 @@ extension TopicService {
             let member = MemberModel(username: userhref.lastPathComponent, url: userhref, avatar: userAvatar)
             let node = NodeModel(title: nodeTitle, href: nodeHref)
             var topic = TopicModel(member: member, node: node, title: title, href: "")
-            
+
             // 获取 token
             if let csrfTokenPath = html.xpath("//*[@id='Wrapper']/div[@class='content']/div/div[@class='inner']//a[1]").first?["href"] {
                 let csrfToken = URLComponents(string: csrfTokenPath)?["t"]
@@ -346,6 +358,11 @@ extension TopicService {
             topic.once = self.parseOnce(html: html)
             topic.content = content
             topic.publicTime = html.xpath("//*[@id='Wrapper']/div/div[1]/div[1]/small/text()[2]").first?.content ?? ""
+            
+            // 报告主题需要的 token
+            if let reportToken = html.at_xpath("//*[@id='Wrapper']/div[@class='content']/div/div[@class='inner']/div[@class='fr']/following-sibling::a[1]")?["onclick"]?.components(separatedBy: "';").first?.components(separatedBy: "=").last, let _ = reportToken.int {
+                topic.reportToken = reportToken
+            }
             let maxPage = html.xpath("//*[@id='Wrapper']/div/div[@class='box'][2]/div[last()]/a[last()]").first?.content?.int ?? 1
             success?(topic, comments, maxPage)
         }, failure: failure)
@@ -537,6 +554,16 @@ extension TopicService {
                     success: Action?,
                     failure: Failure?) {
         Network.htmlRequestNotResponse(target: .thankReply(replyID: replyID, token: token), success: {
+            success?()
+        }, failure: failure)
+    }
+    
+    
+    func reportTopic(topicID: String,
+                     token: String,
+                     success: Action?,
+                     failure: Failure?) {
+        Network.htmlRequestNotResponse(target: .reportTopic(topicID: topicID, token: token), success: {
             success?()
         }, failure: failure)
     }

@@ -19,6 +19,8 @@ struct TopicModel {
     var isThank: Bool = false
     var isRead: Bool = false
     
+    var reportToken: String?
+    
     /// 主题 ID
     var topicID: String? {
         let isTopic = href.hasPrefix("/t/")

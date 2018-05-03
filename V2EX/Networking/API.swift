@@ -117,7 +117,8 @@ enum API {
     case ignoreReply(replyID: String, once: String)
     // 预览 Markdown
     case previewTopic(md: String, once: String)
-
+    // 报告主题
+    case reportTopic(topicID: String, token: String)
 
     // MARK: - 其他
 
@@ -234,6 +235,8 @@ extension API: TargetType {
             return .get("/unfavorite/topic/\(topicID)?t=\(token)")
         case let .thankTopic(topicID, token):
             return .post("/thank/topic/\(topicID)?t=\(token)")
+        case let .reportTopic(topicID, token):
+            return .get("/report/topic/\(topicID)?t=\(token)")
         case let .ignoreTopic(topicID, once):
             return .get("/ignore/topic/\(topicID)?once=\(once)")
         case let .thankReply(replyID, token):

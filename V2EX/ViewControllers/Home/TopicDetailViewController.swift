@@ -761,6 +761,9 @@ extension TopicDetailViewController {
             section1.append(thankItem)
             section1.append(ShareItem(icon: #imageLiteral(resourceName: "ignore"), title: "忽略", type: .ignore))
             section1.append(ShareItem(icon: #imageLiteral(resourceName: "report"), title: "举报", type: .report))
+            if let _ = topic?.reportToken {
+                section1.append(ShareItem(icon: #imageLiteral(resourceName: "report"), title: "报告主题", type: .reportTopic))
+            }
         }
 
         let section2 = [
@@ -797,6 +800,8 @@ extension TopicDetailViewController {
             ignoreTopicHandle()
         case .report:
             reportHandle()
+        case .reportTopic:
+            reportTopicHandle()
         case .copyLink:
             copyLink()
         case .safari:
@@ -838,7 +843,7 @@ extension TopicDetailViewController {
 
     private func atMembers() {
         // 解层
-        let members = self.comments.flatMap { $0.member }
+        let members = self.comments.compactMap { $0.member }
         let memberSet = Set<MemberModel>(members)
         let uniqueMembers = Array(memberSet).filter { $0.username != AccountModel.current?.username }
         let memberListVC = MemberListViewController(members: uniqueMembers )
@@ -1186,6 +1191,37 @@ extension TopicDetailViewController {
             .takeUntil(alert.rx.deallocated)
             .map { $0.trimmed.isNotEmpty }
             .bind(to: sureAction.rx.isEnabled)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    /// 报告主题
+    private func reportTopicHandle() {
+        
+        let alert = UIAlertController(title: nil, message: "你确认需要报告这个主题？", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        let sureAction = UIAlertAction(title: "确定", style: .destructive, handler: { [weak self] _ in
+            guard let `self` = self else { return }
+            
+            HUD.show()
+            guard
+                let `topic` = self.topic,
+                let token = topic.reportToken else {
+                HUD.showError("操作失败")
+                return
+            }
+            
+            self.reportTopic(topicID: self.topicID, token: token, success: {
+                HUD.showSuccess("举报成功")
+                HUD.dismiss()
+            }) { error in
+                HUD.dismiss()
+                HUD.showError(error)
+            }
+        })
+        
+        alert.addAction(sureAction)
         
         present(alert, animated: true, completion: nil)
     }
