@@ -4,10 +4,13 @@ PODS:
     - Fabric (~> 1.7.5)
   - Fabric (1.7.5)
   - IQKeyboardManagerSwift (5.0.8)
+  - JCore (1.2.0)
+  - JPush (3.0.9):
+    - JCore (~> 1.2.0)
   - Kanna (4.0.0)
   - Kingfisher (4.6.3)
   - MarkdownView (1.1.0)
-  - NSObject+Rx (4.2.0):
+  - "NSObject+Rx (4.2.0)":
     - RxSwift (~> 4.0)
   - PasswordExtension (4.1.0)
   - PKHUD (5.0.0)
@@ -23,7 +26,7 @@ PODS:
   - SnapKit (4.0.0)
   - StatefulViewController (3.0)
   - SwiftMessages (4.1.0)
-  - UIView+Positioning (1.6)
+  - "UIView+Positioning (1.6)"
   - YYText (1.0.7)
 
 DEPENDENCIES:
@@ -31,10 +34,11 @@ DEPENDENCIES:
   - Crashlytics
   - Fabric
   - IQKeyboardManagerSwift
+  - JPush
   - Kanna (~> 4.0.0)
   - Kingfisher
   - MarkdownView
-  - NSObject+Rx
+  - "NSObject+Rx"
   - PasswordExtension
   - PKHUD
   - PullToRefreshKit (from `https://github.com/Joe0708/PullToRefreshKit.git`)
@@ -46,8 +50,32 @@ DEPENDENCIES:
   - SnapKit
   - StatefulViewController
   - SwiftMessages
-  - UIView+Positioning
+  - "UIView+Positioning"
   - YYText (from `https://github.com/Joe0708/YYText`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Crashlytics
+    - Fabric
+    - IQKeyboardManagerSwift
+    - JCore
+    - JPush
+    - Kanna
+    - Kingfisher
+    - MarkdownView
+    - "NSObject+Rx"
+    - PasswordExtension
+    - PKHUD
+    - Reveal-SDK
+    - RxCocoa
+    - RxOptional
+    - RxSwift
+    - SKPhotoBrowser
+    - SnapKit
+    - StatefulViewController
+    - SwiftMessages
+    - "UIView+Positioning"
 
 EXTERNAL SOURCES:
   PullToRefreshKit:
@@ -68,10 +96,12 @@ SPEC CHECKSUMS:
   Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   Fabric: ae7146a5f505ea370a1e44820b4b1dc8890e2890
   IQKeyboardManagerSwift: 2e7dc7f98c111458c1ea2b373f893e8cf95e2b97
+  JCore: b52e3dd73625eec70afd1244bb9c41038aa06087
+  JPush: 48041e8c5ad2ef9b48709eb0888af9640b36e9b0
   Kanna: d5ae2a26472f7e7a474e7f36a9cd8aa2c8c63ad3
   Kingfisher: 98e6d5b5e807645743e8ed5ececd25d688d38452
   MarkdownView: 80db8e9a27a6c6cc22615e644e3e85c06065bab7
-  NSObject+Rx: cbbc05e3cb3ad446cdbced3e00e39c9efaf02925
+  "NSObject+Rx": cbbc05e3cb3ad446cdbced3e00e39c9efaf02925
   PasswordExtension: 80a57bdae651d04437c8d2e07d90d5f18fe73180
   PKHUD: 3c001512c6e002091184197a8de7a20420786e3b
   PullToRefreshKit: 57bcedad80fbe081c410c6889a744fe8b53c98d7
@@ -83,9 +113,9 @@ SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931
   SwiftMessages: 1bacc783c8f10bdfdc57c14860cae8a1f1fa6591
-  UIView+Positioning: 6e7236a429053ade11051fab7ff9053af36c77a8
+  "UIView+Positioning": 6e7236a429053ade11051fab7ff9053af36c77a8
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 0e13fadc5fb7bb163331ebfcdb11591453b5821a
+PODFILE CHECKSUM: c42505833c5707925439197fdf34a04cf3d4fefd
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

@@ -1,4 +1,5 @@
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,26 +21,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppWindow.shared.prepare()
         AppSetup.prepare()
         SQLiteDatabase.initDatabase()
+        
+//        BackgroundFetchService.shared.checkAuthorization()
+        
+        setupJPush(launchOptions: launchOptions)
         return true
     }
 
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    func applicationWillResignActive(_ application: UIApplication) {
-    }
-
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    func applicationDidEnterBackground(_ application: UIApplication) {
-    }
-
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    func applicationWillEnterForeground(_ application: UIApplication) {
-    }
-
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    func applicationDidBecomeActive(_ application: UIApplication) {
-    }
+    
+//    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+//
+//        if Preference.shared.isBackgroundEnable == false {
+//            completionHandler(.noData)
+//            return
+//        }
+//
+//        BackgroundFetchService.shared.performFetchWithCompletionHandler { (result) in
+//            GCD.runOnMainThread {
+//                completionHandler(result)
+//            }
+//        }
+//    }
 
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     func applicationWillTerminate(_ application: UIApplication) {
@@ -47,3 +49,85 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+// MARK: - Remote Notification
+extension AppDelegate {
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        application.applicationIconBadgeNumber = 0
+        JPUSHService.resetBadge()
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        // 注册APNs成功并上报DeviceToken
+        JPUSHService.registerDeviceToken(deviceToken)
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        log.error("Register remote notifications error ", error)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+        log.verbose("收到通知", userInfo)
+        JPUSHService.handleRemoteNotification(userInfo)
+        
+//        NotificationCenter.default.post(name: NSNotification.Name.App.ReceiveRemoteNewMessageName, object: userInfo)
+    }
+}
+
+// MARK: - JPUSHRegisterDelegate
+extension AppDelegate: JPUSHRegisterDelegate {
+    
+    func setupJPush(launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+        
+        if #available(iOS 10.0, *){
+            let entiity = JPUSHRegisterEntity()
+            entiity.types = Int(UNAuthorizationOptions.alert.rawValue |
+                UNAuthorizationOptions.badge.rawValue |
+                UNAuthorizationOptions.sound.rawValue)
+            JPUSHService.register(forRemoteNotificationConfig: entiity, delegate: self)
+        } else if #available(iOS 8.0, *) {
+            let types = UIUserNotificationType.badge.rawValue |
+                UIUserNotificationType.sound.rawValue |
+                UIUserNotificationType.alert.rawValue
+            JPUSHService.register(forRemoteNotificationTypes: types, categories: nil)
+        }else {
+            let type = UIRemoteNotificationType.badge.rawValue |
+                UIRemoteNotificationType.sound.rawValue |
+                UIRemoteNotificationType.alert.rawValue
+            JPUSHService.register(forRemoteNotificationTypes: type, categories: nil)
+        }
+        
+        JPUSHService.setup(withOption: launchOptions,
+                           appKey: Constants.Config.JPushAppKey,
+                           channel: "App Store",
+                           apsForProduction: true)
+        
+        JPUSHService.setLogOFF()
+    }
+    
+    @available(iOS 10.0, *)
+    func jpushNotificationCenter(_ center: UNUserNotificationCenter!, didReceive response: UNNotificationResponse!, withCompletionHandler completionHandler: (() -> Void)!) {
+        
+        let userInfo = response.notification.request.content.userInfo
+        
+//        NotificationCenter.default.post(name: NSNotification.Name.App.ReceiveRemoteNewMessageName, object: userInfo)
+        
+        if response.notification.request.trigger?.isKind(of: UNPushNotificationTrigger.self) ?? false {
+            JPUSHService.handleRemoteNotification(userInfo)
+        }
+        completionHandler()
+    }
+    
+    @available(iOS 10.0, *)
+    func jpushNotificationCenter(_ center: UNUserNotificationCenter!, willPresent notification: UNNotification!,
+                                 withCompletionHandler completionHandler: ((Int) -> Void)!) {
+        // 前台收到通知
+        let userInfo = notification.request.content.userInfo
+        
+        if notification.request.trigger?.isKind(of: UNPushNotificationTrigger.self) ?? false {
+            JPUSHService.handleRemoteNotification(userInfo)
+        }
+        
+        completionHandler(Int(UNNotificationPresentationOptions.alert.rawValue))
+    }
+}

@@ -20,6 +20,8 @@ struct Constants {
         
         static var MaxShowNodeCount = 20
         static var MinShowNodeCount = 6
+        
+        static let JPushAppKey = "dc6ab72dc79c94580329988f"
     }
 
     struct Keys {
@@ -67,6 +69,8 @@ struct Constants {
         
         // 主题搜索历史
         static let topicSearchHistory = "topicSearchHistory"
+        
+        static let isBackgroundEnable = "isBackgroundEnable"
         
         // 屏蔽关键字
         static let ignoreWords = "ignoreWords"

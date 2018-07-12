@@ -41,6 +41,8 @@ target 'V2EX' do
     # Bug
     pod 'Fabric'
     pod 'Crashlytics'
+    
+    pod 'JPush'
 
     # Debug only
     pod 'Reveal-SDK', '~> 8', :configurations => ['Debug']

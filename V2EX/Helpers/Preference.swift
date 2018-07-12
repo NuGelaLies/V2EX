@@ -84,5 +84,15 @@ class Preference {
             return (UserDefaults.get(forKey: Constants.Keys.recognizeClipboardLink) as? Bool) ?? true
         }
     }
+    
+    /// 是否启用消息推送
+    var isBackgroundEnable: Bool {
+        set {
+            UserDefaults.save(at: newValue, forKey: Constants.Keys.isBackgroundEnable)
+        }
+        get {
+            return (UserDefaults.get(forKey: Constants.Keys.isBackgroundEnable) as? Bool) ?? false
+        }
+    }
 }
 

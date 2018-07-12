@@ -141,6 +141,12 @@ enum API {
     
     // block List
     case blockList
+    
+    // 消息通知页面
+    case atomFeed
+    
+    // 添加需要通知服务的用户
+    case addUser(feedURL: String, name: String)
 }
 
 extension API: TargetType {
@@ -156,6 +162,8 @@ extension API: TargetType {
             return "https://sm.ms/api"
         case .baiduAccessToken, .baiduOCRRecognize:
             return "https://aip.baidubce.com"
+        case .addUser:
+            return "http://123.207.3.59"
         default:
             return Constants.Config.baseURL
         }
@@ -215,6 +223,8 @@ extension API: TargetType {
             return .post("/t/\(topicID)")
         case .notifications(let page):
             return .get("/notifications?p=\(page)")
+        case .atomFeed:
+            return .get("/notifications")
         case let .deleteNotification(notifacationID, once):
             return .post("/delete/notification/\(notifacationID)?once=\(once)")
         case .bindPhone:
@@ -251,6 +261,8 @@ extension API: TargetType {
             return .post("/oauth/2.0/token")
         case .baiduOCRRecognize:
             return .post("/rest/2.0/ocr/v1/general")
+        case .addUser:
+            return .post("/user")
         default:
             return .get("")
         }
@@ -291,6 +303,9 @@ extension API: TargetType {
             param["language_type"] = "ENG"
             param["probability"] = "true"
 //            param["url"] = ""
+        case let .addUser(feedURL, name):
+            param["feedURL"] = feedURL
+            param["name"] = name
         default:
             return nil
         }
@@ -328,7 +343,7 @@ extension API: TargetType {
             if UIDevice.isiPad {
                 headers["User-Agent"] = UserAgentType.pad.description
             }
-        case .blockList:
+        case .blockList, .atomFeed:
             headers["User-Agent"] = UserAgentType.pad.description
         default:
             break

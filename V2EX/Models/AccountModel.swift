@@ -73,6 +73,9 @@ struct AccountModel: Codable {
     }
     
     public func save() {
+//        JPUSHService.setAlias(self.username, completion: { (resCode, alia, seq) in
+//            log.info(resCode, alia, seq)
+//        }, seq: 2)
         AccountModel.store(self)
     }
     

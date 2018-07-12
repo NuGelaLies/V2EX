@@ -32,6 +32,10 @@ protocol AccountService: HTMLParseService {
         page: Int,
         success: ((_ messages: [MessageModel], _ maxPage: Int) -> ())?,
         failure: Failure?)
+    
+    func atomFeed(
+        success: ((_ feedURL: String) -> Void)?,
+        failure: Failure?)
 
     func deleteNotification(
         notifacationID: String,
@@ -116,6 +120,17 @@ protocol AccountService: HTMLParseService {
     func myFavorite(
         page: Int,
         success: @escaping ((_ topics: [TopicModel], _ maxPage: Int) -> Void),
+        failure: Failure?)
+    
+    /// 查询新消息
+    func queryNewMessage(
+        success: ((_ unreadNoticeCount: Int) -> Void)?,
+        failure: Failure?)
+    
+    func addUser(
+        feedURL: String,
+        name: String,
+        success: (() -> Void)?,
         failure: Failure?)
 }
 
@@ -330,6 +345,19 @@ extension AccountService {
             success?(messages, page.max)
         }, failure: failure)
     }
+    
+    func atomFeed(
+        success: ((_ feedURL: String) -> Void)?,
+        failure: Failure?) {
+        
+        Network.htmlRequest(target: .atomFeed, success: { html in
+            guard let feedURL = html.at_xpath("//*[@id='Wrapper']/div/div[@id='Main']/div[last()]//input")?["value"] else {
+                failure?("操作失败")
+                return
+            }
+            success?(feedURL)
+        }, failure: failure)
+    }
 
     func deleteNotification(
         notifacationID: String,
@@ -513,5 +541,40 @@ extension AccountService {
             success(topics, maxPage)
         }, failure: failure)
     }
+    
+    func queryNewMessage(
+        success: ((_ unreadNoticeCount: Int) -> Void)?,
+        failure: Failure?) {
+        
+        Network.htmlRequest(target: .topics(href: nil), success: { html in
+            if let unreadNoticeString = html.xpath("//*[@id='Wrapper']/div[@class='content']/div[@class='box']/div[1]//td[1]/input").first?["value"],
+                let unreadNoticeCount = unreadNoticeString.deleteOccurrences(target: "条未读提醒").trimmed.int {
+                success?(unreadNoticeCount)
+                return
+            }
+            success?(0)
+        }, failure: failure)
+    }
+    
+    func addUser(
+        feedURL: String,
+        name: String,
+        success: (() -> Void)?,
+        failure: Failure?) {
+        Network.request(target: .addUser(feedURL: feedURL, name: name), success: { data in
+            guard let resultDict = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+                failure?("操作失败")
+                return
+            }
+            
+            guard let dict = resultDict,
+                (dict["status"] as? Int) == 0 else {
+                    failure?("操作失败")
+                    return
+            }
+            success?()
+        }, failure: failure)
+    }
+
 }
 
