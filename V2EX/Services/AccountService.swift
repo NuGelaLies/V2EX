@@ -130,7 +130,7 @@ protocol AccountService: HTMLParseService {
     func addUser(
         feedURL: String,
         name: String,
-        success: (() -> Void)?,
+        success: ((String) -> Void)?,
         failure: Failure?)
 }
 
@@ -559,7 +559,7 @@ extension AccountService {
     func addUser(
         feedURL: String,
         name: String,
-        success: (() -> Void)?,
+        success: ((String) -> Void)?,
         failure: Failure?) {
         Network.request(target: .addUser(feedURL: feedURL, name: name), success: { data in
             guard let resultDict = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
@@ -572,7 +572,7 @@ extension AccountService {
                     failure?("操作失败")
                     return
             }
-            success?()
+            success?(dict["message"] as? String ?? "操作成功")
         }, failure: failure)
     }
 

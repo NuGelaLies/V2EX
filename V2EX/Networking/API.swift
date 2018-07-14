@@ -163,7 +163,7 @@ extension API: TargetType {
         case .baiduAccessToken, .baiduOCRRecognize:
             return "https://aip.baidubce.com"
         case .addUser:
-            return "http://123.207.3.59"
+            return "http://localhost:8080"//"http://123.207.3.59"
         default:
             return Constants.Config.baseURL
         }
