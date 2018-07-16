@@ -1,4 +1,5 @@
 import UIKit
+import RxSwift
 
 class MessageViewController: DataViewController, AccountService {
 
@@ -90,10 +91,10 @@ class MessageViewController: DataViewController, AccountService {
     }
 
     override func setupRx() {
-
-        NotificationCenter.default.rx
-            .notification(Notification.Name.V2.LoginSuccessName)
-            .subscribeNext { [weak self] _ in
+        Observable.merge(
+            NotificationCenter.default.rx.notification(Notification.Name.V2.ReceiveRemoteNewMessageName),
+            NotificationCenter.default.rx.notification(Notification.Name.V2.LoginSuccessName)
+            ).subscribeNext { [weak self] _ in
                 self?.fetchNotifications()
             }.disposed(by: rx.disposeBag)
 

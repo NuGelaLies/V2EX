@@ -147,6 +147,8 @@ enum API {
     
     // 添加需要通知服务的用户
     case addUser(feedURL: String, name: String)
+    case userStatus(username: String)
+    case userLogout(username: String)
 }
 
 extension API: TargetType {
@@ -162,8 +164,9 @@ extension API: TargetType {
             return "https://sm.ms/api"
         case .baiduAccessToken, .baiduOCRRecognize:
             return "https://aip.baidubce.com"
-        case .addUser:
-            return "http://localhost:8080"//"http://123.207.3.59"
+        case .addUser, .userStatus, .userLogout:
+            return "http://123.207.3.59"
+//            return "http://localhost:8080"
         default:
             return Constants.Config.baseURL
         }
@@ -263,6 +266,10 @@ extension API: TargetType {
             return .post("/rest/2.0/ocr/v1/general")
         case .addUser:
             return .post("/user")
+        case .userStatus(let username):
+            return .get("/user/status/" + username)
+        case .userLogout(let username):
+            return .get("/user/logout/" + username)
         default:
             return .get("")
         }

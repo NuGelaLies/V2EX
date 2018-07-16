@@ -23,18 +23,18 @@ extension AppSetup {
     
     /// 键盘自处理
     private static func setupKeyboardManager() {
-        IQKeyboardManager.sharedManager().enable = true
-        IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = 70
-        IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.keyboardDistanceFromTextField = 70
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
-        IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses = [
+        IQKeyboardManager.shared.disabledDistanceHandlingClasses = [
             CreateTopicViewController.self
         ]
-        IQKeyboardManager.sharedManager().disabledToolbarClasses = [
+        IQKeyboardManager.shared.disabledToolbarClasses = [
             TopicDetailViewController.self,
             CreateTopicViewController.self
         ]
-        IQKeyboardManager.sharedManager().disabledTouchResignedClasses = [
+        IQKeyboardManager.shared.disabledTouchResignedClasses = [
             TopicDetailViewController.self
         ]
 

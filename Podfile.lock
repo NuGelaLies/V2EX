@@ -1,31 +1,33 @@
 PODS:
-  - Alamofire (4.7.0)
-  - Crashlytics (3.10.1):
-    - Fabric (~> 1.7.5)
-  - Fabric (1.7.5)
-  - IQKeyboardManagerSwift (5.0.8)
+  - Alamofire (4.7.3)
+  - Crashlytics (3.10.5):
+    - Fabric (~> 1.7.9)
+  - Fabric (1.7.9)
+  - IQKeyboardManagerSwift (6.1.0)
   - JCore (1.2.0)
   - JPush (3.0.9):
     - JCore (~> 1.2.0)
   - Kanna (4.0.0)
-  - Kingfisher (4.6.3)
-  - MarkdownView (1.1.0)
-  - "NSObject+Rx (4.2.0)":
+  - Kingfisher (4.8.0)
+  - MarkdownView (1.3.0)
+  - "NSObject+Rx (4.3.0)":
     - RxSwift (~> 4.0)
   - PasswordExtension (4.1.0)
-  - PKHUD (5.0.0)
+  - PKHUD (5.1.0)
   - PullToRefreshKit (0.8.2)
   - Reveal-SDK (8)
-  - RxCocoa (4.1.2):
+  - RxCocoa (4.2.0):
     - RxSwift (~> 4.0)
-  - RxOptional (3.3.0):
+  - RxOptional (3.5.0):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxSwift (4.1.2)
-  - SKPhotoBrowser (5.0.6)
+  - RxSwift (4.2.0)
+  - SKPhotoBrowser (5.1.0)
   - SnapKit (4.0.0)
   - StatefulViewController (3.0)
-  - SwiftMessages (4.1.0)
+  - SwiftMessages (4.1.4):
+    - SwiftMessages/App (= 4.1.4)
+  - SwiftMessages/App (4.1.4)
   - "UIView+Positioning (1.6)"
   - YYText (1.0.7)
 
@@ -92,27 +94,27 @@ CHECKOUT OPTIONS:
     :git: https://github.com/Joe0708/YYText
 
 SPEC CHECKSUMS:
-  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
-  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
-  Fabric: ae7146a5f505ea370a1e44820b4b1dc8890e2890
-  IQKeyboardManagerSwift: 2e7dc7f98c111458c1ea2b373f893e8cf95e2b97
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Crashlytics: 7f2e38d302d9da96475b3d64d86fb29e31a542b7
+  Fabric: a2917d3895e4c1569b9c3170de7320ea1b1e6661
+  IQKeyboardManagerSwift: f5004f5860d9a8ed23a7ef7a156ae168828eb018
   JCore: b52e3dd73625eec70afd1244bb9c41038aa06087
   JPush: 48041e8c5ad2ef9b48709eb0888af9640b36e9b0
   Kanna: d5ae2a26472f7e7a474e7f36a9cd8aa2c8c63ad3
-  Kingfisher: 98e6d5b5e807645743e8ed5ececd25d688d38452
-  MarkdownView: 80db8e9a27a6c6cc22615e644e3e85c06065bab7
-  "NSObject+Rx": cbbc05e3cb3ad446cdbced3e00e39c9efaf02925
+  Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
+  MarkdownView: 6cee6c558eed4a012005405066071ef16a042d17
+  "NSObject+Rx": 9a5eeff5e08156f849fa973514456f28eef08742
   PasswordExtension: 80a57bdae651d04437c8d2e07d90d5f18fe73180
-  PKHUD: 3c001512c6e002091184197a8de7a20420786e3b
+  PKHUD: 62ea46a1e88c4def1da784878d199bb54c841e3c
   PullToRefreshKit: 57bcedad80fbe081c410c6889a744fe8b53c98d7
   Reveal-SDK: 43be4e662864e937960d0d04d005135e29c4e53b
-  RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
-  RxOptional: e5448d3e21024489e07c31f6a262f2b50c975367
-  RxSwift: e49536837d9901277638493ea537394d4b55f570
-  SKPhotoBrowser: 84235d73342a0f561d6b52ad9a9e09a8f10689d6
+  RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
+  RxOptional: bd32ff8ca9df4177683d56ffeb618a9d4d5d5cad
+  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
+  SKPhotoBrowser: c20c1da34d737b4e3e101feead6c8dd92ebf860a
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931
-  SwiftMessages: 1bacc783c8f10bdfdc57c14860cae8a1f1fa6591
+  SwiftMessages: 2c33fdee8b8f38dfc7e1036684456b505891da8c
   "UIView+Positioning": 6e7236a429053ade11051fab7ff9053af36c77a8
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 

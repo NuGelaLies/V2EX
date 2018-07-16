@@ -5,7 +5,7 @@ class SettingViewController: BaseTableViewController {
 
     enum SettingItemType {
         case accounts
-        case browser, nightMode, fontSize, baiduOCRConfig, logout, fullScreenBack, shakeFeedback
+        case browser, nightMode, fontSize, baiduOCRConfig, logout, fullScreenBack, shakeFeedback, notifications
         case ignoreWords, recognizeClipboardLink
         case tabSort
         case floor
@@ -33,7 +33,8 @@ class SettingViewController: BaseTableViewController {
             SettingItem(title: "@用户时带楼层号(@devjoe #1)", type: .floor, rightType: .switch),
         ],
         [
-            SettingItem(title: "OCR 配置", type: .baiduOCRConfig, rightType: .arrow),
+//            SettingItem(title: "OCR 配置", type: .baiduOCRConfig, rightType: .arrow),
+            SettingItem(title: "消息推送", type: .notifications, rightType: .arrow),
         ],
         [
             SettingItem(title: "退出账号", type: .logout, rightType: .none)
@@ -144,6 +145,13 @@ extension SettingViewController {
         case .ignoreWords:
             let iwVC = IgnoreWordsViewController()
             navigationController?.pushViewController(iwVC, animated: true)
+        case .notifications:
+            guard AccountModel.isLogin else {
+                HUD.showError("该功能需要先登录")
+                return
+            }
+            let viewController = NotificationViewController()
+            navigationController?.pushViewController(viewController, animated: true)
         case .floor:
             Preference.shared.atMemberAddFloor = cell.switchView.isOn
         }

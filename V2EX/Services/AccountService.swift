@@ -132,6 +132,11 @@ protocol AccountService: HTMLParseService {
         name: String,
         success: ((String) -> Void)?,
         failure: Failure?)
+    
+    func userStatus(
+        username: String,
+        success: ((Bool) -> Void)?,
+        failure: Failure?)
 }
 
 extension AccountService {
@@ -575,6 +580,25 @@ extension AccountService {
             success?(dict["message"] as? String ?? "操作成功")
         }, failure: failure)
     }
-
+    
+    func userStatus(
+        username: String,
+        success: ((Bool) -> Void)?,
+        failure: Failure?) {
+        
+        Network.request(target: .userStatus(username: username), success: { data in
+            guard let resultDict = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+                failure?("操作失败")
+                return
+            }
+            
+            guard let dict = resultDict?["data"] as? [String: Any],
+                let result = dict["status"] as? Bool else {
+                    failure?("操作失败")
+                    return
+            }
+            success?(result)
+        }, failure: failure)
+    }
 }
 

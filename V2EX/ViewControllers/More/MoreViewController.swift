@@ -7,7 +7,7 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
 
     enum MoreItemType {
         case user
-        case createTopic, nodeCollect, myFavorites, follow, myTopic, myReply, nightMode, readHistory, blockList, notifications
+        case createTopic, nodeCollect, myFavorites, follow, myTopic, myReply, nightMode, readHistory, blockList
         case about, setting
     }
     struct MoreItem {
@@ -67,7 +67,6 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
         [MoreItem(icon: #imageLiteral(resourceName: "avatar"), title: "请先登录", type: .user, rightType: .arrow)],
         [
 //            MoreItem(icon: #imageLiteral(resourceName: "createTopic"), title: "创作新主题", type: .createTopic),
-            MoreItem(icon: #imageLiteral(resourceName: "nodeCollect"), title: "消息推送", type: .notifications, rightType: .arrow),
             MoreItem(icon: #imageLiteral(resourceName: "nodeCollect"), title: "节点收藏", type: .nodeCollect, rightType: .arrow),
             MoreItem(icon: #imageLiteral(resourceName: "topicCollect"), title: "主题收藏", type: .myFavorites, rightType: .arrow),
 //            MoreItem(icon: #imageLiteral(resourceName: "concern"), title: "特别关注", type: .follow, rightType: .arrow),
@@ -271,8 +270,6 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                 }
             }
-        case .notifications:
-            viewController = NotificationViewController()
         }
         guard let vc = viewController else { return }
         

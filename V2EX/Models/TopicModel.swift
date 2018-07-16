@@ -23,7 +23,7 @@ struct TopicModel {
     
     /// 主题 ID
     var topicID: String? {
-        let isTopic = href.hasPrefix("/t/")
+        let isTopic = href.hasPrefix("/t/") || href.hasPrefix("http")
         guard isTopic,
             let topicID = try? href.asURL().path.lastPathComponent else {
                 // href 可能是 topic id

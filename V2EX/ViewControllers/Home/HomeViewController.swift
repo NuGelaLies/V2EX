@@ -35,10 +35,6 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
         
         setupSegmentView()
         fetchData()
-
-        GCD.delay(2) {
-            RequestReview().showReview()
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -193,6 +189,19 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
             .subscribe(onNext: { [weak self] noti in
                 self?.rotationAdaptation()
             }).disposed(by: rx.disposeBag)
+        
+        NotificationCenter.default.rx
+            .notification(Notification.Name.V2.ReceiveRemoteNewMessageName)
+            .subscribeNext { [weak self] notification in
+                guard let userInfo = notification.object as? [String: Any],
+                    let link = userInfo["link"] as? String else { return }
+                
+                let topic = TopicModel(member: nil, node: nil, title: "", href: link)
+                guard let topicID = topic.topicID else { return }
+                let topicDetailVC = TopicDetailViewController(topicID: topicID)
+                topicDetailVC.anchor = topic.anchor
+                self?.navigationController?.pushViewController(topicDetailVC, animated: true)
+            }.disposed(by: rx.disposeBag)
     }
 
 }
@@ -225,9 +234,17 @@ extension HomeViewController {
     }
 
     private func loginHandle() {
-        //        guard AccountModel.isLogin, let account = AccountModel.current else { return }
+        guard AccountModel.isLogin, let account = AccountModel.current else { return }
 
-        //        Keychain().set(<#T##value: Data##Data#>, forKey: <#T##String#>)
+        userStatus(username: account.username, success: { isOpen in
+            guard isOpen else { return }
+            JPUSHService.setAlias(account.username, completion: { (resCode, alia, seq) in
+                log.info(resCode, alia ?? "None", seq)
+            }, seq: 2)
+        }) { error in
+            log.info(error)
+            HUD.showTest(error)
+        }
     }
 
     private func rotationAdaptation() {

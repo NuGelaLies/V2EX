@@ -39,7 +39,6 @@
 		77507E691F9B168800D62286 /* String+PinYin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77507E681F9B168800D62286 /* String+PinYin.swift */; };
 		77507E6B1F9B176700D62286 /* NodeSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77507E6A1F9B176700D62286 /* NodeSearchResultViewController.swift */; };
 		7752ACE02019BFFA0039DAF6 /* HighlightableContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AC6AE1F9AF07F0072C6E9 /* HighlightableContainer.swift */; };
-		7752ACE12019BFFA0039DAF6 /* RequestReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF0A8781FCFFF810055B108 /* RequestReview.swift */; };
 		7752ACE22019BFFA0039DAF6 /* ReadHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B0A7591FFB4957003ED8F6 /* ReadHistoryCell.swift */; };
 		7752ACE32019BFFA0039DAF6 /* SFHandoffSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777772621FD1A4FC00C8EB8B /* SFHandoffSafariViewController.swift */; };
 		7752ACE42019BFFA0039DAF6 /* WordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B161741FE625D500487F4F /* WordCell.swift */; };
@@ -353,7 +352,6 @@
 		BFEC91CC1F94782A0050B7F5 /* UIKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC91CB1F94782A0050B7F5 /* UIKit+Extension.swift */; };
 		BFEC91CF1F948D8E0050B7F5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC91CE1F948D8E0050B7F5 /* RegisterViewController.swift */; };
 		BFEC91D11F9490570050B7F5 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC91D01F9490570050B7F5 /* ForgotPasswordViewController.swift */; };
-		BFF0A8791FCFFF810055B108 /* RequestReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF0A8781FCFFF810055B108 /* RequestReview.swift */; };
 		BFF178971FCD07F0004A5F43 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF178961FCD07F0004A5F43 /* UIAlertController+Extension.swift */; };
 		BFFAFDE91F9F4428000EB91C /* MemberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFAFDE81F9F4428000EB91C /* MemberListViewController.swift */; };
 		C00FF4E9D54113900F400975 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEF560D2C703ABBF56BE30E /* Pods_V2EX.framework */; };
@@ -569,7 +567,6 @@
 		BFEC91CB1F94782A0050B7F5 /* UIKit+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Extension.swift"; sourceTree = "<group>"; };
 		BFEC91CE1F948D8E0050B7F5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		BFEC91D01F9490570050B7F5 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
-		BFF0A8781FCFFF810055B108 /* RequestReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReview.swift; sourceTree = "<group>"; };
 		BFF178961FCD07F0004A5F43 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		BFFAFDE81F9F4428000EB91C /* MemberListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListViewController.swift; sourceTree = "<group>"; };
 		DD1B79C0DDC5C38E6D41A82B /* Pods-V2EX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.release.xcconfig"; sourceTree = "<group>"; };
@@ -789,7 +786,6 @@
 				BFC89B481FA0283800759577 /* TextParser.swift */,
 				BF3AB6B31FA1A61200ACA17A /* ImageAttachment.swift */,
 				BF9554DA1FBD73EE0054FC50 /* Preference.swift */,
-				BFF0A8781FCFFF810055B108 /* RequestReview.swift */,
 				BF343E901FE763F70003415B /* V2erError.swift */,
 				7703598E1FFDCFC3000A6C7A /* AnswersEvents.swift */,
 			);
@@ -1436,7 +1432,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7752ACE02019BFFA0039DAF6 /* HighlightableContainer.swift in Sources */,
-				7752ACE12019BFFA0039DAF6 /* RequestReview.swift in Sources */,
 				7752ACE22019BFFA0039DAF6 /* ReadHistoryCell.swift in Sources */,
 				7752ACE32019BFFA0039DAF6 /* SFHandoffSafariViewController.swift in Sources */,
 				7752ACE42019BFFA0039DAF6 /* WordCell.swift in Sources */,
@@ -1590,7 +1585,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				778AC6B51F9AF07F0072C6E9 /* HighlightableContainer.swift in Sources */,
-				BFF0A8791FCFFF810055B108 /* RequestReview.swift in Sources */,
 				77B0A75A1FFB4957003ED8F6 /* ReadHistoryCell.swift in Sources */,
 				777772641FD1A4FC00C8EB8B /* SFHandoffSafariViewController.swift in Sources */,
 				77B161751FE625D500487F4F /* WordCell.swift in Sources */,

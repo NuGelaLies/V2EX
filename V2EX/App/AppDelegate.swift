@@ -70,7 +70,7 @@ extension AppDelegate {
         log.verbose("收到通知", userInfo)
         JPUSHService.handleRemoteNotification(userInfo)
         
-//        NotificationCenter.default.post(name: NSNotification.Name.App.ReceiveRemoteNewMessageName, object: userInfo)
+        NotificationCenter.default.post(name: NSNotification.Name.V2.ReceiveRemoteNewMessageName, object: userInfo)
     }
 }
 
@@ -110,7 +110,7 @@ extension AppDelegate: JPUSHRegisterDelegate {
         
         let userInfo = response.notification.request.content.userInfo
         
-//        NotificationCenter.default.post(name: NSNotification.Name.App.ReceiveRemoteNewMessageName, object: userInfo)
+        NotificationCenter.default.post(name: NSNotification.Name.V2.ReceiveRemoteNewMessageName, object: userInfo)
         
         if response.notification.request.trigger?.isKind(of: UNPushNotificationTrigger.self) ?? false {
             JPUSHService.handleRemoteNotification(userInfo)

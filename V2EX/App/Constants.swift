@@ -123,6 +123,9 @@ extension Notification.Name {
 
         /// 保存节点排序通知
         static let HomeTabSortFinishName = Notification.Name("HomeTabSortFinishName")
+        
+        /// 远程消息推送
+        static let ReceiveRemoteNewMessageName = Notification.Name("ReceiveRemoteNewMessageName")
     }
 }
 
