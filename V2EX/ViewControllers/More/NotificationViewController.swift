@@ -1,4 +1,5 @@
 import UIKit
+import UserNotifications
 
 class NotificationViewController: BaseViewController, AccountService {
     
@@ -10,10 +11,9 @@ class NotificationViewController: BaseViewController, AccountService {
         
         在启用该服务前，请知悉以下内容：
         
-        • 该服务目前属于测试期间，目前它是免费的.
         • App 会收集您的 "Access Token"，以获取新消息。但是请放心我们不会收集您的任何隐私，更不会存储您的个人消息.
         • 您可以随时在 "V2EX PC端-消息提醒" 中重置 Token，重置后将无法享用该服务，但您可以随时重新提交更新 Token
-        • 消息推送并非实时推送，目前是每十五分钟轮询一次。
+        • 消息推送并非实时推送，目前是每二十分钟轮询一次。
         
         """
         view.numberOfLines = 0
@@ -59,7 +59,63 @@ class NotificationViewController: BaseViewController, AccountService {
         }
     }
     
+    private func checkAuthorization(completion: @escaping (Bool) -> Void)   {
+        if #available(iOS 10, *) {
+            UNUserNotificationCenter.current().getNotificationSettings { settings in
+                if settings.authorizationStatus != .authorized {
+                    completion(false)
+                    return
+                }
+                completion(true)
+            }
+        } else {
+            completion(UIApplication.shared.currentUserNotificationSettings?.types != .none)
+        }
+    }
+    
+    private func requestAuthorized() {
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: "消息推送已关闭",
+                                                    message: "想要及时获取消息。点击“设置”，开启通知权限。",
+                                                    preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title:"取消", style: .cancel, handler:nil)
+            
+            let settingsAction = UIAlertAction(title:"设置", style: .default, handler: {
+                (action) -> Void in
+                let url = URL(string: UIApplicationOpenSettingsURLString)
+                if let url = url, UIApplication.shared.canOpenURL(url) {
+                    if #available(iOS 10, *) {
+                        UIApplication.shared.open(url, options: [:],
+                                                  completionHandler: {
+                                                    (success) in
+                        })
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                }
+            })
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(settingsAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
     @objc private func confirmBtnTap() {
+        
+        checkAuthorization { [weak self] isAuthorize in
+            if isAuthorize {
+                self?.submitInfo()
+                return
+            }
+            self?.requestAuthorized()
+        }
+    }
+    
+    private func submitInfo() {
+        
         guard let username = AccountModel.current?.username else {
             HUD.showError("无法获取用户信息")
             return
@@ -75,9 +131,9 @@ class NotificationViewController: BaseViewController, AccountService {
                     log.info(resCode, alia ?? "None", seq)
                 }, seq: 2)
                 self?.navigationController?.popViewController(animated: true)
-            }, failure: { error in
-                HUD.dismiss()
-                HUD.showError(error)
+                }, failure: { error in
+                    HUD.dismiss()
+                    HUD.showError(error)
             })
         }) { error in
             HUD.dismiss()
