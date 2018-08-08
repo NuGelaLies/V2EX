@@ -195,7 +195,11 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
             .subscribeNext { [weak self] notification in
                 guard let userInfo = notification.object as? [String: Any],
                     let link = userInfo["link"] as? String else { return }
-                
+                if let action = userInfo["action"] as? String,
+                    action == "msg" {
+                    self?.tabBarController?.selectedIndex = 2
+                    return
+                }
                 let topic = TopicModel(member: nil, node: nil, title: "", href: link)
                 guard let topicID = topic.topicID else { return }
                 let topicDetailVC = TopicDetailViewController(topicID: topicID)
