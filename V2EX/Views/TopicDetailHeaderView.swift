@@ -197,6 +197,8 @@ class TopicDetailHeaderView: UIView {
                 self?.nodeLabel.backgroundColor = theme == .day ? UIColor.hex(0xf5f5f5) : theme.bgColor
                 self?.timeLabel.textColor = theme.dateColor
             }.disposed(by: rx.disposeBag)
+        
+//        UIMenuController.shared.menuItems = [UIMenuItem(title: "Base64 解码", action: #selector(self.base64Decode))]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -269,6 +271,7 @@ class TopicDetailHeaderView: UIView {
                     let head = "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"><style>\(cssString)</style></head>"
                     let body = "<body><div id=\"Wrapper\">\(topic.content)</div></body>"
                     let html = "<html>\(head)\(body)</html>"
+                    
                     webView.loadHTMLString(html, baseURL: URL(string: "https://"))
                     UIApplication.shared.isNetworkActivityIndicatorVisible = true
                 }
@@ -280,6 +283,35 @@ class TopicDetailHeaderView: UIView {
             guard let node = topic.node else { return }
             nodeLabel.text = node.title
             nodeLabel.isHidden = node.title.isEmpty
+        }
+    }
+    
+    @objc func base64Decode() {
+        webView.evaluateJavaScript("window.getSelection().toString();") { res, err in
+            if let error = err {
+                HUD.showError(error)
+            }
+            guard let selectionText = (res as? String)?.trimmed else { return }
+            
+            let matchResult = selectionText.isMatch(regEx: "(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)")
+            guard matchResult else {
+                HUD.showError("所选内容不是 Base64")
+                return
+            }
+            
+            guard let base64Data = Data(base64Encoded: selectionText),
+                let result = String(data: base64Data, encoding: .utf8) else {
+                    HUD.showError("解码失败")
+                    return
+            }
+            
+            let alertC = UIAlertController(title: "Base64 解码结果", message: result, preferredStyle: .alert)
+            alertC.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+            alertC.addAction(UIAlertAction(title: "复制", style: .default, handler: { action in
+                UIPasteboard.general.string = result
+                HUD.showSuccess("已复制到剪切板")
+            }))
+            AppWindow.shared.window.rootViewController?.show(alertC, sender: nil)
         }
     }
 

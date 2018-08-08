@@ -26,3 +26,8 @@ a:link, a:visited, a:active {
 body {
     background-color: #FFF;
 }
+
+.v2er {
+    font-size: 12px;
+    color: #666;
+}

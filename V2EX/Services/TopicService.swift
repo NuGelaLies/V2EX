@@ -314,8 +314,10 @@ extension TopicService {
             let topicContentPath = html.xpath("//*[@id='Wrapper']/div[@class='content']//div[@class='cell']//div[@class='topic_content']")
 //            let topicContentPath = html.xpath("//*[@id='Wrapper']//div[@class='topic_content']")
             let contentHTML = topicContentPath.first?.toHTML ?? ""
-            let subtleHTML = html.xpath("//*[@id='Wrapper']//div[@class='subtle']").compactMap { $0.toHTML }.joined(separator: "")
+            let subpath = html.xpath("//*[@id='Wrapper']//div[@class='subtle']")
+            let subtleHTML = subpath.compactMap { $0.toHTML }.joined(separator: "")
             var content = contentHTML + subtleHTML
+            
             //            content = self.replacingIframe(text: content)
             // 添加 HTTPS: 头
             topicContentPath.first?.xpath(".//img").forEach({ ele in
@@ -354,6 +356,21 @@ extension TopicService {
                     topic.isThank = thankStr != "感谢"
                 }
             }
+            
+            // 提取 Base64 密文，并解密添加到正文内容中
+            let contentClean = (topicContentPath.first?.content ?? "") + subpath.compactMap { $0.content }.joined()
+            let regular = try? NSRegularExpression(pattern: "(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)", options: .caseInsensitive)
+            if let res = regular?.matches(in: contentClean, options: .withoutAnchoringBounds, range: NSRange(location: 0, length: contentClean.count)) {
+                let ciphertexts = res.map { contentClean.NSString.substring(with: $0.range)}
+                for text in ciphertexts {
+                    if let base64Data = Data(base64Encoded: text),
+                        let clearText = String(data: base64Data, encoding: .utf8),
+                        clearText.isNotEmpty {
+                        content = content.replacingOccurrences(of: text, with: text + " <span class='v2er'>(解码内容: \(clearText) - App 附加内容)</span>")
+                    }
+                }
+            }
+            
             topic.lastReplyTime = html.xpath("//*[@id='Wrapper']/div[@class='content']/div[3]/div/span/text()").first?.content?.trimmed
             topic.once = self.parseOnce(html: html)
             topic.content = content
