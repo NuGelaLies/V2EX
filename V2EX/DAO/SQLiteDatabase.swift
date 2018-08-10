@@ -97,7 +97,7 @@ public class SQLiteDatabase {
 
     // prepare
     private func prepare(statement sql: String) throws -> OpaquePointer? {
-        log.info(Thread.current)
+//        log.info(Thread.current)
         var statement: OpaquePointer? = nil
         guard sqlite3_prepare_v2(dbPointer, sql, -1, &statement, nil) == SQLITE_OK else {
             throw SQLiteError.Prepare(message: errorMessage)

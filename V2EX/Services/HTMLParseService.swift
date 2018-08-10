@@ -276,6 +276,9 @@ extension HTMLParseService {
             } else if tagName == "br" {
                 let contentAttrString = NSAttributedString(string: "\n", attributes: [.foregroundColor: ThemeStyle.style.value.titleColor])
                 attributedString.append(contentAttrString)
+            } else if tagName == "iframe", let urlString = ele["src"] {
+                let linkAttrString = wrapperURLAttachment(urlString, urlString: urlString)
+                attributedString.append(linkAttrString)
             } else if let content = ele.content, content.isNotEmpty {
                 if content.contains("显示 Gist 代码") { continue }
                 let contentAttrString = NSAttributedString(string: content, attributes: [.foregroundColor: ThemeStyle.style.value.titleColor])

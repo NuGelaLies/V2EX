@@ -50,7 +50,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.5.1</string>
 	<key>CFBundleVersion</key>
-	<string>67</string>
+	<string>68</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -87,10 +87,6 @@
 	<string>需要获得您的许可才能存储图像</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>需要获得您的许可才能访问相册</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
