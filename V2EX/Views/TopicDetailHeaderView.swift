@@ -198,7 +198,7 @@ class TopicDetailHeaderView: UIView {
                 self?.timeLabel.textColor = theme.dateColor
             }.disposed(by: rx.disposeBag)
         
-//        UIMenuController.shared.menuItems = [UIMenuItem(title: "Base64 解码", action: #selector(self.base64Decode))]
+        UIMenuController.shared.menuItems = [UIMenuItem(title: "Base64 解码", action: #selector(self.base64Decode))]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -293,11 +293,11 @@ class TopicDetailHeaderView: UIView {
             }
             guard let selectionText = (res as? String)?.trimmed else { return }
             
-            let matchResult = selectionText.isMatch(regEx: "(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)")
-            guard matchResult else {
-                HUD.showError("所选内容不是 Base64")
-                return
-            }
+//            let matchResult = selectionText.isMatch(regEx: "(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)")
+//            guard matchResult else {
+//                HUD.showError("所选内容不是 Base64")
+//                return
+//            }
             
             guard let base64Data = Data(base64Encoded: selectionText),
                 let result = String(data: base64Data, encoding: .utf8) else {
@@ -311,7 +311,11 @@ class TopicDetailHeaderView: UIView {
                 UIPasteboard.general.string = result
                 HUD.showSuccess("已复制到剪切板")
             }))
-            AppWindow.shared.window.rootViewController?.show(alertC, sender: nil)
+            var currentVC = AppWindow.shared.window.rootViewController?.currentViewController()
+            if currentVC == nil {
+                currentVC = AppWindow.shared.window.rootViewController
+            }
+            currentVC?.present(alertC, animated: true, completion: nil)
         }
     }
 
