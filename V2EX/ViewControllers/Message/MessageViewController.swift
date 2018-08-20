@@ -160,6 +160,9 @@ extension MessageViewController {
 
     /// 获取通知
     func fetchNotifications() {
+        let badgeValue = tabBarItem.badgeValue
+        tabBarItem.badgeValue = nil
+        
         guard AccountModel.isLogin else {
             endLoading(error: NSError(domain: "V2EX", code: -1, userInfo: nil))
             status = .noAuth
@@ -182,7 +185,7 @@ extension MessageViewController {
             }
             // 目前只有在badge不为空时才有动画提示
             // 下拉刷新时, 如果有新数据, 可以根据最后一条的时间来对比
-            self.notificationAnimation(self.tabBarItem.badgeValue)
+            self.notificationAnimation(badgeValue)
         }) { [weak self] error in
             guard let `self` = self else { return }
             self.errorMessage = error
