@@ -12,6 +12,7 @@ class AllNodesViewController: DataViewController, NodeService {
         view.sectionIndexBackgroundColor = .clear
         view.sectionIndexTrackingBackgroundColor = Theme.Color.bgColor
         view.hideEmptyCells()
+        view.backgroundView = UIView()
         view.backgroundColor = .clear
         self.view.addSubview(view)
         return view
@@ -115,16 +116,7 @@ class AllNodesViewController: DataViewController, NodeService {
                 self?.searchController.searchBar.barTintColor = theme.bgColor
                 self?.searchController.searchBar.layer.borderColor = theme.bgColor.cgColor
                 self?.tableView.sectionIndexTrackingBackgroundColor = theme.bgColor
-                self?.tableView.subviews.filter { $0.className == UIView.description() }.first?.backgroundColor = theme.bgColor
             }.disposed(by: rx.disposeBag)
-
-        searchController.searchBar.rx
-            .textDidEndEditing
-            .subscribeNext { [weak self] in
-                GCD.delay(0.5, block: {
-                    self?.fixColor()
-                })
-        }.disposed(by: rx.disposeBag)
     }
 
     // MARK: State Handle
@@ -161,11 +153,6 @@ extension AllNodesViewController {
             self?.endLoading(error: NSError(domain: "V2EX", code: -1, userInfo: nil))
             self?.errorMessage = error
         }
-    }
-
-    // 当 HeaderView = Search 会多出一个UIView, 在夜间模式下颜色无法适配, 故修改
-    private func fixColor() {
-        tableView.subviews.filter { $0.className == UIView.description() }.first?.backgroundColor = ThemeStyle.style.value.bgColor
     }
 }
 
