@@ -5,9 +5,12 @@ typealias log = Logger
 
 public struct Logger {
     // MARK: - Variables
-
-    /// Enabled or not
+    
+    #if DEBUG
     public static var isEnabled: Bool = true
+    #else
+    public static var isEnabled: Bool = false
+    #endif
     /// THE log level
     public static var logLevel: LogType = .debug
     /// The log AttributedString.
