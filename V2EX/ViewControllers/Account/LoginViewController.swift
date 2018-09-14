@@ -186,7 +186,6 @@ class LoginViewController: BaseViewController, AccountService, TopicService, OCR
         //        UserDefaults.standard.register(defaults: dictionaty)
     }
     
-    
     // MARK: - Setup
     
     override func setupTheme() {
@@ -513,9 +512,9 @@ extension LoginViewController {
                     self?.loginForm = loginForm
                     self?.captchaBtn.isLoading = false
                     
-                    GCD.runOnBackgroundThread {
-                        self?.ocrRecognize()
-                    }
+//                    GCD.runOnBackgroundThread {
+//                        self?.ocrRecognize()
+//                    }
         }) { [weak self] error in
             self?.captchaBtn.isLoading = false
             HUD.showError(error)

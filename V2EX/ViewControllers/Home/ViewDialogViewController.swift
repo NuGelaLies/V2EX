@@ -36,6 +36,7 @@ class ViewDialogViewController: BaseTableViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel) { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         }
+        navigationItem.leftBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
 
         let headerView = UILabel().hand.config { headerView in
             headerView.text = "下拉关闭查看"

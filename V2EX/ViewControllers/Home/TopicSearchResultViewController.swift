@@ -100,6 +100,7 @@ class TopicSearchResultViewController: DataViewController, TopicService {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, action: { [weak self] in
             self?.dismiss()
         })
+        navigationItem.rightBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
         status = .noSearchResult
         
         definesPresentationContext = true
@@ -215,6 +216,7 @@ class TopicSearchResultViewController: DataViewController, TopicService {
                 self?.searchTextField.textColor = theme.titleColor
                 self?.containerView.borderBottom = Border(color: theme.borderColor)
                 self?.searchTextField.setValue(theme.dateColor, forKeyPath: "_placeholderLabel.textColor")
+                self?.segmentView.tintColor = theme.tintColor
             }.disposed(by: rx.disposeBag)
     }
 

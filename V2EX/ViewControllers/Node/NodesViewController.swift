@@ -45,6 +45,13 @@ class NodesViewController: DataViewController, NodeService {
         super.viewDidLoad()
         
         definesPresentationContext = true
+//        
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .plain) { [weak self] in
+//            let resultVC = AllNodesViewController()// NodeSearchResultViewController()
+//            let nav = NavigationViewController(rootViewController: resultVC)
+//            nav.modalTransitionStyle = .crossDissolve
+//            self?.present(nav, animated: true, completion: nil)
+//        }
     }
 
     // MARK: - Setup
@@ -53,6 +60,7 @@ class NodesViewController: DataViewController, NodeService {
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 self?.collectionView.backgroundColor = theme.whiteColor
+                self?.segmentedControl.tintColor = theme.tintColor
             }.disposed(by: rx.disposeBag)
 
         NotificationCenter.default.rx

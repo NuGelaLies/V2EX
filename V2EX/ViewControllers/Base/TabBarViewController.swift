@@ -52,13 +52,14 @@ class TabBarViewController: UITabBarController {
 extension TabBarViewController {
     
     fileprivate func setAppearance() {
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.hex(0x8a8a8a)], for: .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor : Theme.Color.globalColor], for: .selected)
-
+//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.hex(0x8a8a8a)], for: .normal)
+//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor : Theme.Color.globalColor], for: .selected)
+        
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 self?.tabBar.barStyle = theme == .day ? .default : .black
                 self?.tabBar.barTintColor = theme.navColor
+                self?.tabBar.tintColor = theme.tintColor
             }.disposed(by: rx.disposeBag)
         
         tabBar.isTranslucent = false
@@ -88,8 +89,8 @@ extension TabBarViewController {
     }
     
     private func addChildViewController(childController: UIViewController, title: String, normalImage: UIImage?, selectedImageName: UIImage?) {
-        childController.tabBarItem.image = normalImage?.withRenderingMode(.alwaysOriginal)
-        childController.tabBarItem.selectedImage = selectedImageName?.withRenderingMode(.alwaysOriginal)
+        childController.tabBarItem.image = normalImage?.withRenderingMode(.alwaysTemplate)
+        childController.tabBarItem.selectedImage = selectedImageName?.withRenderingMode(.alwaysTemplate)
 //        childController.title = title
         // 图片居中显示，不显示文字
         let offset: CGFloat = UIDevice.isiPad ? 0 : 5

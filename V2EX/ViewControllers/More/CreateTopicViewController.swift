@@ -185,6 +185,7 @@ class CreateTopicViewController: BaseViewController, TopicService {
             selectNodeBtn
         )
         navigationItem.rightBarButtonItems = [postTopicBarButton, previewBarButton]
+        navigationItem.rightBarButtonItems?.forEach { $0.tintColor = ThemeStyle.style.value.tintColor }
     }
 
     override func setupConstraints() {

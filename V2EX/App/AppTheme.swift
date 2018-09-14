@@ -97,6 +97,13 @@ enum Theme {
         case .night: return .black
         }
     }
+    
+    var tintColor: UIColor {
+        switch self {
+        case .day: return self.globalColor
+        case .night: return .gray
+        }
+    }
 
     struct Color {
         static let globalColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2666666667, alpha: 1) // 全局色

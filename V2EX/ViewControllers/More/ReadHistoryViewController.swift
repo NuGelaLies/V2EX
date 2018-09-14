@@ -48,12 +48,14 @@ class ReadHistoryViewController: DataViewController {
     /// MARK: - Action
     
     private func clearHistoryBarButtonTtem() -> UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .trash) { [weak self] in
+        let barItem = UIBarButtonItem(barButtonSystemItem: .trash) { [weak self] in
             self?.readHistorys = []
             GCD.runOnBackgroundThread({
                 try? SQLiteDatabase.instance?.clearHistory()
             })
         }
+        barItem.tintColor = ThemeStyle.style.value.tintColor
+        return barItem
     }
     
     // MARK: State Handle

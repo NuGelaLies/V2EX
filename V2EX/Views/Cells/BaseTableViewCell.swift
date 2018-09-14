@@ -57,6 +57,7 @@ class BaseTableViewCell: UITableViewCell {
                 self?.backgroundColor = theme.cellBackgroundColor
                 self?.textLabel?.textColor = theme.titleColor
                 self?.detailTextLabel?.textColor = theme.titleColor
+                self?.imageView?.tintColor = theme.tintColor
         }.disposed(by: rx.disposeBag)
     }
 }

@@ -234,6 +234,7 @@ class TopicDetailViewController: DataViewController, TopicService {
             action: { [weak self] in
                 self?.moreHandle()
         })
+        navigationItem.rightBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
         title = "加载中..."
     }
 

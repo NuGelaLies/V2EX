@@ -35,9 +35,9 @@ class TopicCommentCell: BaseTableViewCell {
         let view = UIInsetLabel()
         view.text = "楼主"
         view.font = UIFont.systemFont(ofSize: 12)
-//        view.textColor = UIColor.hex(0x969696)
-        view.textColor = ThemeStyle.style.value.cellBackgroundColor
-        view.backgroundColor = ThemeStyle.style.value.globalColor.withAlphaComponent(0.3)
+        view.textColor = ThemeStyle.style.value == .day ? ThemeStyle.style.value.cellBackgroundColor : UIColor.hex(0x999999)
+//        view.backgroundColor = ThemeStyle.style.value.globalColor.withAlphaComponent(0.3)
+        view.backgroundColor = ThemeStyle.style.value == .day ? ThemeStyle.style.value.globalColor.withAlphaComponent(0.3) : ThemeStyle.style.value.bgColor
         view.layer.cornerRadius = 3
         view.contentInsets = UIEdgeInsets(top: 1, left: 5, bottom: 1, right: 5)
         view.layer.masksToBounds = true
@@ -333,6 +333,6 @@ class TopicCommentCell: BaseTableViewCell {
         super.setSelected(selected, animated: true)
         
         forewordLabel.backgroundColor = ThemeStyle.style.value.bgColor
-        hostLabel.backgroundColor = ThemeStyle.style.value.globalColor.withAlphaComponent(0.3)
+        hostLabel.backgroundColor = ThemeStyle.style.value == .day ? ThemeStyle.style.value.globalColor.withAlphaComponent(0.3) : ThemeStyle.style.value.bgColor
     }
 }

@@ -12,9 +12,10 @@ class NavigationViewController: UINavigationController {
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         if children.count > 0 {
             viewController.hidesBottomBarWhenPushed = true
-            viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "back"), action: {
+            viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate), action: {
                 self.popViewController(animated: true)
             })
+            viewController.navigationItem.leftBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
         }
         super.pushViewController(viewController, animated: true)
     }
@@ -35,6 +36,9 @@ extension NavigationViewController {
 //                self?.navigationBar.tintColor = theme.titleColor
                 self?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.titleColor]
                 self?.navigationBar.barStyle = theme == .day ? .default : .black
+                self?.navigationBar.tintColor = theme.tintColor
+                self?.navigationItem.leftBarButtonItem?.tintColor = theme.tintColor
+                self?.navigationItem.rightBarButtonItem?.tintColor = theme.tintColor
             }.disposed(by: rx.disposeBag)
     }
     

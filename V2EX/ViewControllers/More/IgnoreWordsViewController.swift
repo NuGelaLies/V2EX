@@ -116,6 +116,7 @@ class IgnoreWordsViewController: UICollectionViewController {
             alertVC.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
             self?.present(alertVC, animated: true, completion: nil)
         })
+        navigationItem.rightBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
     }
     
     deinit {

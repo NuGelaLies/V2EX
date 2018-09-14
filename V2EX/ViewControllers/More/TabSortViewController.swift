@@ -7,6 +7,7 @@ class TabSortViewController: BaseTableViewController, NodeService {
     private lazy var saveItem: UIBarButtonItem = {
         let view = UIBarButtonItem(barButtonSystemItem: .save)
         view.isEnabled = false
+        view.tintColor = ThemeStyle.style.value.tintColor
         return view
     }()
     

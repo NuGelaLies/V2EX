@@ -5,11 +5,11 @@ class NodeDetailViewController: BaseTopicsViewController, AccountService {
     // MARK: - UI
 
     private lazy var favoriteTopicItem: UIBarButtonItem = {
-        return UIBarButtonItem(image: #imageLiteral(resourceName: "favoriteNav"), style: .plain)
+        return UIBarButtonItem(image: #imageLiteral(resourceName: "favoriteNav").withRenderingMode(.alwaysTemplate), style: .plain)
     }()
 
     private lazy var newTopicItem: UIBarButtonItem = {
-        return UIBarButtonItem(image: #imageLiteral(resourceName: "edit"), style: .plain)
+        return UIBarButtonItem(image: #imageLiteral(resourceName: "edit").withRenderingMode(.alwaysTemplate), style: .plain)
     }()
 
     // MARK: - Propertys
@@ -39,6 +39,8 @@ class NodeDetailViewController: BaseTopicsViewController, AccountService {
         guard AccountModel.isLogin && navigationItem.rightBarButtonItems == nil else { return }
         
         navigationItem.rightBarButtonItems = [newTopicItem, favoriteTopicItem]
+        newTopicItem.tintColor = ThemeStyle.style.value.tintColor
+        favoriteTopicItem.tintColor = ThemeStyle.style.value.tintColor
     }
 
     override func setupRx() {

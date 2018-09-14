@@ -105,6 +105,7 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
             self?.navigationController?.pushViewController(viewController, animated: true)
         })
         navigationItem.rightBarButtonItem = createTopicItem
+        navigationItem.rightBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
     }
 
     override func setupConstraints() {
@@ -193,7 +194,7 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section != 0 {
             let cell = tableView.dequeueReusableCell(withClass: BaseTableViewCell.self)!
             cell.textLabel?.text = item.title
-            cell.imageView?.image = item.icon
+            cell.imageView?.image = item.icon.withRenderingMode(.alwaysTemplate)
             cell.selectionStyle = .none
             cell.rightType = item.rightType
 
@@ -208,7 +209,7 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
 
         let cell = tableView.dequeueReusableCell(withClass: MoreUserCell.self)!
         cell.textLabel?.text = AccountModel.current?.username ?? item.title
-        cell.imageView?.image = item.icon
+        cell.imageView?.image = item.icon.withRenderingMode(.alwaysTemplate)
         cell.imageView?.setImage(urlString: AccountModel.current?.avatarNormalSrc, placeholder: item.icon)
         return cell
     }

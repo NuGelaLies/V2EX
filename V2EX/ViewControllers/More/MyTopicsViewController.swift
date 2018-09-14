@@ -27,6 +27,7 @@ class MyTopicsViewController: BaseTopicsViewController, MemberService {
             let viewController = CreateTopicViewController()
             self?.navigationController?.pushViewController(viewController, animated: true)
         })
+        navigationItem.rightBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
     }
 
     // MARK: - Setup

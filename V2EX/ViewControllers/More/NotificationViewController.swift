@@ -40,6 +40,13 @@ class NotificationViewController: BaseViewController, AccountService {
         view.backgroundColor = .white
         confirmBtn.isLoading = true
         queryUserStatus()
+        
+        ThemeStyle.style
+            .asObservable()
+            .subscribeNext { [weak self] theme in
+                self?.view.backgroundColor = theme.whiteColor
+                self?.explainLabel.textColor = theme.titleColor
+            }.disposed(by: rx.disposeBag)
     }
     
     override func setupSubviews() {

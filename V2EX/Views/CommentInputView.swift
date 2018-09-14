@@ -133,6 +133,7 @@ class CommentInputView: UIView {
                 self?.textView.layer.borderColor = (theme == .day ? theme.borderColor : UIColor.hex(0x19171A)).cgColor
                 self?.textView.keyboardAppearance = theme == .day ? .default : .dark
                 self?.textView.textColor = theme.titleColor
+                self?.sendBtn.tintColor = theme == .day ? theme.tintColor : .white
             }.disposed(by: rx.disposeBag)
     }
 

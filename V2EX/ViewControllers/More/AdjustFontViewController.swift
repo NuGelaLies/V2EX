@@ -102,7 +102,8 @@ class AdjustFontViewController: BaseViewController {
         
         title = "阅读设置"
         view.backgroundColor = .white
-
+        view.clipsToBounds = true
+        
         ThemeStyle.style
             .asObservable()
             .subscribeNext { [weak self] theme in
@@ -110,7 +111,7 @@ class AdjustFontViewController: BaseViewController {
                 self?.titleLabel.textColor = theme.titleColor
                 self?.usernameLabel.textColor = theme.titleColor
                 self?.contentLabel.textColor = theme.titleColor
-                self?.sliderContainerView.layer.borderColor = theme.borderColor.cgColor
+                self?.sliderContainerView.layer.borderColor = theme == .day ? theme.borderColor.cgColor : UIColor.gray.cgColor
                 self?.minLabel.textColor = theme.titleColor
                 self?.maxLabel.textColor = theme.titleColor
             }.disposed(by: rx.disposeBag)
@@ -157,7 +158,7 @@ class AdjustFontViewController: BaseViewController {
         // MARK : - Slider ContainerView
         sliderContainerView.snp.makeConstraints {
             $0.top.equalTo(previewContainerView.snp.bottom).offset(155)
-            $0.left.right.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(-1)
             $0.bottom.equalTo(sliderView)
         }
 

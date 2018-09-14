@@ -16,7 +16,7 @@ class WordCell: UICollectionViewCell {
     
     private lazy var deleteBtn: UIButton = {
         let view = UIButton()
-        view.setImage(#imageLiteral(resourceName: "close"), for: .normal)
+        view.setImage(#imageLiteral(resourceName: "close").withRenderingMode(.alwaysTemplate), for: .normal)
         view.addTarget(self, action: #selector(deleteBtnClickAction), for: .touchUpInside)
         return view
     }()
@@ -56,6 +56,7 @@ class WordCell: UICollectionViewCell {
             .subscribeNext { [weak self] theme in
                 self?.backgroundColor = theme == .day ? theme.bgColor : theme.cellBackgroundColor
                 self?.textLabel.textColor = theme.somberColor
+                self?.deleteBtn.tintColor = theme.tintColor
             }.disposed(by: rx.disposeBag)
     }
     
