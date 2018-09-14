@@ -105,8 +105,8 @@ public struct Logger {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 5
 
-        aStr.addAttributes([NSAttributedStringKey.paragraphStyle: paragraphStyle,
-                            NSAttributedStringKey.foregroundColor: type.color],
+        aStr.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                            NSAttributedString.Key.foregroundColor: type.color],
                            range: NSRange(location: 0, length: message.count))
         return aStr
     }

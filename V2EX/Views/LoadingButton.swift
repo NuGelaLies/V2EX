@@ -41,7 +41,7 @@ open class LoadingButton: UIButton {
         }
     }
     
-    open let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+    public let activityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
     
     // Inteal properties
     let imagens = NSMutableDictionary()
@@ -49,7 +49,7 @@ open class LoadingButton: UIButton {
     let indicatorStyles = NSMutableDictionary()
     
     // Static
-    let defaultActivityStyle = UIActivityIndicatorViewStyle.white
+    let defaultActivityStyle = UIActivityIndicatorView.Style.white
     
     
     // MARK: - Initializers
@@ -78,17 +78,17 @@ open class LoadingButton: UIButton {
         setupActivityIndicator()
         
         // Images - Icons
-        if (super.image(for: UIControlState.normal) != nil) {
-            self.store(super.image(for: UIControlState.normal), in: imagens, for: .normal)
+        if (super.image(for: UIControl.State.normal) != nil) {
+            self.store(super.image(for: UIControl.State.normal), in: imagens, for: .normal)
         }
-        if (super.image(for: UIControlState.highlighted) != nil) {
-            self.store(super.image(for: UIControlState.highlighted), in: imagens, for: .highlighted)
+        if (super.image(for: UIControl.State.highlighted) != nil) {
+            self.store(super.image(for: UIControl.State.highlighted), in: imagens, for: .highlighted)
         }
-        if (super.image(for: UIControlState.disabled) != nil) {
-            self.store(super.image(for: UIControlState.disabled), in: imagens, for: .disabled)
+        if (super.image(for: UIControl.State.disabled) != nil) {
+            self.store(super.image(for: UIControl.State.disabled), in: imagens, for: .disabled)
         }
-        if (super.image(for: UIControlState.selected) != nil) {
-            self.store(super.image(for: UIControlState.selected), in: imagens, for: .selected)
+        if (super.image(for: UIControl.State.selected) != nil) {
+            self.store(super.image(for: UIControl.State.selected), in: imagens, for: .selected)
         }
         
         // Title - Texts
@@ -127,29 +127,29 @@ open class LoadingButton: UIButton {
         self.adjustsImageWhenHighlighted = true
         
         /** Title for States */
-        self.texts.setValue(super.title(for: .normal), forKey: "\(UIControlState.normal.rawValue)")
-        self.texts.setValue(super.title(for: .highlighted), forKey: "\(UIControlState.highlighted.rawValue)")
-        self.texts.setValue(super.title(for: .disabled), forKey: "\(UIControlState.disabled.rawValue)")
-        self.texts.setValue(super.title(for: .selected), forKey: "\(UIControlState.selected.rawValue)")
+        self.texts.setValue(super.title(for: .normal), forKey: "\(UIControl.State.normal.rawValue)")
+        self.texts.setValue(super.title(for: .highlighted), forKey: "\(UIControl.State.highlighted.rawValue)")
+        self.texts.setValue(super.title(for: .disabled), forKey: "\(UIControl.State.disabled.rawValue)")
+        self.texts.setValue(super.title(for: .selected), forKey: "\(UIControl.State.selected.rawValue)")
         
         /** Attributed Title for States */
-        self.texts.setValue(super.attributedTitle(for: .normal), forKey: "\(UIControlState.normal.rawValue)")
-        self.texts.setValue(super.attributedTitle(for: .highlighted), forKey: "\(UIControlState.highlighted.rawValue)")
-        self.texts.setValue(super.attributedTitle(for: .disabled), forKey: "\(UIControlState.disabled.rawValue)")
-        self.texts.setValue(super.attributedTitle(for: .selected), forKey: "\(UIControlState.selected.rawValue)")
+        self.texts.setValue(super.attributedTitle(for: .normal), forKey: "\(UIControl.State.normal.rawValue)")
+        self.texts.setValue(super.attributedTitle(for: .highlighted), forKey: "\(UIControl.State.highlighted.rawValue)")
+        self.texts.setValue(super.attributedTitle(for: .disabled), forKey: "\(UIControl.State.disabled.rawValue)")
+        self.texts.setValue(super.attributedTitle(for: .selected), forKey: "\(UIControl.State.selected.rawValue)")
         
         /** Images for States */
-        self.imagens.setValue(super.image(for: .normal), forKey: "\(UIControlState.normal.rawValue)")
-        self.imagens.setValue(super.image(for: .highlighted), forKey: "\(UIControlState.highlighted.rawValue)")
-        self.imagens.setValue(super.image(for: .disabled), forKey: "\(UIControlState.disabled.rawValue)")
-        self.imagens.setValue(super.image(for: .selected), forKey: "\(UIControlState.selected.rawValue)")
+        self.imagens.setValue(super.image(for: .normal), forKey: "\(UIControl.State.normal.rawValue)")
+        self.imagens.setValue(super.image(for: .highlighted), forKey: "\(UIControl.State.highlighted.rawValue)")
+        self.imagens.setValue(super.image(for: .disabled), forKey: "\(UIControl.State.disabled.rawValue)")
+        self.imagens.setValue(super.image(for: .selected), forKey: "\(UIControl.State.selected.rawValue)")
         
         /** Indicator Styles for States */
         let s = NSNumber(value: defaultActivityStyle.rawValue)
-        self.indicatorStyles.setValue(s, forKey: "\(UIControlState.normal.rawValue)")
-        self.indicatorStyles.setValue(s, forKey: "\(UIControlState.highlighted.rawValue)")
-        self.indicatorStyles.setValue(s, forKey: "\(UIControlState.disabled.rawValue)")
-        self.indicatorStyles.setValue(s, forKey: "\(UIControlState.selected.rawValue)")
+        self.indicatorStyles.setValue(s, forKey: "\(UIControl.State.normal.rawValue)")
+        self.indicatorStyles.setValue(s, forKey: "\(UIControl.State.highlighted.rawValue)")
+        self.indicatorStyles.setValue(s, forKey: "\(UIControl.State.disabled.rawValue)")
+        self.indicatorStyles.setValue(s, forKey: "\(UIControl.State.selected.rawValue)")
         
         self.addObserver(forKeyPath: "self.state")
         self.addObserver(forKeyPath: "self.selected")
@@ -163,14 +163,14 @@ open class LoadingButton: UIButton {
         super.layoutSubviews()
         
         let style = self.activityIndicatorStyle(for: self.currentControlState())
-        self.activityIndicatorView.activityIndicatorViewStyle = style
+        self.activityIndicatorView.style = style
         self.activityIndicatorView.frame = self.frameForActivityIndicator()
-        self.bringSubview(toFront: self.activityIndicatorView)
+        self.bringSubviewToFront(self.activityIndicatorView)
     }
     
     // MARK: - Public Methods
     
-    open func setActivityIndicatorStyle(_ style:UIActivityIndicatorViewStyle, for state:UIControlState) {
+    open func setActivityIndicatorStyle(_ style: UIActivityIndicatorView.Style, for state:UIControl.State) {
         let s:NSNumber = NSNumber(value: style.rawValue)
         setControlState(s, dic: indicatorStyles, state: state)
         self.setNeedsLayout()
@@ -182,13 +182,13 @@ open class LoadingButton: UIButton {
         self.setNeedsLayout()
     }
     
-    open func activityIndicatorStyle(for state: UIControlState) -> UIActivityIndicatorViewStyle {
-        var style:UIActivityIndicatorViewStyle  = defaultActivityStyle
+    open func activityIndicatorStyle(for state: UIControl.State) -> UIActivityIndicatorView.Style {
+        var style:UIActivityIndicatorView.Style  = defaultActivityStyle
         
         if let styleNumber = getValueFrom(type: NSNumber.self, on: self.indicatorStyles, for: state)
         {
             // https://developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/swift_programming_language/Enumerations.html
-            style = UIActivityIndicatorViewStyle(rawValue: styleNumber.intValue)!
+            style = UIActivityIndicatorView.Style(rawValue: styleNumber.intValue)!
         }
         return style
     }
@@ -197,7 +197,7 @@ open class LoadingButton: UIButton {
     // MARK: - Targets/Actions
     
     @objc func activityIndicatorTapped(_ sender:AnyObject) {
-        self.sendActions(for: UIControlEvents.touchUpInside)
+        self.sendActions(for: UIControl.Event.touchUpInside)
     }
     
     
@@ -212,33 +212,33 @@ open class LoadingButton: UIButton {
         self.activityIndicatorView.addGestureRecognizer(tap)
     }
     
-    func currentControlState() -> UIControlState {
-        var controlState = UIControlState.normal.rawValue
+    func currentControlState() -> UIControl.State {
+        var controlState = UIControl.State.normal.rawValue
         if self.isSelected {
-            controlState += UIControlState.selected.rawValue
+            controlState += UIControl.State.selected.rawValue
         }
         if self.isHighlighted {
-            controlState += UIControlState.highlighted.rawValue
+            controlState += UIControl.State.highlighted.rawValue
         }
         if !self.isEnabled {
-            controlState += UIControlState.disabled.rawValue
+            controlState += UIControl.State.disabled.rawValue
         }
-        return UIControlState(rawValue: controlState)
+        return UIControl.State(rawValue: controlState)
     }
     
-    func setControlState(_ value: AnyObject, dic:NSMutableDictionary, state:UIControlState) {
+    func setControlState(_ value: AnyObject, dic:NSMutableDictionary, state:UIControl.State) {
         dic["\(state.rawValue)"] = value
         configureControl(for: currentControlState())
     }
     
-    func setImage(_ image:UIImage, state:UIControlState) {
+    func setImage(_ image:UIImage, state:UIControl.State) {
         setControlState(image, dic: self.imagens, state: state)
     }
     
     
     // MARK: - Override Setters & Getters
     
-    override open func setTitle(_ title: String!, for state: UIControlState) {
+    override open func setTitle(_ title: String!, for state: UIControl.State) {
         self.store(title, in: self.texts, for: state)
         if super.title(for: state) != title {
             super.setTitle(title, for: state)
@@ -246,21 +246,21 @@ open class LoadingButton: UIButton {
         self.setNeedsLayout()
     }
     
-    open override func setAttributedTitle(_ title: NSAttributedString?, for state: UIControlState) {
+    open override func setAttributedTitle(_ title: NSAttributedString?, for state: UIControl.State) {
         self.store(title, in: self.texts, for: state)
         if super.attributedTitle(for: state) != title {
             super.setAttributedTitle(title, for: state)
         }
         self.setNeedsLayout()
     }
-    override open func title(for state: UIControlState) -> String?  {
+    override open func title(for state: UIControl.State) -> String?  {
         return getValueFrom(type: String.self, on: self.texts, for: state)
     }
     
-    open override func attributedTitle(for state: UIControlState) -> NSAttributedString? {
+    open override func attributedTitle(for state: UIControl.State) -> NSAttributedString? {
         return getValueFrom(type: NSAttributedString.self, on: self.texts, for: state)
     }
-    override open func setImage(_ image: UIImage!, for state: UIControlState) {
+    override open func setImage(_ image: UIImage!, for state: UIControl.State) {
         self.store(image, in: self.imagens, for: state)
         if super.image(for: state) != image {
             super.setImage(image, for: state)
@@ -268,7 +268,7 @@ open class LoadingButton: UIButton {
         self.setNeedsLayout()
     }
     
-    override open func image(for state: UIControlState) -> UIImage? {
+    override open func image(for state: UIControl.State) -> UIImage? {
         return getValueFrom(type: UIImage.self, on: self.imagens, for: state)
     }
     
@@ -283,19 +283,19 @@ open class LoadingButton: UIButton {
         self.removeObserver(self, forKeyPath: keyPath)
     }
     
-    fileprivate func configureControl(for state: UIControlState) {
+    fileprivate func configureControl(for state: UIControl.State) {
         if self.isLoading {
             self.activityIndicatorView.startAnimating()
             
             if self.hideImageWhenLoading {
                 
                 var imgTmp:UIImage? = nil
-                if let img = self.image(for: UIControlState.normal) {
+                if let img = self.image(for: UIControl.State.normal) {
                     imgTmp = self.clearImage(size: img.size, scale: img.scale)
                 }
                 
-                super.setImage(imgTmp, for: UIControlState.normal)
-                super.setImage(imgTmp, for: UIControlState.selected)
+                super.setImage(imgTmp, for: UIControl.State.normal)
+                super.setImage(imgTmp, for: UIControl.State.selected)
                 
                 super.setImage(imgTmp, for: state)
                 super.imageView?.image = imgTmp
@@ -322,7 +322,7 @@ open class LoadingButton: UIButton {
             super.titleLabel?.text = self.title(for: state)
             super.setAttributedTitle(self.attributedTitle(for: state), for: state)
         }
-//        self.setImage(nil, for: UIControlState.disabled)
+//        self.setImage(nil, for: UIControl.State.disabled)
         self.isUserInteractionEnabled = !self.isLoading
 //        self.superview?.isUserInteractionEnabled = self.isUserInteractionEnabled
         self.setNeedsLayout()
@@ -407,23 +407,23 @@ open class LoadingButton: UIButton {
         }
         UIGraphicsEndImageContext()
         
-        return  UIImage(cgImage: outputImage.cgImage!, scale: scale, orientation: UIImageOrientation.up)
+        return  UIImage(cgImage: outputImage.cgImage!, scale: scale, orientation: UIImage.Orientation.up)
     }
     
     
     /** Store and recorver values */
     /** Value in Dictionary for ControlState */
     
-    fileprivate func getValueFrom<T>(type: T.Type, on dic: NSMutableDictionary!, for state: UIControlState) -> T? {
+    fileprivate func getValueFrom<T>(type: T.Type, on dic: NSMutableDictionary!, for state: UIControl.State) -> T? {
         
         if let value =  dic.value(forKey: "\(state.rawValue)") as AnyObject? {
             return value as? T
         }
         
-        return dic.value(forKey: "\(UIControlState.normal.rawValue)") as? T
+        return dic.value(forKey: "\(UIControl.State.normal.rawValue)") as? T
     }
     
-    fileprivate func store<T>(_ value: T?, in dic:NSMutableDictionary!, for state:UIControlState) {
+    fileprivate func store<T>(_ value: T?, in dic:NSMutableDictionary!, for state:UIControl.State) {
         if let _value = value as AnyObject?  {
             dic.setValue(_value, forKey: "\(state.rawValue)")
         }
@@ -503,7 +503,7 @@ open class LoadingButton: UIButton {
 //        setupView()
 //    }
 //    
-//    public override func setTitle(_ title: String?, for state: UIControlState) {
+//    public override func setTitle(_ title: String?, for state: UIControl.State) {
 //        super.setTitle(title, for: state)
 //        if normalText == nil{
 //            normalText = title

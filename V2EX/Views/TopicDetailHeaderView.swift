@@ -156,7 +156,7 @@ class TopicDetailHeaderView: UIView {
         }.disposed(by: rx.disposeBag)
 
         NotificationCenter.default.rx
-            .notification(.UIContentSizeCategoryDidChange)
+            .notification(UIContentSizeCategory.didChangeNotification)
             .subscribeNext { [weak self] _ in
                 self?.updateWebViewHeight()
         }.disposed(by: rx.disposeBag)

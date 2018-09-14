@@ -35,15 +35,16 @@ extension UINavigationController {
                 let str = ("et_" + selector.description).replacingOccurrences(of: "__", with: "_")
                 // popToRootViewControllerAnimated: et_popToRootViewControllerAnimated:
 
-                if let originalMethod = class_getInstanceMethod(self, selector),
-                    let swizzledMethod = class_getInstanceMethod(self, Selector(str)) {
-                    method_exchangeImplementations(originalMethod, swizzledMethod)
+                let originalMethod = class_getInstanceMethod(self, selector)
+                let swizzledMethod = class_getInstanceMethod(self, Selector(str))
+                if originalMethod != nil && swizzledMethod != nil {
+                    method_exchangeImplementations(originalMethod!, swizzledMethod!)
                 }
             }
         }
     }
 
-    func et_updateInteractiveTransition(_ percentComplete: CGFloat) {
+    @objc func et_updateInteractiveTransition(_ percentComplete: CGFloat) {
         guard let topViewController = topViewController, let coordinator = topViewController.transitionCoordinator else {
             et_updateInteractiveTransition(percentComplete)
             return
@@ -89,43 +90,44 @@ extension UINavigationController {
         return UIColor(red: nowRed, green: nowGreen, blue: nowBlue, alpha: nowAlpha)
     }
     
-    func et_popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
+    @objc func et_popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
         setNeedsNavigationBackground(alpha: viewController.navBarBgAlpha)
         navigationBar.tintColor = viewController.navBarTintColor
         return et_popToViewController(viewController, animated: animated)
     }
     
-    func et_popToRootViewControllerAnimated(_ animated: Bool) -> [UIViewController]? {
+    @objc func et_popToRootViewControllerAnimated(_ animated: Bool) -> [UIViewController]? {
         setNeedsNavigationBackground(alpha: viewControllers.first?.navBarBgAlpha ?? 0)
         navigationBar.tintColor = viewControllers.first?.navBarTintColor
         return et_popToRootViewControllerAnimated(animated)
     }
     
     fileprivate func setNeedsNavigationBackground(alpha: CGFloat) {
-        let barBackgroundView = navigationBar.subviews[0]
-        let valueForKey = barBackgroundView.value(forKey:)
-        
-        if let shadowView = valueForKey("_shadowView") as? UIView {
-            shadowView.alpha = alpha
-            shadowView.isHidden = alpha == 0
-        }
-        
-        if navigationBar.isTranslucent {
-            if #available(iOS 10.0, *) {
-                if let backgroundEffectView = valueForKey("_backgroundEffectView") as? UIView, navigationBar.backgroundImage(for: .default) == nil {
-                    backgroundEffectView.alpha = alpha
-                    return
-                }
-                
-            } else {
-                if let adaptiveBackdrop = valueForKey("_adaptiveBackdrop") as? UIView , let backdropEffectView = adaptiveBackdrop.value(forKey: "_backdropEffectView") as? UIView {
-                    backdropEffectView.alpha = alpha
-                    return
+        if let barBackgroundView = navigationBar.subviews.first {
+            let valueForKey = barBackgroundView.value(forKey:)
+            
+            if let shadowView = valueForKey("_shadowView") as? UIView {
+                shadowView.alpha = alpha
+                shadowView.isHidden = alpha == 0
+            }
+            
+            if navigationBar.isTranslucent {
+                if #available(iOS 10.0, *) {
+                    if let backgroundEffectView = valueForKey("_backgroundEffectView") as? UIView, navigationBar.backgroundImage(for: .default) == nil {
+                        backgroundEffectView.alpha = alpha
+                        return
+                    }
+                    
+                } else {
+                    if let adaptiveBackdrop = valueForKey("_adaptiveBackdrop") as? UIView , let backdropEffectView = adaptiveBackdrop.value(forKey: "_backdropEffectView") as? UIView {
+                        backdropEffectView.alpha = alpha
+                        return
+                    }
                 }
             }
+            
+            barBackgroundView.alpha = alpha
         }
-        
-        barBackgroundView.alpha = alpha
     }
 }
 

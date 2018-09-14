@@ -83,7 +83,7 @@ class NotificationViewController: BaseViewController, AccountService {
             
             let settingsAction = UIAlertAction(title:"设置", style: .default, handler: {
                 (action) -> Void in
-                let url = URL(string: UIApplicationOpenSettingsURLString)
+                let url = URL(string: UIApplication.openSettingsURLString)
                 if let url = url, UIApplication.shared.canOpenURL(url) {
                     if #available(iOS 10, *) {
                         UIApplication.shared.open(url, options: [:],

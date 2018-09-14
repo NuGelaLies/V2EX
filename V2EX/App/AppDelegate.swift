@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: UIApplicationDelegate
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         AppWindow.shared.prepare()
         AppSetup.prepare()
         SQLiteDatabase.initDatabase()
@@ -77,7 +77,7 @@ extension AppDelegate {
 // MARK: - JPUSHRegisterDelegate
 extension AppDelegate: JPUSHRegisterDelegate {
     
-    func setupJPush(launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+    func setupJPush(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         
         if #available(iOS 10.0, *){
             let entiity = JPUSHRegisterEntity()

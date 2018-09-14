@@ -9,7 +9,7 @@ class TabBarViewController: UITabBarController {
          let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
         bounceAnimation.values = [1.0, 0.95, 1.05, 1.0]
         bounceAnimation.duration = 0.4
-        bounceAnimation.calculationMode = kCAAnimationCubic
+        bounceAnimation.calculationMode = CAAnimationCalculationMode.cubic
         return bounceAnimation
     }()
     
@@ -32,7 +32,7 @@ class TabBarViewController: UITabBarController {
                 }
                 
                 // 消息控制器显示 badge
-                self?.childViewControllers.forEach({ viewController in
+                self?.children.forEach({ viewController in
                     if viewController.isKind(of: NavigationViewController.self),
                         let nav = viewController as? NavigationViewController,
                         let topVC = nav.topViewController,
@@ -52,8 +52,8 @@ class TabBarViewController: UITabBarController {
 extension TabBarViewController {
     
     fileprivate func setAppearance() {
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor : UIColor.hex(0x8a8a8a)], for: .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor : Theme.Color.globalColor], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.hex(0x8a8a8a)], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor : Theme.Color.globalColor], for: .selected)
 
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
@@ -95,7 +95,7 @@ extension TabBarViewController {
         let offset: CGFloat = UIDevice.isiPad ? 0 : 5
         childController.tabBarItem.imageInsets = UIEdgeInsets(top: offset, left: 0, bottom: -offset, right: 0)
         let nav = NavigationViewController(rootViewController: childController)
-        addChildViewController(nav)
+        addChild(nav)
     }
     
     private func clickBackTop() {
@@ -117,7 +117,7 @@ extension TabBarViewController {
     }
     
     private func bounceAnimation(selectedController: UIViewController) {
-        guard let index = childViewControllers.index(of: selectedController),
+        guard let index = children.index(of: selectedController),
             let tabBarButtonClass = NSClassFromString("UITabBarButton") else { return }
         var tabBarButtons = tabBar.subviews.filter { $0.isKind(of: tabBarButtonClass) }
 

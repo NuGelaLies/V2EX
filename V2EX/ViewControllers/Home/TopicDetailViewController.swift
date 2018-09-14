@@ -14,7 +14,7 @@ class TopicDetailViewController: DataViewController, TopicService {
         view.delegate = self
         view.dataSource = self
         view.separatorStyle = .none
-        view.rowHeight = UITableViewAutomaticDimension
+        view.rowHeight = UITableView.automaticDimension
         view.estimatedRowHeight = 80
         view.backgroundColor = .clear
 //        view.keyboardDismissMode = .onDrag
@@ -341,7 +341,7 @@ class TopicDetailViewController: DataViewController, TopicService {
             }.disposed(by: rx.disposeBag)
         
         NotificationCenter.default.rx
-            .notification(.UIApplicationWillEnterForeground)
+            .notification(UIApplication.willEnterForegroundNotification)
             .subscribeNext { _ in
                 setStatusBarBackground(.clear)
             }.disposed(by: rx.disposeBag)
@@ -392,17 +392,17 @@ class TopicDetailViewController: DataViewController, TopicService {
         }.disposed(by: rx.disposeBag)
     
         
-        Observable.of(NotificationCenter.default.rx.notification(.UIKeyboardWillShow),
-                      NotificationCenter.default.rx.notification(.UIKeyboardWillHide),
-                      NotificationCenter.default.rx.notification(.UIKeyboardDidShow),
-                      NotificationCenter.default.rx.notification(.UIKeyboardDidHide)).merge()
+        Observable.of(NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification),
+                      NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification),
+                      NotificationCenter.default.rx.notification(UIResponder.keyboardDidShowNotification),
+                      NotificationCenter.default.rx.notification(UIResponder.keyboardDidHideNotification)).merge()
             .subscribeNext { [weak self] notification in
                 guard let `self` = self else { return }
                 guard var userInfo = notification.userInfo,
-                    let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+                    let keyboardRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
                 let convertedFrame = self.view.convert(keyboardRect, from: nil)
                 let heightOffset = self.view.bounds.size.height - convertedFrame.origin.y
-                let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double
+                let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
                 self.inputViewBottomConstranit?.update(offset: -heightOffset)
                 UIView.animate(withDuration: duration ?? 0.25) {
                     self.view.layoutIfNeeded()
@@ -445,7 +445,7 @@ class TopicDetailViewController: DataViewController, TopicService {
 //        }.disposed(by: rx.disposeBag)
         
         NotificationCenter.default.rx
-            .notification(Notification.Name.UIMenuControllerDidHideMenu)
+            .notification(UIMenuController.didHideMenuNotification)
             .subscribeNext { [weak self] _ in
                 guard let selectIndexPath = self?.tableView.indexPathForSelectedRow else { return }
                 GCD.delay(0.3, block: {
@@ -519,7 +519,7 @@ extension TopicDetailViewController: UITableViewDelegate, UITableViewDataSource 
         let cellTop = cellFrame.origin.y
         
         let cellBottomVisibleHeight = (cellFrame.height - (cellbottom - view.height) - (isShowToolBarVariable.value.not ? commentInputView.height : 0)).half
-        let cellTopVisibleHeight = fabs(cellTop) + ((cellFrame.height - fabs(cellTop)).half)
+        let cellTopVisibleHeight = abs(cellTop) + ((cellFrame.height - abs(cellTop)).half)
         targetRectangle.origin.y = cellbottom > tableView.height ? cellBottomVisibleHeight : cellTop < tableView.y ? cellTopVisibleHeight : targetRectangle.height.half
         
         let replyItem = UIMenuItem(title: "回复", action: #selector(replyCommentAction))
@@ -645,11 +645,11 @@ extension TopicDetailViewController {
 
 // MARK: - UIImagePickerControllerDelegate && UINavigationControllerDelegate
 extension TopicDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
-        guard var image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        guard var image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
         image = image.resized(by: 0.7)
-        guard let data = UIImageJPEGRepresentation(image, 0.5) else { return }
+        guard let data = image.jpegData(compressionQuality: 0.5) else { return }
 
         let path = FileManager.document.appendingPathComponent("smfile.png")
         let error = FileManager.save(data, savePath: path)

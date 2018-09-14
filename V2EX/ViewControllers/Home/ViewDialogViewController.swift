@@ -28,7 +28,7 @@ class ViewDialogViewController: BaseTableViewController {
         super.viewDidLoad()
         
         tableView.separatorStyle = .none
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
         tableView.keyboardDismissMode = .onDrag
         tableView.register(cellWithClass: TopicCommentCell.self)
@@ -48,7 +48,7 @@ class ViewDialogViewController: BaseTableViewController {
         }
 
         tableView.tableHeaderView = headerView
-        tableView.contentInset = UIEdgeInsetsMake(-44, 0, 0, 0)
+        tableView.contentInset = UIEdgeInsets(top: -44, left: 0, bottom: 0, right: 0)
     }
     
 }
@@ -76,7 +76,7 @@ extension ViewDialogViewController {
         // 下拉关闭
         if scrollView.contentOffset.y <= -(tableView.contentInset.top + 100) {
             // 让scrollView 不弹跳回来
-            scrollView.contentInset = UIEdgeInsetsMake(-1 * scrollView.contentOffset.y, 0, 0, 0)
+            scrollView.contentInset = UIEdgeInsets(top: -1 * scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
             scrollView.isScrollEnabled = false
             navigationController?.dismiss(animated: true, completion: nil)
         }

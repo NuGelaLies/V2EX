@@ -24,7 +24,7 @@ class NodesViewController: DataViewController, NodeService {
         view.dataSource = self
         view.delegate = self
         view.register(NodeCell.self, forCellWithReuseIdentifier: NodeCell.description())
-        view.register(NodeHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NodeHeaderView.description())
+        view.register(NodeHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NodeHeaderView.description())
         self.view.addSubview(view)
         return view
     }()
@@ -56,7 +56,7 @@ class NodesViewController: DataViewController, NodeService {
             }.disposed(by: rx.disposeBag)
 
         NotificationCenter.default.rx
-            .notification(.UIContentSizeCategoryDidChange)
+            .notification(UIContentSizeCategory.didChangeNotification)
             .subscribeNext { [weak self] _ in
                 self?.collectionView.reloadData()
             }.disposed(by: rx.disposeBag)
@@ -67,7 +67,7 @@ class NodesViewController: DataViewController, NodeService {
 
         let allNodeViewVC = AllNodesViewController()
         allNodeViewController = allNodeViewVC
-        addChildViewController(allNodeViewVC)
+        addChild(allNodeViewVC)
     }
     
     override func setupConstraints() {
@@ -112,7 +112,7 @@ extension NodesViewController {
 
     /// 点击了 SegmentControl
     @objc private func segmentControlDidChangeHandle() {
-        if let allNodeVC = childViewControllers.first,
+        if let allNodeVC = children.first,
             !allNodeVC.isViewLoaded {
             view.addSubview(allNodeVC.view)
             allNodeVC.view.snp.makeConstraints {

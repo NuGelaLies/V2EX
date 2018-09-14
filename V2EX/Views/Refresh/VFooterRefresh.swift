@@ -16,7 +16,7 @@ class VFooterRefresh: UIView, RefreshableFooter {
     }()
 
     fileprivate let indicatorView: UIActivityIndicatorView = {
-        let indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let indicatorView = UIActivityIndicatorView(style: .gray)
         indicatorView.isHidden = true
         return indicatorView
     }()

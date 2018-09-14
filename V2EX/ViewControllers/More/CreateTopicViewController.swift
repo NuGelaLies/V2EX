@@ -32,7 +32,7 @@ class CreateTopicViewController: BaseViewController, TopicService {
         view.backgroundColor = .white
         view.attributedPlaceholder = NSAttributedString(
             string: "请输入主题标题(0~120)",
-            attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.6)]
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.6)]
         )
         return view
     }()
@@ -61,8 +61,8 @@ class CreateTopicViewController: BaseViewController, TopicService {
         let view = YYTextView()
         view.placeholderAttributedText = NSAttributedString(
             string: "请输入正文，如果标题能够表达完整内容，则正文可以为空(0~20000)",
-            attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.6),
-                         NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)])
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.6),
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)])
         view.textContainerInset = UIEdgeInsets(top: 10, left: 15, bottom: 15, right: 5)
         view.returnKeyType = .done
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -102,7 +102,7 @@ class CreateTopicViewController: BaseViewController, TopicService {
         view.setTitleColor(.black, for: .normal)
         view.sizeToFit()
         view.backgroundColor = .white
-        view.contentEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 10)
+        view.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         view.setCornerRadius = 15
         view.layer.borderColor = Theme.Color.globalColor.cgColor
         view.layer.borderWidth = 0.5
@@ -263,16 +263,16 @@ class CreateTopicViewController: BaseViewController, TopicService {
                 self?.present(nav, animated: true, completion: nil)
             }.disposed(by: rx.disposeBag)
 
-        Observable.of(NotificationCenter.default.rx.notification(.UIKeyboardWillShow),
-                      NotificationCenter.default.rx.notification(.UIKeyboardWillHide),
-                      NotificationCenter.default.rx.notification(.UIKeyboardDidHide)).merge()
+        Observable.of(NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification),
+                      NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification),
+                      NotificationCenter.default.rx.notification(UIResponder.keyboardDidHideNotification)).merge()
             .subscribeNext { [weak self] notification in
                 guard let `self` = self else { return }
                 guard var userInfo = notification.userInfo,
-                    let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+                    let keyboardRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
                 let convertedFrame = self.view.convert(keyboardRect, from: nil)
                 let heightOffset = self.view.bounds.size.height - convertedFrame.origin.y
-                let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double
+                let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
                 self.selectNodeBtnBottomConstranit?.update(offset: -(heightOffset + 20))
 
                 UIView.animate(withDuration: duration!) {
@@ -437,11 +437,11 @@ extension CreateTopicViewController: YYTextViewDelegate {
 }
 
 extension CreateTopicViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
-        guard var image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        guard var image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
         image = image.resized(by: 0.7)
-        guard let data = UIImageJPEGRepresentation(image, 0.5) else { return }
+        guard let data = image.jpegData(compressionQuality: 0.5) else { return }
 
         let path = FileManager.document.appendingPathComponent("smfile.png")
         let error = FileManager.save(data, savePath: path)

@@ -10,7 +10,7 @@ class NavigationViewController: UINavigationController {
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        if childViewControllers.count > 0 {
+        if children.count > 0 {
             viewController.hidesBottomBarWhenPushed = true
             viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "back"), action: {
                 self.popViewController(animated: true)
@@ -26,14 +26,14 @@ extension NavigationViewController {
     fileprivate func setAppearance() {
 //        navigationBar.barTintColor = Theme.Color.navColor
 //        navigationBar.tintColor = Theme.Color.globalColor
-//        navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Theme.Color.globalColor]
+//        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Theme.Color.globalColor]
         
         navigationBar.isTranslucent = false
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 self?.navigationBar.barTintColor = theme.navColor
 //                self?.navigationBar.tintColor = theme.titleColor
-                self?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: theme.titleColor]
+                self?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.titleColor]
                 self?.navigationBar.barStyle = theme == .day ? .default : .black
             }.disposed(by: rx.disposeBag)
     }
@@ -76,7 +76,7 @@ extension NavigationViewController: UIGestureRecognizerDelegate {
             disabled = true
         }
 
-        if childViewControllers.count <= 1 {
+        if children.count <= 1 {
             return false
         }
 

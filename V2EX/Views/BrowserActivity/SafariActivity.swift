@@ -11,7 +11,7 @@ public class SafariActivity: BrowserActivity {
         return #imageLiteral(resourceName: "safariActivity")
     }
     
-    override public var activityType: UIActivityType {
-        return UIActivityType.openInSafari
+    override public var activityType: UIActivity.ActivityType {
+        return UIActivity.ActivityType.openInSafari
     }
 }

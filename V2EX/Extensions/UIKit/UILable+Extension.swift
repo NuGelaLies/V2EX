@@ -20,9 +20,9 @@ extension UILabel {
         set {
             guard let text = text else { return }
             let textAttributes = NSMutableAttributedString(string: text)
-            let value: NSUnderlineStyle = newValue ? .styleSingle : .styleNone
+            let value: NSUnderlineStyle = newValue ? .single : []
             textAttributes.addAttribute(
-                NSAttributedStringKey.underlineStyle,
+                NSAttributedString.Key.underlineStyle,
                 value: value.rawValue,
                 range: NSRange(location: 0, length: text.count)
             )
@@ -41,7 +41,7 @@ extension UILabel {
 
         let range = ((self.text ?? "") as NSString).range(of: boldText)
         if range.location != NSNotFound {
-            attributedText?.setAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: size)], range: range)
+            attributedText?.setAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: size)], range: range)
         }
 
         self.attributedText = attributedText
@@ -51,7 +51,7 @@ extension UILabel {
         let attributedText = self.attributedText!.mutableCopy() as? NSMutableAttributedString
         let range = ((self.text ?? "") as NSString).range(of: text)
         if range.location != NSNotFound {
-            attributedText?.setAttributes([NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: fontSize)], range: range)
+            attributedText?.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: fontSize)], range: range)
         }
         self.attributedText = attributedText
     }
@@ -62,7 +62,7 @@ extension UILabel {
 
         let range = ((self.text?.lowercased() ?? "") as NSString).range(of: text.lowercased())
         if range.location != NSNotFound {
-            attributedText?.setAttributes([NSAttributedStringKey.foregroundColor: color], range: range)
+            attributedText?.setAttributes([NSAttributedString.Key.foregroundColor: color], range: range)
         }
 
         self.attributedText = attributedText
@@ -70,7 +70,7 @@ extension UILabel {
     
     /// 使指定文字添加删除线
     func strikethrough(text: String) {
-        self.attributedText = NSAttributedString(string: text, attributes: [NSAttributedStringKey.strikethroughStyle: NSUnderlineStyle.styleSingle.rawValue])
+        self.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue])
     }
 
     /// 设置行高
@@ -81,7 +81,7 @@ extension UILabel {
         paragraphStyle.lineSpacing = CGFloat(lineHeight)
         paragraphStyle.alignment = textAlignment
 
-        attributedString?.addAttribute(NSAttributedStringKey.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: displayText.count))
+        attributedString?.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: displayText.count))
 
         attributedText = attributedString
     }

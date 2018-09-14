@@ -12,7 +12,7 @@ class ViewController: UIViewController {
         return false
     }
     
-    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake, Preference.shared.shakeFeedback else { return }
 
         let alertVC = UIAlertController(title: "需要帮助?", message: "你可以从 更多->设置 页面找到该功能", preferredStyle: .alert)

@@ -5,7 +5,7 @@ import UIKit
 extension UITableView {
 
     func estimatedRowHeight(_ height: CGFloat) {
-        self.rowHeight = UITableViewAutomaticDimension
+        self.rowHeight = UITableView.automaticDimension
         self.estimatedRowHeight = height
     }
 

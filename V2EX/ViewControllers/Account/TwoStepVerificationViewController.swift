@@ -133,7 +133,7 @@ class TwoStepVerificationViewController: BaseViewController, AccountService {
             .disposed(by: rx.disposeBag)
 
         NotificationCenter.default.rx
-            .notification(.UIApplicationWillEnterForeground)
+            .notification(UIApplication.willEnterForegroundNotification)
             .subscribeNext { [weak self] noti in
                 guard let `self` = self,
                     let pasteString = UIPasteboard.general.string,
@@ -147,7 +147,8 @@ class TwoStepVerificationViewController: BaseViewController, AccountService {
                              duration: 0.5) { [weak self] in
                     self?.nextHandle()
                 }
-            }.disposed(by: rx.disposeBag)
+            }
+        .disposed(by: rx.disposeBag)
     }
 }
 

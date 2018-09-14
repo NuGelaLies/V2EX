@@ -80,12 +80,12 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
         view.sizeToFit()
 //        view.tintColor = .clear
 //        view.setTitleTextAttributes([
-//            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
-//            NSAttributedStringKey.foregroundColor: UIColor.black
+//            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+//            NSAttributedString.Key.foregroundColor: UIColor.black
 //            ], for: .normal)
 //        view.setTitleTextAttributes(
-//            [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
-//             NSAttributedStringKey.foregroundColor: Theme.Color.globalColor
+//            [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+//             NSAttributedString.Key.foregroundColor: Theme.Color.globalColor
 //            ], for: .selected)
         return view
     }()
@@ -153,8 +153,8 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
         //        scrollView.panGestureRecognizer.require(toFail: (navigationController as! NavigationViewController).fullScreenPopGesture!)
         let topicVC = MyTopicsViewController(username: memberName)
         let replyVC = MyReplyViewController(username: memberName)
-        addChildViewController(topicVC)
-        addChildViewController(replyVC)
+        addChild(topicVC)
+        addChild(replyVC)
         topicViewController = topicVC
         replyViewController = replyVC
         scrollViewDidEndScrollingAnimation(scrollView)
@@ -365,7 +365,7 @@ extension MemberPageViewController: UIScrollViewDelegate {
         let index = Int(offsetX / Constants.Metric.screenWidth)
 
         segmentView.selectedSegmentIndex = index
-        let willShowVC = childViewControllers[index]
+        let willShowVC = children[index]
 
         if willShowVC.isViewLoaded { return }
         willShowVC.view.frame = scrollView.bounds

@@ -25,13 +25,13 @@ target 'V2EX' do
     pod 'SwiftMessages'
     pod 'StatefulViewController'
     pod 'SKPhotoBrowser'
-    pod 'PullToRefreshKit' , git: 'https://github.com/Joe0708/PullToRefreshKit.git'
+    pod 'PullToRefreshKit' , git: 'https://github.com/aidevjoe/PullToRefreshKit.git'
 
     # Parse
     pod 'Kanna', '~> 4.0.0'
 
     # Rich text
-    pod 'YYText', git: 'https://github.com/Joe0708/YYText'
+    pod 'YYText', git: 'https://github.com/aidevjoe/YYText'
     pod 'MarkdownView'
 
     # Misc
@@ -45,18 +45,7 @@ target 'V2EX' do
     pod 'JPush'
 
     # Debug only
-    pod 'Reveal-SDK', '~> 8', :configurations => ['Debug']
-
-    target 'V2EXTests' do
-        inherit! :search_paths
-        # Pods for testing
-    end
-
-    target 'V2EXUITests' do
-        inherit! :search_paths
-        # Pods for testing
-    end
-
+    pod 'Reveal-SDK', '~> 14', :configurations => ['Debug']
 end
 
 #post_install do |installer|

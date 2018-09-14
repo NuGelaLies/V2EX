@@ -272,7 +272,7 @@ class TopicCommentCell: BaseTableViewCell {
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
             let vel = panGesture.velocity(in: contentView)
-            return fabs(vel.x) > fabs(vel.y) && vel.x < 0
+            return abs(vel.x) > abs(vel.y) && vel.x < 0
         }
         return true
     }
@@ -286,7 +286,7 @@ class TopicCommentCell: BaseTableViewCell {
         switch gesture.state {
         case .changed:
 
-            if fabs(directionP.y) < fabs(directionP.x) {
+            if abs(directionP.y) < abs(directionP.x) {
                 if -translationX > activationOffset {
                     translationX = -activationOffset
                 } else if translationX > 0 {

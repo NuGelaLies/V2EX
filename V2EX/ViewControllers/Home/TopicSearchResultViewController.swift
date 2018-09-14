@@ -4,7 +4,7 @@ import RxCocoa
 
 class SearchTitleView: UIView {
     override var intrinsicContentSize: CGSize {
-        return UILayoutFittingExpandedSize
+        return UIView.layoutFittingExpandedSize
     }
 }
 
@@ -58,11 +58,11 @@ class TopicSearchResultViewController: DataViewController, TopicService {
         tableView.delegate = self
         tableView.keyboardDismissMode = .onDrag
         tableView.estimatedRowHeight = 120
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.register(cellWithClass: TopicSearchResultCell.self)
         tableView.hideEmptyCells()
         tableView.backgroundColor = .clear
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         self.view.addSubview(tableView)
         return tableView
     }()
@@ -123,7 +123,7 @@ class TopicSearchResultViewController: DataViewController, TopicService {
         }
         
         let searchHistoryVC = TopicSearchHistoryViewController()
-        addChildViewController(searchHistoryVC)
+        addChild(searchHistoryVC)
         view.addSubview(searchHistoryVC.view)
         searchHistoryVC.view.snp.makeConstraints {
             $0.edges.equalTo(tableView)

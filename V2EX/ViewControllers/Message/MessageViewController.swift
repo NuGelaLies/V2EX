@@ -11,7 +11,7 @@ class MessageViewController: DataViewController, AccountService {
         view.dataSource = self
         view.register(cellWithClass: MessageCell.self)
         view.estimatedRowHeight = 120
-        view.rowHeight = UITableViewAutomaticDimension
+        view.rowHeight = UITableView.automaticDimension
         view.backgroundColor = .clear
         self.view.addSubview(view)
         view.hideEmptyCells()
@@ -19,8 +19,8 @@ class MessageViewController: DataViewController, AccountService {
     }()
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        activityIndicator.activityIndicatorViewStyle = UIDevice.isiPad ? .whiteLarge : .white
+        let activityIndicator = UIActivityIndicatorView(style: .gray)
+        activityIndicator.style = UIDevice.isiPad ? .whiteLarge : .white
         activityIndicator.color = .gray
         return activityIndicator
     }()
@@ -244,7 +244,7 @@ extension MessageViewController {
             let replyMessageVC = ReplyMessageViewController()
             replyMessageVC.view.alpha = 0
             self.replyMessageViewController = replyMessageVC
-            addChildViewController(replyMessageVC)
+            addChild(replyMessageVC)
             self.view.addSubview(replyMessageVC.view)
         }
 

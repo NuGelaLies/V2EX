@@ -136,7 +136,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
             .notification(Notification.Name.V2.DidSelectedHomeTabbarItemName)
             .subscribeNext { [weak self] _ in
                 guard let `self` = self, let `segmentView` = self.segmentView else { return }
-                let willShowVC = self.childViewControllers[segmentView.selectIndex]
+                let willShowVC = self.children[segmentView.selectIndex]
                 if let tableView = willShowVC.view.subviews.first as? UITableView, tableView.numberOfRows(inSection: 0) > 0 {
                     let indexPath = IndexPath(row: 0, section: 0)
                     tableView.scrollToRow(at: indexPath, at: .top, animated: true)
@@ -144,7 +144,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
             }.disposed(by: rx.disposeBag)
 
         NotificationCenter.default.rx
-            .notification(.UIApplicationWillEnterForeground)
+            .notification(UIApplication.willEnterForegroundNotification)
             .subscribeNext { [weak self] _ in
                 guard Preference.shared.recognizeClipboardLink,
                     let content = UIPasteboard.general.string?.trimmed,
@@ -185,7 +185,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
 
         // 适配屏幕旋转
         NotificationCenter.default.rx
-            .notification(.UIDeviceOrientationDidChange)
+            .notification(UIDevice.orientationDidChangeNotification)
             .subscribe(onNext: { [weak self] noti in
                 self?.rotationAdaptation()
             }).disposed(by: rx.disposeBag)
@@ -219,7 +219,7 @@ extension HomeViewController {
         scrollView.contentSize = CGSize(width: nodes.count.f * scrollView.width, height: scrollView.contentSize.height)
         for node in nodes {
             let topicVC = BaseTopicsViewController(node: node)
-            addChildViewController(topicVC)
+            addChild(topicVC)
         }
 
         scrollViewDidEndScrollingAnimation(scrollView)
@@ -252,9 +252,9 @@ extension HomeViewController {
     }
 
     private func rotationAdaptation() {
-        guard childViewControllers.count.boolValue else { return }
+        guard children.count.boolValue else { return }
 
-        for (index, showVC) in childViewControllers.enumerated() {
+        for (index, showVC) in children.enumerated() {
             guard showVC.isViewLoaded else { continue }
             showVC.view.x = index.f * scrollView.width
         }
@@ -275,7 +275,7 @@ extension HomeViewController: UIScrollViewDelegate {
 
         segmentView?.setSelectIndex(index: index)
 
-        let willShowVC = childViewControllers[index]
+        let willShowVC = children[index]
         if willShowVC.isViewLoaded { return }
         willShowVC.view.frame = scrollView.bounds
         scrollView.addSubview(willShowVC.view)

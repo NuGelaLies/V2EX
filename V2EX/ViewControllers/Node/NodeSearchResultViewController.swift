@@ -10,7 +10,7 @@ class NodeSearchResultViewController: DataViewController {
         tableView.delegate = self
         tableView.keyboardDismissMode = .onDrag
         tableView.estimatedRowHeight = 120
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .clear
         tableView.hideEmptyCells()
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)

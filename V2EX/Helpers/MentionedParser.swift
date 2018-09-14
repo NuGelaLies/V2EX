@@ -15,7 +15,7 @@ class MentionedParser: NSObject, YYTextParser{
                 guard let result = result else { return }
                 let range = result.range
                 if range.location == NSNotFound || range.length < 1 { return }
-                if (text.attribute(NSAttributedStringKey(rawValue: YYTextBindingAttributeName), at: range.location, effectiveRange: nil) != nil) { return }
+                if (text.attribute(NSAttributedString.Key(rawValue: YYTextBindingAttributeName), at: range.location, effectiveRange: nil) != nil) { return }
                 let bindlingRange = NSMakeRange(range.location, range.length-1)
                 let binding = YYTextBinding()
                 binding.deleteConfirm = true

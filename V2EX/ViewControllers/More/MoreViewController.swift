@@ -339,11 +339,11 @@ extension MoreViewController {
 
 // MARK: - UIImagePickerControllerDelegate
 extension MoreViewController: UIImagePickerControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
-        guard var image = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
+        guard var image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
         image = image.resized(by: 0.7)
-        guard let data = UIImageJPEGRepresentation(image, 0.5) else { return }
+        guard let data = image.jpegData(compressionQuality: 0.5) else { return }
 
         let path = FileManager.document.appendingPathComponent("smfile.png")
         let error = FileManager.save(data, savePath: path)

@@ -127,8 +127,8 @@ class LoginViewController: BaseViewController, AccountService, TopicService, OCR
     }()
     
     private lazy var activityIndicatorView: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        activityIndicator.activityIndicatorViewStyle = .white
+        let activityIndicator = UIActivityIndicatorView(style: .gray)
+        activityIndicator.style = .white
         activityIndicator.color = .gray
         return activityIndicator
     }()
@@ -576,7 +576,7 @@ extension LoginViewController {
         UIGraphicsEndImageContext()
         
         guard let captchaImg = bigImage,
-            let captchaImgData = UIImagePNGRepresentation(captchaImg) else { returnHandle(); return  }
+            let captchaImgData = captchaImg.pngData() else { returnHandle(); return  }
         
         //        UIImageWriteToSavedPhotosAlbum(captchaImg, nil, nil, nil)
         
@@ -676,7 +676,7 @@ extension LoginViewController: UITextFieldDelegate {
 
 
 extension LoginViewController {
-    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
         
         ocrRecognize(updateCaptchaImg: true)

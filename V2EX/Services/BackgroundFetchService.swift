@@ -23,12 +23,12 @@ final class BackgroundFetchService: NSObject, AccountService {
     
     public func turnOn() {
         Preference.shared.isBackgroundEnable = true
-        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
     }
     
     public func turnOff() {
         Preference.shared.isBackgroundEnable = false
-        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalNever)
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalNever)
     }
     
     private func push(messageCount: Int) {
@@ -36,7 +36,7 @@ final class BackgroundFetchService: NSObject, AccountService {
             let content = UNMutableNotificationContent()
             content.title = "您有 \(messageCount) 条未读提醒"
 //            content.body = String.messageTodayGank
-            content.sound = UNNotificationSound.default()
+            content.sound = UNNotificationSound.default
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let requestIdentifier = "v2ex now message"
             let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
@@ -58,6 +58,12 @@ final class BackgroundFetchService: NSObject, AccountService {
                         self?.isAskAuthorization = true
                     case .denied:
                         self?.isAskAuthorization = true
+                    default:
+                        if #available(iOS 12.0, *) {
+                            if settings.authorizationStatus == .provisional {
+                                self?.isAskAuthorization = true
+                            }
+                        }
                     }
                 }
             })
@@ -74,7 +80,13 @@ final class BackgroundFetchService: NSObject, AccountService {
                     case .authorized:
                         log.verbose("UserNotifications authorized")
                     case .denied:
-                        UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+                    default:
+                        if #available(iOS 12.0, *) {
+                            if settings.authorizationStatus == .provisional {
+                                log.verbose("UserNotifications provisional")
+                            }
+                        }
                     }
                 }
             })

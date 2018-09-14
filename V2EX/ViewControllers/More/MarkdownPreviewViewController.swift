@@ -13,9 +13,9 @@ class MarkdownPreviewViewController: BaseViewController {
     }()
 
     private lazy var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.startAnimating()
-        activityIndicator.activityIndicatorViewStyle = UIDevice.isiPad ? .whiteLarge : .white
+        activityIndicator.style = UIDevice.isiPad ? .whiteLarge : .white
         activityIndicator.color = .gray
         return activityIndicator
     }()

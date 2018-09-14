@@ -9,7 +9,7 @@ class MyReplyViewController: DataViewController, MemberService {
         view.delegate = self
         view.dataSource = self
         view.estimatedRowHeight = 120
-        view.rowHeight = UITableViewAutomaticDimension
+        view.rowHeight = UITableView.automaticDimension
         view.backgroundColor = .clear
         view.hideEmptyCells()
         view.register(cellWithClass: ReplyCell.self)

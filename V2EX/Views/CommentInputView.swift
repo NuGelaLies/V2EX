@@ -11,7 +11,7 @@ class CommentInputView: UIView {
         let view = YYTextView()
         view.placeholderAttributedText = NSAttributedString(
             string: "添加一条新回复",
-            attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.6)])
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.6)])
 
 //        view.placeholder = "添加一条新回复"  // 奔溃 。。。
         view.setCornerRadius = 17.5

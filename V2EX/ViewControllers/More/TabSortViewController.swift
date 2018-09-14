@@ -102,7 +102,7 @@ extension TabSortViewController {
         return indexPath.row < nodes.count
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
             saveItem.isEnabled = true
@@ -115,7 +115,7 @@ extension TabSortViewController {
         }
     }
 
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return indexPath.row < nodes.count ? nodes.count <= Constants.Config.MinShowNodeCount ? .none : .delete : .insert
     }
 

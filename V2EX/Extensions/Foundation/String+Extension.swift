@@ -110,7 +110,7 @@ extension String {
     }
 
     public var deletingLastPathComponent: String {
-        return self.deletingLastPathComponent
+        return self.NSString.deletingLastPathComponent
     }
 
     public var pathExtension: String {
@@ -123,7 +123,7 @@ extension String {
     /// 字符串大小
     public func toSize(size: CGSize, fontSize: CGFloat, maximumNumberOfLines: Int = 0) -> CGSize {
         let font = UIFont.systemFont(ofSize: fontSize)
-        var size = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes:[NSAttributedStringKey.font: font], context: nil).size
+        var size = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes:[NSAttributedString.Key.font: font], context: nil).size
         if maximumNumberOfLines > 0 {
             size.height = min(size.height, CGFloat(maximumNumberOfLines) * font.lineHeight)
         }
@@ -148,14 +148,14 @@ extension String {
         let boundingBox = self.boundingRect(
             with: constraintRect,
             options: .usesLineFragmentOrigin,
-            attributes: [NSAttributedStringKey.font: font],
+            attributes: [NSAttributedString.Key.font: font],
             context: nil)
         return boundingBox.height
     }
 
     /// 下划线
     public func underline() -> NSAttributedString {
-        let underlineString = NSAttributedString(string: self, attributes: [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue])
+        let underlineString = NSAttributedString(string: self, attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
         return underlineString
     }
 
@@ -163,7 +163,7 @@ extension String {
     public func italic() -> NSAttributedString {
         let italicString = NSMutableAttributedString(
             string: self,
-            attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)]
+            attributes: [NSAttributedString.Key.font: UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)]
         )
         return italicString
     }
@@ -174,7 +174,7 @@ extension String {
 
         let range = (self as NSString).range(of: text)
         if range.location != NSNotFound {
-            attributedText.setAttributes([NSAttributedStringKey.foregroundColor: color], range: range)
+            attributedText.setAttributes([NSAttributedString.Key.foregroundColor: color], range: range)
         }
 
         return attributedText

@@ -25,7 +25,7 @@ public class GoogleChromeActivity: BrowserActivity {
         return #imageLiteral(resourceName: "chromeActivity")
     }
 
-    override public var activityType: UIActivityType {
-        return UIActivityType.openInGoogleChrome
+    override public var activityType: UIActivity.ActivityType {
+        return UIActivity.ActivityType.openInGoogleChrome
     }
 }

@@ -55,7 +55,8 @@ import UIKit
     }
     
     override public func textRect(forBounds bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
-        return super.textRect(forBounds: UIEdgeInsetsInsetRect(bounds, contentInsets), limitedToNumberOfLines: numberOfLines)
+        return super.textRect(forBounds: bounds.inset(by: contentInsets), limitedToNumberOfLines: numberOfLines)
+//        return super.textRect(forBounds: UIEdgeInsetsInsetRect(bounds, contentInsets), limitedToNumberOfLines: numberOfLines)
     }
     
     
@@ -67,6 +68,7 @@ import UIKit
     }
     
     override public func drawText(in rect: CGRect) {
-        super.drawText(in: UIEdgeInsetsInsetRect(rect, contentInsets))
+        super.drawText(in: rect.inset(by: contentInsets))
+//        super.drawText(in: UIEdgeInsetsInsetRect(rect, contentInsets))
     }
 }
