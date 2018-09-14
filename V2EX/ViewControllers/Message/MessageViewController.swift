@@ -54,12 +54,6 @@ class MessageViewController: DataViewController, AccountService {
         activityIndicator.startAnimating()
     }
 
-    //    override func setupSubviews() {
-    //        if #available(iOS 11.0, *) {
-    //            navigationController?.navigationBar.prefersLargeTitles = true
-    //        }
-    //    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 

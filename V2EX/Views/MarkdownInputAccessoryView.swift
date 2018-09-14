@@ -1,14 +1,6 @@
-//
-//  MarkdownInputAccessoryView.swift
-//  V2EX
-//
-//  Created by danxiao on 2017/10/19.
-//  Copyright © 2017年 Joe. All rights reserved.
-//
-
 import UIKit
 
-enum MarkdownItemType: Int, EnumCollection {
+enum MarkdownItemType: Int, CaseIterable {
     case leftMove
     case rightMove
     case undo
@@ -84,8 +76,8 @@ class MarkdownInputAccessoryView: UIView {
 
     private lazy var closeKeyboardBtn: UIButton = {
         let view = UIButton()
-        view.setImage(MarkdownItemType.closeKeyboard.image, for: .normal)
-        view.setImage(MarkdownItemType.closeKeyboard.image, for: .selected)
+        view.setImage(MarkdownItemType.closeKeyboard.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        view.setImage(MarkdownItemType.closeKeyboard.image.withRenderingMode(.alwaysTemplate), for: .selected)
         view.tag = MarkdownItemType.closeKeyboard.rawValue
         view.addTarget(self, action: #selector(clickHandle(_:)), for: .touchUpInside)
         view.layer.shadowColor = UIColor.black.cgColor
@@ -98,7 +90,7 @@ class MarkdownInputAccessoryView: UIView {
 
     public var didSelectedItemHandle: ((_ type: MarkdownItemType) -> Void)?
 
-    private var items: [MarkdownItemType] = MarkdownItemType.allValues
+    private var items: [MarkdownItemType] = MarkdownItemType.allCases
     private var pins: [MarkdownItemType] = [.closeKeyboard]
 
     init(height: CGFloat = 44) {
@@ -121,6 +113,8 @@ class MarkdownInputAccessoryView: UIView {
                 self?.backgroundColor = theme.whiteColor
                 self?.closeKeyboardBtn.backgroundColor = theme.whiteColor
                 self?.layer.borderColor = (theme == .day ? theme.borderColor : UIColor.hex(0x49431A)).cgColor
+                self?.scrollView.tintColor = theme.titleColor
+                self?.closeKeyboardBtn.tintColor = theme.tintColor
         }.disposed(by: rx.disposeBag)
     }
 
@@ -137,8 +131,8 @@ class MarkdownInputAccessoryView: UIView {
             let btn = UIButton()
             btn.frame = CGRect(x: index.f * w, y: 0, width: w, height: w)
             btn.tag = item.rawValue
-            btn.setImage(item.image, for: .normal)
-            btn.setImage(item.image, for: .selected)
+            btn.setImage(item.image.withRenderingMode(.alwaysTemplate), for: .normal)
+            btn.setImage(item.image.withRenderingMode(.alwaysTemplate), for: .selected)
             btn.addTarget(self, action: #selector(clickHandle(_:)), for: .touchUpInside)
             scrollView.addSubview(btn)
         }

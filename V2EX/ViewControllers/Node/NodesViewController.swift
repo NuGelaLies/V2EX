@@ -5,14 +5,6 @@ import RxCocoa
 class NodesViewController: DataViewController, NodeService {
 
     // MARK: - UI
-
-    private lazy var segmentedControl: UISegmentedControl = {
-        let view = UISegmentedControl(items: ["节点导航", "全部节点"])
-        view.tintColor = Theme.Color.globalColor
-        view.selectedSegmentIndex = 0
-        view.addTarget(self, action: #selector(segmentControlDidChangeHandle), for: .valueChanged)
-        return view
-    }()
     
     private lazy var collectionView: UICollectionView = {
         let layout = LeftAlignedCollectionViewFlowLayout()
@@ -31,8 +23,6 @@ class NodesViewController: DataViewController, NodeService {
 
     // MARK: - Propertys
 
-    private weak var allNodeViewController: AllNodesViewController?
-
     private var nodeCategorys: [NodeCategoryModel] = [] {
         didSet {
             collectionView.reloadData()
@@ -45,13 +35,6 @@ class NodesViewController: DataViewController, NodeService {
         super.viewDidLoad()
         
         definesPresentationContext = true
-//        
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .plain) { [weak self] in
-//            let resultVC = AllNodesViewController()// NodeSearchResultViewController()
-//            let nav = NavigationViewController(rootViewController: resultVC)
-//            nav.modalTransitionStyle = .crossDissolve
-//            self?.present(nav, animated: true, completion: nil)
-//        }
     }
 
     // MARK: - Setup
@@ -60,7 +43,6 @@ class NodesViewController: DataViewController, NodeService {
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 self?.collectionView.backgroundColor = theme.whiteColor
-                self?.segmentedControl.tintColor = theme.tintColor
             }.disposed(by: rx.disposeBag)
 
         NotificationCenter.default.rx
@@ -71,11 +53,16 @@ class NodesViewController: DataViewController, NodeService {
     }
 
     override func setupSubviews() {
-        navigationItem.titleView = segmentedControl
-
-        let allNodeViewVC = AllNodesViewController()
-        allNodeViewController = allNodeViewVC
-        addChild(allNodeViewVC)
+        navigationItem.title = "节点导航"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .plain) { [weak self] in
+            let resultVC = AllNodesViewController()
+            resultVC.title = "搜索节点"
+            let nav = NavigationViewController(rootViewController: resultVC)
+            nav.modalTransitionStyle = .crossDissolve
+            self?.present(nav, animated: true, completion: nil)
+        }
+        navigationItem.rightBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
     }
     
     override func setupConstraints() {
@@ -87,7 +74,6 @@ class NodesViewController: DataViewController, NodeService {
     // MARK: State Handle
 
     override func loadData() {
-        guard segmentedControl.selectedSegmentIndex == 0 else { return }
         fetchNodeNav()
     }
 
@@ -115,31 +101,6 @@ extension NodesViewController {
         }) { [weak self] error in
             self?.errorMessage = error
             self?.endLoading(error: NSError(domain: "V2EX", code: -1, userInfo: nil))
-        }
-    }
-
-    /// 点击了 SegmentControl
-    @objc private func segmentControlDidChangeHandle() {
-        if let allNodeVC = children.first,
-            !allNodeVC.isViewLoaded {
-            view.addSubview(allNodeVC.view)
-            allNodeVC.view.snp.makeConstraints {
-                $0.left.right.equalToSuperview()
-                if #available(iOS 11.0, *) {
-                    $0.top.bottom.equalTo(view.safeAreaInsets)
-                } else {
-                    $0.top.equalTo(self.topLayoutGuide.snp.bottom)
-                    $0.bottom.equalTo(self.bottomLayoutGuide.snp.top)
-                }
-            }
-        }
-
-        if segmentedControl.selectedSegmentIndex == 0 {
-            collectionView.fadeIn()
-            allNodeViewController?.view.fadeOut()
-        } else {
-            collectionView.fadeOut()
-            allNodeViewController?.view.fadeIn()
         }
     }
 }

@@ -104,8 +104,8 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
             let viewController = CreateTopicViewController()
             self?.navigationController?.pushViewController(viewController, animated: true)
         })
+        createTopicItem.tintColor = ThemeStyle.style.value.tintColor
         navigationItem.rightBarButtonItem = createTopicItem
-        navigationItem.rightBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
     }
 
     override func setupConstraints() {

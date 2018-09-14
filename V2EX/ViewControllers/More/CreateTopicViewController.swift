@@ -34,6 +34,7 @@ class CreateTopicViewController: BaseViewController, TopicService {
             string: "请输入主题标题(0~120)",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.6)]
         )
+        view.autocorrectionType = .no
         return view
     }()
     
@@ -72,6 +73,7 @@ class CreateTopicViewController: BaseViewController, TopicService {
         view.isEditable = true
         view.delegate = self
         view.inputAccessoryView = markdownToolbar
+        view.autocorrectionType = .no
         return view
     }()
     
@@ -95,8 +97,8 @@ class CreateTopicViewController: BaseViewController, TopicService {
 
     private lazy var selectNodeBtn: UIButton = {
         let view = UIButton()
-        view.setImage(#imageLiteral(resourceName: "selectNode"), for: .normal)
-        view.setImage(#imageLiteral(resourceName: "selectNode"), for: .selected)
+        view.setImage(#imageLiteral(resourceName: "selectNode").withRenderingMode(.alwaysTemplate), for: .normal)
+        view.setImage(#imageLiteral(resourceName: "selectNode").withRenderingMode(.alwaysTemplate), for: .selected)
         view.setTitle("选择节点", for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         view.setTitleColor(.black, for: .normal)
@@ -298,6 +300,7 @@ class CreateTopicViewController: BaseViewController, TopicService {
                 self?.titleFieldView.keyboardAppearance = theme == .day ? .default : .dark
                 self?.selectNodeBtn.setTitleColor(theme.titleColor, for: .normal)
                 self?.selectNodeBtn.backgroundColor = theme.whiteColor
+                self?.selectNodeBtn.tintColor = theme.tintColor
                 theme == .day ? self?.markdownParser.setColorWithBrightTheme() : self?.markdownParser.setColorWithDarkTheme()
                 self?.view.backgroundColor = theme == .day ? theme.borderColor : UIColor.black.withAlphaComponent(0.5)
             }.disposed(by: rx.disposeBag)

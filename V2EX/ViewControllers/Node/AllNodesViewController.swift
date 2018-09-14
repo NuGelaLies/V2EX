@@ -37,7 +37,7 @@ class AllNodesViewController: DataViewController, NodeService {
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: searchResultVC)
         searchController.searchBar.placeholder = "搜索节点"
-        searchController.searchBar.tintColor = Theme.Color.globalColor
+        searchController.searchBar.tintColor = ThemeStyle.style.value.tintColor
         searchController.searchBar.barTintColor = Theme.Color.bgColor
         searchController.searchResultsUpdater = searchResultVC
         // SearchBar 边框颜色
@@ -58,16 +58,19 @@ class AllNodesViewController: DataViewController, NodeService {
 
     private var groups: [NodeCategoryModel] = [] {
         didSet {
-            tableView.tableHeaderView = searchController.searchBar
+//            if #available(iOS 11.0, *) {
+//                navigationItem.searchController = searchController
+//                navigationItem.hidesSearchBarWhenScrolling = false
+//            } else {
+                tableView.tableHeaderView = searchController.searchBar
+//            }
             tableView.reloadData()
             tableView.tableFooterView = footerLabel
             searchResultVC.originData = groups.flatMap { $0.nodes }
             
-            if let _ = didSelectedNodeHandle {
-                self.searchController.isActive = true
-                GCD.delay(0.8) {
-                    self.searchController.searchBar.becomeFirstResponder()
-                }
+            self.searchController.isActive = true
+            GCD.delay(0.8) {
+                self.searchController.searchBar.becomeFirstResponder()
             }
         }
     }
@@ -84,12 +87,16 @@ class AllNodesViewController: DataViewController, NodeService {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        definesPresentationContext = true
+//        edgesForExtendedLayout = []
+        extendedLayoutIncludesOpaqueBars = true
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, action: { [weak self] in
             self?.dismiss()
         })
-
+        navigationItem.leftBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
+        
         if let callback = didSelectedNodeHandle {
-            definesPresentationContext = true
             searchResultVC.didSelectedNodeHandle = { [weak self] node in
                 self?.dismiss(animated: true, completion: {
                     callback(node)

@@ -118,7 +118,6 @@
 		7752AD2F2019BFFA0039DAF6 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF39FFE81F9442DA00D6F8BD /* LoadingButton.swift */; };
 		7752AD302019BFFA0039DAF6 /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B0A7531FFB3CDD003ED8F6 /* SQLiteDatabase.swift */; };
 		7752AD312019BFFA0039DAF6 /* MemberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ABB3801FA36D8300F376DA /* MemberService.swift */; };
-		7752AD322019BFFA0039DAF6 /* EnumCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF45E0041F9EFEE30001BEB2 /* EnumCollection.swift */; };
 		7752AD332019BFFA0039DAF6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C8DF6D1F92FDE2009DE52C /* LoginViewController.swift */; };
 		7752AD342019BFFA0039DAF6 /* AllNodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1B1D1A1FA7003400544A11 /* AllNodesViewController.swift */; };
 		7752AD352019BFFA0039DAF6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756CCC51F92354B00EF47B8 /* LeftAlignedCollectionViewFlowLayout.swift */; };
@@ -274,7 +273,6 @@
 		BF3AB5C91F976D7100043269 /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AB5C81F976D7000043269 /* UIView+Border.swift */; };
 		BF3AB6B41FA1A61200ACA17A /* ImageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AB6B31FA1A61200ACA17A /* ImageAttachment.swift */; };
 		BF45DFD21F9ED9140001BEB2 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF45DFD11F9ED9140001BEB2 /* ErrorView.swift */; };
-		BF45E0051F9EFEE30001BEB2 /* EnumCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF45E0041F9EFEE30001BEB2 /* EnumCollection.swift */; };
 		BF45E0071F9F03380001BEB2 /* AppWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF45E0061F9F03380001BEB2 /* AppWindow.swift */; };
 		BF45E00A1F9F08A90001BEB2 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF45E0091F9F08A90001BEB2 /* DataViewController.swift */; };
 		BF45E00C1F9F0A400001BEB2 /* StateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF45E00B1F9F0A400001BEB2 /* StateView.swift */; };
@@ -462,7 +460,6 @@
 		BF3AB5C81F976D7000043269 /* UIView+Border.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Border.swift"; sourceTree = "<group>"; };
 		BF3AB6B31FA1A61200ACA17A /* ImageAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAttachment.swift; sourceTree = "<group>"; };
 		BF45DFD11F9ED9140001BEB2 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
-		BF45E0041F9EFEE30001BEB2 /* EnumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCollection.swift; sourceTree = "<group>"; };
 		BF45E0061F9F03380001BEB2 /* AppWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppWindow.swift; sourceTree = "<group>"; };
 		BF45E0091F9F08A90001BEB2 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		BF45E00B1F9F0A400001BEB2 /* StateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateView.swift; sourceTree = "<group>"; };
@@ -979,7 +976,6 @@
 				BFCB674E1F8F4A4000D05A90 /* String+Extension.swift */,
 				77507E681F9B168800D62286 /* String+PinYin.swift */,
 				BFCB674C1F8F4A2200D05A90 /* Foundation+Extension.swift */,
-				BF45E0041F9EFEE30001BEB2 /* EnumCollection.swift */,
 				770FFD132000BA7C000F3CA9 /* FilterNil.swift */,
 			);
 			path = Foundation;
@@ -1367,7 +1363,6 @@
 				7752AD2F2019BFFA0039DAF6 /* LoadingButton.swift in Sources */,
 				7752AD302019BFFA0039DAF6 /* SQLiteDatabase.swift in Sources */,
 				7752AD312019BFFA0039DAF6 /* MemberService.swift in Sources */,
-				7752AD322019BFFA0039DAF6 /* EnumCollection.swift in Sources */,
 				7752AD332019BFFA0039DAF6 /* LoginViewController.swift in Sources */,
 				7752AD342019BFFA0039DAF6 /* AllNodesViewController.swift in Sources */,
 				7752AD352019BFFA0039DAF6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
@@ -1521,7 +1516,6 @@
 				BF39FFE91F9442DA00D6F8BD /* LoadingButton.swift in Sources */,
 				77B0A7551FFB3CDD003ED8F6 /* SQLiteDatabase.swift in Sources */,
 				77ABB3811FA36D8300F376DA /* MemberService.swift in Sources */,
-				BF45E0051F9EFEE30001BEB2 /* EnumCollection.swift in Sources */,
 				77C8DF6E1F92FDE2009DE52C /* LoginViewController.swift in Sources */,
 				BF1B1D1B1FA7003400544A11 /* AllNodesViewController.swift in Sources */,
 				7756CCC61F92354B00EF47B8 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,

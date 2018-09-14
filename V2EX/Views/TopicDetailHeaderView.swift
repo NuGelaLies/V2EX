@@ -17,7 +17,7 @@ enum TapType {
 class TopicDetailHeaderView: UIView {
 
 
-    enum HTMLTag: EnumCollection {
+    enum HTMLTag: CaseIterable {
         case h1, h2, h3, pre, bigger, small, subtle, topicContent
         var key: String {
             switch self {
@@ -262,7 +262,7 @@ class TopicDetailHeaderView: UIView {
                     var cssString = try String(contentsOfFile: filePath)
 
                     let scale = Preference.shared.webViewFontScale * 0.1 + 1.05
-                    for tag in HTMLTag.allValues {
+                    for tag in HTMLTag.allCases {
                         let fontpx = scale * Float(tag.fontSize)
                         cssString = cssString.replacingOccurrences(of: tag.key, with: "\(fontpx)px")
                     }

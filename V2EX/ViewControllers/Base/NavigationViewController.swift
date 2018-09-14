@@ -34,7 +34,15 @@ extension NavigationViewController {
             .subscribeNext { [weak self] theme in
                 self?.navigationBar.barTintColor = theme.navColor
 //                self?.navigationBar.tintColor = theme.titleColor
-                self?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.titleColor]
+                self?.navigationBar.titleTextAttributes = [
+                    NSAttributedString.Key.foregroundColor: theme.titleColor,
+                ]
+//                if #available(iOS 11, *) {
+//                    self?.navigationBar.largeTitleTextAttributes = [
+//                        NSAttributedString.Key.foregroundColor: theme.titleColor,
+//                        NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25)
+//                    ]
+//                }
                 self?.navigationBar.barStyle = theme == .day ? .default : .black
                 self?.navigationBar.tintColor = theme.tintColor
                 self?.navigationItem.leftBarButtonItem?.tintColor = theme.tintColor

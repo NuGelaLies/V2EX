@@ -45,6 +45,7 @@ class MarkdownPreviewViewController: BaseViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain) { [weak self] in
             self?.dismiss()
         }
+        navigationItem.leftBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
 
