@@ -245,9 +245,7 @@ extension TopicSearchResultViewController {
     /// 获取搜索结果
     private func fecthResult() {
         guard let `query` = query else { return }
-        
-        AnswersEvents.logSearch(for: query)
-        
+            
         startLoading()
 
         search(query: query, offset: offset, size: size, sortType: sortType, success: { [weak self] results in

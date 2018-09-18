@@ -6,44 +6,6 @@ import MobileCoreServices
 class ReplyMessageViewController: BaseViewController, TopicService {
 
     // MARK: - UI
-
-    private lazy var contentView: UIView = {
-        let view = UIView()
-//        view.setCornerRadius = 15
-        return view
-    }()
-
-    private lazy var topContainer: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.hex(0xF1F2F1)
-        return view
-    }()
-
-    private lazy var closeBtn: UIButton = {
-        let view = UIButton()
-        view.setImage(#imageLiteral(resourceName: "close"), for: .normal)
-        return view
-    }()
-
-    private lazy var titleLabel: UILabel = {
-        let view = UILabel()
-        view.textAlignment = .center
-        view.font = UIFont.systemFont(ofSize: 14)
-        return view
-    }()
-
-    private lazy var uploadPictureBtn: UIButton = {
-        let view = UIButton()
-        view.setImage(#imageLiteral(resourceName: "uploadPicture"), for: .normal)
-        return view
-    }()
-
-    private lazy var sendBtn: UIButton = {
-        let view = UIButton()
-        view.setImage(#imageLiteral(resourceName: "message_send"), for: .normal)
-        return view
-    }()
-
     private lazy var textView: UIPlaceholderTextView = {
         let view = UIPlaceholderTextView()
         view.font = UIFont.systemFont(ofSize: 15)
@@ -51,7 +13,7 @@ class ReplyMessageViewController: BaseViewController, TopicService {
         view.enablesReturnKeyAutomatically = true
         view.tintColor = Theme.Color.globalColor
         view.backgroundColor = .white
-        view.delegate = self
+//        view.delegate = self
         view.autocorrectionType = .no
         view.autocapitalizationType = .none
         return view
@@ -66,92 +28,81 @@ class ReplyMessageViewController: BaseViewController, TopicService {
         return view
     }()
 
+    private var tapOutsideRecognizer: UITapGestureRecognizer!
+
+    
     // MARK: - Propertys
 
     public var message: MessageModel? {
         didSet {
             guard let username = message?.member?.username else { return }
             let text = "正在回复 \(username)"
-            titleLabel.text = text
+            title = text
             textView.placeholder = text as NSString
             textView.becomeFirstResponder()
         }
     }
-
-    // MARK: - Setup
-
-    override func setupRx() {
-        closeBtn.rx
-            .tap
-            .subscribeNext { [weak self] in
-                self?.textView.resignFirstResponder()
-        }.disposed(by: rx.disposeBag)
-
-        uploadPictureBtn.rx
-            .tap 
-            .subscribeNext { [weak self] in
-                guard let `self` = self else { return }
-                self.present(self.imagePicker, animated: true, completion: nil)
-        }.disposed(by: rx.disposeBag)
-
-        sendBtn.rx
-            .tap
-            .subscribeNext { [weak self] in
-                self?.replyComment()
-        }.disposed(by: rx.disposeBag)
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if (self.tapOutsideRecognizer == nil) {
+            self.tapOutsideRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTapBehind))
+            self.tapOutsideRecognizer.numberOfTapsRequired = 1
+            self.tapOutsideRecognizer.cancelsTouchesInView = false
+            self.tapOutsideRecognizer.delegate = self
+            self.view.window?.addGestureRecognizer(self.tapOutsideRecognizer)
+        }
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if(self.tapOutsideRecognizer != nil) {
+            self.view.window?.removeGestureRecognizer(self.tapOutsideRecognizer)
+            self.tapOutsideRecognizer = nil
+        }
+    }
+    
+    // MARK: - Gesture methods to dismiss this with tap outside
+    @objc private func handleTapBehind(sender: UITapGestureRecognizer) {
+        if (sender.state == UIGestureRecognizer.State.ended) {
+            let location: CGPoint = sender.location(in: self.view)
+            
+            if (!self.view.point(inside: location, with: nil)) {
+                self.view.window?.removeGestureRecognizer(sender)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
+    // MARK: - Setup
+
     override func setupSubviews() {
-        view.backgroundColor = .clear
-
-        contentView.layer.shadowColor = UIColor.black.cgColor
-        contentView.layer.shadowRadius = 20
-        contentView.layer.shadowOpacity = 0.8
-        contentView.layer.shadowOffset = CGSize(width: 10, height: 10)
-
-        view.addSubview(contentView)
-        contentView.addSubviews(topContainer, textView)
-        topContainer.addSubviews(closeBtn, titleLabel, uploadPictureBtn, sendBtn)
+        view.addSubviews(textView)
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, action: { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        })
+        
+        let replyItem = UIBarButtonItem(image: #imageLiteral(resourceName: "message_send"), style: .plain, action: { [weak self] in
+            self?.replyComment()
+        })
+        navigationItem.rightBarButtonItem = replyItem
+//            UIBarButtonItem(image: #imageLiteral(resourceName: "uploadPicture"), style: .plain, action: { [weak self] in
+//                guard let `self` = self else { return }
+//                self.present(self.imagePicker, animated: true, completion: nil)
+//            }),
+        
+        textView.rx.text.orEmpty
+            .map { $0.isEmpty.not }
+            .bind(to: replyItem.rx.isEnabled)
+            .disposed(by: rx.disposeBag)
     }
 
     override func setupConstraints() {
-        contentView.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalToSuperview().multipliedBy(0.37)
-            let margin = navigationController?.navigationBar.bottom ?? 64
-            $0.top.equalToSuperview().offset(margin + 20)
-        }
-
-        topContainer.snp.makeConstraints {
-            $0.left.right.top.equalToSuperview()
-            $0.height.equalTo(40)
-        }
-
-        closeBtn.snp.makeConstraints {
-            $0.left.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
-            $0.width.equalTo(topContainer.snp.height)
-        }
-
-        titleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
-        }
-
-        sendBtn.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.right.equalToSuperview().inset(5)
-            $0.width.equalTo(closeBtn)
-        }
-
-        uploadPictureBtn.snp.makeConstraints {
-            $0.top.bottom.width.equalTo(sendBtn)
-            $0.right.equalTo(sendBtn.snp.left)
-        }
-
         textView.snp.makeConstraints {
-            $0.top.equalTo(topContainer.snp.bottom)
-            $0.left.bottom.right.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
     }
 }
@@ -204,9 +155,8 @@ extension ReplyMessageViewController {
             content: atUsername + textView.text, success: { [weak self] in
                 HUD.showSuccess("回复成功")
                 HUD.dismiss()
-                self?.view.endEditing(true)
-                self?.view.fadeOut()
                 self?.textView.text = nil
+                self?.dismiss(animated: true, completion: nil)
         }) { error in
             HUD.dismiss()
             HUD.showError(error)
@@ -235,15 +185,11 @@ extension ReplyMessageViewController: UIImagePickerControllerDelegate, UINavigat
     }
 }
 
-// MARK: - UITextViewDelegate
-extension ReplyMessageViewController: UITextViewDelegate {
-
-    func textViewDidEndEditing(_ textView: UITextView) {
-        textView.resignFirstResponder()
-        view.fadeOut()
+extension ReplyMessageViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        //    return self.presentedViewController == nil
+        return true
     }
-
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        view.fadeIn()
-    }
+    
 }

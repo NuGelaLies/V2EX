@@ -25,8 +25,6 @@ class MessageViewController: DataViewController, AccountService {
         return activityIndicator
     }()
 
-    private weak var replyMessageViewController: ReplyMessageViewController?
-
     // MARK: - Propertys
 
     private var messages: [MessageModel] = []
@@ -234,15 +232,17 @@ extension MessageViewController {
     ///
     /// - Parameter message: 消息内容
     private func replyMessage(_ message: MessageModel) {
-        if replyMessageViewController == nil {
-            let replyMessageVC = ReplyMessageViewController()
-            replyMessageVC.view.alpha = 0
-            self.replyMessageViewController = replyMessageVC
-            addChild(replyMessageVC)
-            self.view.addSubview(replyMessageVC.view)
-        }
-
-        replyMessageViewController?.message = message
+        let replyMessageVC = ReplyMessageViewController()
+        let nav = NavigationViewController(rootViewController: replyMessageVC)
+        replyMessageVC.message = message
+        nav.preferredContentSize = UIDevice.current.orientation.isLandscape || UIDevice.current.isPad ? view.size : CGSize(width: view.width * 0.9, height: view.height * 0.6)
+        nav.popoverPresentationController?.sourceView = view
+        nav.popoverPresentationController?.sourceRect = view.bounds
+        nav.modalPresentationStyle = .formSheet
+        nav.presentationController?.delegate = self
+        nav.modalPresentationStyle = .custom
+        
+        present(nav, animated: true, completion: nil)
     }
 }
 
@@ -296,3 +296,13 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - UIAdaptivePresentationControllerDelegate
+extension MessageViewController: UIAdaptivePresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+}

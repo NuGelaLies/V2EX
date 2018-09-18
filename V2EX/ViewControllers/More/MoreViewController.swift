@@ -104,7 +104,6 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
             let viewController = CreateTopicViewController()
             self?.navigationController?.pushViewController(viewController, animated: true)
         })
-        createTopicItem.tintColor = ThemeStyle.style.value.tintColor
         navigationItem.rightBarButtonItem = createTopicItem
     }
 
@@ -142,6 +141,7 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 self?.tableView.separatorColor = theme.borderColor
+                self?.navigationItem.rightBarButtonItem?.tintColor = theme.tintColor
 //                self?.view.backgroundColor = theme.bgColor
             }.disposed(by: rx.disposeBag)
 

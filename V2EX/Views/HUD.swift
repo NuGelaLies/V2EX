@@ -131,7 +131,8 @@ extension HUD {
     public class func showBackBrowseLocationView(_ text: String, duration: TimeInterval = 3, tapBlock: Action?) {
 
         let messageView: LastBrowseView = try! SwiftMessages.viewFromNib()
-        messageView.configureDropShadow()
+//        messageView.configureDropShadow()
+//        messageView.configureNoDropShadow()
         messageView.cancelAction = {
             tapBlock?()
             SwiftMessages.hideAll()

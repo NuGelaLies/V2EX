@@ -625,9 +625,7 @@ extension LoginViewController {
         form.captcha = captcha
         signin(loginForm: form, success: { [weak self] in
             HUD.dismiss()
-            NotificationCenter.default.post(.init(name: Notification.Name.V2.LoginSuccessName))
-            
-            AnswersEvents.logLogin(for: .app)
+            NotificationCenter.default.post(.init(name: Notification.Name.V2.LoginSuccessName))            
             self?.dismiss()
         }) { [weak self] error, form, is2Fa in
             HUD.dismiss()
