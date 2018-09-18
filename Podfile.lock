@@ -22,7 +22,7 @@ PODS:
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
   - RxSwift (4.2.0)
-  - SKPhotoBrowser (5.1.0)
+  - SKPhotoBrowser (6.0.0)
   - SnapKit (4.0.0)
   - StatefulViewController (3.0)
   - SwiftMessages (5.0.1):
@@ -111,13 +111,13 @@ SPEC CHECKSUMS:
   RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
   RxOptional: bd32ff8ca9df4177683d56ffeb618a9d4d5d5cad
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
-  SKPhotoBrowser: c20c1da34d737b4e3e101feead6c8dd92ebf860a
+  SKPhotoBrowser: 76eb862685761707b5745fde7762757966565e07
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931
   SwiftMessages: 32ce3cfc8388b41aae56ff4853cc752a20101147
   "UIView+Positioning": 6e7236a429053ade11051fab7ff9053af36c77a8
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 3d419ef94fcc5903d11f63e0807d4d3c8988af02
+PODFILE CHECKSUM: bf07f62d78ca3d85c24edd2ca92aac1da0484535
 
 COCOAPODS: 1.5.3

@@ -26,7 +26,7 @@ class TopicSearchResultViewController: DataViewController, TopicService {
         view.layer.cornerRadius = 17.5
         view.layer.masksToBounds = true
         view.font = UIFont.systemFont(ofSize: 15)
-        view.leftView = UIImageView(image: #imageLiteral(resourceName: "searchSmall"))
+        view.leftView = UIImageView(image: UIImage(named: "search_Small"))
         view.leftViewMode = .always
         view.clearButtonMode = .always
         view.returnKeyType = .search

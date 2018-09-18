@@ -75,7 +75,7 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
             "发布的主题",
             "最近的回复"
             ])
-        view.tintColor = Theme.Color.globalColor
+        view.tintColor = ThemeStyle.style.value.tintColor
         view.selectedSegmentIndex = 0
         view.sizeToFit()
 //        view.tintColor = .clear

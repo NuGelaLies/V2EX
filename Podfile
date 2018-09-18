@@ -48,15 +48,15 @@ target 'V2EX' do
     pod 'Reveal-SDK', '~> 14', :configurations => ['Debug']
 end
 
-#post_install do |installer|
-#
-#    # 需要指定编译版本的第三方库名称
-#    swift3_targets = ['Kanna']
-#    installer.pods_project.targets.each do |target|
-#        if swift3_targets.include? target.name
-#            target.build_configurations.each do |config|
-#                config.build_settings['SWIFT_VERSION'] = '3.0'
-#            end
-#        end
-#    end
-#end
+post_install do |installer|
+
+    # 需要指定编译版本的第三方库名称
+    swift3_targets = ['PasswordExtension', 'PKHUD', 'PullToRefreshKit', 'MarkdownView', 'SnapKit', 'StatefulViewController', 'RxSwift', 'RxCocoa']
+    installer.pods_project.targets.each do |target|
+        if swift3_targets.include? target.name
+            target.build_configurations.each do |config|
+                config.build_settings['SWIFT_VERSION'] = '4.0'
+            end
+        end
+    end
+end
