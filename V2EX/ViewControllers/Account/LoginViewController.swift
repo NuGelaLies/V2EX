@@ -66,6 +66,7 @@ class LoginViewController: BaseViewController, AccountService, TopicService, OCR
         view.delegate = self
         view.returnKeyType = .go
         view.autocapitalizationType = .none
+        view.autocorrectionType = .no
         return view
     }()
     
@@ -149,14 +150,6 @@ class LoginViewController: BaseViewController, AccountService, TopicService, OCR
             passwordTextField.textContentType = .password
         }
         
-        let isFirstOpen = UserDefaults.get(forKey: self.className) as? Bool ?? false
-        if !isFirstOpen {
-            UserDefaults.save(at: true, forKey: self.className)
-            HUD.showInfo("""
-                        验证码自动识别中，如识别失败或结果不准确，可通过摇一摇（或点击验证码图片）重新识别。如多次不准确，建议您手动输入。
-                        """, duration: 7)
-        }
-        
         guard PasswordExtension.shared.isAvailable() else { return }
         
         accountTextField.rightView = onePasswordBtn
@@ -176,14 +169,6 @@ class LoginViewController: BaseViewController, AccountService, TopicService, OCR
         //        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         //        navigationController?.navigationBar.shadowImage = UIImage()
         navBarBgAlpha = 0
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        // TODO: 清除 UserAgent , 会导致打开网页是pc版
-        //        let dictionaty = ["UserAgent" : "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Version/10.0 Mobile/14D27 Safari/602.1"]
-        //        UserDefaults.standard.register(defaults: dictionaty)
     }
     
     // MARK: - Setup
@@ -643,7 +628,8 @@ extension LoginViewController {
             if let `form` = form {
                 //                self?.captchaBtn.setImage(UIImage(data: form.captchaImageData), for: .normal)
                 self?.loginForm = form
-                self?.ocrRecognize(updateCaptchaImg: true)
+                self?.fetchCode()
+//                self?.ocrRecognize(updateCaptchaImg: true)
             }
         }
     }
@@ -675,8 +661,9 @@ extension LoginViewController: UITextFieldDelegate {
 extension LoginViewController {
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
-        
-        ocrRecognize(updateCaptchaImg: true)
+
+//        ocrRecognize(updateCaptchaImg: true)
+        fetchCode()
     }
 }
 

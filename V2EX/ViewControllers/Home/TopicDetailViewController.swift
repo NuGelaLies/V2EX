@@ -334,8 +334,9 @@ class TopicDetailViewController: DataViewController, TopicService {
             $0.bottom.equalTo(commentInputView.snp.top).offset(-12)
         }
     }
-
+    
     override func setupRx() {
+        
         ThemeStyle.style.asObservable()
             .subscribeNext { theme in
                 setStatusBarBackground(theme.navColor, borderColor: .clear)
@@ -433,8 +434,7 @@ class TopicDetailViewController: DataViewController, TopicService {
         isShowToolBarVariable.asObservable()
             .distinctUntilChanged()
             .subscribeNext { [weak self] isShow in
-                guard let `self` = self else { return }
-                self.setTabBarHiddn(isShow)
+                self?.setTabBarHiddn(isShow)
             }.disposed(by: rx.disposeBag)
         
 //        tableView.rx.tapGesture
@@ -453,10 +453,6 @@ class TopicDetailViewController: DataViewController, TopicService {
                     if UIMenuController.shared.isMenuVisible.not {
                         self?.tableView.deselectRow(at: selectIndexPath, animated: false)
                     }
-                    log.info(UIMenuController.shared.isMenuVisible)
-                    //                    if UIMenuController.shared.isMenuVisible {
-                    //                        self?.tableView.selectRow(at: selectIndexPath, animated: true, scrollPosition: .none)
-                    //                    }
                 })
             }.disposed(by: rx.disposeBag)
     }
@@ -692,9 +688,9 @@ extension TopicDetailViewController {
         case .reply(let comment):
             if comment.member.atUsername == commentInputView.textView.text && commentInputView.textView.isFirstResponder { return }
             commentInputView.textView.text = ""
-//            if let index = comments.index(of: comment) {
-//                tableView.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .none)
-//            }
+            if let index = comments.index(of: comment) {
+                tableView.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .none)
+            }
             atMember(comment.member.atUsername, comment: comment)
         case .imageURL(let src):
             showImageBrowser(imageType: .imageURL(src))

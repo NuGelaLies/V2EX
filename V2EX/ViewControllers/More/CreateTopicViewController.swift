@@ -438,6 +438,10 @@ extension CreateTopicViewController: YYTextViewDelegate {
     func textViewDidEndEditing(_ textView: YYTextView) {
         self.selectNodeBtn.isHidden = false
     }
+    
+    func textViewDidChange(_ textView: YYTextView) {
+        previewBarButton.isEnabled = textView.text.trimmed.count.boolValue
+    }
 }
 
 extension CreateTopicViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

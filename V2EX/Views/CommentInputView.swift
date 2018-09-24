@@ -27,6 +27,7 @@ class CommentInputView: UIView {
         var contentInset = view.contentInset
         contentInset.right = -35
         view.contentInset = contentInset
+        view.autocorrectionType = .no
         self.addSubview(view)
         return view
     }()
@@ -83,18 +84,8 @@ class CommentInputView: UIView {
         clipsToBounds = true
         backgroundColor = .white
         
-        textView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(10).priority(.high)
-            $0.right.equalToSuperview().inset(15).priority(.high)
-            $0.left.equalTo(uploadPictureBtn.snp.right).inset(-15)
-
-            if #available(iOS 11.0, *) {
-                $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(10)
-            } else {
-                $0.bottom.equalToSuperview().inset(10)
-            }
-        }
-
+        relayout(isEidting: false)
+        
         sendBtn.snp.makeConstraints {
             $0.centerY.size.equalTo(uploadPictureBtn)
             $0.right.equalTo(textView.snp.right).inset(5)
@@ -102,12 +93,7 @@ class CommentInputView: UIView {
 
         uploadPictureBtn.snp.makeConstraints {
             uploadPictureRightConstraint = $0.right.equalTo(snp.left).constraint
-//            $0.bottom.equalTo(textView.bottom).offset(5)
-            if #available(iOS 11.0, *) {
-                $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(12.5)
-            } else {
-                $0.bottom.equalToSuperview().inset(12.5)
-            }
+            $0.centerY.equalTo(textView)
             $0.size.equalTo(30)
         }
 
@@ -137,12 +123,27 @@ class CommentInputView: UIView {
             }.disposed(by: rx.disposeBag)
     }
 
+    private func relayout(isEidting: Bool) {
+        
+        textView.snp.remakeConstraints {
+            $0.top.equalToSuperview().inset(10).priority(.high)
+            $0.right.equalToSuperview().inset(15).priority(.high)
+            $0.left.equalTo(uploadPictureBtn.snp.right).inset(-15)
+            
+            if #available(iOS 11.0, *), !isEidting {
+                $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(10)
+            } else {
+                $0.bottom.equalToSuperview().inset(10)
+            }
+        }
+        
+    }
 }
 
 extension CommentInputView: YYTextViewDelegate {
 
     func textViewShouldBeginEditing(_ textView: YYTextView) -> Bool {
-
+        relayout(isEidting: true)
         calculateHeight()
 
         UIView.animate(withDuration: 1) {
@@ -154,6 +155,7 @@ extension CommentInputView: YYTextViewDelegate {
     }
 
     func textViewShouldEndEditing(_ textView: YYTextView) -> Bool {
+        relayout(isEidting: false)
         calculateHeight(defaultHeight: inputViewHeight)
         uploadPictureRightConstraint?.update(offset: 0)
         return true

@@ -12,6 +12,8 @@ class ReadHistoryViewController: DataViewController {
         view.register(cellWithClass: ReadHistoryCell.self)
         view.keyboardDismissMode = .onDrag
         view.separatorColor = ThemeStyle.style.value.borderColor
+        view.rowHeight = UITableView.automaticDimension
+        view.estimatedRowHeight = 80
         view.hideEmptyCells()
         self.view.addSubview(view)
         return view
@@ -101,9 +103,5 @@ extension ReadHistoryViewController: UITableViewDelegate, UITableViewDataSource 
         GCD.runOnBackgroundThread {
             SQLiteDatabase.instance?.addHistory(tid: topicID, title: topic.title, username: member.username, avatarURL: member.avatarSrc)
         }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return readHistorys[indexPath.row].cellHeight
     }
 }

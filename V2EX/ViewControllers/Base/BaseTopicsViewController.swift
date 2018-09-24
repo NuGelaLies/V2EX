@@ -15,6 +15,8 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
         view.backgroundColor = .clear
         view.register(cellWithClass: TopicCell.self)
         view.keyboardDismissMode = .onDrag
+        view.rowHeight = UITableView.automaticDimension
+        view.estimatedRowHeight = 80
         view.hideEmptyCells()
         self.view.addSubview(view)
         return view
@@ -269,10 +271,6 @@ extension BaseTopicsViewController: UITableViewDelegate, UITableViewDataSource {
         let topicDetailVC = TopicDetailViewController(topicID: topicId)
         self.navigationController?.pushViewController(topicDetailVC, animated: true)
         makeAsRead(indexPath: indexPath)
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return topics[indexPath.row].cellHeight
     }
 }
 

@@ -3,6 +3,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import Fabric
 import Crashlytics
+import YYText
 
 struct AppSetup {
 
@@ -38,8 +39,8 @@ extension AppSetup {
             TopicDetailViewController.self
         ]
 
-//        // 支持 YYTextView
-//        IQKeyboardManager.sharedManager().registerTextFieldViewClass(
+        // 支持 YYTextView
+//        IQKeyboardManager.shared.registerTextFieldViewClass(
 //            YYTextView.self,
 //            didBeginEditingNotificationName: NSNotification.Name.YYTextViewTextDidBeginEditing.rawValue,
 //            didEndEditingNotificationName: NSNotification.Name.YYTextViewTextDidEndEditing.rawValue

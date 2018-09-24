@@ -68,8 +68,8 @@ class ReadHistoryCell: BaseTableViewCell {
         }
         
         titleLabel.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(15)
-            $0.top.equalTo(avatarView.snp.bottom).offset(15)
+            $0.left.right.bottom.equalToSuperview().inset(15)
+            $0.top.equalTo(avatarView.snp.bottom).offset(10).priority(.high)
         }
     }
     

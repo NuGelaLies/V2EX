@@ -46,12 +46,6 @@ struct TopicModel {
         self.lastReplyTime = lastReplyTime
         self.replyCount = replyCount
     }
-    
-    
-    /// 计算高度 ps: 偷懒做法, 有时间再优化 👻
-    var cellHeight: CGFloat {
-        return 40 + 45 + title.toHeight(width: Constants.Metric.screenWidth - 30, fontSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-    }
 }
 
 extension TopicModel: Hashable {

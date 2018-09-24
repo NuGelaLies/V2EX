@@ -34,7 +34,7 @@ final class HUD {
 
     class func configureAppearance() {
         
-        SwiftMessages.defaultConfig.presentationContext = .window(windowLevel: UIWindow.Level.statusBar.rawValue)
+        SwiftMessages.defaultConfig.presentationContext = .window(windowLevel: .statusBar)
         SwiftMessages.defaultConfig.eventListeners.append({ event in
             switch event {
             case .willShow: isShown = true

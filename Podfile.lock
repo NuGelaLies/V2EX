@@ -8,26 +8,26 @@ PODS:
   - JPush (3.1.0):
     - JCore (~> 1.2.0)
   - Kanna (4.0.2)
-  - Kingfisher (4.9.0)
+  - Kingfisher (4.10.0)
   - MarkdownView (1.3.0)
-  - "NSObject+Rx (4.3.0)":
-    - RxSwift (~> 4.0)
+  - "NSObject+Rx (4.4.0)":
+    - RxSwift (~> 4.3)
   - PasswordExtension (4.1.0)
   - PKHUD (5.1.0)
   - PullToRefreshKit (0.8.2)
   - Reveal-SDK (14)
-  - RxCocoa (4.2.0):
+  - RxCocoa (4.3.1):
     - RxSwift (~> 4.0)
   - RxOptional (3.5.0):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxSwift (4.2.0)
+  - RxSwift (4.3.1)
   - SKPhotoBrowser (6.0.0)
-  - SnapKit (4.0.0)
+  - SnapKit (4.0.1)
   - StatefulViewController (3.0)
-  - SwiftMessages (5.0.1):
-    - SwiftMessages/App (= 5.0.1)
-  - SwiftMessages/App (5.0.1)
+  - SwiftMessages (6.0.0):
+    - SwiftMessages/App (= 6.0.0)
+  - SwiftMessages/App (6.0.0)
   - "UIView+Positioning (1.6)"
   - YYText (1.0.7)
 
@@ -101,23 +101,23 @@ SPEC CHECKSUMS:
   JCore: f14c0549968a63c22e246a4875aa9d428446f373
   JPush: 5921e25ad13e0386351079217b009f2039084eac
   Kanna: c60b61d72554bf04ed1ee074f9b379855cab4892
-  Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
+  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
   MarkdownView: 6cee6c558eed4a012005405066071ef16a042d17
-  "NSObject+Rx": 9a5eeff5e08156f849fa973514456f28eef08742
+  "NSObject+Rx": 3291262e7eddc434b6c98d1e85dedc4faa451ace
   PasswordExtension: 80a57bdae651d04437c8d2e07d90d5f18fe73180
   PKHUD: 62ea46a1e88c4def1da784878d199bb54c841e3c
   PullToRefreshKit: 57bcedad80fbe081c410c6889a744fe8b53c98d7
   Reveal-SDK: 55b5c5545233b680c2f8da734f202acc15d422b7
-  RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
+  RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
   RxOptional: bd32ff8ca9df4177683d56ffeb618a9d4d5d5cad
-  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
+  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
   SKPhotoBrowser: 76eb862685761707b5745fde7762757966565e07
-  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931
-  SwiftMessages: 32ce3cfc8388b41aae56ff4853cc752a20101147
+  SwiftMessages: da7c981256a65b3e58022d9027a36584cf4eccf5
   "UIView+Positioning": 6e7236a429053ade11051fab7ff9053af36c77a8
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: bf07f62d78ca3d85c24edd2ca92aac1da0484535
+PODFILE CHECKSUM: 9bff0fa73859165e9adb604a16c8a50e35d1f60c
 
 COCOAPODS: 1.5.3

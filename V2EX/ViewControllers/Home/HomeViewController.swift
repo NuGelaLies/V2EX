@@ -104,7 +104,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
             .subscribeNext { [weak self] theme in
                 segmentV.backgroundColor = theme.navColor
                 AppWindow.shared.window.backgroundColor = theme.whiteColor
-                UIApplication.shared.statusBarStyle = theme.statusBarStyle
+//                UIApplication.shared.statusBarStyle = theme.statusBarStyle
                 self?.setNeedsStatusBarAppearanceUpdate()
             }.disposed(by: rx.disposeBag)
     }
