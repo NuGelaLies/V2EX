@@ -61,8 +61,8 @@
 ## 要求
 
 - iOS 9.0
-- Swift Version 4.0
-- Xcode 9.0 or later
+- Swift Version 4.2
+- Xcode 10 or later
 
 
 ## 运行
