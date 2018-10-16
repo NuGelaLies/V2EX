@@ -303,10 +303,16 @@ extension TopicSearchResultViewController: UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let id = searchResults[indexPath.row].id else { return }
+        let item = searchResults[indexPath.row]
+        guard let id = item.id else { return }
         let topicDetailVC = TopicDetailViewController(topicID: id)
 //        presentingViewController?.navigationController?.pushViewController(topicDetailVC, animated: true)
         navigationController?.pushViewController(topicDetailVC, animated: true)
+        
+        guard let topidID = id.int,
+            let title = item.topic?.title,
+            let memberName = item.topic?.member else { return }
+        SQLiteDatabase.instance?.addHistory(tid: topidID, title: title, username: memberName, avatarURL: "")
     }
 }
 

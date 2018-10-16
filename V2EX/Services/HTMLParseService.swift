@@ -233,23 +233,46 @@ extension HTMLParseService {
                 })
                 attributedString.append(textAttrString)
                 attributedString.yy_lineSpacing = 5
-            } else if tagName == "img", let imageSrc = ele["src"] {
+            } else if tagName == "img", var imageSrc = ele["src"] {
+                if imageSrc.hasPrefix("//") {
+                    imageSrc = "http:" + imageSrc
+                }
                 let imageAttachment = wrapperImageAttachment(URL(string: imageSrc))
                 attributedString.append(imageAttachment)
             } else if tagName == "a", let content = ele.content, let urlString = ele["href"] {
+
+                func findSubnode() {
+                    /// 子节点 递归
+                    let subnodes = ele.xpath("./node()")
+                    if subnodes.first?.tagName != "text" && subnodes.count.boolValue {
+                        wrapperAttributedString(attributedString, node: subnodes)
+                    }
+                }
+
+                log.info(urlString)
                 // 是图片链接
-                if ["jpg", "png", "jpeg", "jpe", "gif"].contains(urlString.pathExtension.lowercased()),
-                    let url = URL(string: urlString) {
+                if ["jpg", "png", "jpeg", "jpe", "gif"].contains(urlString.pathExtension.lowercased()) {
+                    var imageURL = urlString
+
+                    // https://www.v2ex.com/t/497041?p=1  #4
+                    // 处理上面 #4楼 图片链接套图片的情况 进行特殊处理
+                    let imgNode = ele.xpath("./node()").first
+                    if imageURL.hasPrefix("/i/"), imgNode?.tagName == "img", let imageSrc = imgNode?["src"] {
+                        if imageSrc.hasPrefix("//") {
+                            imageURL = Constants.Config.URIScheme + imageSrc 
+                        } else {
+                            imageURL = imageSrc
+                        }
+                    }
+                    //
+                    
+                    let url = URL(string: imageURL)
                     let imageAttachment = wrapperImageAttachment(url)
                     attributedString.append(imageAttachment)
                     continue
                 }
-
-                /// 子节点 递归
-                let subnodes = ele.xpath("./node()")
-                if subnodes.first?.tagName != "text" && subnodes.count.boolValue {
-                    wrapperAttributedString(attributedString, node: subnodes)
-                }
+                
+                findSubnode()
 
                 /// 链接
                 if content.count.boolValue {
