@@ -32,10 +32,10 @@ class SettingViewController: BaseTableViewController {
             SettingItem(title: "调节字体", type: .fontSize, rightType: .arrow),
             SettingItem(title: "@用户时带楼层号(@devjoe #1)", type: .floor, rightType: .switch),
         ],
-        [
+//        [
 //            SettingItem(title: "OCR 配置", type: .baiduOCRConfig, rightType: .arrow),
-            SettingItem(title: "消息推送", type: .notifications, rightType: .arrow),
-        ],
+//            SettingItem(title: "消息推送", type: .notifications, rightType: .arrow),
+//        ],
         [
             SettingItem(title: "退出账号", type: .logout, rightType: .none)
         ]
