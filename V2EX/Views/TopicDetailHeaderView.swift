@@ -256,7 +256,7 @@ class TopicDetailHeaderView: UIView {
             timeLabel.isHidden = topic.publicTime.isEmpty
 
             do {
-                let fileName = ThemeStyle.style.value == .day ? "day.css" : "night.css"
+                let fileName = ThemeStyle.style.value == .day ? "day.css" : "black.css"
                 if let filePath = Bundle.main.path(forResource: "style", ofType: "css"),
                     let themeFilePath = Bundle.main.path(forResource: fileName, ofType: "") {
                     var cssString = try String(contentsOfFile: filePath)

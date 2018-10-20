@@ -347,6 +347,7 @@
 		BFF178971FCD07F0004A5F43 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF178961FCD07F0004A5F43 /* UIAlertController+Extension.swift */; };
 		BFFAFDE91F9F4428000EB91C /* MemberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFAFDE81F9F4428000EB91C /* MemberListViewController.swift */; };
 		C00FF4E9D54113900F400975 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEF560D2C703ABBF56BE30E /* Pods_V2EX.framework */; };
+		D84B4E63217AE71D006DF65B /* black.css in Resources */ = {isa = PBXBuildFile; fileRef = D84B4E62217AE71D006DF65B /* black.css */; };
 		D8A78573214CDF9E00BC779E /* MemberPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A78572214CDF9E00BC779E /* MemberPageHeaderView.swift */; };
 /* End PBXBuildFile section */
 
@@ -541,6 +542,7 @@
 		BFEC91D01F9490570050B7F5 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		BFF178961FCD07F0004A5F43 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		BFFAFDE81F9F4428000EB91C /* MemberListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListViewController.swift; sourceTree = "<group>"; };
+		D84B4E62217AE71D006DF65B /* black.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = black.css; sourceTree = "<group>"; };
 		D8A78572214CDF9E00BC779E /* MemberPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPageHeaderView.swift; sourceTree = "<group>"; };
 		DD1B79C0DDC5C38E6D41A82B /* Pods-V2EX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.release.xcconfig"; sourceTree = "<group>"; };
 		E690E8B94561079A45C2900A /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
@@ -995,6 +997,7 @@
 				7752AD952019BFFA0039DAF6 /* V2EX Beta.plist */,
 				BFE3947E1F909B1400D3ED1D /* style.css */,
 				77269F5F1FAA0AF000DE6617 /* day.css */,
+				D84B4E62217AE71D006DF65B /* black.css */,
 				77269F631FAA0B5C00DE6617 /* night.css */,
 				B125C29A20EF172900DA3040 /* V2EX-Bridging-Header.h */,
 			);
@@ -1162,6 +1165,7 @@
 				771502CB1FEBE6F6008BB161 /* iPhone Settings-29@2x.png in Resources */,
 				771502C11FEBE6F6008BB161 /* iPad Notifications-20@2x.png in Resources */,
 				B13B0736205A229100B8D69C /* LastBrowseView.xib in Resources */,
+				D84B4E63217AE71D006DF65B /* black.css in Resources */,
 				771502BE1FEBE6F6008BB161 /* iPad App-76.png in Resources */,
 				771502C71FEBE6F6008BB161 /* iPhone App-60@2x.png in Resources */,
 				BF65BDC21F8E12C80010B4C9 /* LaunchScreen.storyboard in Resources */,
@@ -1777,7 +1781,7 @@
 				);
 				INFOPLIST_FILE = "V2EX/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.joe78.v2er;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joe78.v2er.222;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "V2EX/Supporting Files/V2EX-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1801,7 +1805,7 @@
 				);
 				INFOPLIST_FILE = "V2EX/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.joe78.v2er;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joe78.v2er.222;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "V2EX/Supporting Files/V2EX-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;

@@ -35,7 +35,7 @@ class NodeCell: UICollectionViewCell {
 
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
-                self?.backgroundColor = theme == .day ? theme.bgColor : theme.cellBackgroundColor
+                self?.backgroundColor = theme.nodeColor
                 self?.textLabel.textColor = theme.somberColor
             }.disposed(by: rx.disposeBag)
     }

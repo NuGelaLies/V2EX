@@ -5,11 +5,13 @@ import RxCocoa
 enum Theme {
     case day
     case night
+    case black
 
     var globalColor: UIColor {
         switch self {
         case .day: return #colorLiteral(red: 0.2, green: 0.2, blue: 0.2666666667, alpha: 1)
         case .night: return #colorLiteral(red: 0.2, green: 0.2, blue: 0.2666666667, alpha: 1)
+        case .black: return #colorLiteral(red: 0.2, green: 0.2, blue: 0.2666666667, alpha: 1)
         }
     }
 
@@ -17,6 +19,7 @@ enum Theme {
         switch self {
         case .day: return #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         case .night: return #colorLiteral(red: 0.1450980392, green: 0.1490196078, blue: 0.1450980392, alpha: 1)
+        case .black: return .black
         }
     }
 
@@ -24,6 +27,7 @@ enum Theme {
         switch self {
         case .day: return #colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.8980392157, alpha: 1)
         case .night: return #colorLiteral(red: 0.09803921569, green: 0.1019607843, blue: 0.09803921569, alpha: 1)
+        case .black: return #colorLiteral(red: 0.09803921569, green: 0.1019607843, blue: 0.09803921569, alpha: 1)
         }
     }
 
@@ -31,13 +35,23 @@ enum Theme {
         switch self {
         case .day: return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         case .night: return #colorLiteral(red: 0.1411764706, green: 0.1450980392, blue: 0.1411764706, alpha: 1)
+        case .black: return .black
         }
     }
 
+    var nodeColor: UIColor {
+        switch self {
+        case .day: return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        case .night: return #colorLiteral(red: 0.1411764706, green: 0.1450980392, blue: 0.1411764706, alpha: 1)
+        case .black: return #colorLiteral(red: 0.09803921569, green: 0.1019607843, blue: 0.09803921569, alpha: 1)
+        }
+    }
+    
     var bgColor: UIColor {
         switch self {
         case .day: return #colorLiteral(red: 0.937254902, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
         case .night: return #colorLiteral(red: 0.09803921569, green: 0.1019607843, blue: 0.09803921569, alpha: 1)
+        case .black: return #colorLiteral(red: 0.09803921569, green: 0.1019607843, blue: 0.09803921569, alpha: 1)
         }
     }
 
@@ -45,6 +59,7 @@ enum Theme {
         switch self {
         case .day: return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         case .night: return #colorLiteral(red: 0.09803921569, green: 0.1019607843, blue: 0.09803921569, alpha: 1)
+        case .black: return .black
         }
     }
 
@@ -52,6 +67,7 @@ enum Theme {
         switch self {
         case .day: return #colorLiteral(red: 0.8431372549, green: 0.8431372549, blue: 0.8431372549, alpha: 1)
         case .night: return #colorLiteral(red: 0.8431372549, green: 0.8431372549, blue: 0.8431372549, alpha: 1)
+        case .black: return #colorLiteral(red: 0.8431372549, green: 0.8431372549, blue: 0.8431372549, alpha: 1)
         }
     }
 
@@ -59,6 +75,7 @@ enum Theme {
         switch self {
         case .day: return #colorLiteral(red: 0.2, green: 0.2, blue: 0.2666666667, alpha: 1)
         case .night: return #colorLiteral(red: 0.5058823529, green: 0.5098039216, blue: 0.5058823529, alpha: 1)
+        case .black: return #colorLiteral(red: 0.5058823529, green: 0.5098039216, blue: 0.5058823529, alpha: 1)
         }
     }
 
@@ -66,6 +83,7 @@ enum Theme {
         switch self {
         case .day: return #colorLiteral(red: 0.4666666667, green: 0.5019607843, blue: 0.5294117647, alpha: 1)
         case .night: return #colorLiteral(red: 0.1137254902, green: 0.631372549, blue: 0.9490196078, alpha: 0.698391967)
+        case .black: return #colorLiteral(red: 0.1137254902, green: 0.631372549, blue: 0.9490196078, alpha: 0.698391967)
         }
     }
 
@@ -73,6 +91,7 @@ enum Theme {
         switch self {
         case .day: return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         case .night: return #colorLiteral(red: 0.5058823529, green: 0.5098039216, blue: 0.5058823529, alpha: 1)
+        case .black: return #colorLiteral(red: 0.5058823529, green: 0.5098039216, blue: 0.5058823529, alpha: 1)
         }
     }
 
@@ -80,6 +99,7 @@ enum Theme {
         switch self {
         case .day: return #colorLiteral(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
         case .night: return #colorLiteral(red: 0.3921568627, green: 0.3921568627, blue: 0.3921568627, alpha: 1)
+        case .black: return #colorLiteral(red: 0.3921568627, green: 0.3921568627, blue: 0.3921568627, alpha: 1)
         }
     }
 
@@ -88,6 +108,7 @@ enum Theme {
         switch self {
         case .day: return .default
         case .night: return .lightContent
+        case .black: return .lightContent
         }
     }
 
@@ -95,6 +116,7 @@ enum Theme {
         switch self {
         case .day: return .default
         case .night: return .black
+        case .black: return .black
         }
     }
     
@@ -102,6 +124,7 @@ enum Theme {
         switch self {
         case .day: return self.globalColor
         case .night: return .gray
+        case .black: return .gray
         }
     }
 
