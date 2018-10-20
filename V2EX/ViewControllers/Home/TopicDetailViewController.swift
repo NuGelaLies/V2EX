@@ -690,6 +690,10 @@ extension TopicDetailViewController {
             commentInputView.textView.text = ""
             if let index = comments.index(of: comment) {
                 tableView.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .none)
+                
+                GCD.delay(1) {
+                    self.tableView.deselectRow(at: IndexPath(row: index, section: 0), animated: true)
+                }
             }
             atMember(comment.member.atUsername, comment: comment)
         case .imageURL(let src):
