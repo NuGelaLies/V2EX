@@ -242,9 +242,9 @@ extension HomeViewController {
 
         userStatus(username: account.username, success: { isOpen in
             guard isOpen else { return }
-            JPUSHService.setAlias(account.username, completion: { (resCode, alia, seq) in
-                log.info(resCode, alia ?? "None", seq)
-            }, seq: 2)
+//            JPUSHService.setAlias(account.username, completion: { (resCode, alia, seq) in
+//                log.info(resCode, alia ?? "None", seq)
+//            }, seq: 2)
         }) { error in
             log.info(error)
             HUD.showTest(error)

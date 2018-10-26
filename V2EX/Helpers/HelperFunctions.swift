@@ -11,7 +11,7 @@ public typealias Action = () -> Void
 
 
 func clearAccount() {
-    JPUSHService.deleteAlias({ (code, alia, seq) in }, seq: 1)
+//    JPUSHService.deleteAlias({ (code, alia, seq) in }, seq: 1)
     
     if let username = AccountModel.current?.username {
         Network.request(target: API.userLogout(username: username), success: nil, failure: nil)

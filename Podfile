@@ -28,7 +28,7 @@ target 'V2EX' do
     pod 'PullToRefreshKit' , git: 'https://github.com/aidevjoe/PullToRefreshKit.git'
 
     # Parse
-    pod 'Kanna', '~> 4.0.0'
+    pod 'Kanna'
 
     # Rich text
     pod 'YYText', git: 'https://github.com/aidevjoe/YYText'
@@ -42,7 +42,7 @@ target 'V2EX' do
     pod 'Fabric'
     pod 'Crashlytics'
     
-    pod 'JPush'
+#    pod 'JPush'
 
     # Debug only
     pod 'Reveal-SDK', '~> 14', :configurations => ['Debug']
@@ -51,7 +51,7 @@ end
 post_install do |installer|
 
     # 需要指定编译版本的第三方库名称
-    swift3_targets = ['PKHUD', 'PullToRefreshKit', 'MarkdownView', 'StatefulViewController']
+    swift3_targets = ['PKHUD', 'PullToRefreshKit', 'StatefulViewController']
     installer.pods_project.targets.each do |target|
         if swift3_targets.include? target.name
             target.build_configurations.each do |config|

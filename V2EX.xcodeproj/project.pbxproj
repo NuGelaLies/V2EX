@@ -437,7 +437,6 @@
 		A06D4C2BE8DE9A7F928C74E5 /* Pods-V2EXTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EXTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EXTests/Pods-V2EXTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A3FD0254BCE3292D3FCA0608 /* Pods-V2EXUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EXUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EXUITests/Pods-V2EXUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B125C29920EF103800DA3040 /* V2EX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = V2EX.entitlements; sourceTree = "<group>"; };
-		B125C29A20EF172900DA3040 /* V2EX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "V2EX-Bridging-Header.h"; sourceTree = "<group>"; };
 		B13B0734205A229000B8D69C /* LastBrowseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LastBrowseView.xib; sourceTree = "<group>"; };
 		B13B0735205A229000B8D69C /* LastBrowseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastBrowseView.swift; sourceTree = "<group>"; };
 		B15CB35B20F74C580012DD80 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
@@ -999,7 +998,6 @@
 				77269F5F1FAA0AF000DE6617 /* day.css */,
 				D84B4E62217AE71D006DF65B /* black.css */,
 				77269F631FAA0B5C00DE6617 /* night.css */,
-				B125C29A20EF172900DA3040 /* V2EX-Bridging-Header.h */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -1783,7 +1781,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joe78.v2er;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "V2EX/Supporting Files/V2EX-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1807,7 +1805,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joe78.v2er;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "V2EX/Supporting Files/V2EX-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

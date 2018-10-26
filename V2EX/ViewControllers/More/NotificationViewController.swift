@@ -134,9 +134,9 @@ class NotificationViewController: BaseViewController, AccountService {
             self?.addUser(feedURL: feedURL, name: username, success: { [weak self] msg in
                 HUD.dismiss()
                 HUD.showSuccess(msg)
-                JPUSHService.setAlias(username, completion: { (resCode, alia, seq) in
-                    log.info(resCode, alia ?? "None", seq)
-                }, seq: 2)
+//                JPUSHService.setAlias(username, completion: { (resCode, alia, seq) in
+//                    log.info(resCode, alia ?? "None", seq)
+//                }, seq: 2)
                 self?.navigationController?.popViewController(animated: true)
                 }, failure: { error in
                     HUD.dismiss()
