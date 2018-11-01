@@ -41,7 +41,7 @@ enum Theme {
 
     var nodeColor: UIColor {
         switch self {
-        case .day: return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        case .day: return #colorLiteral(red: 0.937254902, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
         case .night: return #colorLiteral(red: 0.1411764706, green: 0.1450980392, blue: 0.1411764706, alpha: 1)
         case .black: return #colorLiteral(red: 0.09803921569, green: 0.1019607843, blue: 0.09803921569, alpha: 1)
         }

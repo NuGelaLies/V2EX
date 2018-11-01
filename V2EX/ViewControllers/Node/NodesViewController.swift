@@ -98,9 +98,18 @@ extension NodesViewController {
         nodeNavigation(success: { [weak self] cates in
             self?.nodeCategorys = cates
             self?.endLoading()
+            self?.fetchAllNode()
         }) { [weak self] error in
             self?.errorMessage = error
             self?.endLoading(error: NSError(domain: "V2EX", code: -1, userInfo: nil))
+        }
+    }
+    
+    /// 获取全部节点
+    private func fetchAllNode() {
+        // 提前获取数据
+        GCD.runOnBackgroundThread { [weak self] in
+            self?.nodes(success: {_ in}, failure: nil)
         }
     }
 }
