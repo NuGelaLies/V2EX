@@ -211,7 +211,7 @@ class TopicSearchResultViewController: DataViewController, TopicService {
             .subscribeNext { [weak self] theme in
                 self?.tableView.separatorColor = theme.borderColor
                 self?.containerView.backgroundColor = theme.navColor
-                self?.searchTextField.keyboardAppearance = theme == .day ? .default : .dark
+                self?.searchTextField.keyboardAppearance = theme.keyboardAppeareance
                 self?.searchTextField.backgroundColor = theme.bgColor
                 self?.searchTextField.textColor = theme.titleColor
                 self?.containerView.borderBottom = Border(color: theme.borderColor)

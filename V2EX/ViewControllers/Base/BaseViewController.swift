@@ -1,7 +1,7 @@
 import UIKit
 import RxSwift
 
-class BaseViewController: ViewController {
+class BaseViewController: ViewController, InteractivePopProtocol {
 
     var interactivePopDisabled: Bool = false
 
@@ -14,6 +14,10 @@ class BaseViewController: ViewController {
     // MARK: Status Bar Style
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return ThemeStyle.style.value.statusBarStyle
+    }
+    
+    var disabled: Bool {
+        return interactivePopDisabled
     }
     
     // MARK: Layout Constraints
@@ -36,6 +40,8 @@ class BaseViewController: ViewController {
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 self?.view.backgroundColor = theme.bgColor
+                self?.navigationItem.leftBarButtonItem?.tintColor = theme.tintColor
+                self?.navigationItem.rightBarButtonItem?.tintColor = theme.tintColor
 //                self?.navigationController?.navigationBar.barStyle = theme.barStyle
             }.disposed(by: rx.disposeBag)
     }

@@ -57,7 +57,7 @@ extension TabBarViewController {
         
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
-                self?.tabBar.barStyle = theme == .day ? .default : .black
+                self?.tabBar.barStyle = theme.barStyle
                 self?.tabBar.barTintColor = theme.navColor
                 self?.tabBar.tintColor = theme.tintColor
             }.disposed(by: rx.disposeBag)

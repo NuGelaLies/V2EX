@@ -1,16 +1,70 @@
 import UIKit
 
-public struct SegmentViewStyle {
 
-    public var indicatorColor = Theme.Color.globalColor
-    public var titleMargin: CGFloat = 10
-    public var titlePendingHorizontal: CGFloat = 12
-    public var titlePendingVertical: CGFloat = 12
-    public var titleFont = UIFont.systemFont(ofSize: 14.5)
-    public var normalTitleColor = UIColor.hex(0x6C7273)
-    public var selectedTitleColor = UIColor.white
-    public init() {}
+public protocol SegmentViewStyle {
+    var indicatorColor: UIColor { get }
+    var titleMargin: CGFloat { get }
+    var titlePendingHorizontal: CGFloat { get }
+    var titlePendingVertical: CGFloat { get }
+    var titleFont: UIFont { get }
+    var normalTitleColor: UIColor { get }
+    var selectedTitleColor: UIColor { get }
 }
+
+public extension SegmentViewStyle {
+    var indicatorColor: UIColor {
+        return Theme.Color.globalColor
+    }
+    
+    var titleMargin: CGFloat {
+        return 10
+    }
+    
+    var titlePendingHorizontal: CGFloat {
+        return 12
+    }
+    
+    var titlePendingVertical: CGFloat {
+        return 12
+    }
+    
+    var titleFont: UIFont {
+        return UIFont.systemFont(ofSize: 14.5)
+    }
+    var normalTitleColor: UIColor {
+        return UIColor.hex(0x6C7273)
+    }
+    
+    var selectedTitleColor: UIColor {
+        return UIColor.white
+    }
+}
+
+public struct NormalSegmentViewStyle: SegmentViewStyle {}
+
+public struct BlackSegmentViewStyle: SegmentViewStyle {
+    public var indicatorColor: UIColor {
+        return #colorLiteral(red: 0.07843137255, green: 0.07843137255, blue: 0.1176470588, alpha: 1)
+    }
+}
+
+public struct NightSegmentViewStyle: SegmentViewStyle {
+    public var indicatorColor: UIColor {
+        return #colorLiteral(red: 0.09803921569, green: 0.1019607843, blue: 0.09803921569, alpha: 1)
+    }
+}
+
+//public struct SegmentViewStyle {
+//
+//    public var indicatorColor = Theme.Color.globalColor
+//    public var titleMargin: CGFloat = 10
+//    public var titlePendingHorizontal: CGFloat = 12
+//    public var titlePendingVertical: CGFloat = 12
+//    public var titleFont = UIFont.systemFont(ofSize: 14.5)
+//    public var normalTitleColor = UIColor.hex(0x6C7273)
+//    public var selectedTitleColor = UIColor.white
+//    public init() {}
+//}
 
 
 
@@ -62,7 +116,7 @@ public class SegmentView: UIControl {
 
     //MARK:- life cycle
     public convenience init(frame: CGRect, titles: [String]) {
-        self.init(frame: frame, segmentStyle: SegmentViewStyle(), titles:  titles)
+        self.init(frame: frame, segmentStyle: NormalSegmentViewStyle(), titles:  titles)
     }
 
     public init(frame: CGRect, segmentStyle: SegmentViewStyle, titles: [String]) {

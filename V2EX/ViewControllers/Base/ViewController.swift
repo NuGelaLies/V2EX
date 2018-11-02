@@ -28,7 +28,7 @@ class ViewController: UIViewController {
 
         let text = ThemeStyle.style.value == .day ? "开启夜间模式" : "关闭夜间模式"
         alertVC.addAction(UIAlertAction(title: text, style: .default, handler: { alert in
-            Preference.shared.nightModel = !Preference.shared.nightModel
+            Preference.shared.theme = ThemeStyle.style.value == .day ? .night : .day
         }))
 
         alertVC.addAction(UIAlertAction(title: "关闭摇一摇", style: .default, handler: { alert in

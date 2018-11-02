@@ -62,12 +62,17 @@ class DataViewController: ViewController, StatefulViewController, ErrorViewDeleg
         loadData()
         setupInitialViewState()
         setupTheme()
+        
+        navigationItem.rightBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
+        navigationItem.leftBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
     }
 
     func setupTheme() {
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 self?.view.backgroundColor = theme.bgColor
+                self?.navigationItem.rightBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
+                self?.navigationItem.leftBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
                 //                self?.navigationController?.navigationBar.barStyle = theme.barStyle
             }.disposed(by: rx.disposeBag)
     }

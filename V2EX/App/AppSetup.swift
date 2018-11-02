@@ -62,7 +62,9 @@ extension AppSetup {
     }
 
     private static func setupTheme() {
-        ThemeStyle.update(style: UserDefaults.standard.bool(forKey: Constants.Keys.themeStyle) ? .night : .day)
+        let themeRawValue = UserDefaults.standard.integer(forKey: Constants.Keys.themeStyle)
+        let theme = Theme(rawValue: themeRawValue) ?? .day
+        ThemeStyle.update(style: theme)
     }
 
     private static func setupLog() {

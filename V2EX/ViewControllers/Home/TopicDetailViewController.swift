@@ -234,7 +234,6 @@ class TopicDetailViewController: DataViewController, TopicService {
             action: { [weak self] in
                 self?.moreHandle()
         })
-        navigationItem.rightBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor
         title = "加载中..."
     }
 
@@ -338,8 +337,9 @@ class TopicDetailViewController: DataViewController, TopicService {
     override func setupRx() {
         
         ThemeStyle.style.asObservable()
-            .subscribeNext { theme in
+            .subscribeNext { [weak self] theme in
                 setStatusBarBackground(theme.navColor, borderColor: .clear)
+                self?.headerView.topic = self?.topic
             }.disposed(by: rx.disposeBag)
         
         NotificationCenter.default.rx

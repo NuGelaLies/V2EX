@@ -95,7 +95,7 @@ class FenCiViewController: UICollectionViewController {
     
     private func setupCollectionView() {
         collectionView?.register(FenCiCell.self, forCellWithReuseIdentifier: FenCiCell.description())
-        collectionView?.backgroundColor = ThemeStyle.style.value.whiteColor
+        collectionView?.backgroundColor = ThemeStyle.style.value.bgColor
         collectionView?.allowsMultipleSelection = true
         collectionView?.layer.borderColor = ThemeStyle.style.value.borderColor.cgColor
         collectionView?.layer.borderWidth = 1

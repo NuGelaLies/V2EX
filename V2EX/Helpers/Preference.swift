@@ -56,15 +56,38 @@ class Preference {
     }
 
     /// 夜间模式
-    var nightModel: Bool {
+    var theme: Theme {
         set {
-            ThemeStyle.update(style: newValue ? .night : .day)
+            ThemeStyle.update(style: newValue)
         }
         get {
-            return ThemeStyle.style.value == .night
+            return ThemeStyle.style.value
         }
     }
-
+    
+    // 自动切换主题
+    var autoSwitchTheme: Bool {
+        set {
+            UserDefaults.save(at: newValue, forKey: Constants.Keys.autoSwitchTheme)
+        }
+        get {
+            return (UserDefaults.get(forKey: Constants.Keys.autoSwitchTheme) as? Bool) ?? false
+        }
+    }
+    
+    // 自动切换夜间模式下的 “夜间主题”
+    var nightTheme: Theme {
+        set {
+            UserDefaults.save(at: newValue.rawValue, forKey: Constants.Keys.nightTheme)
+        }
+        get {
+            guard let themeRawValue = UserDefaults.get(forKey: Constants.Keys.nightTheme) as? Int else {
+                return .night
+            }
+            return Theme(rawValue: themeRawValue) ?? .night
+        }
+    }
+    
     /// 摇一摇反馈
     var shakeFeedback: Bool {
         set {

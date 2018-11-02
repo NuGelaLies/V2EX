@@ -35,6 +35,9 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
         
         setupSegmentView()
         fetchData()
+        
+        guard Preference.shared.autoSwitchTheme else { return }
+        Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : Preference.shared.nightTheme
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -45,11 +48,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
 
         rotationAdaptation()
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        //        setTabBarHiddn(false)
-    }
+    
     
     // MARK: - Setup
 
@@ -103,8 +102,9 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 segmentV.backgroundColor = theme.navColor
+                segmentV.style = theme.segmentViewStyle
                 AppWindow.shared.window.backgroundColor = theme.whiteColor
-//                UIApplication.shared.statusBarStyle = theme.statusBarStyle
+                self?.navigationItem.rightBarButtonItem?.tintColor = theme.tintColor
                 self?.setNeedsStatusBarAppearanceUpdate()
             }.disposed(by: rx.disposeBag)
     }
@@ -206,6 +206,14 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
                 topicDetailVC.anchor = topic.anchor
                 self?.navigationController?.pushViewController(topicDetailVC, animated: true)
             }.disposed(by: rx.disposeBag)
+        
+        NotificationCenter.default.rx
+            .notification(UIScreen.brightnessDidChangeNotification)
+            .throttle(0.2, scheduler: MainScheduler.instance)
+            .subscribeNext { noti in
+                guard Preference.shared.autoSwitchTheme else { return }
+                Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : Preference.shared.nightTheme
+        }.disposed(by: rx.disposeBag)
     }
 
 }

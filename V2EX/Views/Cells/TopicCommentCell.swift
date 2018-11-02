@@ -36,8 +36,6 @@ class TopicCommentCell: BaseTableViewCell {
         view.text = "楼主"
         view.font = UIFont.systemFont(ofSize: 12)
         view.textColor = ThemeStyle.style.value == .day ? ThemeStyle.style.value.cellBackgroundColor : UIColor.hex(0x999999)
-//        view.backgroundColor = ThemeStyle.style.value.globalColor.withAlphaComponent(0.3)
-        view.backgroundColor = ThemeStyle.style.value == .day ? ThemeStyle.style.value.globalColor.withAlphaComponent(0.3) : ThemeStyle.style.value.bgColor
         view.layer.cornerRadius = 3
         view.contentInsets = UIEdgeInsets(top: 1, left: 5, bottom: 1, right: 5)
         view.layer.masksToBounds = true
@@ -129,8 +127,17 @@ class TopicCommentCell: BaseTableViewCell {
             usernameLaebl.text = comment.member.username
             floorLabel.text = comment.floor + " 楼"
             timeLabel.text =  comment.publicTime
-
-            contentLabel.textLayout = comment.textLayout
+            
+            if let textLayout = contentLabel.textLayout {
+                let mutableAttr = NSMutableAttributedString(attributedString: textLayout.text)
+                mutableAttr.removeAttribute(.foregroundColor, range: mutableAttr.yy_rangeOfAll())
+                mutableAttr.addAttribute(.foregroundColor, value: ThemeStyle.style.value.titleColor, range: mutableAttr.yy_rangeOfAll())
+                let layout = YYTextLayout(container: textLayout.container, text: mutableAttr)
+                contentLabel.textLayout = layout
+            } else {
+                contentLabel.textLayout = comment.textLayout
+            }
+            
             forewordLabel.isHidden = forewordComment == nil
             contentLabelTopConstraint?.update(offset: forewordLabel.isHidden ? -20 : 10)
 
@@ -205,10 +212,12 @@ class TopicCommentCell: BaseTableViewCell {
         
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
-                self?.contentLabel.textColor = theme.titleColor
+                self?.forewordLabel.textColor = theme.titleColor
                 self?.usernameLaebl.textColor = theme.titleColor
                 self?.lineView.backgroundColor = theme.borderColor
                 self?.timeLabel.textColor = theme.dateColor
+                self?.floorLabel.textColor = theme.dateColor
+                self?.hostLabel.backgroundColor = theme == .day ? theme.globalColor.withAlphaComponent(0.3) : theme.bgColor
             }.disposed(by: rx.disposeBag)
     }
     

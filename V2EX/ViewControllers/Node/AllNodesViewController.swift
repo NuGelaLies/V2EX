@@ -118,8 +118,8 @@ class AllNodesViewController: DataViewController, NodeService {
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 self?.tableView.separatorColor = theme.borderColor
-                self?.searchController.searchBar.barStyle = theme == .day ? .default : .black
-                self?.searchController.searchBar.keyboardAppearance = theme == .day ? .default : .dark
+                self?.searchController.searchBar.barStyle = theme.barStyle
+                self?.searchController.searchBar.keyboardAppearance = theme.keyboardAppeareance
                 self?.searchController.searchBar.barTintColor = theme.bgColor
                 self?.searchController.searchBar.layer.borderColor = theme.bgColor.cgColor
                 self?.tableView.sectionIndexTrackingBackgroundColor = theme.bgColor

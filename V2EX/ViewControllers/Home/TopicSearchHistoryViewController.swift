@@ -62,8 +62,8 @@ class TopicSearchHistoryViewController: UITableViewController {
         
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
-                self?.historyTableFooterView.borderTop = Border(size: 0.5, color: theme == .day ? theme.borderColor : theme.cellBackgroundColor)
-                self?.tableView.separatorColor = theme == .day ? theme.borderColor : theme.cellBackgroundColor
+                self?.historyTableFooterView.borderTop = Border(size: 0.5, color: theme.borderColor)// == .day ? theme.borderColor : theme.cellBackgroundColor)
+                self?.tableView.separatorColor = theme.borderColor// == .day ? theme.borderColor : theme.cellBackgroundColor
         }.disposed(by: rx.disposeBag)
     }
 }

@@ -296,8 +296,8 @@ class CreateTopicViewController: BaseViewController, TopicService {
                 self?.titleFieldView.textColor = theme == .day ? theme.titleColor : .white
                 self?.bodyLabel.backgroundColor = theme.whiteColor
                 self?.bodyTextView.backgroundColor = theme.whiteColor
-                self?.bodyTextView.keyboardAppearance = theme == .day ? .default : .dark
-                self?.titleFieldView.keyboardAppearance = theme == .day ? .default : .dark
+                self?.bodyTextView.keyboardAppearance = theme.keyboardAppeareance
+                self?.titleFieldView.keyboardAppearance = theme.keyboardAppeareance
                 self?.selectNodeBtn.setTitleColor(theme.titleColor, for: .normal)
                 self?.selectNodeBtn.backgroundColor = theme.whiteColor
                 self?.selectNodeBtn.tintColor = theme.tintColor

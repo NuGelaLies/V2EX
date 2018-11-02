@@ -163,7 +163,6 @@
 		7752AD5F2019BFFA0039DAF6 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7B11191F91E5A3003815C1 /* HUD.swift */; };
 		7752AD602019BFFA0039DAF6 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C8DF6F1F9305F8009DE52C /* AccountService.swift */; };
 		7752AD612019BFFA0039DAF6 /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB67651F8F709F00D05A90 /* TopicService.swift */; };
-		7752AD622019BFFA0039DAF6 /* AdjustFontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7AF1B91FBC0C35005427D0 /* AdjustFontViewController.swift */; };
 		7752AD632019BFFA0039DAF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF65BDB71F8E12C80010B4C9 /* AppDelegate.swift */; };
 		7752AD642019BFFA0039DAF6 /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AB5C81F976D7000043269 /* UIView+Border.swift */; };
 		7752AD652019BFFA0039DAF6 /* SegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9ACB2B1FC414550073122C /* SegmentView.swift */; };
@@ -293,7 +292,6 @@
 		BF701F201F98610900761E82 /* MarkdownInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF701F1F1F98610900761E82 /* MarkdownInputAccessoryView.swift */; };
 		BF796F801FA46921002E1B5E /* ETNavBarTransparent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF796F7F1FA46921002E1B5E /* ETNavBarTransparent.swift */; };
 		BF7AF1B81FBC02D1005427D0 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7AF1B71FBC02D1005427D0 /* SettingViewController.swift */; };
-		BF7AF1BA1FBC0C35005427D0 /* AdjustFontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7AF1B91FBC0C35005427D0 /* AdjustFontViewController.swift */; };
 		BF7AF1BC1FBC2CA5005427D0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7AF1BB1FBC2CA5005427D0 /* AboutViewController.swift */; };
 		BF7B11181F91E473003815C1 /* UIInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7B11171F91E473003815C1 /* UIInsetLabel.swift */; };
 		BF7B111A1F91E5A3003815C1 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7B11191F91E5A3003815C1 /* HUD.swift */; };
@@ -347,8 +345,11 @@
 		BFF178971FCD07F0004A5F43 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF178961FCD07F0004A5F43 /* UIAlertController+Extension.swift */; };
 		BFFAFDE91F9F4428000EB91C /* MemberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFAFDE81F9F4428000EB91C /* MemberListViewController.swift */; };
 		C00FF4E9D54113900F400975 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEF560D2C703ABBF56BE30E /* Pods_V2EX.framework */; };
+		D804F31C218C009F00C96206 /* AppearanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D804F31B218C009F00C96206 /* AppearanceViewController.swift */; };
+		D804F31E218C31CB00C96206 /* AppearanceSampleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D804F31D218C31CB00C96206 /* AppearanceSampleCell.swift */; };
 		D84B4E63217AE71D006DF65B /* black.css in Resources */ = {isa = PBXBuildFile; fileRef = D84B4E62217AE71D006DF65B /* black.css */; };
 		D8A78573214CDF9E00BC779E /* MemberPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A78572214CDF9E00BC779E /* MemberPageHeaderView.swift */; };
+		D8DEC78E218CCA4500A2DA74 /* AppearanceSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DEC78D218CCA4500A2DA74 /* AppearanceSliderCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -487,7 +488,6 @@
 		BF701F1F1F98610900761E82 /* MarkdownInputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownInputAccessoryView.swift; sourceTree = "<group>"; };
 		BF796F7F1FA46921002E1B5E /* ETNavBarTransparent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETNavBarTransparent.swift; sourceTree = "<group>"; };
 		BF7AF1B71FBC02D1005427D0 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		BF7AF1B91FBC0C35005427D0 /* AdjustFontViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustFontViewController.swift; sourceTree = "<group>"; };
 		BF7AF1BB1FBC2CA5005427D0 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		BF7B11171F91E473003815C1 /* UIInsetLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIInsetLabel.swift; sourceTree = "<group>"; };
 		BF7B11191F91E5A3003815C1 /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
@@ -541,8 +541,11 @@
 		BFEC91D01F9490570050B7F5 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		BFF178961FCD07F0004A5F43 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		BFFAFDE81F9F4428000EB91C /* MemberListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListViewController.swift; sourceTree = "<group>"; };
+		D804F31B218C009F00C96206 /* AppearanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceViewController.swift; sourceTree = "<group>"; };
+		D804F31D218C31CB00C96206 /* AppearanceSampleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSampleCell.swift; sourceTree = "<group>"; };
 		D84B4E62217AE71D006DF65B /* black.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = black.css; sourceTree = "<group>"; };
 		D8A78572214CDF9E00BC779E /* MemberPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPageHeaderView.swift; sourceTree = "<group>"; };
+		D8DEC78D218CCA4500A2DA74 /* AppearanceSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSliderCell.swift; sourceTree = "<group>"; };
 		DD1B79C0DDC5C38E6D41A82B /* Pods-V2EX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.release.xcconfig"; sourceTree = "<group>"; };
 		E690E8B94561079A45C2900A /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
 		EDEF560D2C703ABBF56BE30E /* Pods_V2EX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2EX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -639,6 +642,8 @@
 			isa = PBXGroup;
 			children = (
 				77C8DF6A1F92FD8F009DE52C /* MoreViewController.swift */,
+				BF7AF1B71FBC02D1005427D0 /* SettingViewController.swift */,
+				D804F31B218C009F00C96206 /* AppearanceViewController.swift */,
 				B15CB35B20F74C580012DD80 /* NotificationViewController.swift */,
 				770FFD112000B0A5000F3CA9 /* BlockListViewController.swift */,
 				77B0A7571FFB47AA003ED8F6 /* ReadHistoryViewController.swift */,
@@ -650,10 +655,8 @@
 				BF4D779D1F9D896500FAEB7C /* MarkdownPreviewViewController.swift */,
 				77FD14F31FAB51ED00F2FFF4 /* TopicFavoriteViewController.swift */,
 				BF7AF1BB1FBC2CA5005427D0 /* AboutViewController.swift */,
-				BF7AF1B71FBC02D1005427D0 /* SettingViewController.swift */,
 				77D458221FD96FE30004225B /* OCRConfigViewController.swift */,
 				BF2C54CF1FC536EA00B944FB /* AccountsViewController.swift */,
-				BF7AF1B91FBC0C35005427D0 /* AdjustFontViewController.swift */,
 				BFAB3B381FDFCAA6002D7E90 /* TabSortViewController.swift */,
 				77B161721FE6246000487F4F /* IgnoreWordsViewController.swift */,
 			);
@@ -676,6 +679,8 @@
 				77B161741FE625D500487F4F /* WordCell.swift */,
 				77B0A7591FFB4957003ED8F6 /* ReadHistoryCell.swift */,
 				770FFD152000BEAA000F3CA9 /* BlockedMemberCell.swift */,
+				D804F31D218C31CB00C96206 /* AppearanceSampleCell.swift */,
+				D8DEC78D218CCA4500A2DA74 /* AppearanceSliderCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1413,7 +1418,6 @@
 				7752AD5F2019BFFA0039DAF6 /* HUD.swift in Sources */,
 				7752AD602019BFFA0039DAF6 /* AccountService.swift in Sources */,
 				7752AD612019BFFA0039DAF6 /* TopicService.swift in Sources */,
-				7752AD622019BFFA0039DAF6 /* AdjustFontViewController.swift in Sources */,
 				7752AD632019BFFA0039DAF6 /* AppDelegate.swift in Sources */,
 				7752AD642019BFFA0039DAF6 /* UIView+Border.swift in Sources */,
 				7752AD652019BFFA0039DAF6 /* SegmentView.swift in Sources */,
@@ -1460,6 +1464,7 @@
 				778AC6B41F9AF07F0072C6E9 /* Highlightable.swift in Sources */,
 				779B17081F8FB0AF00E912E7 /* UIImageView+Extension.swift in Sources */,
 				7756CCC81F92360F00EF47B8 /* NodeCell.swift in Sources */,
+				D804F31C218C009F00C96206 /* AppearanceViewController.swift in Sources */,
 				BF8062B91FB14CB00024BB37 /* Scheduler+Rx.swift in Sources */,
 				BF1A1EBB1FB58B3900DDBF67 /* BrowserActivity.swift in Sources */,
 				7756CCCA1F923D6100EF47B8 /* NodeHeaderView.swift in Sources */,
@@ -1533,6 +1538,7 @@
 				BF7AF1B81FBC02D1005427D0 /* SettingViewController.swift in Sources */,
 				779B17021F8FA8A900E912E7 /* TopicCell.swift in Sources */,
 				BF701F201F98610900761E82 /* MarkdownInputAccessoryView.swift in Sources */,
+				D8DEC78E218CCA4500A2DA74 /* AppearanceSliderCell.swift in Sources */,
 				BFEC91CC1F94782A0050B7F5 /* UIKit+Extension.swift in Sources */,
 				77B75DAC1F94EA8F00B7312B /* MemberModel.swift in Sources */,
 				BFCB67681F8F716600D05A90 /* NodeModel.swift in Sources */,
@@ -1540,6 +1546,7 @@
 				BF02A2D31F8F42B800BEF85E /* TabBarViewController.swift in Sources */,
 				BF8062BE1FB14CB00024BB37 /* UIViewController+Rx.swift in Sources */,
 				BFCB67461F8F498900D05A90 /* HomeViewController.swift in Sources */,
+				D804F31E218C31CB00C96206 /* AppearanceSampleCell.swift in Sources */,
 				7794DA321FD2E2A500B7B299 /* FenCiCell.swift in Sources */,
 				BFCB67641F8F666100D05A90 /* API.swift in Sources */,
 				B1A31C452072127000C2DE26 /* DiscreteSliderView.swift in Sources */,
@@ -1569,7 +1576,6 @@
 				BF7B111A1F91E5A3003815C1 /* HUD.swift in Sources */,
 				77C8DF701F9305F8009DE52C /* AccountService.swift in Sources */,
 				BFCB67661F8F709F00D05A90 /* TopicService.swift in Sources */,
-				BF7AF1BA1FBC0C35005427D0 /* AdjustFontViewController.swift in Sources */,
 				BF65BDB81F8E12C80010B4C9 /* AppDelegate.swift in Sources */,
 				BF3AB5C91F976D7100043269 /* UIView+Border.swift in Sources */,
 				BF9ACB2C1FC414550073122C /* SegmentView.swift in Sources */,
@@ -1778,6 +1784,7 @@
 					"BETA=0",
 				);
 				INFOPLIST_FILE = "V2EX/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joe78.v2er;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1802,6 +1809,7 @@
 					"BETA=0",
 				);
 				INFOPLIST_FILE = "V2EX/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joe78.v2er;
 				PRODUCT_NAME = "$(TARGET_NAME)";

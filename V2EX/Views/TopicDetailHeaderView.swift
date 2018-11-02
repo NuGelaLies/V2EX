@@ -193,6 +193,7 @@ class TopicDetailHeaderView: UIView {
             .subscribeNext { [weak self] theme in
                 self?.backgroundColor = theme.cellBackgroundColor
                 self?.titleLabel.textColor = theme.titleColor
+                self?.replyLabel.backgroundColor = theme.bgColor
                 self?.usernameLabel.textColor = theme.titleColor
                 self?.nodeLabel.backgroundColor = theme == .day ? UIColor.hex(0xf5f5f5) : theme.bgColor
                 self?.timeLabel.textColor = theme.dateColor
@@ -256,9 +257,8 @@ class TopicDetailHeaderView: UIView {
             timeLabel.isHidden = topic.publicTime.isEmpty
 
             do {
-                let fileName = ThemeStyle.style.value == .day ? "day.css" : "black.css"
                 if let filePath = Bundle.main.path(forResource: "style", ofType: "css"),
-                    let themeFilePath = Bundle.main.path(forResource: fileName, ofType: "") {
+                    let themeFilePath = Bundle.main.path(forResource: ThemeStyle.style.value.cssFilename, ofType: "") {
                     var cssString = try String(contentsOfFile: filePath)
 
                     let scale = Preference.shared.webViewFontScale * 0.1 + 1.05

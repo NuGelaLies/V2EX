@@ -249,7 +249,6 @@ extension HTMLParseService {
                     }
                 }
 
-                log.info(urlString)
                 // 是图片链接
                 if ["jpg", "png", "jpeg", "jpe", "gif"].contains(urlString.pathExtension.lowercased()) {
                     var imageURL = urlString

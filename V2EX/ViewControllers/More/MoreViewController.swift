@@ -7,7 +7,7 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
 
     enum MoreItemType {
         case user
-        case createTopic, nodeCollect, myFavorites, follow, myTopic, myReply, nightMode, readHistory, blockList
+        case createTopic, nodeCollect, myFavorites, follow, myTopic, myReply, readHistory, blockList
         case about, setting
     }
     struct MoreItem {
@@ -76,7 +76,6 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
             MoreItem(icon: #imageLiteral(resourceName: "history"), title: "浏览历史", type: .readHistory, rightType: .arrow)
         ],
         [
-            MoreItem(icon: #imageLiteral(resourceName: "nightMode"), title: "夜间模式", type: .nightMode, rightType: .switch),
             MoreItem(icon: #imageLiteral(resourceName: "setting"), title: "设置", type: .setting, rightType: .arrow),
             MoreItem(icon: #imageLiteral(resourceName: "about"), title: "关于", type: .about, rightType: .arrow)
         ]
@@ -197,13 +196,6 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
             cell.imageView?.image = item.icon.withRenderingMode(.alwaysTemplate)
             cell.selectionStyle = .none
             cell.rightType = item.rightType
-
-            switch item.type {
-            case .nightMode:
-                cell.switchView.isOn = Preference.shared.nightModel
-            default:
-                break
-            }
             return cell
         }
 
@@ -258,19 +250,6 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
             viewController = SettingViewController()
         case .about:
             viewController = AboutViewController()
-        case .nightMode:
-            guard let cell = tableView.cellForRow(at: indexPath) as? BaseTableViewCell else { return }
-            cell.switchView.setOn(!cell.switchView.isOn, animated: true)
-            Preference.shared.nightModel = cell.switchView.isOn
-            
-            if #available(iOS 10.3, *) {
-                let name = cell.switchView.isOn ? "dark" : nil
-                UIApplication.shared.setAlternateIconName(name) { error in
-                    if let err = error {
-                        HUD.showTest(err)
-                    }
-                }
-            }
         }
         guard let vc = viewController else { return }
         

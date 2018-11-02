@@ -43,7 +43,7 @@ extension NavigationViewController {
 //                        NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25)
 //                    ]
 //                }
-                self?.navigationBar.barStyle = theme == .day ? .default : .black
+                self?.navigationBar.barStyle = theme.barStyle
                 self?.navigationBar.tintColor = theme.tintColor
                 self?.navigationItem.leftBarButtonItem?.tintColor = theme.tintColor
                 self?.navigationItem.rightBarButtonItem?.tintColor = theme.tintColor
@@ -83,10 +83,7 @@ extension NavigationViewController {
 extension NavigationViewController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
     
-        var disabled = false
-        if (topViewController as? BaseViewController)?.interactivePopDisabled ?? false {
-            disabled = true
-        }
+        let disabled = (topViewController as? InteractivePopProtocol)?.disabled ?? false
 
         if children.count <= 1 {
             return false
@@ -117,4 +114,9 @@ extension UINavigationController {
             return super.previewActionItems
         }
     }
+}
+
+
+protocol InteractivePopProtocol {
+    var disabled: Bool { get }
 }

@@ -5,11 +5,12 @@ class SettingViewController: BaseTableViewController {
 
     enum SettingItemType {
         case accounts
-        case browser, nightMode, fontSize, baiduOCRConfig, logout, fullScreenBack, shakeFeedback, notifications
-        case ignoreWords, recognizeClipboardLink
+        case browser, baiduOCRConfig, logout, fullScreenBack, shakeFeedback, notifications
+        case ignoreWords, recognizeClipboardLink, appearance
         case tabSort
         case floor
     }
+    
     struct SettingItem {
         var title: String
         var type: SettingItemType
@@ -27,9 +28,9 @@ class SettingViewController: BaseTableViewController {
             SettingItem(title: "摇一摇反馈", type: .shakeFeedback, rightType: .switch)
         ],
         [
+            SettingItem(title: "显示设置", type: .appearance, rightType: .arrow),
             SettingItem(title: "主题屏蔽", type: .ignoreWords, rightType: .arrow),
             SettingItem(title: "节点排序", type: .tabSort, rightType: .arrow),
-            SettingItem(title: "调节字体", type: .fontSize, rightType: .arrow),
             SettingItem(title: "@用户时带楼层号(@devjoe #1)", type: .floor, rightType: .switch),
         ],
 //        [
@@ -88,8 +89,6 @@ extension SettingViewController {
             cell.switchView.isOn = Preference.shared.useSafariBrowser
         case .fullScreenBack:
             cell.switchView.isOn = Preference.shared.enableFullScreenGesture
-        case .nightMode:
-            cell.switchView.isOn = Preference.shared.nightModel
         case .shakeFeedback:
             cell.switchView.isOn = Preference.shared.shakeFeedback
         case .floor:
@@ -112,8 +111,6 @@ extension SettingViewController {
                 let generator = UIImpactFeedbackGenerator(style: .light)
                 generator.prepare()
                 generator.impactOccurred()
-            } else {
-                // Fallback on earlier versions
             }
         }
         
@@ -124,15 +121,10 @@ extension SettingViewController {
             Preference.shared.useSafariBrowser = cell.switchView.isOn
         case .fullScreenBack:
             Preference.shared.enableFullScreenGesture = cell.switchView.isOn
-        case .nightMode:
-            Preference.shared.nightModel = cell.switchView.isOn
         case .shakeFeedback:
             Preference.shared.shakeFeedback = cell.switchView.isOn
         case .recognizeClipboardLink:
             Preference.shared.recognizeClipboardLink = cell.switchView.isOn
-        case .fontSize:
-            let adjustFontVC = AdjustFontViewController()
-            navigationController?.pushViewController(adjustFontVC, animated: true)
         case .tabSort:
             let sortVC = TabSortViewController()
             navigationController?.pushViewController(sortVC, animated: true)
@@ -145,6 +137,10 @@ extension SettingViewController {
         case .ignoreWords:
             let iwVC = IgnoreWordsViewController()
             navigationController?.pushViewController(iwVC, animated: true)
+        case .appearance:
+            let appearanceVC = AppearanceViewController()
+            appearanceVC.title = item.title
+            navigationController?.pushViewController(appearanceVC, animated: true)
         case .notifications:
             guard AccountModel.isLogin else {
                 HUD.showError("该功能需要先登录")
