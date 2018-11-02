@@ -36,7 +36,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
         setupSegmentView()
         fetchData()
         
-        guard Preference.shared.autoSwitchTheme else { return }
+        guard Preference.shared.autoSwitchTheme, ThemeStyle.style.value != .day else { return }
         Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : Preference.shared.nightTheme
     }
 
@@ -211,7 +211,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
             .notification(UIScreen.brightnessDidChangeNotification)
             .throttle(0.2, scheduler: MainScheduler.instance)
             .subscribeNext { noti in
-                guard Preference.shared.autoSwitchTheme else { return }
+                guard Preference.shared.autoSwitchTheme, ThemeStyle.style.value != .day else { return }
                 Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : Preference.shared.nightTheme
         }.disposed(by: rx.disposeBag)
     }
