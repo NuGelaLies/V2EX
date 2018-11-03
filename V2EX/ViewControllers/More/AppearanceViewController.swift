@@ -3,6 +3,7 @@ import UIKit
 class AppearanceViewController: BaseTableViewController {
 
     private enum Section {
+        case icons
         case sample
         case adjustFont
         case theme([Theme])
@@ -10,8 +11,10 @@ class AppearanceViewController: BaseTableViewController {
         
         var title: String? {
             switch self {
+            case .icons:
+                return "图标"
             case .sample:
-                return "效果预览"
+                return "预览"
             case .adjustFont:
                 return "字体大小"
             case .theme:
@@ -22,12 +25,7 @@ class AppearanceViewController: BaseTableViewController {
         }
     }
     
-    private let sections: [Section] = [
-        .sample,
-        .adjustFont,
-        .theme(Theme.allCases),
-        .autoSwitchTheme("屏幕变暗时自动开启夜间模式")
-    ]
+    private let sections: [Section]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +33,7 @@ class AppearanceViewController: BaseTableViewController {
         tableView.register(cellWithClass: BaseTableViewCell.self)
         tableView.register(cellWithClass: AppearanceSampleCell.self)
         tableView.register(cellWithClass: AppearanceSliderCell.self)
+        tableView.register(nib: UINib(nibName: "AppearanceIconsCell", bundle: nil), withCellClass: AppearanceIconsCell.self)
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
@@ -49,6 +48,18 @@ class AppearanceViewController: BaseTableViewController {
     }
     
     init() {
+        
+        var sections: [Section]  = [
+            .sample,
+            .adjustFont,
+            .theme(Theme.allCases),
+            .autoSwitchTheme("屏幕变暗时自动开启夜间模式")
+        ]
+        if #available(iOS 10.3, *) {
+            sections.insert(.icons, at: 0)
+        }
+        self.sections = sections
+        
         super.init(style: .grouped)
     }
     
@@ -57,7 +68,9 @@ class AppearanceViewController: BaseTableViewController {
     }
 }
 
+
 extension AppearanceViewController {
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -74,6 +87,9 @@ extension AppearanceViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = sections[indexPath.section]
         switch section {
+        case .icons:
+            let cell = tableView.dequeueReusableCell(withClass: AppearanceIconsCell.self)!
+            return cell
         case .sample:
             let cell = tableView.dequeueReusableCell(withClass: AppearanceSampleCell.self)!
             return cell
@@ -117,15 +133,6 @@ extension AppearanceViewController {
             Preference.shared.theme = theme
 
             cell.accessoryType = .checkmark
-//            if #available(iOS 10.3, *) {
-//                guard let cell = tableView.cellForRow(at: indexPath) as? BaseTableViewCell else { return }
-//                let name = cell.switchView.isOn ? "dark" : nil
-//                UIApplication.shared.setAlternateIconName(name) { error in
-//                    if let err = error {
-//                        HUD.showTest(err)
-//                    }
-//                }
-//            }
 
         case .autoSwitchTheme:
             if #available(iOS 10.0, *) {
@@ -140,13 +147,13 @@ extension AppearanceViewController {
                     Preference.shared.nightTheme = .night
                     cell.switchView.setOn(true, animated: true)
                     Preference.shared.autoSwitchTheme = true
-                    Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : Preference.shared.nightTheme
+                    Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : .night
                 }))
                 alertC.addAction(UIAlertAction(title: Theme.black.description, style: .default, handler: { action in
                     Preference.shared.nightTheme = .black
                     cell.switchView.setOn(true, animated: true)
                     Preference.shared.autoSwitchTheme = true
-                    Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : Preference.shared.nightTheme
+                    Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : .black
                 }))
                 alertC.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                 present(alertC, animated: true, completion: nil)
@@ -161,4 +168,5 @@ extension AppearanceViewController {
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.accessoryType = .none
-    }}
+    }
+}

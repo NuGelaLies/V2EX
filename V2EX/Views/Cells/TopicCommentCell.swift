@@ -126,9 +126,9 @@ class TopicCommentCell: BaseTableViewCell {
             avatarView.setImage(urlString: comment.member.avatarSrc, placeholder: #imageLiteral(resourceName: "avatarRect"))
             usernameLaebl.text = comment.member.username
             floorLabel.text = comment.floor + " 楼"
-            timeLabel.text =  comment.publicTime
+            timeLabel.text = comment.publicTime
             
-            if let textLayout = contentLabel.textLayout {
+            if let textLayout = comment.textLayout {
                 let mutableAttr = NSMutableAttributedString(attributedString: textLayout.text)
                 mutableAttr.removeAttribute(.foregroundColor, range: mutableAttr.yy_rangeOfAll())
                 mutableAttr.addAttribute(.foregroundColor, value: ThemeStyle.style.value.titleColor, range: mutableAttr.yy_rangeOfAll())

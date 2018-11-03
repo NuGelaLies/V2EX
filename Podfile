@@ -37,6 +37,7 @@ target 'V2EX' do
     # Misc
     pod 'IQKeyboardManagerSwift'
     pod 'PasswordExtension'
+    pod 'DeviceKit'
 
     # Bug
     pod 'Fabric'

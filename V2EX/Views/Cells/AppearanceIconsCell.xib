@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="AppearanceIconsCell.xib" selectionStyle="none" indentationWidth="10" rowHeight="59" id="KGk-i7-Jjw" customClass="AppearanceIconsCell" customModule="V2EX" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="427" height="102"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="427" height="101.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="nyl-kY-nKY">
+                        <rect key="frame" x="20" y="10" width="220" height="81.5"/>
+                        <subviews>
+                            <button opaque="NO" tag="1" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOO-0v-F2u">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="81.5"/>
+                                <state key="normal" image="logo"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="setCornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tapAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ua8-BW-MWc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FSl-7P-aCs">
+                                <rect key="frame" x="80" y="0.0" width="60" height="81.5"/>
+                                <state key="normal" image="Cyan-iPhone App-60.png"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="setCornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tapAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NdO-Zp-Boz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="3" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yrz-kB-TJg">
+                                <rect key="frame" x="160" y="0.0" width="60" height="81.5"/>
+                                <state key="normal" image="iPhone App-60.png"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="setCornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tapAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="uXD-ZX-H1G"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Yrz-kB-TJg" firstAttribute="height" secondItem="FSl-7P-aCs" secondAttribute="height" id="BNS-tL-p2c"/>
+                            <constraint firstAttribute="bottom" secondItem="GOO-0v-F2u" secondAttribute="bottom" id="BQM-f9-VKb"/>
+                            <constraint firstItem="Yrz-kB-TJg" firstAttribute="width" secondItem="FSl-7P-aCs" secondAttribute="width" id="Glo-cE-EMG"/>
+                            <constraint firstItem="FSl-7P-aCs" firstAttribute="width" secondItem="GOO-0v-F2u" secondAttribute="width" id="Sxj-jV-0rg"/>
+                            <constraint firstItem="GOO-0v-F2u" firstAttribute="top" secondItem="nyl-kY-nKY" secondAttribute="top" id="hWd-RV-7eo"/>
+                            <constraint firstItem="FSl-7P-aCs" firstAttribute="height" secondItem="GOO-0v-F2u" secondAttribute="height" id="mFZ-CS-dK9"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="nyl-kY-nKY" secondAttribute="bottom" priority="999" constant="10" id="8QI-l7-iui"/>
+                    <constraint firstItem="nyl-kY-nKY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="KLq-cH-ENx"/>
+                    <constraint firstItem="nyl-kY-nKY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="V09-Gp-Tbc"/>
+                    <constraint firstItem="nyl-kY-nKY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="b1j-lS-87e"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="-44" y="136.73163418290855"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Cyan-iPhone App-60.png" width="60" height="60"/>
+        <image name="iPhone App-60.png" width="60" height="60"/>
+        <image name="logo" width="60" height="60"/>
+    </resources>
+</document>

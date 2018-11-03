@@ -35,9 +35,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
         
         setupSegmentView()
         fetchData()
-        
-        guard Preference.shared.autoSwitchTheme, ThemeStyle.style.value != .day else { return }
-        Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : Preference.shared.nightTheme
+        switchTheme()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -210,9 +208,8 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
         NotificationCenter.default.rx
             .notification(UIScreen.brightnessDidChangeNotification)
             .throttle(0.2, scheduler: MainScheduler.instance)
-            .subscribeNext { noti in
-                guard Preference.shared.autoSwitchTheme, ThemeStyle.style.value != .day else { return }
-                Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : Preference.shared.nightTheme
+            .subscribeNext { [weak self] _ in
+                self?.switchTheme()
         }.disposed(by: rx.disposeBag)
     }
 
@@ -221,6 +218,16 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
 // MARK: - Actions
 extension HomeViewController {
 
+    private func switchTheme() {
+        guard Preference.shared.autoSwitchTheme else { return }
+        
+        if UIScreen.main.brightness >= 0.25 {
+            Preference.shared.theme = .day
+        } else if ThemeStyle.style.value == .day {
+            Preference.shared.theme = Preference.shared.nightTheme
+        }
+    }
+    
     /// 获取所有节点
     private func fetchData() {
 

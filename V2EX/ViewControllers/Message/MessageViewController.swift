@@ -20,7 +20,7 @@ class MessageViewController: DataViewController, AccountService {
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .gray)
-        activityIndicator.style = UIDevice.isiPad ? .whiteLarge : .white
+        activityIndicator.style = UIDevice.current.isPad ? .whiteLarge : .white
         activityIndicator.color = .gray
         return activityIndicator
     }()

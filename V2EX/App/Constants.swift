@@ -91,8 +91,8 @@ struct Constants {
         static let tabbarHeight: CGFloat = 49
 
         // 兼容分屏模式， UIScreen.main.bounds 取的是屏幕高度， 此时拿 Windows.bounds
-        static let screenWidth: CGFloat = UIDevice.isiPad ? AppWindow.shared.window.width : UIScreen.main.bounds.width
-        static let screenHeight: CGFloat = UIDevice.isiPad ? AppWindow.shared.window.height : UIScreen.main.bounds.height
+        static let screenWidth: CGFloat = UIDevice.current.isPad ? AppWindow.shared.window.width : UIScreen.main.bounds.width
+        static let screenHeight: CGFloat = UIDevice.current.isPad ? AppWindow.shared.window.height : UIScreen.main.bounds.height
     }
     
     struct BaiduOCR {

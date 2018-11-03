@@ -32,13 +32,19 @@ class BaseTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         //        separatorInset = .zero
         //        textLabel?.textColor = Theme.Color.shallowBlack
-        initialize()
-        setupConstraints()
-        setupTheme()
+        setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        
+        setup()
+    }
+    
+    private func setup() {
+        initialize()
+        setupConstraints()
+        setupTheme()
     }
 
     func initialize() {

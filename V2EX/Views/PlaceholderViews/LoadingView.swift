@@ -8,7 +8,7 @@ class LoadingView: BasePlaceholderView, StatefulPlaceholderView {
             .hand.adhere(toSuperView: self)
             .hand.config { activityIndicator in
                 activityIndicator.startAnimating()
-                activityIndicator.style = UIDevice.isiPad ? .whiteLarge : .white
+                activityIndicator.style = UIDevice.current.isPad ? .whiteLarge : .white
                 activityIndicator.color = .gray
             }.hand.layout { maker in
                 maker.center.equalToSuperview()

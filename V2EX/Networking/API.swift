@@ -347,7 +347,7 @@ extension API: TargetType {
         case .loginReward:
             headers["Referer"] = baseURL + "/mission/daily"
         case .comment:
-            if UIDevice.isiPad {
+            if UIDevice.current.isPad {
                 headers["User-Agent"] = UserAgentType.pad.description
             }
         case .blockList, .atomFeed:

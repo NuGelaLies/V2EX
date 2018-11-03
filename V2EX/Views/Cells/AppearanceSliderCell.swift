@@ -17,7 +17,7 @@ class AppearanceSliderCell: BaseTableViewCell {
         
         // Font slider size
         let slider = DiscreteSliderView(frame: CGRect(x: 60, y: 0, width: Constants.Metric.screenWidth - 120, height: 60))
-        slider.tickStyle = ComponentStyle.rounded
+        slider.tickStyle = .rounded
         slider.tickCount = 7
         slider.tickSize = CGSize(width: 8, height: 8)
         slider.minimumValue = 1.0
