@@ -96,7 +96,7 @@ extension AppearanceViewController {
         case .adjustFont:
             let cell = tableView.dequeueReusableCell(withClass: AppearanceSliderCell.self)!
             cell.fontSizeDidChangeCallback = { _ in
-                (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AppearanceSampleCell)?.adjustFont()
+                (tableView.cellForRow(at: IndexPath(row: 0, section: indexPath.section - 1)) as? AppearanceSampleCell)?.adjustFont()
                 tableView.reloadData()
             }
             return cell
