@@ -722,7 +722,13 @@ extension TopicDetailViewController {
             if let cell = tableView.cellForRow(at: forewordIndexPath),
                 (tableView.visibleCells.contains(cell) && (cell.y - tableView.contentOffset.y > 10 || cell.y - tableView.contentOffset.y > cell.height)) {
             } else {
+                let currentContentOffset = tableView.contentOffset
+
                 tableView.scrollToRow(at: forewordIndexPath, at: .top, animated: true)
+                
+                HUD.showBackBrowseLocationView("返回") { [weak self] in
+                    self?.tableView.setContentOffset(currentContentOffset, animated: true)
+                }
             }
             
             GCD.delay(0.6, block: {
