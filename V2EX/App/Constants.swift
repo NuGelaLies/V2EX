@@ -76,6 +76,10 @@ struct Constants {
         
         static let isBackgroundEnable = "isBackgroundEnable"
         
+        static let readMark = "readMark"
+        
+        static let newReadReset = "newReadReset"
+        
         // 屏蔽关键字
         static let ignoreWords = "ignoreWords"
 

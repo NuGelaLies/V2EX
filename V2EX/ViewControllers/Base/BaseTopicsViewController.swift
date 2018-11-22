@@ -221,14 +221,14 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
     }
     
     private func makeAsRead(indexPath: IndexPath) {
-        let topic = topics[indexPath.row]
-        guard let topicID = topic.topicID?.int else { return }
+//        let topic = topics[indexPath.row]
+//        guard let topicID = topic.topicID?.int else { return }
         
         topics[indexPath.row].readStatus = .read
         self.tableView.reloadRows(at: [indexPath], with: .none)
-        guard let member = topic.member else { return }
+//        guard let member = topic.member else { return }
 //        GCD.runOnBackgroundThread {
-            SQLiteDatabase.instance?.addHistory(tid: topicID, title: topic.title, username: member.username, avatarURL: member.avatarSrc, replyCount: topic.replyCount.int)
+//            SQLiteDatabase.instance?.addHistory(tid: topicID, title: topic.title, username: member.username, avatarURL: member.avatarSrc, replyCount: topic.replyCount.int)
 //        }
     }
 }
@@ -269,6 +269,7 @@ extension BaseTopicsViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
         let topicDetailVC = TopicDetailViewController(topicID: topicId)
+        topicDetailVC.replyCount = topic.replyCount.int
         self.navigationController?.pushViewController(topicDetailVC, animated: true)
         makeAsRead(indexPath: indexPath)
     }

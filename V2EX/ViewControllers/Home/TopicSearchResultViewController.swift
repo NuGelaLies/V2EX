@@ -315,10 +315,10 @@ extension TopicSearchResultViewController: UITableViewDelegate, UITableViewDataS
 //        presentingViewController?.navigationController?.pushViewController(topicDetailVC, animated: true)
         navigationController?.pushViewController(topicDetailVC, animated: true)
         
-        guard let topidID = id.int,
-            let title = item.topic?.title,
-            let memberName = item.topic?.member else { return }
-        SQLiteDatabase.instance?.addHistory(tid: topidID, title: title, username: memberName, avatarURL: "", replyCount: item.topic?.replies)
+//        guard let topidID = id.int,
+//            let title = item.topic?.title,
+//            let memberName = item.topic?.member else { return }
+//        SQLiteDatabase.instance?.addHistory(tid: topidID, title: title, username: memberName, avatarURL: "", replyCount: item.topic?.replies)
     }
 }
 

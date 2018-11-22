@@ -105,8 +105,11 @@ extension HTMLParseService {
 
             return TopicModel(member: member, node: node, title: topicTitle, href: topicHref, lastReplyTime: lastReplyAndTime, replyCount: replyCount)
         })
-        return SQLiteDatabase.instance?.setReadHistory(topics: topics) ?? topics
-//        return topics
+        if Preference.shared.isEnableReadMark {
+            return SQLiteDatabase.instance?.setReadHistory(topics: topics) ?? topics
+        }
+        
+        return topics
     }
     
     /// 解析节点导航

@@ -117,5 +117,25 @@ class Preference {
             return (UserDefaults.get(forKey: Constants.Keys.isBackgroundEnable) as? Bool) ?? false
         }
     }
+    
+    /// 已读标记， 默认 true
+    var isEnableReadMark: Bool {
+        set {
+            UserDefaults.save(at: newValue, forKey: Constants.Keys.readMark)
+        }
+        get {
+            return (UserDefaults.get(forKey: Constants.Keys.readMark) as? Bool) ?? true
+        }
+    }
+    
+    /// 新回复时恢复未读状态， 默认 false
+    var isEnableNewReadReset: Bool {
+        set {
+            UserDefaults.save(at: newValue, forKey: Constants.Keys.newReadReset)
+        }
+        get {
+            return (UserDefaults.get(forKey: Constants.Keys.newReadReset) as? Bool) ?? false
+        }
+    }
 }
 

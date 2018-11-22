@@ -86,8 +86,7 @@ class TopicCell: BaseTableViewCell {
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 guard let `self` = self else { return }
-                let titleColor = theme.titleColor
-                self.titleLabel.textColor = (self.topic?.readStatus == .read) ? titleColor.withAlphaComponent(0.4) : titleColor
+                self.titleLabel.textColor = self.getTitleColor
                 self.nodeLabel.backgroundColor = theme == .day ? UIColor.hex(0xf5f5f5) : theme.bgColor
                 self.usernameLabel.textColor = theme.titleColor
                 self.lastReplyLabel.textColor = theme.dateColor
@@ -140,12 +139,27 @@ class TopicCell: BaseTableViewCell {
             replayCountLabel.setTitle(" " + topic.replyCount, for: .normal)
             nodeLabel.text = topic.node?.title
             nodeLabel.isHidden = nodeLabel.text?.isEmpty ?? true
-            
-            let titleColor = ThemeStyle.style.value.titleColor
-            titleLabel.textColor = topic.readStatus == .read ? titleColor.withAlphaComponent(0.4) : titleColor
+
+            titleLabel.textColor = getTitleColor
         }
     }
 
+    private var getTitleColor: UIColor {
+        let unreadColor = ThemeStyle.style.value.titleColor
+        let readColor = unreadColor.withAlphaComponent(0.4)
+        if Preference.shared.isEnableReadMark {
+            switch topic?.readStatus ?? .unread {
+            case .read:
+                return readColor
+            case .unread:
+                return unreadColor
+            case .newReply:
+                return Preference.shared.isEnableNewReadReset ? unreadColor : readColor
+            }
+        }
+        return unreadColor
+    }
+    
 //    override var frame: CGRect {
 //        didSet {
 //            var newFrame = frame

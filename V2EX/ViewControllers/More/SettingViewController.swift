@@ -8,7 +8,7 @@ class SettingViewController: BaseTableViewController {
         case browser, baiduOCRConfig, logout, fullScreenBack, shakeFeedback, notifications
         case ignoreWords, recognizeClipboardLink, appearance
         case tabSort
-        case floor
+        case floor, readMark, newReplyReset
     }
     
     struct SettingItem {
@@ -32,6 +32,7 @@ class SettingViewController: BaseTableViewController {
             SettingItem(title: "主题屏蔽", type: .ignoreWords, rightType: .arrow),
             SettingItem(title: "节点排序", type: .tabSort, rightType: .arrow),
             SettingItem(title: "@用户时带楼层号(@devjoe #1)", type: .floor, rightType: .switch),
+            SettingItem(title: "已读状态标记", type: .readMark, rightType: .switch),
         ],
 //        [
 //            SettingItem(title: "OCR 配置", type: .baiduOCRConfig, rightType: .arrow),
@@ -41,6 +42,8 @@ class SettingViewController: BaseTableViewController {
             SettingItem(title: "退出账号", type: .logout, rightType: .none)
         ]
     ]
+    
+    private let newReadReset: SettingItem = SettingItem(title: "当有新回复时，恢复未读状态", type: .newReplyReset, rightType: .switch)
 
     // MARK: - View Life Cycle
 
@@ -54,6 +57,10 @@ class SettingViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if Preference.shared.isEnableReadMark {
+            sections[1].append(newReadReset)
+        }
 
         tableView.register(cellWithClass: BaseTableViewCell.self)
 
@@ -95,6 +102,10 @@ extension SettingViewController {
             cell.switchView.isOn = Preference.shared.atMemberAddFloor
         case .recognizeClipboardLink:
             cell.switchView.isOn = Preference.shared.recognizeClipboardLink
+        case .readMark:
+            cell.switchView.isOn = Preference.shared.isEnableReadMark
+        case .newReplyReset:
+            cell.switchView.isOn = Preference.shared.isEnableNewReadReset
         default:
             break
         }
@@ -125,6 +136,16 @@ extension SettingViewController {
             Preference.shared.shakeFeedback = cell.switchView.isOn
         case .recognizeClipboardLink:
             Preference.shared.recognizeClipboardLink = cell.switchView.isOn
+        case .readMark:
+            Preference.shared.isEnableReadMark = cell.switchView.isOn
+            if cell.switchView.isOn {
+                sections[1].append(newReadReset)
+            } else {
+                sections[1].removeLast()
+            }
+            self.tableView.reloadData()
+        case .newReplyReset:
+            Preference.shared.isEnableNewReadReset = cell.switchView.isOn
         case .tabSort:
             let sortVC = TabSortViewController()
             navigationController?.pushViewController(sortVC, animated: true)

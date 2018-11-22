@@ -73,6 +73,8 @@ class TopicDetailViewController: DataViewController, TopicService {
     }
 
     public var anchor: Int?
+    public var replyCount: Int?
+    
     private var isShowBackLastBrowseView: Bool = false
     
     private var selectComment: CommentModel? {
@@ -124,6 +126,14 @@ class TopicDetailViewController: DataViewController, TopicService {
     deinit {
         setStatusBarBackground(.clear)
         userActivity?.invalidate()
+        
+        guard let topic = self.topic else { return }
+        let offsetY = Int(self.tableView.contentOffset.y)
+        //        SQLiteDatabase.instance?.setAnchor(topicID: topicID, anchor: y)
+        
+        if let topicID = topicID.int, let username = topic.member?.username, let avatarSrc = topic.member?.avatarSrc {
+            SQLiteDatabase.instance?.addHistory(tid: topicID, title: topic.title, username: username, avatarURL: avatarSrc, offsetY: offsetY, replyCount: replyCount)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -143,12 +153,10 @@ class TopicDetailViewController: DataViewController, TopicService {
         isShowToolBarVariable.value = false
         setStatusBarBackground(.clear)
         
-        guard let topicID = topicID.int
-//            ,let anchor = tableView.indexPathsForVisibleRows?.first?.row
-            else { return }
-//        SQLiteDatabase.instance?.setAnchor(topicID: topicID, anchor: anchor)
-        let y = Int(self.tableView.contentOffset.y)
-        SQLiteDatabase.instance?.setAnchor(topicID: topicID, anchor: y)
+//        guard let topicID = topicID.int else { return }
+//        let y = Int(self.tableView.contentOffset.y)
+//        SQLiteDatabase.instance?.setAnchor(topicID: topicID, anchor: y)
+        
     }
 
     override func viewDidDisappear(_ animated: Bool) {

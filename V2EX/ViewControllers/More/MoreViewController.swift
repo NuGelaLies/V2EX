@@ -207,11 +207,10 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        #warning("测试用，需要打开")
-//        if indexPath.section == 0 || indexPath.section == 1,  !AccountModel.isLogin {
-//            presentLoginVC()
-//            return
-//        }
+        if indexPath.section == 0 || indexPath.section == 1,  !AccountModel.isLogin {
+            presentLoginVC()
+            return
+        }
 
         let item = sections[indexPath.section][indexPath.row]
 

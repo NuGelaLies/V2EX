@@ -152,7 +152,7 @@ public class SQLiteDatabase {
         username TEXT NOT NULL,
         avatarURL TEXT NOT NULL,
         created DATETIME NOT NULL,
-        anchor INTEGER NOT NULL,
+        anchor INTEGER,
         replyCount INTEGER)
         """
         try excute(sql: tbHistorySql)
@@ -172,7 +172,7 @@ public class SQLiteDatabase {
         username TEXT NOT NULL,
         avatarURL TEXT NOT NULL,
         created DATETIME NOT NULL,
-        anchor INTEGER NOT NULL,
+        anchor INTEGER,
         replyCount INTEGER)
         """
         do {
@@ -206,7 +206,7 @@ public class SQLiteDatabase {
     // MARK: - 浏览历史相关
     
     // 新增 or 更新 浏览历史
-    func addHistory(tid: Int, title: String, username: String, avatarURL: String, replyCount: Int? = nil) {
+    func addHistory(tid: Int, title: String, username: String, avatarURL: String, offsetY: Int? = nil, replyCount: Int? = nil) {
         let sql = """
         REPLACE INTO \(TABLE_READ_HISTORY)(tid,title,username,avatarURL,created,anchor,replyCount) VALUES (?,?,?,?,CURRENT_TIMESTAMP,?,?)
         """
@@ -222,7 +222,7 @@ public class SQLiteDatabase {
             sqlite3_bind_text(statement, 2, NSString(string: title).utf8String, -1, nil) == SQLITE_OK &&
             sqlite3_bind_text(statement, 3, NSString(string: username).utf8String, -1, nil) == SQLITE_OK &&
             sqlite3_bind_text(statement, 4, NSString(string: avatarURL).utf8String, -1, nil) == SQLITE_OK &&
-            sqlite3_bind_int(statement, 5, Int32(getAnchor(topicID: tid) ?? -1)) == SQLITE_OK &&
+            sqlite3_bind_int(statement, 5, Int32(offsetY ?? -1)) == SQLITE_OK &&
             sqlite3_bind_int(statement, 6, Int32(replyCount ?? 0)) == SQLITE_OK else {
             log.error(errorMessage)
             return
@@ -307,8 +307,8 @@ public class SQLiteDatabase {
                 continue
             }
             
-            log.info("replyCount = ", Int(sqlite3_column_int(statement, 6)))
-            topics[offset].readStatus = .read
+            let replyCount = Int(sqlite3_column_int(statement, 6))
+            topics[offset].readStatus = (topic.replyCount.int ?? 0) > replyCount ? .newReply : .read
         }
         return topics
     }
