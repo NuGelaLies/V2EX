@@ -55,7 +55,7 @@ class AppearanceViewController: BaseTableViewController {
             .theme(Theme.allCases),
             .autoSwitchTheme("屏幕变暗时自动开启夜间模式")
         ]
-        if #available(iOS 10.3, *) {
+        if #available(iOS 10.3, *), UIApplication.shared.supportsAlternateIcons {
             sections.insert(.icons, at: 0)
         }
         self.sections = sections

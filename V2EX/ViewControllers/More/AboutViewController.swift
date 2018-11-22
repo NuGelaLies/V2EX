@@ -20,7 +20,7 @@ class AboutViewController: BaseTableViewController {
     }()
 
     private lazy var logoView: UIImageView = {
-        let view = UIImageView(image: #imageLiteral(resourceName: "logo"))
+        let view = UIImageView(image: UIImage(named: "AppIcon60x60"))
         view.setCornerRadius = 10
         return view
     }()

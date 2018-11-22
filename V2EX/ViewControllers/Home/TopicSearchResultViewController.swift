@@ -86,6 +86,7 @@ class TopicSearchResultViewController: DataViewController, TopicService {
 
     private var sortType: SearchSortType = .sumup
 
+    public var autoDisplayKeyboard: Bool = true
 
     // MARK: - View Life Cycle
     
@@ -104,7 +105,10 @@ class TopicSearchResultViewController: DataViewController, TopicService {
         status = .noSearchResult
         
         definesPresentationContext = true
-        searchTextField.becomeFirstResponder()
+        
+        if autoDisplayKeyboard {
+            searchTextField.becomeFirstResponder()            
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -267,6 +271,8 @@ extension TopicSearchResultViewController {
     /// - Parameter query: 关键字
     public func search(query: String?) {
         guard let `query` = query?.trimmed, query.isNotEmpty else { return }
+        
+        searchTextField.resignFirstResponder()
         
         if query.hasPrefix("https://www.v2ex.com/t/") {
             let topicID = query.lastPathComponent

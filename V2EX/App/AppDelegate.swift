@@ -47,6 +47,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         SQLiteDatabase.close()
     }
+    
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+
+        guard url.scheme == "v2er" else { return true }
+        
+        let fragmemts = url.fragmemts
+        if url.host?.lowercased() == "topic",
+            let id = fragmemts["id"]?.trimmed,
+            id.count.boolValue {
+            
+            let topicDetailVC = TopicDetailViewController(topicID: id)
+            topicDetailVC.anchor = fragmemts["anchor"]?.int
+            ((AppWindow.shared.window.rootViewController as? TabBarViewController)?.selectedViewController as? NavigationViewController)?.pushViewController(topicDetailVC, animated: true)
+            
+        } else if url.host?.lowercased() == "search",
+            let query = fragmemts["query"]?.trimmed {
+            
+            let resultVC = TopicSearchResultViewController()
+            resultVC.autoDisplayKeyboard = false
+            let nav = NavigationViewController(rootViewController: resultVC)
+            nav.modalTransitionStyle = .crossDissolve
+            resultVC.search(query: query)
+            (AppWindow.shared.window.rootViewController as? TabBarViewController)?.selectedViewController?.present(nav, animated: true, completion: nil)
+        }
+
+        return true
+    }
+    
 }
 
 // MARK: - Remote Notification

@@ -10,16 +10,19 @@ class AppearanceIconsCell: BaseTableViewCell {
             
             switch btn.tag {
             case 2:
-                iconName = "cyan"
+                iconName = "Cyan"
             case 3:
-                iconName = "dark"
+                iconName = "Dark"
             default:
                 break
             }
             
+            guard UIApplication.shared.supportsAlternateIcons else {
+                return
+            }
             UIApplication.shared.setAlternateIconName(iconName) { error in
                 if let err = error {
-                    HUD.showTest(err)
+                    HUD.showError("操作失败， \(err.localizedDescription)")
                 }
             }
         }

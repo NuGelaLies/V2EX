@@ -382,7 +382,7 @@ extension CreateTopicViewController {
     private func uploadPictureHandle(_ fileURL: String) {
         HUD.show()
         uploadPicture(localURL: fileURL, success: { [weak self] url in
-            self?.bodyTextView.insertText("![V2er](\(url))")
+            self?.bodyTextView.insertText("![V2erForiOS](\(url))")
             self?.bodyTextView.becomeFirstResponder()
             HUD.dismiss()
         }) { error in

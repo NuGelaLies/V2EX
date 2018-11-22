@@ -20,11 +20,11 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="nyl-kY-nKY">
-                        <rect key="frame" x="20" y="10" width="220" height="81.5"/>
+                        <rect key="frame" x="20" y="10" width="88" height="81.5"/>
                         <subviews>
                             <button opaque="NO" tag="1" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOO-0v-F2u">
-                                <rect key="frame" x="0.0" y="0.0" width="60" height="81.5"/>
-                                <state key="normal" image="logo"/>
+                                <rect key="frame" x="0.0" y="0.0" width="16" height="81.5"/>
+                                <state key="normal" image="AppIcon60x60"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="setCornerRadius">
                                         <real key="value" value="10"/>
@@ -35,8 +35,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="2" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FSl-7P-aCs">
-                                <rect key="frame" x="80" y="0.0" width="60" height="81.5"/>
-                                <state key="normal" image="Cyan-iPhone App-60.png"/>
+                                <rect key="frame" x="36" y="0.0" width="16" height="81.5"/>
+                                <state key="normal" image="Cyan60x60"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="setCornerRadius">
                                         <real key="value" value="10"/>
@@ -47,8 +47,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="3" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yrz-kB-TJg">
-                                <rect key="frame" x="160" y="0.0" width="60" height="81.5"/>
-                                <state key="normal" image="iPhone App-60.png"/>
+                                <rect key="frame" x="72" y="0.0" width="16" height="81.5"/>
+                                <state key="normal" image="Dark60x60"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="setCornerRadius">
                                         <real key="value" value="10"/>
@@ -82,8 +82,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Cyan-iPhone App-60.png" width="60" height="60"/>
-        <image name="iPhone App-60.png" width="60" height="60"/>
-        <image name="logo" width="60" height="60"/>
+        <image name="AppIcon60x60" width="16" height="16"/>
+        <image name="Cyan60x60" width="16" height="16"/>
+        <image name="Dark60x60" width="16" height="16"/>
     </resources>
 </document>
