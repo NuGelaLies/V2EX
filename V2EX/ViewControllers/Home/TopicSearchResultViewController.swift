@@ -107,7 +107,7 @@ class TopicSearchResultViewController: DataViewController, TopicService {
         definesPresentationContext = true
         
         if autoDisplayKeyboard {
-            searchTextField.becomeFirstResponder()            
+            searchTextField.becomeFirstResponder()
         }
     }
 
@@ -318,7 +318,7 @@ extension TopicSearchResultViewController: UITableViewDelegate, UITableViewDataS
         guard let topidID = id.int,
             let title = item.topic?.title,
             let memberName = item.topic?.member else { return }
-        SQLiteDatabase.instance?.addHistory(tid: topidID, title: title, username: memberName, avatarURL: "")
+        SQLiteDatabase.instance?.addHistory(tid: topidID, title: title, username: memberName, avatarURL: "", replyCount: item.topic?.replies)
     }
 }
 

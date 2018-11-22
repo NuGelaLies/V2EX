@@ -84,6 +84,8 @@ extension ReadHistoryViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: ReadHistoryCell.self)!
         cell.topic = readHistorys[indexPath.row]
+        
+        log.info(cell.topic?.replyCount)
         return cell
     }
     
@@ -101,7 +103,7 @@ extension ReadHistoryViewController: UITableViewDelegate, UITableViewDataSource 
         
         guard let topicID = topicId.int, let member = topic.member else { return }
         GCD.runOnBackgroundThread {
-            SQLiteDatabase.instance?.addHistory(tid: topicID, title: topic.title, username: member.username, avatarURL: member.avatarSrc)
+            SQLiteDatabase.instance?.addHistory(tid: topicID, title: topic.title, username: member.username, avatarURL: member.avatarSrc, replyCount: topic.replyCount.int)
         }
     }
 }

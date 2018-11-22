@@ -12,8 +12,8 @@ public enum SQLiteError: Error {
 public class SQLiteDatabase {
     private let TABLE_READ_HISTORY = "readHistory"
 
-    fileprivate static var db: SQLiteDatabase?
-    fileprivate let dbPointer: OpaquePointer?
+    private static var db: SQLiteDatabase?
+    private let dbPointer: OpaquePointer?
 
     fileprivate init(dbPointer: OpaquePointer?) {
         self.dbPointer = dbPointer
@@ -25,34 +25,44 @@ public class SQLiteDatabase {
     }
 
     public static func initDatabase() {
-        // history check
 //        DispatchQueue.global(qos: .background).async {
-            log.verbose("====================")
-            log.verbose("init database")
-            do {
+        
+        log.verbose("====================")
+        log.verbose("init database")
+        
+        do {
+            // 不存在数据库
+            if !FileManager.default.fileExists(atPath: Constants.Keys.dbFile) {
                 try SQLiteDatabase.instance?.createTables()
-                try SQLiteDatabase.instance?.clearOldHistory(max: 2000) //最多存2000条
-            } catch {
-                log.error(error)
+            } else {
+                if let version = SQLiteDatabase.instance?.userVersion(), version == 0 {
+                    do {
+                        try SQLiteDatabase.instance?.migrateDB()
+                    } catch {
+                        log.error(error)
+                    }
+                } else {
+                    try SQLiteDatabase.instance?.clearOldHistory(max: 1000) //最多存1000条
+                }
             }
-//        }
+        } catch {
+            log.error(error)
+        }
     }
 
     // 数据库实例
     public static var instance: SQLiteDatabase? {
         if SQLiteDatabase.db == nil {
-            guard let documentsDirectoryURL = try? FileManager().url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {
-                return nil
-            }
-            let dirURL = documentsDirectoryURL.appendingPathComponent("database")
-            let fileURL = dirURL.appendingPathComponent("v2er.db")
-
-            if !FileManager.default.fileExists(atPath: dirURL.path) {
-                try? FileManager.default.createDirectory(at: dirURL, withIntermediateDirectories: true, attributes: nil)
-                log.verbose("success create db dir:\(dirURL.path)")
+            if !FileManager.default.fileExists(atPath: Constants.Keys.dbFile) {
+                do {
+                    try FileManager.default.createDirectory(at: URL(fileURLWithPath: Constants.Keys.dbFile.deletingLastPathComponent), withIntermediateDirectories: true, attributes: nil)
+                    log.verbose("success create db dir:\(Constants.Keys.dbFile)")
+                } catch {
+                    log.error(error)
+                }
             }
 
-            try? SQLiteDatabase.db = SQLiteDatabase.open(path: fileURL.path)
+            try? SQLiteDatabase.db = SQLiteDatabase.open(path: Constants.Keys.dbFile)
         }
 
         return SQLiteDatabase.db
@@ -117,7 +127,21 @@ public class SQLiteDatabase {
         }
         log.verbose("success excute sql:\n\(sql)")
     }
-
+    
+    // 获取当前数据库版本
+    func userVersion() -> Int? {
+        guard let statement = try? prepare(statement: "PRAGMA user_version") else { return  nil }
+        
+        defer {
+            sqlite3_finalize(statement)
+        }
+        
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            return Int(sqlite3_column_int(statement, 0))
+        }
+        return nil
+    }
+    
     // 创建表
     func createTables() throws {
         // commentCount 当楼层使用
@@ -128,10 +152,48 @@ public class SQLiteDatabase {
         username TEXT NOT NULL,
         avatarURL TEXT NOT NULL,
         created DATETIME NOT NULL,
-        commentCount INTEGER NOT NULL)
+        anchor INTEGER NOT NULL,
+        replyCount INTEGER)
         """
         try excute(sql: tbHistorySql)
+        try excute(sql: "PRAGMA user_version = 1")
         log.verbose("success create table: \n\(TABLE_READ_HISTORY)")
+    }
+
+    // 表迁移
+    func migrateDB() throws {
+        
+        let temp_table = "readHistory_temp"
+
+        let tbHistorySql = """
+        CREATE TABLE IF NOT EXISTS \(temp_table) (
+        tid INTEGER primary key,
+        title TEXT NOT NULL,
+        username TEXT NOT NULL,
+        avatarURL TEXT NOT NULL,
+        created DATETIME NOT NULL,
+        anchor INTEGER NOT NULL,
+        replyCount INTEGER)
+        """
+        do {
+            try excute(sql: tbHistorySql)
+            
+            let migrateSql = """
+            INSERT INTO \(temp_table)(tid, title, username, avatarURL, created, anchor, replyCount) SELECT tid, title, username, avatarURL, created, commentCount, -1 FROM \(TABLE_READ_HISTORY)
+            """
+            
+            do {
+                try excute(sql: migrateSql)
+                try excute(sql: "DROP TABLE \(TABLE_READ_HISTORY)")
+                try excute(sql: "ALTER TABLE \(temp_table) RENAME TO \(TABLE_READ_HISTORY)")
+                try excute(sql: "PRAGMA user_version = 1")
+            } catch {
+                log.verbose("数据库迁移失败")
+            }
+            log.info("表迁移成功")
+        } catch {
+            log.error("表：\(temp_table) 创建失败", error.localizedDescription)
+        }
     }
 
     // 删除所有的表
@@ -144,27 +206,29 @@ public class SQLiteDatabase {
     // MARK: - 浏览历史相关
     
     // 新增 or 更新 浏览历史
-    func addHistory(tid: Int, title: String, username: String, avatarURL: String) {
+    func addHistory(tid: Int, title: String, username: String, avatarURL: String, replyCount: Int? = nil) {
         let sql = """
-        REPLACE INTO \(TABLE_READ_HISTORY)(tid,title,username,avatarURL,created,commentCount) VALUES (?,?,?,?,CURRENT_TIMESTAMP,?)
+        REPLACE INTO \(TABLE_READ_HISTORY)(tid,title,username,avatarURL,created,anchor,replyCount) VALUES (?,?,?,?,CURRENT_TIMESTAMP,?,?)
         """
-        guard let statemet = try? prepare(statement: sql) else {
+        guard let statement = try? prepare(statement: sql) else {
             log.error(errorMessage)
             return
         }
         defer {
-            sqlite3_finalize(statemet)
+            sqlite3_finalize(statement)
         }
-        guard sqlite3_bind_int(statemet, 1, Int32(tid)) == SQLITE_OK &&
-            sqlite3_bind_text(statemet, 2, NSString(string: title).utf8String, -1, nil) == SQLITE_OK &&
-            sqlite3_bind_text(statemet, 3, NSString(string: username).utf8String, -1, nil) == SQLITE_OK &&
-            sqlite3_bind_text(statemet, 4, NSString(string: avatarURL).utf8String, -1, nil) == SQLITE_OK &&
-            sqlite3_bind_int(statemet, 5, Int32(getAnchor(topicID: tid) ?? -1)) == SQLITE_OK else {
+        
+        guard sqlite3_bind_int(statement, 1, Int32(tid)) == SQLITE_OK &&
+            sqlite3_bind_text(statement, 2, NSString(string: title).utf8String, -1, nil) == SQLITE_OK &&
+            sqlite3_bind_text(statement, 3, NSString(string: username).utf8String, -1, nil) == SQLITE_OK &&
+            sqlite3_bind_text(statement, 4, NSString(string: avatarURL).utf8String, -1, nil) == SQLITE_OK &&
+            sqlite3_bind_int(statement, 5, Int32(getAnchor(topicID: tid) ?? -1)) == SQLITE_OK &&
+            sqlite3_bind_int(statement, 6, Int32(replyCount ?? 0)) == SQLITE_OK else {
             log.error(errorMessage)
             return
         }
 
-        guard sqlite3_step(statemet) == SQLITE_DONE else {
+        guard sqlite3_step(statement) == SQLITE_DONE else {
             log.error(errorMessage)
             return
         }
@@ -174,14 +238,13 @@ public class SQLiteDatabase {
 
     // 判断 topics 是否为已读并修改返回
     func setAnchor(topicID: Int, anchor: Int) {
-        let sql = "UPDATE \(TABLE_READ_HISTORY) set commentCount = \(anchor) where tid = \(topicID)"
+        let sql = "UPDATE \(TABLE_READ_HISTORY) set anchor = \(anchor) where tid = \(topicID)"
         try? excute(sql: sql)
     }
     
-    
     // 加载浏览历史
     func getAnchor(topicID: Int) -> Int? {
-        var topics = [TopicModel]()
+        
         let sql = "SELECT * FROM \(TABLE_READ_HISTORY) where tid = \(topicID)"
         guard let statement = try? prepare(statement: sql) else {
             return nil
@@ -191,7 +254,31 @@ public class SQLiteDatabase {
             sqlite3_finalize(statement)
         }
         while (sqlite3_step(statement) == SQLITE_ROW) {
-            return String(cString: sqlite3_column_text(statement, 5)).int
+            return Int(sqlite3_column_int(statement, 5))
+        }
+        return nil
+    }
+    
+    // 获取主题
+    func getTopic(topicID: Int) -> TopicModel? {
+        let sql = "SELECT * FROM \(TABLE_READ_HISTORY) where tid = \(topicID)"
+        guard let statement = try? prepare(statement: sql) else {
+            return nil
+        }
+        
+        defer {
+            sqlite3_finalize(statement)
+        }
+        
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            let tid = Int(sqlite3_column_int(statement, 0))
+            let title = String(cString: sqlite3_column_text(statement, 1))
+            let username = String(cString: sqlite3_column_text(statement, 2))
+            let avatarURL = String(cString: sqlite3_column_text(statement, 3))
+            //            let created = String(cString: sqlite3_column_text(statement, 4))
+            //            let anchor = String(cString: sqlite3_column_text(statement, 5))
+            let replyCount = Int(sqlite3_column_int(statement, 6))
+            return TopicModel(member: MemberModel(username: username, url: username, avatar: avatarURL), node: nil, title: title, href: tid.description, replyCount: String(replyCount))
         }
         return nil
     }
@@ -219,7 +306,9 @@ public class SQLiteDatabase {
             guard sqlite3_step(statement) == SQLITE_ROW else {
                 continue
             }
-            topics[offset].isRead = true
+            
+            log.info("replyCount = ", Int(sqlite3_column_int(statement, 6)))
+            topics[offset].readStatus = .read
         }
         return topics
     }
@@ -241,8 +330,9 @@ public class SQLiteDatabase {
             let username = String(cString: sqlite3_column_text(statement, 2))
             let avatarURL = String(cString: sqlite3_column_text(statement, 3))
 //            let created = String(cString: sqlite3_column_text(statement, 4))
-//            let commentCount = String(cString: sqlite3_column_text(statement, 5))
-            topics.append(TopicModel(member: MemberModel(username: username, url: username, avatar: avatarURL), node: nil, title: title, href: tid.description))
+//            let anchor = String(cString: sqlite3_column_text(statement, 5))
+            let replyCount = Int(sqlite3_column_int(statement, 6))
+            topics.append(TopicModel(member: MemberModel(username: username, url: username, avatar: avatarURL), node: nil, title: title, href: tid.description, replyCount: String(replyCount)))
         }
 
         log.verbose(topics.count)

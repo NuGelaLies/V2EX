@@ -81,8 +81,6 @@ class ReadHistoryCell: BaseTableViewCell {
             usernameLabel.text = user.username
             titleLabel.text = topic.title
             
-            let titleColor = ThemeStyle.style.value.titleColor
-            titleLabel.textColor = topic.isRead ? titleColor.withAlphaComponent(0.4) : titleColor
         }
     }
 }

@@ -2,6 +2,17 @@ import Foundation
 import UIKit
 
 struct TopicModel {
+    
+    
+    /// 阅读状态
+    ///
+    /// - unread: 未读
+    /// - read: 已读
+    /// - newReply: 已读，有新的回复
+    enum ReadStatus {
+        case unread, read, newReply
+    }
+    
     var member: MemberModel?
     var node: NodeModel?
 
@@ -17,7 +28,7 @@ struct TopicModel {
     var token: String?
     var isFavorite: Bool = false
     var isThank: Bool = false
-    var isRead: Bool = false
+    var readStatus: ReadStatus = .unread
     
     var reportToken: String?
     

@@ -87,8 +87,7 @@ class TopicCell: BaseTableViewCell {
             .subscribeNext { [weak self] theme in
                 guard let `self` = self else { return }
                 let titleColor = theme.titleColor
-                self.titleLabel.textColor = (self.topic?.isRead ?? false) ? titleColor.withAlphaComponent(0.4) : titleColor
-//                self?.titleLabel.textColor = theme.titleColor
+                self.titleLabel.textColor = (self.topic?.readStatus == .read) ? titleColor.withAlphaComponent(0.4) : titleColor
                 self.nodeLabel.backgroundColor = theme == .day ? UIColor.hex(0xf5f5f5) : theme.bgColor
                 self.usernameLabel.textColor = theme.titleColor
                 self.lastReplyLabel.textColor = theme.dateColor
@@ -143,7 +142,7 @@ class TopicCell: BaseTableViewCell {
             nodeLabel.isHidden = nodeLabel.text?.isEmpty ?? true
             
             let titleColor = ThemeStyle.style.value.titleColor
-            titleLabel.textColor = topic.isRead ? titleColor.withAlphaComponent(0.4) : titleColor
+            titleLabel.textColor = topic.readStatus == .read ? titleColor.withAlphaComponent(0.4) : titleColor
         }
     }
 

@@ -84,6 +84,8 @@ struct Constants {
         static let baiduAppearence = FileManager.document.appendingPathComponent("BaiduAppearence")
 
         static let homeNodes = FileManager.document.appendingPathComponent("homeNodes")
+        
+        static let dbFile = FileManager.document.appendingPathComponent("database/v2er.db")
     }
 
     struct Metric {
