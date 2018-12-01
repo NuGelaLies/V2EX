@@ -16,6 +16,7 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
     private lazy var blurView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .dark)
         let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.alpha = 0.6
         return blurView
     }()
 
@@ -118,7 +119,7 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
             avatarView.setImage(urlString: member.avatarSrc, placeholder: #imageLiteral(resourceName: "avatar"))
             usernameLabel.text = member.username
             joinTimeLabel.text = member.joinTime
-            headerView.image = avatarView.image
+            headerView.setImage(urlString: member.avatarSrc, placeholder: #imageLiteral(resourceName: "avatar"))
             blockBtn.isSelected = member.isBlock
             followBtn.isSelected = member.isFollow
             
