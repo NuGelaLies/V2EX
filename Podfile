@@ -52,7 +52,7 @@ end
 post_install do |installer|
 
     # 需要指定编译版本的第三方库名称
-    swift3_targets = ['PKHUD', 'PullToRefreshKit', 'StatefulViewController']
+    swift3_targets = ['StatefulViewController']
     installer.pods_project.targets.each do |target|
         if swift3_targets.include? target.name
             target.build_configurations.each do |config|

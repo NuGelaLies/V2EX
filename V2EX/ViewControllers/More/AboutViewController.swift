@@ -209,7 +209,9 @@ extension AboutViewController: MFMailComposeViewControllerDelegate {
     private func sendEmail() {
         
         guard MFMailComposeViewController.canSendMail() else {
-            HUD.showError("操作失败，请先在系统邮件中设置个人邮箱账号。\n或直接通过邮箱向我反馈 email: \(Constants.Config.receiverEmail)", duration: 3)
+            HUD.showError("操作失败，请先在系统邮件中设置个人邮箱账号。\n或直接通过邮箱向我反馈 email: \(Constants.Config.receiverEmail)", duration: 3, actionTitle: "复制邮箱",  tapBtnAction: { _ in
+                UIPasteboard.general.string = Constants.Config.receiverEmail
+            })
             return
         }
 

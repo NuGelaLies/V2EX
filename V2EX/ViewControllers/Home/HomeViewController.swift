@@ -137,7 +137,12 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
                 let willShowVC = self.children[segmentView.selectIndex]
                 if let tableView = willShowVC.view.subviews.first as? UITableView, tableView.numberOfRows(inSection: 0) > 0 {
                     let indexPath = IndexPath(row: 0, section: 0)
-                    tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+                    if tableView.indexPathsForVisibleRows?.first == indexPath {
+                        tableView.switchRefreshHeader(to: .refreshing)
+                    } else {
+                        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+                    }
+                    
                 }
             }.disposed(by: rx.disposeBag)
 

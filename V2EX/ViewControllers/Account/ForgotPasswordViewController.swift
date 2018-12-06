@@ -2,6 +2,7 @@ import UIKit
 import NSObject_Rx
 import RxSwift
 import RxCocoa
+import UIView_Positioning
 
 class ForgotPasswordViewController: BaseViewController, AccountService {
 

@@ -55,27 +55,27 @@ final class HUD {
         PKHUD.sharedHUD.hide()
     }
 
-    class func showSuccess(_ text: String, duration: TimeInterval = 2.5, completionBlock: Action? = nil) {
-        showText(text, messageType: .success, duration: duration, completionBlock: completionBlock)
+    class func showSuccess(_ text: String, duration: TimeInterval = 2.5, actionTitle: String? = nil, tapBtnAction: ((UIButton) -> Void)? = nil, completionBlock: Action? = nil) {
+        showText(text, messageType: .success, duration: duration, actionTitle: actionTitle, tapBtnAction: tapBtnAction, completionBlock: completionBlock)
     }
 
-    class func showInfo(_ text: String, duration: TimeInterval = 2.5, completionBlock: Action? = nil) {
-        showText(text, messageType: .info, duration: duration, completionBlock: completionBlock)
+    class func showInfo(_ text: String, duration: TimeInterval = 2.5, actionTitle: String? = nil, tapBtnAction: ((UIButton) -> Void)? = nil, completionBlock: Action? = nil) {
+        showText(text, messageType: .info, duration: duration, actionTitle: actionTitle, tapBtnAction: tapBtnAction, completionBlock: completionBlock)
     }
     
-    class func showError(_ text: String, duration: TimeInterval = 2.5, completionBlock: Action? = nil) {
-        showText(text, messageType: .error, duration: duration, completionBlock: completionBlock)
+    class func showError(_ text: String, duration: TimeInterval = 2.5, actionTitle: String? = nil, tapBtnAction: ((UIButton) -> Void)? = nil, completionBlock: Action? = nil) {
+        showText(text, messageType: .error, duration: duration, actionTitle: actionTitle, tapBtnAction: tapBtnAction, completionBlock: completionBlock)
     }
 
-    class func showError(_ error: Error, duration: TimeInterval = 2.5, completionBlock: Action? = nil) {
-        showText(error.localizedDescription, messageType: .error, duration: duration, completionBlock: completionBlock)
+    class func showError(_ error: Error, duration: TimeInterval = 2.5, actionTitle: String? = nil, tapBtnAction: ((UIButton) -> Void)? = nil, completionBlock: Action? = nil) {
+        showText(error.localizedDescription, messageType: .error, duration: duration, actionTitle: actionTitle, tapBtnAction: tapBtnAction, completionBlock: completionBlock)
     }
 
-    class func showWarning(_ text: String, duration: TimeInterval = 2.5, completionBlock: Action? = nil) {
-        showText(text, messageType: .warning, duration: duration, completionBlock: completionBlock)
+    class func showWarning(_ text: String, duration: TimeInterval = 2.5, actionTitle: String? = nil, tapBtnAction: ((UIButton) -> Void)? = nil, completionBlock: Action? = nil) {
+        showText(text, messageType: .warning, duration: duration, actionTitle: actionTitle, tapBtnAction: tapBtnAction, completionBlock: completionBlock)
     }
 
-    private class func showText(_ text: String, messageType: MessageType, duration: TimeInterval = 2, completionBlock: Action? = nil) {
+    private class func showText(_ text: String, messageType: MessageType, duration: TimeInterval = 2, actionTitle: String? = nil, tapBtnAction: ((UIButton) -> Void)? = nil, completionBlock: Action? = nil) {
         let messageView = MessageView.viewFromNib(layout: .cardView)
         switch messageType {
         case .success:
@@ -87,7 +87,10 @@ final class HUD {
         case .error:
             messageView.configureTheme(.error)
         }
-        messageView.button?.isHidden = true
+        messageView.button?.setTitle(actionTitle, for: .normal)
+        messageView.button?.setTitle(actionTitle, for: .highlighted)
+        messageView.button?.isHidden = tapBtnAction == nil
+        messageView.buttonTapHandler = tapBtnAction
         messageView.titleLabel?.isHidden = true
         messageView.configureContent(body: text)
         messageView.configureDropShadow()
