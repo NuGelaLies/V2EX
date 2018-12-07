@@ -1,5 +1,6 @@
 import UIKit
 import UserNotifications
+import Bugly
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,11 +23,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppSetup.prepare()
         SQLiteDatabase.initDatabase()
         
+        Bugly.start(withAppId: "f720c10c07")
+        
 //        BackgroundFetchService.shared.checkAuthorization()
         
 //        setupJPush(launchOptions: launchOptions)
         return true
     }
+    
 
     
 //    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -48,6 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SQLiteDatabase.close()
     }
     
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        AppSetup.checkTheme()
+    }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
 

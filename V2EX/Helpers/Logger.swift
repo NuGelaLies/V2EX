@@ -138,6 +138,15 @@ public struct Logger {
     }
 }
 
+extension String {
+    
+    public var HHMMDate: Date {
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter.date(from: self) ?? Date()
+    }
+}
+
 extension Date {
 
     public var YYYYMMDDDateString: String {
@@ -151,7 +160,12 @@ extension Date {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return dateFormatter.string(from: self)
     }
-
+    
+    public var timeString: String {
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter.string(from: self)
+    }
     
     public func description(dateSeparator: String = "/", usFormat: Bool = false, nanosecond: Bool = false) -> String {
         var description: String

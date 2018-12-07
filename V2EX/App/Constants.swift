@@ -61,7 +61,9 @@ struct Constants {
         // At 用户时添加楼层
         static let atMemberAddFloor = "atMemberAddFloor"
         
-        static let autoSwitchTheme = "autoSwitchTheme"
+        static let autoSwitchThemeForBrightness = "autoSwitchTheme"
+        
+        static let autoSwitchThemeForTime = "autoSwitchThemeForTime"
         
         static let nightTheme = "nightTheme"
 

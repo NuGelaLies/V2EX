@@ -1,9 +1,7 @@
 PODS:
   - Alamofire (4.8.0)
-  - Crashlytics (3.12.0):
-    - Fabric (~> 1.9.0)
+  - Bugly (2.5.0)
   - DeviceKit (1.10.0)
-  - Fabric (1.9.0)
   - IQKeyboardManagerSwift (6.2.0)
   - Kanna (4.0.2)
   - Kingfisher (4.10.1)
@@ -13,7 +11,7 @@ PODS:
   - PasswordExtension (4.2.1)
   - PKHUD (5.2.0)
   - PullToRefreshKit (0.8.8)
-  - Reveal-SDK (14)
+  - Reveal-SDK (20)
   - RxAtomic (4.4.0)
   - RxCocoa (4.4.0):
     - RxSwift (~> 4.0)
@@ -33,9 +31,8 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
-  - Crashlytics
+  - Bugly
   - DeviceKit
-  - Fabric
   - IQKeyboardManagerSwift
   - Kanna
   - Kingfisher
@@ -44,7 +41,7 @@ DEPENDENCIES:
   - PasswordExtension
   - PKHUD
   - PullToRefreshKit (from `https://github.com/aidevjoe/PullToRefreshKit.git`)
-  - Reveal-SDK (~> 14)
+  - Reveal-SDK (~> 20)
   - RxCocoa (~> 4.0)
   - RxOptional
   - RxSwift (~> 4.0)
@@ -58,9 +55,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - Crashlytics
+    - Bugly
     - DeviceKit
-    - Fabric
     - IQKeyboardManagerSwift
     - Kanna
     - Kingfisher
@@ -95,9 +91,8 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
-  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   DeviceKit: 2a6cf0d1ec05e2ac7f9b24cdfdb3cb358900a247
-  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
   Kanna: c60b61d72554bf04ed1ee074f9b379855cab4892
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
@@ -106,7 +101,7 @@ SPEC CHECKSUMS:
   PasswordExtension: cd45d17fc92e0defc5ee630795d916f453c6ba12
   PKHUD: dd5357ac65f26115c35c4a68e9b328053326c5fe
   PullToRefreshKit: 7cc53e720e69f135cffa1a57784dfb534f0222ab
-  Reveal-SDK: 55b5c5545233b680c2f8da734f202acc15d422b7
+  Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
   RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
   RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
   RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
@@ -118,6 +113,6 @@ SPEC CHECKSUMS:
   "UIView+Positioning": 6e7236a429053ade11051fab7ff9053af36c77a8
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 4efea08df12060e4f8815493033cfc9d5816ae1d
+PODFILE CHECKSUM: a2202039fb88caee5d2d2d56add4caeb92b80e3d
 
 COCOAPODS: 1.5.3

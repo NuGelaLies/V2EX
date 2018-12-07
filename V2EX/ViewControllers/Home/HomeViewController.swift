@@ -27,6 +27,8 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
     
     /// 上次剪切板内容
     private var lastCopyLink: String?
+    
+    private var isRefreshing: Bool = false
 
     // MARK: - View Life Cycle...
 
@@ -137,8 +139,17 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
                 let willShowVC = self.children[segmentView.selectIndex]
                 if let tableView = willShowVC.view.subviews.first as? UITableView, tableView.numberOfRows(inSection: 0) > 0 {
                     let indexPath = IndexPath(row: 0, section: 0)
-                    if tableView.indexPathsForVisibleRows?.first == indexPath {
+                    if tableView.indexPathsForVisibleRows?.first == indexPath, !self.isRefreshing {
+                        self.isRefreshing = true
                         tableView.switchRefreshHeader(to: .refreshing)
+                        if #available(iOS 10.0, *) {
+                            let generator = UIImpactFeedbackGenerator(style: .heavy)
+                            generator.prepare()
+                            generator.impactOccurred()
+                        }
+                        GCD.delay(1, block: {
+                            self.isRefreshing = false
+                        })
                     } else {
                         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                     }
@@ -224,7 +235,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
 extension HomeViewController {
 
     private func switchTheme() {
-        guard Preference.shared.autoSwitchTheme else { return }
+        guard Preference.shared.autoSwitchThemeForBrightness else { return }
         
         if UIScreen.main.brightness >= 0.25 {
             Preference.shared.theme = .day

@@ -1,8 +1,6 @@
 import Foundation
 import UIKit
 import IQKeyboardManagerSwift
-import Fabric
-import Crashlytics
 import YYText
 
 struct AppSetup {
@@ -11,9 +9,9 @@ struct AppSetup {
         setupKeyboardManager()
         HUD.configureAppearance()
 //        setupFPS()
-        setupCrashlytics()
         setupTheme()
         setupLog()
+        checkTheme()
 //        UIViewController.swizzleMethod()
     }
 }
@@ -56,11 +54,7 @@ extension AppSetup {
             }
         #endif
     }
-
-    private static func setupCrashlytics() {
-        Fabric.with([Crashlytics.self])
-    }
-
+    
     private static func setupTheme() {
         let themeRawValue = UserDefaults.standard.integer(forKey: Constants.Keys.themeStyle)
         let theme = Theme(rawValue: themeRawValue) ?? .day
@@ -73,5 +67,20 @@ extension AppSetup {
         #else
             Logger.logLevel = .warning
         #endif
+    }
+    
+    public static func checkTheme() {
+        guard Preference.shared.autoSwitchThemeForTime else { return }
+        
+        let fromDate = defaults[.fromTime]
+        let toDate = defaults[.toTime]
+        let isBetween = Date.isBetween(from: (hour: fromDate.hour, minute: fromDate.minute), to: (hour: toDate.hour, minute: toDate.minute))
+        
+        log.info(isBetween)
+        if !isBetween {
+            Preference.shared.theme = .day
+        } else if ThemeStyle.style.value == .day {
+            Preference.shared.theme = Preference.shared.nightTheme
+        }
     }
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DatePickerViewController" customModule="V2EX" customModuleProvider="target">
+            <connections>
+                <outlet property="datePicker" destination="kQp-uT-V3g" id="UUs-IM-aJL"/>
+                <outlet property="fromBtn" destination="kay-wa-ZbS" id="duD-tN-KXv"/>
+                <outlet property="toBtn" destination="4bP-Mi-axi" id="h1W-ae-zkx"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="kQp-uT-V3g">
+                    <rect key="frame" x="0.0" y="451" width="375" height="216"/>
+                    <date key="date" timeIntervalSinceReferenceDate="565861961.22416902">
+                        <!--2018-12-07 07:52:41 +0000-->
+                    </date>
+                    <connections>
+                        <action selector="didChangeDateAction:" destination="-1" eventType="valueChanged" id="mSD-9a-b0V"/>
+                    </connections>
+                </datePicker>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="GTo-kn-Lpx">
+                    <rect key="frame" x="0.0" y="299" width="375" height="89"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kay-wa-ZbS">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="TkN-B4-cFd"/>
+                            </constraints>
+                            <state key="normal" title="从"/>
+                            <connections>
+                                <action selector="btnTapAction:" destination="-1" eventType="touchUpInside" id="R3p-DG-mw2"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bP-Mi-axi">
+                            <rect key="frame" x="0.0" y="45" width="375" height="44"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="至"/>
+                            <connections>
+                                <action selector="btnTapAction:" destination="-1" eventType="touchUpInside" id="srB-K2-t51"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="4bP-Mi-axi" firstAttribute="height" secondItem="kay-wa-ZbS" secondAttribute="height" id="NM4-Vd-0Ie"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+            <constraints>
+                <constraint firstItem="GTo-kn-Lpx" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="3dE-6s-mAc"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="kQp-uT-V3g" secondAttribute="bottom" id="6Ia-bY-urL"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="GTo-kn-Lpx" secondAttribute="trailing" id="N6h-8p-FLK"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="kQp-uT-V3g" secondAttribute="trailing" id="P7e-7V-4FC"/>
+                <constraint firstItem="kQp-uT-V3g" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Wjn-p2-DFD"/>
+                <constraint firstItem="GTo-kn-Lpx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="k5j-zD-1il"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+        </view>
+    </objects>
+</document>

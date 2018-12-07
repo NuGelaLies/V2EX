@@ -38,15 +38,14 @@ target 'V2EX' do
     pod 'IQKeyboardManagerSwift'
     pod 'PasswordExtension'
     pod 'DeviceKit'
-
+    
     # Bug
-    pod 'Fabric'
-    pod 'Crashlytics'
+    pod 'Bugly'
     
 #    pod 'JPush'
 
     # Debug only
-    pod 'Reveal-SDK', '~> 14', :configurations => ['Debug']
+    pod 'Reveal-SDK', '~> 20', :configurations => ['Debug']
 end
 
 post_install do |installer|

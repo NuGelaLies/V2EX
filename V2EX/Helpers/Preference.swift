@@ -66,12 +66,22 @@ class Preference {
     }
     
     // 自动切换主题
-    var autoSwitchTheme: Bool {
+    var autoSwitchThemeForBrightness: Bool {
         set {
-            UserDefaults.save(at: newValue, forKey: Constants.Keys.autoSwitchTheme)
+            UserDefaults.save(at: newValue, forKey: Constants.Keys.autoSwitchThemeForBrightness)
         }
         get {
-            return (UserDefaults.get(forKey: Constants.Keys.autoSwitchTheme) as? Bool) ?? false
+            return (UserDefaults.get(forKey: Constants.Keys.autoSwitchThemeForBrightness) as? Bool) ?? false
+        }
+    }
+    
+    // 自动切换主题
+    var autoSwitchThemeForTime: Bool {
+        set {
+            UserDefaults.save(at: newValue, forKey: Constants.Keys.autoSwitchThemeForTime)
+        }
+        get {
+            return (UserDefaults.get(forKey: Constants.Keys.autoSwitchThemeForTime) as? Bool) ?? false
         }
     }
     
