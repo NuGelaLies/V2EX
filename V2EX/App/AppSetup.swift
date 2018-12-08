@@ -74,7 +74,7 @@ extension AppSetup {
         
         let fromDate = defaults[.fromTime]
         let toDate = defaults[.toTime]
-        let isBetween = Date.isBetween(from: (hour: fromDate.hour, minute: fromDate.minute), to: (hour: toDate.hour, minute: toDate.minute))
+        let isBetween = Date().isBetween(from: (hour: fromDate.hour, minute: fromDate.minute), to: (hour: toDate.hour, minute: toDate.minute))
         
         log.info(isBetween)
         if !isBetween {

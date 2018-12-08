@@ -74,16 +74,16 @@ extension Date {
     }
     
     
-    public static func isBetween(from: (hour: Int, minute: Int), to: (hour: Int, minute: Int)) -> Bool {
+    public func isBetween(from: (hour: Int, minute: Int), to: (hour: Int, minute: Int)) -> Bool {
         let fromDate: Date = Date.customDate(hour: from.hour, minute: from.minute)
+        let toDate: Date = Date.customDate(hour: to.hour, minute: to.minute)
         
-        let isMoreThan = (from.hour + from.minute) > (to.hour + to.minute)
-        let toDate: Date = Date.customDate(hour: isMoreThan ? to.hour + 24 : to.hour, minute: to.minute)
+        log.info(fromDate.YYYYMMDDHHMMSSDateString, toDate.YYYYMMDDHHMMSSDateString, self.YYYYMMDDHHMMSSDateString)
         
-        let currentDate = Date()
-        
-        log.info(fromDate.YYYYMMDDHHMMSSDateString, toDate.YYYYMMDDHHMMSSDateString, currentDate.YYYYMMDDHHMMSSDateString)
-        
-        return currentDate.compare(fromDate) == .orderedDescending && currentDate.compare(toDate) == .orderedAscending
+        if fromDate < toDate {
+            return self >= fromDate && self <= toDate
+        } else {
+            return self >= fromDate || self <= toDate
+        }
     }
 }
