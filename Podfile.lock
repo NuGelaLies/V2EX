@@ -28,7 +28,6 @@ PODS:
   - SwiftMessages/App (6.0.1)
   - "UIView+Positioning (1.6)"
   - YYText (1.0.7)
-  - Zephyr (3.2.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -52,7 +51,6 @@ DEPENDENCIES:
   - SwiftMessages
   - "UIView+Positioning"
   - YYText (from `https://github.com/aidevjoe/YYText`)
-  - Zephyr
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -76,7 +74,6 @@ SPEC REPOS:
     - StatefulViewController
     - SwiftMessages
     - "UIView+Positioning"
-    - Zephyr
 
 EXTERNAL SOURCES:
   PullToRefreshKit:
@@ -115,8 +112,7 @@ SPEC CHECKSUMS:
   SwiftMessages: 42ed7b6e1f2f1ead9ee667dc61a0ae87e4f49570
   "UIView+Positioning": 6e7236a429053ade11051fab7ff9053af36c77a8
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
-  Zephyr: 8d7343c6cc45ed53c9d94dce33cf5c7c607b5e05
 
-PODFILE CHECKSUM: 5e294357b20a3ec2c0dc5191d7577d93198f911c
+PODFILE CHECKSUM: 642bdbc493d69e009755c7bd710101354daf45d4
 
 COCOAPODS: 1.5.3
