@@ -51,6 +51,18 @@ class MyReplyViewController: DataViewController, MemberService {
         }.disposed(by: rx.disposeBag)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard AccountModel.isLogin else {
+            replys.removeAll()
+            tableView.reloadData()
+            endLoading(error: NSError(domain: "V2EX", code: -1, userInfo: nil))
+            status = .noAuth
+            return
+        }
+    }
+    
     // MARK: - Setup
 
     override func setupSubviews() {

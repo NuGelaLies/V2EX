@@ -18,13 +18,6 @@ class MessageViewController: DataViewController, AccountService {
         return view
     }()
     
-    private lazy var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(style: .gray)
-        activityIndicator.style = UIDevice.current.isPad ? .whiteLarge : .white
-        activityIndicator.color = .gray
-        return activityIndicator
-    }()
-
     // MARK: - Propertys
 
     private var messages: [MessageModel] = []
@@ -45,13 +38,18 @@ class MessageViewController: DataViewController, AccountService {
             return
         }
 
-        /// 有未读通知, 主动刷新
-        guard isLoad, let _ = tabBarItem.badgeValue else { return }
-
-        fetchNotifications()
-        activityIndicator.startAnimating()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        /// 有未读通知, 主动刷新
+        guard isLoad, let _ = currentViewController().tabBarItem.badgeValue else { return }
+        
+        fetchNotifications()
+        tableView.switchRefreshHeader(to: .refreshing)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -62,7 +60,6 @@ class MessageViewController: DataViewController, AccountService {
 
     override func setupSubviews() {
         navigationItem.title = "消息"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
     }
 
     private func setupRefreshView() {
@@ -135,7 +132,6 @@ extension MessageViewController {
         }
         tabBarItem.badgeValue = nil
         //        HUD.showText("\(count) 条新消息")
-        activityIndicator.stopAnimating()
         var indexPaths: [IndexPath] = []
         for i in 0..<count {
             indexPaths.append(IndexPath(row: i, section: 0))
@@ -183,7 +179,6 @@ extension MessageViewController {
             self.errorMessage = error
             self.endLoading(error: NSError(domain: "V2EX", code: -1, userInfo: nil))
             self.tableView.endHeaderRefresh()
-            self.activityIndicator.stopAnimating()
             if !self.messages.count.boolValue {
                 self.status = .empty
             }

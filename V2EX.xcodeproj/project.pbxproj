@@ -168,12 +168,14 @@
 		D84B4E63217AE71D006DF65B /* black.css in Resources */ = {isa = PBXBuildFile; fileRef = D84B4E62217AE71D006DF65B /* black.css */; };
 		D87BC22B218DCFB000ACA653 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87BC22A218DCFB000ACA653 /* Pods_V2EX.framework */; };
 		D8A1331721BA59E100BB7C18 /* Defaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1331521BA59E100BB7C18 /* Defaults+.swift */; };
-		D8A1331821BA59E100BB7C18 /* Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1331621BA59E100BB7C18 /* Default.swift */; };
 		D8A1331D21BA5D3B00BB7C18 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1331B21BA5D3B00BB7C18 /* DatePickerViewController.swift */; };
 		D8A1331E21BA5D3B00BB7C18 /* DatePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8A1331C21BA5D3B00BB7C18 /* DatePickerViewController.xib */; };
 		D8A1332021BA7A5200BB7C18 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1331F21BA7A5200BB7C18 /* Date+Extensions.swift */; };
 		D8A78573214CDF9E00BC779E /* MemberPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A78572214CDF9E00BC779E /* MemberPageHeaderView.swift */; };
 		D8DEC78E218CCA4500A2DA74 /* AppearanceSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DEC78D218CCA4500A2DA74 /* AppearanceSliderCell.swift */; };
+		D8EB38FB21C8BE27004AF8B0 /* MessageContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EB38FA21C8BE27004AF8B0 /* MessageContainerViewController.swift */; };
+		D8EB38FD21C8D948004AF8B0 /* URLSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EB38FC21C8D948004AF8B0 /* URLSchemeViewController.swift */; };
+		D8EB391021C8DF65004AF8B0 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EB390E21C8DF65004AF8B0 /* Defaults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -353,12 +355,14 @@
 		D84B4E62217AE71D006DF65B /* black.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = black.css; sourceTree = "<group>"; };
 		D87BC22A218DCFB000ACA653 /* Pods_V2EX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_V2EX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8A1331521BA59E100BB7C18 /* Defaults+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Defaults+.swift"; sourceTree = "<group>"; };
-		D8A1331621BA59E100BB7C18 /* Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Default.swift; sourceTree = "<group>"; };
 		D8A1331B21BA5D3B00BB7C18 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		D8A1331C21BA5D3B00BB7C18 /* DatePickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePickerViewController.xib; sourceTree = "<group>"; };
 		D8A1331F21BA7A5200BB7C18 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		D8A78572214CDF9E00BC779E /* MemberPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPageHeaderView.swift; sourceTree = "<group>"; };
 		D8DEC78D218CCA4500A2DA74 /* AppearanceSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSliderCell.swift; sourceTree = "<group>"; };
+		D8EB38FA21C8BE27004AF8B0 /* MessageContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageContainerViewController.swift; sourceTree = "<group>"; };
+		D8EB38FC21C8D948004AF8B0 /* URLSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSchemeViewController.swift; sourceTree = "<group>"; };
+		D8EB390E21C8DF65004AF8B0 /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		DD1B79C0DDC5C38E6D41A82B /* Pods-V2EX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.release.xcconfig"; sourceTree = "<group>"; };
 		E690E8B94561079A45C2900A /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
 		EDEF560D2C703ABBF56BE30E /* Pods_V2EX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2EX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -440,6 +444,7 @@
 				BF4D779D1F9D896500FAEB7C /* MarkdownPreviewViewController.swift */,
 				77FD14F31FAB51ED00F2FFF4 /* TopicFavoriteViewController.swift */,
 				BF7AF1BB1FBC2CA5005427D0 /* AboutViewController.swift */,
+				D8EB38FC21C8D948004AF8B0 /* URLSchemeViewController.swift */,
 				77D458221FD96FE30004225B /* OCRConfigViewController.swift */,
 				BF2C54CF1FC536EA00B944FB /* AccountsViewController.swift */,
 				BFAB3B381FDFCAA6002D7E90 /* TabSortViewController.swift */,
@@ -527,6 +532,8 @@
 		BF02A2C51F8F3E5E00BEF85E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D8EB390E21C8DF65004AF8B0 /* Defaults.swift */,
+				D8A1331521BA59E100BB7C18 /* Defaults+.swift */,
 				BF2C54D11FC53BF500B944FB /* Keychain.swift */,
 				BFE8CB2C1FA09A9D007E2F02 /* MentionedParser.swift */,
 				BFC89B4A1FA033CD00759577 /* FPSLabel.swift */,
@@ -537,8 +544,6 @@
 				BFC89B481FA0283800759577 /* TextParser.swift */,
 				BF3AB6B31FA1A61200ACA17A /* ImageAttachment.swift */,
 				BF9554DA1FBD73EE0054FC50 /* Preference.swift */,
-				D8A1331621BA59E100BB7C18 /* Default.swift */,
-				D8A1331521BA59E100BB7C18 /* Defaults+.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -635,6 +640,7 @@
 			children = (
 				BF5A6B671F99834400CF6BA1 /* MessageViewController.swift */,
 				BF8043F21FA3369900AD3C49 /* ReplyMessageViewController.swift */,
+				D8EB38FA21C8BE27004AF8B0 /* MessageContainerViewController.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -863,6 +869,9 @@
 							com.apple.SafariKeychain = {
 								enabled = 0;
 							};
+							com.apple.iCloud = {
+								enabled = 0;
+							};
 						};
 					};
 				};
@@ -952,6 +961,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/UIView+Positioning/UIView_Positioning.framework",
 				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
+				"${BUILT_PRODUCTS_DIR}/Zephyr/Zephyr.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -976,6 +986,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIView_Positioning.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zephyr.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1082,6 +1093,7 @@
 				BFCB675E1F8F521D00D05A90 /* Constants.swift in Sources */,
 				BFCB67511F8F4B2300D05A90 /* UIView+Extension.swift in Sources */,
 				BF5A6B6D1F99889400CF6BA1 /* MessageModel.swift in Sources */,
+				D8EB38FD21C8D948004AF8B0 /* URLSchemeViewController.swift in Sources */,
 				779B16FE1F8FA5DE00E912E7 /* AccountModel.swift in Sources */,
 				BF8062BB1FB14CB00024BB37 /* UIBarButtonItem+ClosureAction.swift in Sources */,
 				778AC6B61F9AF07F0072C6E9 /* Highlightables.swift in Sources */,
@@ -1094,6 +1106,7 @@
 				BF7AF1BC1FBC2CA5005427D0 /* AboutViewController.swift in Sources */,
 				BF39FFE91F9442DA00D6F8BD /* LoadingButton.swift in Sources */,
 				77B0A7551FFB3CDD003ED8F6 /* SQLiteDatabase.swift in Sources */,
+				D8EB38FB21C8BE27004AF8B0 /* MessageContainerViewController.swift in Sources */,
 				77ABB3811FA36D8300F376DA /* MemberService.swift in Sources */,
 				77C8DF6E1F92FDE2009DE52C /* LoginViewController.swift in Sources */,
 				BF1B1D1B1FA7003400544A11 /* AllNodesViewController.swift in Sources */,
@@ -1103,6 +1116,7 @@
 				77FD14F41FAB51ED00F2FFF4 /* TopicFavoriteViewController.swift in Sources */,
 				BF7B11181F91E473003815C1 /* UIInsetLabel.swift in Sources */,
 				BF45FCCF1F906E74006B2C2F /* CommentModel.swift in Sources */,
+				D8EB391021C8DF65004AF8B0 /* Defaults.swift in Sources */,
 				BF7AF1B81FBC02D1005427D0 /* SettingViewController.swift in Sources */,
 				D8A1331D21BA5D3B00BB7C18 /* DatePickerViewController.swift in Sources */,
 				779B17021F8FA8A900E912E7 /* TopicCell.swift in Sources */,
@@ -1116,7 +1130,6 @@
 				BF8062BE1FB14CB00024BB37 /* UIViewController+Rx.swift in Sources */,
 				BFCB67461F8F498900D05A90 /* HomeViewController.swift in Sources */,
 				D804F31E218C31CB00C96206 /* AppearanceSampleCell.swift in Sources */,
-				D8A1331821BA59E100BB7C18 /* Default.swift in Sources */,
 				7794DA321FD2E2A500B7B299 /* FenCiCell.swift in Sources */,
 				BFCB67641F8F666100D05A90 /* API.swift in Sources */,
 				B1A31C452072127000C2DE26 /* DiscreteSliderView.swift in Sources */,

@@ -36,7 +36,7 @@ class TabBarViewController: UITabBarController {
                     if viewController.isKind(of: NavigationViewController.self),
                         let nav = viewController as? NavigationViewController,
                         let topVC = nav.topViewController,
-                        topVC.isKind(of: MessageViewController.self) {
+                        topVC.isKind(of: MessageContainerViewController.self) {
                         // 如果当前的 badge == 解析到的未读通知， 代表可能已经提示过一次了， 此时不再提示。
                         if viewController.tabBarItem.badgeValue != count.description {
                             HUD.showInfo("您有 \(count) 条未读提醒")
@@ -77,7 +77,7 @@ extension TabBarViewController {
                                normalImage: #imageLiteral(resourceName: "navigation"),
                                selectedImageName: #imageLiteral(resourceName: "navigation_selected"))
 
-        addChildViewController(childController: MessageViewController(),
+        addChildViewController(childController: MessageContainerViewController(),
                                title: "消息",
                                normalImage: #imageLiteral(resourceName: "notifications"),
                                selectedImageName: #imageLiteral(resourceName: "notifications_selected"))

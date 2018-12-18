@@ -5,7 +5,7 @@ import MessageUI
 class AboutViewController: BaseTableViewController {
 
     enum AbountItemType {
-        case grade, sourceCode, clearCache, feedback, libs, about, share
+        case grade, sourceCode, clearCache, feedback, libs, about, share//, URLScheme
     }
     struct AbountItem {
         var title: String
@@ -50,6 +50,7 @@ class AboutViewController: BaseTableViewController {
         [
             AbountItem(title: "意见反馈", type: .feedback),
             AbountItem(title: "清除缓存", type: .clearCache),
+//            AbountItem(title: "清除缓存", type: .URLScheme),
             AbountItem(title: "开源库", type: .libs),
             AbountItem(title: "项目源码", type: .sourceCode),
             AbountItem(title: "给我评分", type: .grade),
@@ -132,6 +133,9 @@ extension AboutViewController {
             openAppStore()
         case .feedback:
             sendEmail()
+//        case .URLScheme:
+//            let urlSchemeVC = URLSchemeViewController()
+//            navigationController?.pushViewController(urlSchemeVC, animated: true)
         case .sourceCode:
             openWebView(url: API.codeRepo.url)
         case .libs:

@@ -73,14 +73,14 @@ extension NodeService {
             NodeModel(title: "酷工作", href: "/?tab=jobs")
         ]
 
-        guard FileManager.default.fileExists(atPath: Constants.Keys.homeNodes) else { return nodes }
-
-        do {
-            let data = try Data(contentsOf: URL(fileURLWithPath: Constants.Keys.homeNodes))
-            nodes = try JSONDecoder().decode([NodeModel].self, from: data)
-        } catch {
-            HUD.showTest(error)
-            log.error(error)
+        if FileManager.default.fileExists(atPath: Constants.Keys.homeNodes) {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: Constants.Keys.homeNodes))
+                nodes = try JSONDecoder().decode([NodeModel].self, from: data)
+            } catch {
+                HUD.showTest(error)
+                log.error(error)
+            }
         }
 
         if AccountModel.isLogin {

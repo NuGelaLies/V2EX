@@ -86,8 +86,9 @@ class DataViewController: ViewController, StatefulViewController, ErrorViewDeleg
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        isLoad = true
+        GCD.delay(1) {
+            self.isLoad = true            
+        }
     }
 
     deinit {
