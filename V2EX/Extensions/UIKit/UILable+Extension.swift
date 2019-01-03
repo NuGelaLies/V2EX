@@ -76,7 +76,7 @@ extension UILabel {
     /// 设置行高
     func setLineHeight(_ lineHeight: Int) {
         let displayText = text ?? ""
-        let attributedString = self.attributedText!.mutableCopy() as? NSMutableAttributedString
+        let attributedString = self.attributedText?.mutableCopy() as? NSMutableAttributedString
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = CGFloat(lineHeight)
         paragraphStyle.alignment = textAlignment

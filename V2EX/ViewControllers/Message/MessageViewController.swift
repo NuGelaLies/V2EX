@@ -130,7 +130,7 @@ extension MessageViewController {
             tableView.numberOfRows(inSection: 0) >= count else {
                 return
         }
-        tabBarItem.badgeValue = nil
+        currentViewController().tabBarItem.badgeValue = nil
         //        HUD.showText("\(count) 条新消息")
         var indexPaths: [IndexPath] = []
         for i in 0..<count {
@@ -148,8 +148,8 @@ extension MessageViewController {
 
     /// 获取通知
     func fetchNotifications() {
-        let badgeValue = tabBarItem.badgeValue
-        tabBarItem.badgeValue = nil
+        let badgeValue = currentViewController().tabBarItem.badgeValue
+        currentViewController().tabBarItem.badgeValue = nil
         
         guard AccountModel.isLogin else {
             endLoading(error: NSError(domain: "V2EX", code: -1, userInfo: nil))
