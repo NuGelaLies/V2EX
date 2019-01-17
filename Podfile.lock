@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.8.0)
+  - Aquaman (0.0.1)
   - Bugly (2.5.0)
   - DeviceKit (1.10.0)
   - IQKeyboardManagerSwift (6.2.0)
@@ -31,6 +32,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Aquaman
   - Bugly
   - DeviceKit
   - IQKeyboardManagerSwift
@@ -55,6 +57,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - Aquaman
     - Bugly
     - DeviceKit
     - IQKeyboardManagerSwift
@@ -91,6 +94,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  Aquaman: e397a05d22ae0cc2f1216ea08fcbe67f596dd523
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   DeviceKit: 2a6cf0d1ec05e2ac7f9b24cdfdb3cb358900a247
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
@@ -113,6 +117,6 @@ SPEC CHECKSUMS:
   "UIView+Positioning": 6e7236a429053ade11051fab7ff9053af36c77a8
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 642bdbc493d69e009755c7bd710101354daf45d4
+PODFILE CHECKSUM: f7641fd4267f1c9f9f3f49abcee177b25befd81e
 
 COCOAPODS: 1.5.3

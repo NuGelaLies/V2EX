@@ -1,6 +1,12 @@
 import UIKit
+import Aquaman
 
-class MyTopicsViewController: BaseTopicsViewController, MemberService {
+class MyTopicsViewController: BaseTopicsViewController, MemberService, AquamanChildViewController {
+    
+    func aquamanChildScrollView() -> UIScrollView {
+        return tableView
+    }
+    
 
     // MARK: - Propertys
 
@@ -50,6 +56,7 @@ class MyTopicsViewController: BaseTopicsViewController, MemberService {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollViewDidScroll?(scrollView)
+        amPageViewContoller?.childScrollViewDidScroll(scrollView)
     }
 
     /// 获取主题

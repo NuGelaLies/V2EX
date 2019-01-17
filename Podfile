@@ -26,6 +26,7 @@ target 'V2EX' do
     pod 'StatefulViewController'
     pod 'SKPhotoBrowser'
     pod 'PullToRefreshKit' , git: 'https://github.com/aidevjoe/PullToRefreshKit.git'
+    pod 'Aquaman'
 
     # Parse
     pod 'Kanna'
@@ -45,6 +46,7 @@ target 'V2EX' do
 #    pod 'JPush'
 
     # Debug only
+#    pod 'Bagel', :configurations => ['Debug']
     pod 'Reveal-SDK', '~> 20', :configurations => ['Debug']
 end
 

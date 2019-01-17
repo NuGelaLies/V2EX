@@ -1,6 +1,11 @@
 import UIKit
+import Aquaman
 
-class MyReplyViewController: DataViewController, MemberService {
+class MyReplyViewController: DataViewController, MemberService, AquamanChildViewController{
+    func aquamanChildScrollView() -> UIScrollView {
+        return tableView
+    }
+    
 
     // MARK: - UI
 
@@ -162,5 +167,7 @@ extension MyReplyViewController: UITableViewDelegate, UITableViewDataSource {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollViewDidScroll?(scrollView)
+        amPageViewContoller?.childScrollViewDidScroll(scrollView)
+
     }
 }

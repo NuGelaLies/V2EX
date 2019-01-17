@@ -1,8 +1,8 @@
 import UIKit
 import SnapKit
+import Aquaman
 
-
-class MemberPageViewController: BaseViewController, MemberService, AccountService {
+class MemberPageViewController: AquamanPageViewController, MemberService, AccountService {
 
     // MARK: - UI
 
@@ -37,7 +37,7 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
         let view = UILabel()
         view.numberOfLines = 0
         view.textColor = .white
-        view.font = UIFont.systemFont(ofSize: 15)
+        view.font = UIFont.systemFont(ofSize: 14)
         return view
     }()
     
@@ -76,41 +76,31 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
             "发布的主题",
             "最近的回复"
             ])
-        view.tintColor = ThemeStyle.style.value.tintColor
+//        view.tintColor = ThemeStyle.style.value.tintColor
         view.selectedSegmentIndex = 0
         view.sizeToFit()
-//        view.tintColor = .clear
-//        view.setTitleTextAttributes([
-//            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
-//            NSAttributedString.Key.foregroundColor: UIColor.black
-//            ], for: .normal)
-//        view.setTitleTextAttributes(
-//            [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
-//             NSAttributedString.Key.foregroundColor: Theme.Color.globalColor
-//            ], for: .selected)
+        view.tintColor = .clear
+        view.setTitleTextAttributes([
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+            NSAttributedString.Key.foregroundColor: UIColor.gray
+            ], for: .normal)
+        view.setTitleTextAttributes(
+            [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15),
+             NSAttributedString.Key.foregroundColor: Theme.Color.globalColor
+            ], for: .selected)
         return view
     }()
-
-    private lazy var scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.delegate = self
-        view.contentSize = CGSize(width: self.view.width * 2, height: 0)
-        view.isPagingEnabled = true
-        view.bounces = false
-        view.showsVerticalScrollIndicator = false
-        view.showsHorizontalScrollIndicator = false
+    
+    private lazy var titleLabel: UILabel = {
+        let view = UILabel()
+        view.textColor = .white
+        view.alpha = 0
         return view
     }()
-
+    
     // MARK: - Propertys
 
-    private weak var topicViewController: MyTopicsViewController?
-    private weak var replyViewController: MyReplyViewController?
-
     public var memberName: String
-
-    private var headerViewTopConstraint: Constraint?
-    private var lastOffsetY: CGFloat!
 
     private var member: MemberModel? {
         didSet {
@@ -118,6 +108,8 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
 
             avatarView.setImage(urlString: member.avatarSrc, placeholder: #imageLiteral(resourceName: "avatar"))
             usernameLabel.text = member.username
+            titleLabel.text = usernameLabel.text
+            titleLabel.sizeToFit()
             joinTimeLabel.text = member.joinTime
             headerView.setImage(urlString: member.avatarSrc, placeholder: #imageLiteral(resourceName: "avatar"))
             blockBtn.isSelected = member.isBlock
@@ -150,30 +142,22 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TODO: 手势冲突
-        //        scrollView.panGestureRecognizer.require(toFail: (navigationController as! NavigationViewController).fullScreenPopGesture!)
-        let topicVC = MyTopicsViewController(username: memberName)
-        let replyVC = MyReplyViewController(username: memberName)
-        addChild(topicVC)
-        addChild(replyVC)
-        topicViewController = topicVC
-        replyViewController = replyVC
-        scrollViewDidEndScrollingAnimation(scrollView)
-
-
-        navBarTintColor = .white
-
-        lastOffsetY = -200
         
-        topicVC.scrollViewDidScroll = { scrollView in
-            self.scrollViewDidScroll(scrollView)
-        }
+        setupSubviews()
+        setupConstraints()
+        setupRx()
         
-        replyVC.scrollViewDidScroll = { scrollView in
-            self.scrollViewDidScroll(scrollView)
-        }
-
         loadData()
+        
+        if #available(iOS 11.0, *) {
+            mainScrollView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        
+        navigationItem.leftBarButtonItem?.tintColor = .white
+        
+         navigationItem.titleView = titleLabel
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -181,21 +165,20 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
         //        navigationController?.navigationBar.shadowImage = UIImage()
         navBarBgAlpha = 0
         navigationController?.navigationBar.isTranslucent = true
-//        navBarTintColor = UIColor.defaultNavBarTintColor
+        //        navBarTintColor = UIColor.defaultNavBarTintColor
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //        navigationController?.navigationBar.shadowImage = UIImage()
         navBarBgAlpha = 0
         navigationController?.navigationBar.isTranslucent = true
         //        navBarTintColor = UIColor.defaultNavBarTintColor
     }
-
-
+    
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
+        
         navBarBgAlpha = 1
         navigationController?.navigationBar.isTranslucent = false
     }
@@ -206,22 +189,14 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
         navBarBgAlpha = 1
         navigationController?.navigationBar.isTranslucent = false
     }
-
     // MARK: - Setup
     
-    override func setupSubviews() {
-        view.addSubviews(headerView, segmentViewContainer, scrollView)
+    func setupSubviews() {
         segmentViewContainer.addSubview(segmentView)
         headerView.addSubviews(blurView, avatarView, usernameLabel, joinTimeLabel, followBtn, blockBtn)
     }
 
-    override func setupConstraints() {
-        
-        headerView.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            headerViewTopConstraint = $0.top.equalToSuperview().constraint
-            $0.bottom.equalTo(joinTimeLabel).offset(15)
-        }
+    func setupConstraints() {
 
         blurView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -232,56 +207,43 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
             $0.top.equalTo(navigationController?.navigationBar.bottom ?? 64)
             $0.size.equalTo(80)
         }
-        
+
         usernameLabel.snp.makeConstraints {
             $0.left.equalTo(avatarView)
-            $0.top.equalTo(avatarView.snp.bottom).offset(15)
+            $0.top.equalTo(avatarView.snp.bottom).offset(10)
         }
-        
+
         followBtn.snp.makeConstraints {
             $0.right.equalToSuperview().inset(15)
             $0.top.equalTo(avatarView.snp.top)
             $0.width.equalTo(75)
             $0.height.equalTo(35)
         }
-        
+
         blockBtn.snp.makeConstraints {
             $0.right.equalTo(followBtn)
             $0.top.equalTo(followBtn.snp.bottom).offset(10)
             $0.size.equalTo(followBtn)
         }
-        
+
         joinTimeLabel.snp.makeConstraints {
             $0.left.equalTo(avatarView)
             $0.right.equalToSuperview().inset(15)
-            $0.top.equalTo(usernameLabel.snp.bottom).offset(15)
+            $0.top.equalTo(usernameLabel.snp.bottom).offset(10)
         }
 
-        segmentViewContainer.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalTo(headerView.snp.bottom)
-            $0.height.equalTo(44)
-        }
-        
         segmentView.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
             $0.top.bottom.equalToSuperview().inset(8)
         }
-
-        scrollView.snp.makeConstraints {
-            $0.left.bottom.right.equalToSuperview()
-            $0.top.equalTo(segmentViewContainer.snp.bottom).offset(1)
-        }
     }
 
-    override func setupRx() {
+    func setupRx() {
         segmentView.rx
             .controlEvent(.valueChanged)
             .subscribeNext { [weak self] in
                 guard let `self` = self else { return }
-                var offset = self.scrollView.contentOffset
-                offset.x = self.segmentView.selectedSegmentIndex.f * self.scrollView.width
-                self.scrollView.setContentOffset(offset, animated: true)
+                self.setSelect(index: self.segmentView.selectedSegmentIndex, animation: true)
             }.disposed(by: rx.disposeBag)
 
         blockBtn.rx
@@ -295,8 +257,65 @@ class MemberPageViewController: BaseViewController, MemberService, AccountServic
             .subscribeNext { [weak self] in
                 self?.followUserHandle()
             }.disposed(by: rx.disposeBag)
+        
+        ThemeStyle.style.asObservable()
+            .subscribeNext { [weak self] theme in
+                self?.view.backgroundColor = theme.bgColor
+                self?.segmentViewContainer.borderBottom = Border(color: theme.borderColor)
+        
+                self?.segmentView.setTitleTextAttributes(
+                    [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15),
+                     NSAttributedString.Key.foregroundColor: theme == .day ? Theme.Color.globalColor : .white
+                    ], for: .selected)
+                self?.segmentViewContainer.backgroundColor = theme.cellBackgroundColor
+            }.disposed(by: rx.disposeBag)
+    }
+    
+    override func headerViewFor(_ pageController: AquamanPageViewController) -> UIView {
+        return headerView
+    }
+    
+    override func headerViewHeightFor(_ pageController: AquamanPageViewController) -> CGFloat {
+        return 260
+    }
+    
+    override func numberOfViewControllers(in pageController: AquamanPageViewController) -> Int {
+        return 2
+    }
+    
+    override func pageController(_ pageController: AquamanPageViewController, viewControllerAt index: Int) -> (UIViewController & AquamanChildViewController) {
+        return index == 0 ? MyTopicsViewController(username: memberName) : MyReplyViewController(username: memberName)
+    }
+    
+    override func menuViewFor(_ pageController: AquamanPageViewController) -> UIView {
+        return segmentViewContainer
+    }
+    
+    override func menuViewHeightFor(_ pageController: AquamanPageViewController) -> CGFloat {
+        return 44
+    }
+
+    override func menuViewPinHeightFor(_ pageController: AquamanPageViewController) -> CGFloat {
+        return UIApplication.shared.statusBarFrame.height + 44.0
+    }
+    
+    override func pageController(_ pageController: AquamanPageViewController, mainScrollViewDidScroll scrollView: UIScrollView) {
+        let rate = (UIApplication.shared.statusBarFrame.height * 3.0)
+        let alpha = min(scrollView.contentOffset.y / rate, 1.0)
+        joinTimeLabel.alpha = 1 - alpha
+        usernameLabel.alpha = joinTimeLabel.alpha
+        titleLabel.alpha = alpha
+    }
+    
+    override func pageController(_ pageController: AquamanPageViewController,
+                                 contentScrollViewDidEndScroll scrollView: UIScrollView) {
+        let offsetX = scrollView.contentOffset.x
+        let index = Int(offsetX / scrollView.width)
+        
+        segmentView.selectedSegmentIndex = index
     }
 }
+
 
 // MARK: - Actions
 extension MemberPageViewController {
@@ -335,46 +354,5 @@ extension MemberPageViewController {
             self?.followBtn.isLoading = false
             HUD.showError(error)
         }
-    }
-}
-
-// MARK: - UIScrollViewDelegate
-extension MemberPageViewController: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let contentOffsetY = scrollView.contentOffset.y
-        guard contentOffsetY > 30 else { return }
-        
-        let betwent: CGFloat = 180
-
-        let delta = contentOffsetY - lastOffsetY
-
-        let headOffset = betwent - delta
-
-
-        if contentOffsetY > betwent {
-            headerViewTopConstraint?.update(inset: -betwent)
-        } else {
-            log.info( "headOffset ", headOffset + 64)
-            let hf = headOffset + 64
-            headerViewTopConstraint?.update(inset: hf > 0 ? 0 : hf)
-        }
-    }
-
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        let offsetX = scrollView.contentOffset.x
-        let index = Int(offsetX / Constants.Metric.screenWidth)
-
-        segmentView.selectedSegmentIndex = index
-        let willShowVC = children[index]
-
-        if willShowVC.isViewLoaded { return }
-        willShowVC.view.frame = scrollView.bounds
-        scrollView.addSubview(willShowVC.view)
-    }
-
-
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        scrollViewDidEndScrollingAnimation(scrollView)
     }
 }
