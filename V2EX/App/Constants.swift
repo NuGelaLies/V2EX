@@ -14,7 +14,7 @@ struct Constants {
 
         static var URIScheme = "https:"
         
-        static var receiverEmail = "joesir7@foxmail.com"
+        static var receiverEmail = "aidevjoe@gmail.com"
 
         static var AppID = "1308118507"
         

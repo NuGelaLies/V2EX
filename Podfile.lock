@@ -1,16 +1,16 @@
 PODS:
-  - Alamofire (4.8.0)
+  - Alamofire (4.8.1)
   - Aquaman (0.0.1)
   - Bugly (2.5.0)
-  - DeviceKit (1.10.0)
+  - DeviceKit (1.11.0)
   - IQKeyboardManagerSwift (6.2.0)
-  - Kanna (4.0.2)
+  - Kanna (4.0.3)
   - Kingfisher (4.10.1)
   - MarkdownView (1.5.0)
   - "NSObject+Rx (4.4.1)":
     - RxSwift (~> 4.3)
   - PasswordExtension (4.2.1)
-  - PKHUD (5.2.0)
+  - PKHUD (5.2.1)
   - PullToRefreshKit (0.8.8)
   - Reveal-SDK (20)
   - RxAtomic (4.4.0)
@@ -24,9 +24,9 @@ PODS:
   - SKPhotoBrowser (6.0.0)
   - SnapKit (4.2.0)
   - StatefulViewController (3.0)
-  - SwiftMessages (6.0.1):
-    - SwiftMessages/App (= 6.0.1)
-  - SwiftMessages/App (6.0.1)
+  - SwiftMessages (6.0.2):
+    - SwiftMessages/App (= 6.0.2)
+  - SwiftMessages/App (6.0.2)
   - "UIView+Positioning (1.6)"
   - YYText (1.0.7)
 
@@ -93,17 +93,17 @@ CHECKOUT OPTIONS:
     :git: https://github.com/aidevjoe/YYText
 
 SPEC CHECKSUMS:
-  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   Aquaman: e397a05d22ae0cc2f1216ea08fcbe67f596dd523
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
-  DeviceKit: 2a6cf0d1ec05e2ac7f9b24cdfdb3cb358900a247
+  DeviceKit: a3a86f8dddbe1317a9a243cdf9646858bf135dce
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
-  Kanna: c60b61d72554bf04ed1ee074f9b379855cab4892
+  Kanna: 0ebbdd0e7e3308f0aafbd569e79c8cadc5eb877c
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   MarkdownView: 5bbee438c823db1cd189002d44c84fa909b3a896
   "NSObject+Rx": 9884a92f19b610795c431e10b4e601913b59c9e9
   PasswordExtension: cd45d17fc92e0defc5ee630795d916f453c6ba12
-  PKHUD: dd5357ac65f26115c35c4a68e9b328053326c5fe
+  PKHUD: 4e6162c4c39ac367c6934e9855c6b4762ee16256
   PullToRefreshKit: 7cc53e720e69f135cffa1a57784dfb534f0222ab
   Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
   RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
@@ -113,7 +113,7 @@ SPEC CHECKSUMS:
   SKPhotoBrowser: 76eb862685761707b5745fde7762757966565e07
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931
-  SwiftMessages: 42ed7b6e1f2f1ead9ee667dc61a0ae87e4f49570
+  SwiftMessages: 8b3cc68dba2f1c91aac1a74c90b10287aac35371
   "UIView+Positioning": 6e7236a429053ade11051fab7ff9053af36c77a8
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
