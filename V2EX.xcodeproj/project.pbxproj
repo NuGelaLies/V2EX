@@ -167,6 +167,7 @@
 		D84AC13121A6ACA60088B888 /* AlternateIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D84AC13021A6ACA60088B888 /* AlternateIcons.xcassets */; };
 		D84B4E63217AE71D006DF65B /* black.css in Resources */ = {isa = PBXBuildFile; fileRef = D84B4E62217AE71D006DF65B /* black.css */; };
 		D87BC22B218DCFB000ACA653 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87BC22A218DCFB000ACA653 /* Pods_V2EX.framework */; };
+		D881675721FB16C100A3F56D /* PagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D881675621FB16C100A3F56D /* PagesController.swift */; };
 		D8A1331721BA59E100BB7C18 /* Defaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1331521BA59E100BB7C18 /* Defaults+.swift */; };
 		D8A1331D21BA5D3B00BB7C18 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1331B21BA5D3B00BB7C18 /* DatePickerViewController.swift */; };
 		D8A1331E21BA5D3B00BB7C18 /* DatePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8A1331C21BA5D3B00BB7C18 /* DatePickerViewController.xib */; };
@@ -354,6 +355,7 @@
 		D84AC13021A6ACA60088B888 /* AlternateIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AlternateIcons.xcassets; sourceTree = "<group>"; };
 		D84B4E62217AE71D006DF65B /* black.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = black.css; sourceTree = "<group>"; };
 		D87BC22A218DCFB000ACA653 /* Pods_V2EX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_V2EX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D881675621FB16C100A3F56D /* PagesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagesController.swift; sourceTree = "<group>"; };
 		D8A1331521BA59E100BB7C18 /* Defaults+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Defaults+.swift"; sourceTree = "<group>"; };
 		D8A1331B21BA5D3B00BB7C18 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		D8A1331C21BA5D3B00BB7C18 /* DatePickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePickerViewController.xib; sourceTree = "<group>"; };
@@ -768,6 +770,7 @@
 				778AC6A51F9A2C810072C6E9 /* TopicSearchResultViewController.swift */,
 				7737D7F71FD2B3AF00CBB5B8 /* TopicSearchHistoryViewController.swift */,
 				7794DA2F1FD2E04A00B7B299 /* FenCiViewController.swift */,
+				D881675621FB16C100A3F56D /* PagesController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1085,6 +1088,7 @@
 				BF5A6B851F99D05800CF6BA1 /* BaseTopicsViewController.swift in Sources */,
 				BF8043F31FA3369900AD3C49 /* ReplyMessageViewController.swift in Sources */,
 				7794DA301FD2E04A00B7B299 /* FenCiViewController.swift in Sources */,
+				D881675721FB16C100A3F56D /* PagesController.swift in Sources */,
 				BF9EC8281F95D6EE00E7AA02 /* EmptyView.swift in Sources */,
 				778AC6A61F9A2C810072C6E9 /* TopicSearchResultViewController.swift in Sources */,
 				BFCB67601F8F52B800D05A90 /* GCD.swift in Sources */,

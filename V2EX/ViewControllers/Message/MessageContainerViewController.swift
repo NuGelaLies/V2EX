@@ -2,21 +2,14 @@ import UIKit
 
 class MessageContainerViewController: DataViewController {
 
-    private lazy var scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.showsVerticalScrollIndicator = false
-        view.showsHorizontalScrollIndicator = false
-        view.isPagingEnabled = true
-        view.delegate = self
-        view.isScrollEnabled = false
-        return view
-    }()
-    
     private lazy var segmentedControl: UISegmentedControl = {
         let view = UISegmentedControl(items: ["我的消息", "我的回复"])
+        view.selectedSegmentIndex = 0
         view.addTarget(self, action: #selector(segmentedControlValueChanaeAction), for: .valueChanged)
         return view
     }()
+    
+    private var pagesController: PagesController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,25 +21,26 @@ class MessageContainerViewController: DataViewController {
     
         let replyViewController = MyReplyViewController(username: AccountModel.current?.username ?? "")
         
-        view.addSubview(scrollView)
         let controllers = [MessageViewController(), replyViewController]
-        controllers.forEach { addChild($0) }
-        scrollViewDidEndScrollingAnimation(scrollView)
-        
-        scrollView.contentSize = CGSize(width: view.width * controllers.count.f, height: scrollView.bounds.height)
         
         navigationItem.titleView = segmentedControl
         
-        scrollView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        let pagesController = PagesController(controllers)
+        pagesController.pagesDelegate = self
+        addChild(pagesController)
+        view.addSubview(pagesController.view)
+        pagesController.didMove(toParent: self)
+        self.pagesController = pagesController
+        
+        for view in pagesController.view.subviews {
+            if let subView = view as? UIScrollView {
+                subView.isScrollEnabled = false
+            }
         }
         
-        // 适配屏幕旋转
-        NotificationCenter.default.rx
-            .notification(UIDevice.orientationDidChangeNotification)
-            .subscribe(onNext: { [weak self] noti in
-                self?.rotationAdaptation()
-            }).disposed(by: rx.disposeBag)
+        pagesController.view.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         
         NotificationCenter.default.rx.notification(Notification.Name.V2.LoginSuccessName)
             .subscribe(onNext: { [weak self] noti in
@@ -68,7 +62,7 @@ class MessageContainerViewController: DataViewController {
     
     override func hasContent() -> Bool {
         segmentedControl.isEnabled = AccountModel.isLogin
-        scrollView.isHidden = segmentedControl.isEnabled.not
+        pagesController?.view.isHidden = segmentedControl.isEnabled.not
         return AccountModel.isLogin
     }
     
@@ -83,49 +77,15 @@ class MessageContainerViewController: DataViewController {
 }
 
 extension MessageContainerViewController {
-    
-    private func rotationAdaptation() {
-        guard children.count.boolValue else { return }
-        
-        for (index, showVC) in children.enumerated() {
-            guard showVC.isViewLoaded else { continue }
-            showVC.view.x = index.f * scrollView.width
-        }
-        
-        var offset = scrollView.contentOffset
-        offset.x = scrollView.width * segmentedControl.selectedSegmentIndex.f
-        scrollView.setContentOffset(offset, animated: false)
-    }
-    
     @objc private func segmentedControlValueChanaeAction() {
         
         let index = segmentedControl.selectedSegmentIndex
-        var offset = scrollView.contentOffset
-        let offsetX = scrollView.bounds.width * CGFloat(index)
-        offset.x = offsetX
-        self.scrollView.setContentOffset(offset, animated: true)
-        
-        print(offsetX)
+        pagesController?.goTo(index)
     }
 }
 
-// MARK: - UIScrollViewDelegate
-extension MessageContainerViewController: UIScrollViewDelegate {
-    
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        let offsetX = scrollView.contentOffset.x
-        let index = Int(offsetX / view.bounds.width)
-        
-        segmentedControl.selectedSegmentIndex = index
-        
-        let willShowVC = children[index]
-        if willShowVC.isViewLoaded { return }
-        willShowVC.view.frame = scrollView.bounds
-        willShowVC.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        scrollView.addSubview(willShowVC.view)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        scrollViewDidEndScrollingAnimation(scrollView)
+extension MessageContainerViewController: PagesControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, setViewController viewController: UIViewController, atPage page: Int) {
+        segmentedControl.selectedSegmentIndex = page
     }
 }

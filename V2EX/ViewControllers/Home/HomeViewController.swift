@@ -9,18 +9,6 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
 
     private var segmentView: SegmentView?
 
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        //        scrollView.frame = self.view.bounds
-        scrollView.isPagingEnabled = true
-        scrollView.bounces = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.delegate = self
-        view.addSubview(scrollView)
-        return scrollView
-    }()
-    
     // MARK: - Propertys
     
     private var nodes: [NodeModel] = []
@@ -30,13 +18,14 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
     
     private var isRefreshing: Bool = false
 
+    private var pagesController: PagesController?
+
     // MARK: - View Life Cycle...
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupSegmentView()
-        fetchData()
         switchTheme()
     }
 
@@ -45,8 +34,6 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
 
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-
-        rotationAdaptation()
     }
     
     
@@ -76,10 +63,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
 
         segmentV.valueChange = { [weak self] index in
             guard let `self` = self else { return }
-            var offset = self.scrollView.contentOffset
-            let offsetX = self.scrollView.width * index.f
-            offset.x = offsetX
-            self.scrollView.setContentOffset(offset, animated: true)
+            self.pagesController?.goTo(index)
         }
 
         segmentV.snp.makeConstraints {
@@ -87,18 +71,27 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
             $0.height.equalTo(40)
         }
 
-        scrollView.width = view.width
-        scrollView.snp.makeConstraints {
+        let viewControllers = nodes.map { BaseTopicsViewController(node: $0) }
+        let pagesController = PagesController(viewControllers)
+        pagesController.pagesDelegate = self
+        addChild(pagesController)
+        view.addSubview(pagesController.view)
+        //        pagesController.view.pin(to: view)
+        
+        
+        pagesController.view.snp.makeConstraints {
             $0.top.equalTo(segmentV.snp.bottom)
             $0.left.right.equalToSuperview()
-
             if #available(iOS 11.0, *) {
                 $0.bottom.equalTo(view.safeAreaInsets)
             } else {
                 $0.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
         }
-
+        
+        pagesController.didMove(toParent: self)
+        self.pagesController = pagesController
+        
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 segmentV.backgroundColor = theme.navColor
@@ -197,13 +190,6 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
 //                }
 //            }.disposed(by: rx.disposeBag)
 
-        // 适配屏幕旋转
-        NotificationCenter.default.rx
-            .notification(UIDevice.orientationDidChangeNotification)
-            .subscribe(onNext: { [weak self] noti in
-                self?.rotationAdaptation()
-            }).disposed(by: rx.disposeBag)
-        
         NotificationCenter.default.rx
             .notification(Notification.Name.V2.ReceiveRemoteNewMessageName)
             .subscribeNext { [weak self] notification in
@@ -244,18 +230,6 @@ extension HomeViewController {
         }
     }
     
-    /// 获取所有节点
-    private func fetchData() {
-
-        scrollView.contentSize = CGSize(width: nodes.count.f * scrollView.width, height: scrollView.contentSize.height)
-        for node in nodes {
-            let topicVC = BaseTopicsViewController(node: node)
-            addChild(topicVC)
-        }
-
-        scrollViewDidEndScrollingAnimation(scrollView)
-    }
-
     /// 每日奖励
     private func dailyRewardMission() {
         guard AccountModel.isLogin else { return }
@@ -281,39 +255,10 @@ extension HomeViewController {
             HUD.showTest(error)
         }
     }
-
-    private func rotationAdaptation() {
-        guard children.count.boolValue else { return }
-
-        for (index, showVC) in children.enumerated() {
-            guard showVC.isViewLoaded else { continue }
-            showVC.view.x = index.f * scrollView.width
-        }
-
-        guard let selectIndex = segmentView?.selectIndex else { return }
-        var offset = scrollView.contentOffset
-        offset.x = scrollView.width * selectIndex.f
-        scrollView.setContentOffset(offset, animated: false)
-    }
 }
 
-// MARK: - UIScrollViewDelegate
-extension HomeViewController: UIScrollViewDelegate {
-
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        let offsetX = scrollView.contentOffset.x
-        let index = Int(offsetX / view.width)
-
-        segmentView?.setSelectIndex(index: index)
-
-        let willShowVC = children[index]
-        if willShowVC.isViewLoaded { return }
-        willShowVC.view.frame = scrollView.bounds
-        scrollView.addSubview(willShowVC.view)
-    }
-
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        scrollViewDidEndScrollingAnimation(scrollView)
+extension HomeViewController: PagesControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, setViewController viewController: UIViewController, atPage page: Int) {
+        segmentView?.setSelectIndex(index: page)
     }
 }
-
