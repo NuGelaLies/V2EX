@@ -132,24 +132,22 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
                 let willShowVC = self.pagesController?.viewControllers?[segmentView.selectIndex]
                 if let tableView = willShowVC?.view.subviews.first as? UITableView, tableView.numberOfRows(inSection: 0) > 0 {
                     let indexPath = IndexPath(row: 0, section: 0)
-                    tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-                    
-                    GCD.delay(0.3, block: {
-                        if !self.isRefreshing {
-                            self.isRefreshing = true
-                            tableView.switchRefreshHeader(to: .refreshing)
-                            if #available(iOS 10.0, *) {
-                                let generator = UIImpactFeedbackGenerator(style: .heavy)
-                                generator.prepare()
-                                generator.impactOccurred()
-                            }
-                            GCD.delay(1, block: {
-                                self.isRefreshing = false
-                            })
+                    if tableView.indexPathsForVisibleRows?.first == indexPath, !self.isRefreshing {
+                        self.isRefreshing = true
+                        tableView.switchRefreshHeader(to: .refreshing)
+                        if #available(iOS 10.0, *) {
+                            let generator = UIImpactFeedbackGenerator(style: .heavy)
+                            generator.prepare()
+                            generator.impactOccurred()
                         }
-                    })
-                    
+                        GCD.delay(1, block: {
+                            self.isRefreshing = false
+                        })
+                    } else {
+                        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+                    }
                 }
+
             }.disposed(by: rx.disposeBag)
 
         NotificationCenter.default.rx

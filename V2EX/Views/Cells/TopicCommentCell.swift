@@ -160,6 +160,8 @@ class TopicCommentCell: BaseTableViewCell {
     }
 
     override func initialize() {
+        contentView.clipsToBounds = true
+        
         let bgColorView = UIView()
         bgColorView.backgroundColor = UIColor.hex(0xB3DBE8).withAlphaComponent(0.3)
         selectedBackgroundView = bgColorView
@@ -268,7 +270,8 @@ class TopicCommentCell: BaseTableViewCell {
         }
         
         replyContainerView.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(-activationOffset)
+//            $0.right.equalToSuperview().inset(-activationOffset)
+            $0.left.equalTo(contentView.snp.right)
             $0.width.equalTo(activationOffset)
             $0.height.equalToSuperview()
         }

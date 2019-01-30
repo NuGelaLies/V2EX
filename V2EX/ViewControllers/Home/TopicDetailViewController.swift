@@ -23,7 +23,11 @@ class TopicDetailViewController: DataViewController, TopicService {
         inset.top = navigationController?.navigationBar.height ?? 64
         view.contentInset = inset
         inset.bottom = 0
+        if #available(iOS 11.0, *) {
+            view.contentInsetAdjustmentBehavior = .never
+        }
         view.scrollIndicatorInsets = inset
+        view.cellLayoutMarginsFollowReadableWidth = false
         self.view.addSubview(view)
         return view
     }()

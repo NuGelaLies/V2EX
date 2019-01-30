@@ -51,6 +51,11 @@ class TopicDetailHeaderView: UIView {
         static let margin: CGFloat = 15
     }
 
+    private lazy var topContainerView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     private lazy var avatarView: UIImageView = {
         let view = UIImageView()
         view.isUserInteractionEnabled = true
@@ -102,13 +107,19 @@ class TopicDetailHeaderView: UIView {
         return view
     }()
 
+    private lazy var replyLabelContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = ThemeStyle.style.value.bgColor
+        return view
+    }()
+    
     private lazy var replyLabel: UIInsetLabel = {
         let view = UIInsetLabel()
         view.text = "全部回复"
         view.contentInsetsLeft = Metric.margin
         view.contentInsetsTop = Metric.margin
         view.font = UIFont.systemFont(ofSize: 13)
-        view.backgroundColor = ThemeStyle.style.value.bgColor
+        view.backgroundColor = .clear//ThemeStyle.style.value.bgColor
         view.textColor = #colorLiteral(red: 0.5333333333, green: 0.5333333333, blue: 0.5333333333, alpha: 1)
         return view
     }()
@@ -133,15 +144,21 @@ class TopicDetailHeaderView: UIView {
         super.init(frame: CGRect(x: 0, y: 0, width: Constants.Metric.screenWidth, height: 130))
         backgroundColor = .white
         
-        addSubviews(
+        topContainerView.addSubviews(
             avatarView,
             usernameLabel,
             timeLabel,
             nodeLabel,
-            titleLabel,
-            webView,
-            replyLabel
+            titleLabel
         )
+        
+        addSubviews(
+            topContainerView,
+            webView,
+            replyLabelContainerView
+        )
+        
+        replyLabelContainerView.addSubview(replyLabel)
         
         setupConstraints()
         setupAction()
@@ -193,7 +210,7 @@ class TopicDetailHeaderView: UIView {
             .subscribeNext { [weak self] theme in
                 self?.backgroundColor = theme.cellBackgroundColor
                 self?.titleLabel.textColor = theme.titleColor
-                self?.replyLabel.backgroundColor = theme.bgColor
+                self?.replyLabelContainerView.backgroundColor = theme.bgColor
                 self?.usernameLabel.textColor = theme.titleColor
                 self?.nodeLabel.backgroundColor = theme == .day ? UIColor.hex(0xf5f5f5) : theme.bgColor
                 self?.timeLabel.textColor = theme.dateColor
@@ -207,6 +224,17 @@ class TopicDetailHeaderView: UIView {
     }
     
     func setupConstraints() {
+        
+        topContainerView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            if #available(iOS 11.0, *) {
+                $0.left.equalTo(replyLabelContainerView.safeAreaLayoutGuide.snp.left)
+                $0.right.equalTo(replyLabelContainerView.safeAreaLayoutGuide.snp.right)
+            } else {
+                $0.left.right.equalToSuperview()
+            }
+        }
+        
         avatarView.snp.makeConstraints {
             $0.left.top.equalToSuperview().inset(Metric.margin)
             $0.size.equalTo(35)
@@ -239,10 +267,20 @@ class TopicDetailHeaderView: UIView {
             webViewConstraint = $0.height.equalTo(0).constraint
         }
 
-        replyLabel.snp.makeConstraints {
+        replyLabelContainerView.snp.makeConstraints {
             $0.top.equalTo(webView.snp.bottom)
             $0.left.right.equalToSuperview()
             $0.height.equalTo(Metric.replyLabelHeight)
+        }
+        
+        replyLabel.snp.makeConstraints {
+            $0.bottom.top.equalToSuperview()
+            if #available(iOS 11.0, *) {
+                $0.left.equalTo(replyLabelContainerView.safeAreaLayoutGuide.snp.left)
+                $0.right.equalTo(replyLabelContainerView.safeAreaLayoutGuide.snp.right)
+            } else {
+                $0.left.right.equalToSuperview()
+            }
         }
     }
 

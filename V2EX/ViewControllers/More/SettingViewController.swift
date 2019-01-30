@@ -88,7 +88,6 @@ extension SettingViewController {
         
         let item = sections[indexPath.section][indexPath.row]
         cell.textLabel?.text = item.title
-        cell.rightType = item.rightType
         cell.textLabel?.textAlignment = item.type == .logout ? .center : .left
         cell.textLabel?.textColor = item.type == .logout ? .red : ThemeStyle.style.value.titleColor
         switch item.type {
@@ -109,6 +108,7 @@ extension SettingViewController {
         default:
             break
         }
+        cell.rightType = item.rightType
         return cell
     }
 
@@ -140,10 +140,11 @@ extension SettingViewController {
             Preference.shared.isEnableReadMark = cell.switchView.isOn
             if cell.switchView.isOn {
                 sections[1].append(newReadReset)
+                tableView.insertRows(at: [IndexPath(item: tableView.numberOfRows(inSection: 1), section: 1)], with: .automatic)
             } else {
                 sections[1].removeLast()
+                tableView.deleteRows(at: [IndexPath(item: tableView.numberOfRows(inSection: 1) - 1, section: 1)], with: .automatic)
             }
-            self.tableView.reloadData()
         case .newReplyReset:
             Preference.shared.isEnableNewReadReset = cell.switchView.isOn
         case .tabSort:
