@@ -185,26 +185,27 @@ class TopicDetailHeaderView: UIView {
         webLoadComplete?()
     }
 
+    let avatarTapGesture = UITapGestureRecognizer()
+    let nodeTapGesture = UITapGestureRecognizer()
+    
     private func setupAction() {
-        let avatarTapGesture = UITapGestureRecognizer()
-        avatarView.addGestureRecognizer(avatarTapGesture)
-
-        let nodeTapGesture = UITapGestureRecognizer()
-        nodeLabel.addGestureRecognizer(nodeTapGesture)
-
-        avatarTapGesture.rx
-            .event
-            .subscribeNext { [weak self] _ in
-                guard let member = self?.topic?.member else { return }
-                self?.tapHandle?(.member(member))
-            }.disposed(by: rx.disposeBag)
-
-        nodeTapGesture.rx
-            .event
-            .subscribeNext { [weak self] _ in
-                guard let node = self?.topic?.node else { return }
-                self?.tapHandle?(.node(node))
-            }.disposed(by: rx.disposeBag)
+//        avatarView.addGestureRecognizer(avatarTapGesture)
+//
+//        nodeLabel.addGestureRecognizer(nodeTapGesture)
+//
+//        avatarTapGesture.rx
+//            .event
+//            .subscribeNext { [weak self] _ in
+//                guard let member = self?.topic?.member else { return }
+//                self?.tapHandle?(.member(member))
+//            }.disposed(by: rx.disposeBag)
+//
+//        nodeTapGesture.rx
+//            .event
+//            .subscribeNext { [weak self] _ in
+//                guard let node = self?.topic?.node else { return }
+//                self?.tapHandle?(.node(node))
+//            }.disposed(by: rx.disposeBag)
 
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
@@ -360,6 +361,30 @@ class TopicDetailHeaderView: UIView {
     var replyTitle: String = "全部回复" {
         didSet {
             replyLabel.text = replyTitle
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: touch.view)
+
+        // YYTextEffectWindow 导致无法处理点击事件， 使用 touch 处理
+        
+        let avatarViewTap = avatarView.frame.contains(location)
+        if avatarViewTap, let member = topic?.member {
+            tapHandle?(.member(member))
+            return
+        }
+    
+        let nodeLabelTap = nodeLabel.frame.contains(location)
+        if nodeLabelTap, let node = topic?.node {
+            tapHandle?(.node(node))
+            return
+        }
+        
+        let titleLabelTap = titleLabel.frame.contains(location)
+        if titleLabelTap {
+            titleLabel.showCopyMenu()
         }
     }
 }

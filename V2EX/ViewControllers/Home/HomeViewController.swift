@@ -129,7 +129,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
             .notification(Notification.Name.V2.DidSelectedHomeTabbarItemName)
             .subscribeNext { [weak self] _ in
                 guard let `self` = self, let `segmentView` = self.segmentView else { return }
-                let willShowVC = self.pagesController?.viewControllers?[segmentView.selectIndex]
+                let willShowVC = self.pagesController?.pages[segmentView.selectIndex]
                 if let tableView = willShowVC?.view.subviews.first as? UITableView, tableView.numberOfRows(inSection: 0) > 0 {
                     let indexPath = IndexPath(row: 0, section: 0)
                     if tableView.indexPathsForVisibleRows?.first == indexPath, !self.isRefreshing {

@@ -360,6 +360,14 @@ class TopicDetailViewController: DataViewController, TopicService {
                 setStatusBarBackground(.clear)
             }.disposed(by: rx.disposeBag)
 
+        /// 登录成功后， 刷新 once
+        NotificationCenter.default.rx
+            .notification(Notification.Name.V2.LoginSuccessName)
+            .subscribeNext { [weak self] _ in
+                self?.fetchTopicDetail()
+            }.disposed(by: rx.disposeBag)
+
+
         backTopBtn.rx.tap
             .subscribeNext { [weak self] in
                 guard let `self` = self else { return }
@@ -693,6 +701,7 @@ extension TopicDetailViewController {
         case .webpage(let url):
             openWebView(url: url)
         case .member(let member):
+            self.setTabBarHiddn(false)
             let memberPageVC = MemberPageViewController(memberName: member.username)
             self.navigationController?.pushViewController(memberPageVC, animated: true)
         case .memberAvatarLongPress(let member):
@@ -1055,7 +1064,7 @@ extension TopicDetailViewController {
             return
         }
 
-        guard let once = topic.once else {
+        guard let once = topic.once ?? AccountModel.getOnce() else {
             HUD.showError("无法获取 once，请尝试重新登录", completionBlock: {
                 presentLoginVC()
             })
@@ -1162,7 +1171,7 @@ extension TopicDetailViewController {
     /// 忽略主题请求
     private func ignoreTopicHandle() {
         guard let `topic` = topic,
-            let once = topic.once else {
+            let once = topic.once ?? AccountModel.getOnce() else {
                 HUD.showError("操作失败")
                 return
         }
@@ -1192,7 +1201,7 @@ extension TopicDetailViewController {
             HUD.show()
             
             self.comment(
-                once: self.topic?.once ?? "",
+                once: self.topic?.once ?? AccountModel.getOnce() ?? "",
                 topicID: self.topicID,
                 content: "@Livid " + text, success: {
                     HUD.showSuccess("举报成功")

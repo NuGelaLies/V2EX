@@ -186,7 +186,7 @@ extension UILabel {
         }
     }
 
-    @objc private func showCopyMenu() {
+    @objc public func showCopyMenu() {
         let copyMenu = UIMenuController.shared
 
         guard !copyMenu.isMenuVisible else { return }

@@ -17,7 +17,7 @@ class PagesController: UIPageViewController {
         }
     }
     
-    private lazy var pages = Array<UIViewController>()
+    public var pages: [UIViewController] = []
     
     public var pagesCount: Int {
         return pages.count
