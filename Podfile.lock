@@ -13,13 +13,13 @@ PODS:
   - PKHUD (5.2.1)
   - PullToRefreshKit (0.8.8)
   - Reveal-SDK (20)
-  - RxAtomic (4.4.0)
-  - RxCocoa (4.4.0):
+  - RxAtomic (4.4.1)
+  - RxCocoa (4.4.1):
     - RxSwift (~> 4.0)
   - RxOptional (3.6.2):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxSwift (4.4.0):
+  - RxSwift (4.4.1):
     - RxAtomic (~> 4.4)
   - SKPhotoBrowser (6.0.0)
   - SnapKit (4.2.0)
@@ -106,10 +106,10 @@ SPEC CHECKSUMS:
   PKHUD: 4e6162c4c39ac367c6934e9855c6b4762ee16256
   PullToRefreshKit: 7cc53e720e69f135cffa1a57784dfb534f0222ab
   Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
-  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
-  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
+  RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
   RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
-  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
   SKPhotoBrowser: 76eb862685761707b5745fde7762757966565e07
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931

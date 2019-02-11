@@ -195,6 +195,11 @@ extension AppearanceViewController {
                         Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : .black
                     }))
                     alertC.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                    if let indexPath = tableView.indexPathForSelectedRow,
+                        let cell = tableView.cellForRow(at: indexPath) {
+                        alertC.popoverPresentationController?.sourceView = cell
+                        alertC.popoverPresentationController?.sourceRect = cell.bounds
+                    }
                     present(alertC, animated: true, completion: nil)
                 } else {
                     cell.switchView.setOn(!cell.switchView.isOn, animated: true)

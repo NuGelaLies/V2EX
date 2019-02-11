@@ -51,7 +51,7 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
     // MARK: - Setup
     
     override func setupSubviews() {
-        if traitCollection.forceTouchCapability == .available {
+        if traitCollection.forceTouchCapability != .unavailable {
             registerForPreviewing(with: self, sourceView: tableView)
         }
 

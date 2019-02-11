@@ -345,9 +345,9 @@ class LoginViewController: BaseViewController, AccountService, TopicService, OCR
             .subscribeNext { [weak self] in
                 // Optimize: - 获取网页内容, 判断如果登录成功dismiss, 并记录用户信息
                 self?.navBarBgAlpha = 1
-                let webView = SweetWebViewController()
-                webView.url = API.signup(dict: [:]).url
-                self?.navigationController?.pushViewController(webView, animated: true)
+                let webviewVC = SweetWebViewController()
+                webviewVC.url = API.signup(dict: [:]).url
+                self?.navigationController?.pushViewController(webviewVC, animated: true)
                 //                self?.navigationController?.pushViewController(RegisterViewController(), animated: true)
                 
             }.disposed(by: rx.disposeBag)
@@ -405,15 +405,17 @@ extension LoginViewController {
             请确保能正常访问 Google
             如没有自动跳转到 Google 登录页面，请手动点击 "Sign in with Google"
             输入完账号密码后请勿关闭网页, 加载成功后会自动关闭
+            如登录完成后一直没响应，请手动点击 "获取 Cookie" 按钮
             """,
             duration: 5.5)
         
-        let dictionaty = ["UserAgent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36"]
+        let dictionaty = ["UserAgent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"]
         UserDefaults.standard.register(defaults: dictionaty)
         
         navBarBgAlpha = 1
         let webViewVC = SweetWebViewController()
         webViewVC.url = URL(string: API.googleSignin(once: once).defaultURLString)
+        
         webViewVC.webViewdidFinish = { [weak self] webView, url in
             log.info("webView.webViewdidFinish url", url)
             
@@ -422,6 +424,12 @@ extension LoginViewController {
             self?.analysisLoginResult(webView)
         }
         navigationController?.pushViewController(webViewVC, animated: true)
+        
+        GCD.delay(1.5) {
+            webViewVC.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "获取 Cookie", style: .plain) { [weak self] in
+                self?.analysisLoginResult(webViewVC.webView)
+            }
+        }
     }
     
     private func analysisLoginResult(_ webView: WKWebView) {
