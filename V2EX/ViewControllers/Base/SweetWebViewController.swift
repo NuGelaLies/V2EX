@@ -57,7 +57,7 @@ open class SweetWebViewController: UIViewController {
     open var rightNavigaionBarItemTypes: [BarButtonItemType] = []
     open var toolbarItemTypes: [BarButtonItemType] = [.back, .forward, .reload, .activity]
 
-    fileprivate var webView: WKWebView!
+    public var webView: WKWebView!
     fileprivate var progressView: UIProgressView!
 
     open var webViewdidFinish: ((WKWebView, URL) -> Void)?
