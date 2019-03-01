@@ -88,6 +88,7 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 self?.tableView.separatorColor = theme.borderColor
+                self?.setupHeaderRefresh()
             }.disposed(by: rx.disposeBag)
     }
     

@@ -5,8 +5,13 @@ extension UIScrollView {
 
     func addHeaderRefresh(handle: @escaping Action) {
 //        configRefreshHeader(with: DefaultRefreshHeader.header(), action: handle)
-        
-        configRefreshHeader(with: ElasticRefreshHeader(), container: self, action: handle)
+        let header = ElasticRefreshHeader()
+        #if swift(>=4.2)
+        header.control.spinner.style = ThemeStyle.style.value == .day ? .gray : .white
+        #else
+        header.control.spinner.style = ThemeStyle.style.value == .day ? .gray : .white
+        #endif
+        configRefreshHeader(with: header, container: self, action: handle)
     }
 
     func addFooterRefresh(handle: @escaping Action) {
