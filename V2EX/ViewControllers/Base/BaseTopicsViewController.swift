@@ -1,5 +1,4 @@
 import UIKit
-import PullToRefreshKit
 
 class BaseTopicsViewController: DataViewController, TopicService, NodeService {
 
