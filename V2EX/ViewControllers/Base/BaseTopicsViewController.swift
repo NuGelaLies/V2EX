@@ -1,4 +1,5 @@
 import UIKit
+import PullToRefreshKit
 
 class BaseTopicsViewController: DataViewController, TopicService, NodeService {
 
@@ -88,6 +89,15 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 self?.tableView.separatorColor = theme.borderColor
+                for view in (self?.tableView.viewWithTag(100001)?.subviews)! {
+                    if let headerView = view as? ElasticRefreshHeader {
+                        #if swift(>=4.2)
+                        headerView.control.spinner.style = ThemeStyle.style.value == .day ? .gray : .white
+                        #else
+                        headerView.control.spinner.style = ThemeStyle.style.value == .day ? .gray : .white
+                        #endif
+                    }
+                }
             }.disposed(by: rx.disposeBag)
     }
     
