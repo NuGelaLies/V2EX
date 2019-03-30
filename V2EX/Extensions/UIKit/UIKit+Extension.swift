@@ -8,13 +8,13 @@ import SystemConfiguration.CaptiveNetwork
 // MARK: Float、Interger
 
 public extension IntegerLiteralType {
-    public var f: CGFloat {
+    var f: CGFloat {
         return CGFloat(self)
     }
 }
 
 public extension FloatLiteralType {
-    public var f: CGFloat {
+    var f: CGFloat {
         return CGFloat(self)
     }
 }
@@ -100,30 +100,30 @@ extension UserDefaults {
 public extension UIApplication {
 
     /// App版本
-    public class func appVersion() -> String {
+    class func appVersion() -> String {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     }
 
     /// App构建版本
-    public class func appBuild() -> String {
+    class func appBuild() -> String {
         return Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
     }
 
-    public class var iconFilePath: String {
+    class var iconFilePath: String {
         let iconFilename = Bundle.main.object(forInfoDictionaryKey: "CFBundleIconFile")
         let iconBasename = (iconFilename as! NSString).deletingPathExtension
         let iconExtension = (iconFilename as! NSString).pathExtension
         return Bundle.main.path(forResource: iconBasename, ofType: iconExtension)!
     }
 
-    public class func iconImage() -> UIImage? {
+    class func iconImage() -> UIImage? {
         guard let image = UIImage(contentsOfFile:self.iconFilePath) else {
             return nil
         }
         return image
     }
 
-    public class func versionDescription() -> String {
+    class func versionDescription() -> String {
         let version = appVersion()
         #if DEBUG
             return "Debug - \(version)"
@@ -132,20 +132,20 @@ public extension UIApplication {
         #endif
     }
 
-    public class func appBundleName() -> String{
+    class func appBundleName() -> String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
     }
 
-    public class func appDisplayName() -> String{
+    class func appDisplayName() -> String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as! String
     }
 
-    public class func sendEmail(toAddress address: String) {
+    class func sendEmail(toAddress address: String) {
         guard address.isNotEmpty else { return }
         UIApplication.shared.openURL(URL(string: "mailto://\(address)")!)
     }
 
-    public class func appReviewPage(with appId: String) {
+    class func appReviewPage(with appId: String) {
         guard appId.isNotEmpty else { return }
         var urlString = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=\(appId)"
         if #available(iOS 11, *) {

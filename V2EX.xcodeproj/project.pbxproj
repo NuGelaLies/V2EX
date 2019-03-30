@@ -81,7 +81,6 @@
 		BF1B1D191FA6F2A500544A11 /* TwoStepVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1B1D181FA6F2A500544A11 /* TwoStepVerificationViewController.swift */; };
 		BF1B1D1B1FA7003400544A11 /* AllNodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1B1D1A1FA7003400544A11 /* AllNodesViewController.swift */; };
 		BF2C54D01FC536EA00B944FB /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2C54CF1FC536EA00B944FB /* AccountsViewController.swift */; };
-		BF2C54D21FC53BF500B944FB /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2C54D11FC53BF500B944FB /* Keychain.swift */; };
 		BF39FFE91F9442DA00D6F8BD /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF39FFE81F9442DA00D6F8BD /* LoadingButton.swift */; };
 		BF3AB5C51F9756D500043269 /* CommentInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AB5C41F9756D500043269 /* CommentInputView.swift */; };
 		BF3AB5C71F97672300043269 /* UIPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AB5C61F97672300043269 /* UIPlaceholderTextView.swift */; };
@@ -262,7 +261,6 @@
 		BF1B1D181FA6F2A500544A11 /* TwoStepVerificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoStepVerificationViewController.swift; sourceTree = "<group>"; };
 		BF1B1D1A1FA7003400544A11 /* AllNodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNodesViewController.swift; sourceTree = "<group>"; };
 		BF2C54CF1FC536EA00B944FB /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
-		BF2C54D11FC53BF500B944FB /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		BF39FFE81F9442DA00D6F8BD /* LoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		BF3AB5C41F9756D500043269 /* CommentInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputView.swift; sourceTree = "<group>"; };
 		BF3AB5C61F97672300043269 /* UIPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPlaceholderTextView.swift; sourceTree = "<group>"; };
@@ -536,7 +534,6 @@
 			children = (
 				D8EB390E21C8DF65004AF8B0 /* Defaults.swift */,
 				D8A1331521BA59E100BB7C18 /* Defaults+.swift */,
-				BF2C54D11FC53BF500B944FB /* Keychain.swift */,
 				BFE8CB2C1FA09A9D007E2F02 /* MentionedParser.swift */,
 				BFC89B4A1FA033CD00759577 /* FPSLabel.swift */,
 				7756CCC51F92354B00EF47B8 /* LeftAlignedCollectionViewFlowLayout.swift */,
@@ -884,7 +881,9 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = BF65BDAB1F8E12C80010B4C9;
 			productRefGroup = BF65BDB51F8E12C80010B4C9 /* Products */;
@@ -942,7 +941,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-V2EX/Pods-V2EX-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-V2EX/Pods-V2EX-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Aquaman/Aquaman.framework",
 				"${BUILT_PRODUCTS_DIR}/DeviceKit/DeviceKit.framework",
@@ -993,7 +992,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-V2EX/Pods-V2EX-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-V2EX/Pods-V2EX-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D81F752D21A6B55B00EC0427 /* alternate-icons */ = {
@@ -1073,7 +1072,6 @@
 				77C8DF721F930B0E009DE52C /* LoginForm.swift in Sources */,
 				77C8DF741F9316F1009DE52C /* UITextField+Extension.swift in Sources */,
 				779B17061F8FAF5A00E912E7 /* UILable+Extension.swift in Sources */,
-				BF2C54D21FC53BF500B944FB /* Keychain.swift in Sources */,
 				770FFD162000BEAA000F3CA9 /* BlockedMemberCell.swift in Sources */,
 				BFE8CB2D1FA09A9D007E2F02 /* MentionedParser.swift in Sources */,
 				BF45E00C1F9F0A400001BEB2 /* StateView.swift in Sources */,
@@ -1334,7 +1332,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1358,7 +1356,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.joe78.v2er;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

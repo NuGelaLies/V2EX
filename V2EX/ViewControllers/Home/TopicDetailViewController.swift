@@ -285,7 +285,7 @@ class TopicDetailViewController: DataViewController, TopicService {
         self.anchor = nil
         isShowBackLastBrowseView = true
 
-        guard let index = (dataSources.index { $0.floor == anchor.description }) else { return }
+        guard let index = (dataSources.firstIndex { $0.floor == anchor.description }) else { return }
         let indexPath = IndexPath(row: Int(index), section: 0)
         guard indexPath.row < tableView.numberOfRows(inSection: 0) else { return }
         
@@ -709,7 +709,7 @@ extension TopicDetailViewController {
         case .reply(let comment):
             if comment.member.atUsername == commentInputView.textView.text && commentInputView.textView.isFirstResponder { return }
             commentInputView.textView.text = ""
-            if let index = comments.index(of: comment) {
+            if let index = comments.firstIndex(of: comment) {
                 tableView.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .none)
                 
                 GCD.delay(1) {
@@ -736,7 +736,7 @@ extension TopicDetailViewController {
             
             // 主题可能被抽层, 不在依赖 floor, 而去数据源中查
 //            guard let floor = comment.floor.int else { return }
-            guard let index = dataSources.index(of: comment) else { return }
+            guard let index = dataSources.firstIndex(of: comment) else { return }
             let forewordIndexPath = IndexPath(row: Int(index), section: 0)
         
             // 在当前可视范围内 并且 cell没有超出屏幕外

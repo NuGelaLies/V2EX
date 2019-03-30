@@ -64,7 +64,7 @@ class TabSortViewController: BaseTableViewController, NodeService {
             guard let `self` = self else { return }
             self.saveItem.isEnabled = true
 
-            if let oldIndex = self.nodes.index(of: node) {
+            if let oldIndex = self.nodes.firstIndex(of: node) {
                 self.nodes.move(from: oldIndex, to: self.nodes.count - 1)
                 self.tableView.reloadData()
                 return

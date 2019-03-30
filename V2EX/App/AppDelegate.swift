@@ -1,6 +1,8 @@
 import UIKit
 import UserNotifications
-import Bugly
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,8 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppSetup.prepare()
         SQLiteDatabase.initDatabase()
         
-        Bugly.start(withAppId: "f720c10c07")
-        
+        MSAppCenter.start("806fb492-298b-4e30-9ab1-03d990487d11", withServices:[
+            MSAnalytics.self,
+            MSCrashes.self
+            ])
 //        BackgroundFetchService.shared.checkAuthorization()
         
 //        setupJPush(launchOptions: launchOptions)

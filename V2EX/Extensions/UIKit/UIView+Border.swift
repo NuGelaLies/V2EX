@@ -45,7 +45,7 @@ private var borderLeftAssociationKey: UInt8 = 0
 private var borderRightAssociationKey: UInt8 = 0
 
 public extension UIView {
-    public var borderTop: Border? {
+    var borderTop: Border? {
         set {
             objc_setAssociatedObject(self, &borderTopAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             setBorderUtility(newValue, position: .Top)
@@ -54,7 +54,7 @@ public extension UIView {
             return objc_getAssociatedObject(self, &borderTopAssociationKey) as? Border
         }
     }
-    public var borderBottom: Border? {
+    var borderBottom: Border? {
         set {
             objc_setAssociatedObject(self, &borderBottomAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             setBorderUtility(newValue, position: .Bottom)
@@ -63,7 +63,7 @@ public extension UIView {
             return objc_getAssociatedObject(self, &borderBottomAssociationKey) as? Border
         }
     }
-    public var borderLeft: Border? {
+    var borderLeft: Border? {
         set {
             objc_setAssociatedObject(self, &borderLeftAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             setBorderUtility(newValue, position: .Left)
@@ -72,7 +72,7 @@ public extension UIView {
             return objc_getAssociatedObject(self, &borderLeftAssociationKey) as? Border
         }
     }
-    public var borderRight: Border? {
+    var borderRight: Border? {
         set {
             objc_setAssociatedObject(self, &borderRightAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             setBorderUtility(newValue, position: .Right)

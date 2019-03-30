@@ -81,7 +81,7 @@ public extension SharedSequenceConvertibleType where SharingStrategy == DriverSh
      - parameter onNext: Action to invoke for each element in the observable sequence.
      - returns: The source sequence with the side-effecting behavior applied.
      */
-    public func doOnNext(_ onNext: @escaping (E) -> Void) -> Driver<E> {
+    func doOnNext(_ onNext: @escaping (E) -> Void) -> Driver<E> {
         return self.do(onNext: onNext)
     }
     
@@ -91,7 +91,7 @@ public extension SharedSequenceConvertibleType where SharingStrategy == DriverSh
      - parameter onCompleted: Action to invoke upon graceful termination of the observable sequence.
      - returns: The source sequence with the side-effecting behavior applied.
      */
-    public func doOnCompleted(_ onCompleted: @escaping () -> Void) -> Driver<E> {
+    func doOnCompleted(_ onCompleted: @escaping () -> Void) -> Driver<E> {
         return self.do(onCompleted: onCompleted)
     }
     
@@ -101,7 +101,7 @@ public extension SharedSequenceConvertibleType where SharingStrategy == DriverSh
      - parameter onNext: Action to invoke for each element in the observable sequence.
      - returns: Subscription object used to unsubscribe from the observable sequence.
      */
-    public func driveNext(_ onNext: @escaping (E) -> Void) -> Disposable {
+    func driveNext(_ onNext: @escaping (E) -> Void) -> Disposable {
         return self.drive(onNext: onNext)
     }
     
@@ -111,7 +111,7 @@ public extension SharedSequenceConvertibleType where SharingStrategy == DriverSh
      - parameter onCompleted: Action to invoke upon graceful termination of the observable sequence.
      - returns: Subscription object used to unsubscribe from the observable sequence.
      */
-    public func driveCompleted(_ onCompleted: @escaping () -> Void) -> Disposable {
+    func driveCompleted(_ onCompleted: @escaping () -> Void) -> Disposable {
         return self.drive(onCompleted: onCompleted)
     }
 }
@@ -124,7 +124,7 @@ public extension ObserverType {
      
      - parameter element: Next element to send to observer(s)
      */
-    public func onLast(_ element: E) {
+    func onLast(_ element: E) {
         on(.next(element))
         on(.completed)
     }
@@ -168,37 +168,37 @@ extension Collection where Iterator.Element: ObservableType, Iterator.Element.E:
 
 public extension ObservableConvertibleType {
     
-    public func lag() -> Observable<(previous: E?, current: E)> {
+    func lag() -> Observable<(previous: E?, current: E)> {
         return asObservable().scan((previous: nil as E?, current: nil as E?)) { ($0.current, current: $1) }
             .filter { $0.current != nil }
             .map { ($0, $1!) }
     }
     
-    public func rewrite<T>(with value: T) -> Observable<T> {
+    func rewrite<T>(with value: T) -> Observable<T> {
         return asObservable().map { _ in value }
     }
     
-    public func withLatestFrom<O: ObservableConvertibleType>(right second: O) -> Observable<(E, O.E)> {
+    func withLatestFrom<O: ObservableConvertibleType>(right second: O) -> Observable<(E, O.E)> {
         return asObservable().withLatestFrom(second) { ($0, $1) }
     }
     
-    public func withLatestFrom<O: ObservableConvertibleType>(left second: O) -> Observable<(O.E, E)> {
+    func withLatestFrom<O: ObservableConvertibleType>(left second: O) -> Observable<(O.E, E)> {
         return asObservable().withLatestFrom(second) { ($1, $0) }
     }
     
-    public func with<T, U>(_ value: T, resultSelector: @escaping (E, T) -> U) -> Observable<U> {
+    func with<T, U>(_ value: T, resultSelector: @escaping (E, T) -> U) -> Observable<U> {
         return asObservable().withLatestFrom(Observable.just(value), resultSelector: resultSelector)
     }
     
-    public func with<T>(right value: T) -> Observable<(E, T)> {
+    func with<T>(right value: T) -> Observable<(E, T)> {
         return asObservable().with(value) { ($0, $1) }
     }
     
-    public func with<T>(left value: T) -> Observable<(T, E)> {
+    func with<T>(left value: T) -> Observable<(T, E)> {
         return asObservable().with(value) { ($1, $0) }
     }
     
-    public func nilOnError() -> Observable<E?> {
+    func nilOnError() -> Observable<E?> {
         return asObservable().map(Optional.init).catchErrorJustReturn(nil)
     }
     

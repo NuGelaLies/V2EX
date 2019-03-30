@@ -70,7 +70,7 @@ extension MemberModel: Hashable {
         return lhs.username == rhs.username && lhs.url == rhs.url && lhs.avatar == rhs.avatar
     }
 
-    var hashValue: Int {
-        return "\(username),\(url),\(avatar)".hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine("\(username),\(url),\(avatar)".hashValue)
     }
 }

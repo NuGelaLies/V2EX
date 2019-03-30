@@ -231,7 +231,7 @@ extension NodeService {
                     continue
                 }
 
-                if let index = group.index(where: { $0.name == initial }) {
+                if let index = group.firstIndex(where: { $0.name == initial }) {
                     group[index].nodes.append(node)
                     continue
                 }

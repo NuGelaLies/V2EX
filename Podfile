@@ -40,8 +40,8 @@ target 'V2EX' do
     pod 'PasswordExtension'
     pod 'DeviceKit'
     
-    # Bug
-    pod 'Bugly'
+    # Analytics And Crashes
+    pod 'AppCenter'
     
 #    pod 'JPush'
 

@@ -88,7 +88,7 @@ public extension TargetType {
         return false
     }
 
-    public var url: URL? {
+    var url: URL? {
         return URL(string: defaultURLString)
     }
 
@@ -100,7 +100,7 @@ public extension TargetType {
         return route.path
     }
 
-    public var httpHeaderFields: [String: String]? {
+    var httpHeaderFields: [String: String]? {
         return nil
     }
     

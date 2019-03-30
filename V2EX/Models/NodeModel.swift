@@ -169,8 +169,8 @@ extension NodeModel: Hashable {
     static func ==(lhs: NodeModel, rhs: NodeModel) -> Bool {
         return lhs.title == rhs.title && lhs.href == rhs.href
     }
-
-    var hashValue: Int {
-        return title.hashValue ^ href.hashValue
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(title.hashValue ^ href.hashValue)
     }
 }

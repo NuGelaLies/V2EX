@@ -167,7 +167,6 @@ extension MyReplyViewController: UITableViewDelegate, UITableViewDataSource {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollViewDidScroll?(scrollView)
-        amPageViewContoller?.childScrollViewDidScroll(scrollView)
 
     }
 }

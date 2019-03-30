@@ -431,9 +431,8 @@ extension TopicService {
                 return
             }
 
-            guard let dict = resultDict ,
-            (dict["code"] as? String) == "success",
-            let dataDict = dict["data"] as? [String: Any],
+            guard (resultDict["code"] as? String) == "success",
+            let dataDict = resultDict["data"] as? [String: Any],
             let url = dataDict["url"] as? String else {
                 failure?("上传失败")
                 return

@@ -18,8 +18,8 @@ extension CommentModel: Hashable {
         return lhs.id == rhs.id && lhs.member == rhs.member
     }
 
-    public var hashValue: Int {
-        return "\(id)-\(member.username)".hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine("\(id)-\(member.username)".hashValue)
     }
 }
 

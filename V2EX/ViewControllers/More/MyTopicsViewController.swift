@@ -56,7 +56,6 @@ class MyTopicsViewController: BaseTopicsViewController, MemberService, AquamanCh
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollViewDidScroll?(scrollView)
-        amPageViewContoller?.childScrollViewDidScroll(scrollView)
     }
 
     /// 获取主题

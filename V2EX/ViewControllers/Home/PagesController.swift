@@ -135,7 +135,7 @@ extension PagesController: UIPageViewControllerDelegate {
 // MARK: - Private methods
 private extension PagesController {
     func viewControllerIndex(_ viewController: UIViewController) -> Int? {
-        return pages.index(of: viewController)
+        return pages.firstIndex(of: viewController)
     }
     
     func toggle() {

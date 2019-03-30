@@ -571,13 +571,12 @@ extension AccountService {
                 failure?("操作失败")
                 return
             }
-            
-            guard let dict = resultDict,
-                (dict["status"] as? Int) == 0 else {
+
+            guard (resultDict["status"] as? Int) == 0 else {
                     failure?("操作失败")
                     return
             }
-            success?(dict["message"] as? String ?? "操作成功")
+            success?(resultDict["message"] as? String ?? "操作成功")
         }, failure: failure)
     }
     
@@ -592,7 +591,7 @@ extension AccountService {
                 return
             }
             
-            guard let dict = resultDict?["data"] as? [String: Any],
+            guard let dict = resultDict["data"] as? [String: Any],
                 let result = dict["status"] as? Bool else {
                     failure?("操作失败")
                     return

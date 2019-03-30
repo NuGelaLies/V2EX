@@ -126,7 +126,7 @@ extension TopicSearchHistoryViewController {
     private func saveToLocalSearchHistory(query: String? = nil) {
         
         if let `query` = query {
-            if let index = historys.index(of: query) {
+            if let index = historys.firstIndex(of: query) {
                 historys.remove(at: index)
             }
             historys.insert(query, at: 0)

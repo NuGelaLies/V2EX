@@ -146,7 +146,7 @@ extension HTMLParseService {
             if let range = result.range.range(for: text) {
                 let iframe = text[range]
                 let arr = iframe.components(separatedBy: " ")
-                if let srcIndex = arr.index(where: {$0.contains("src")}) {
+                if let srcIndex = arr.firstIndex(where: {$0.contains("src")}) {
                     let srcText = arr[srcIndex]
                     let href = srcText.replacingOccurrences(of: "src", with: "href")
                     let urlString = srcText.replacingOccurrences(of: "src=", with: "").replacingOccurrences(of: "\"", with: "")

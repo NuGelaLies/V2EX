@@ -59,12 +59,12 @@ struct TopicModel {
     }
 }
 
-extension TopicModel: Hashable {
+extension TopicModel: Hashable, Equatable {
     static func ==(lhs: TopicModel, rhs: TopicModel) -> Bool {
         return lhs.title == rhs.title && lhs.href == rhs.href && lhs.publicTime == rhs.publicTime
     }
 
-    public var hashValue: Int {
-        return "\(title)-\(href)-\(publicTime)".hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine("\(title)-\(href)-\(publicTime)".hashValue)
     }
 }
