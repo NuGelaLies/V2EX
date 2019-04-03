@@ -117,7 +117,7 @@ public class ShareSheetView: UIView {
             let origin_y = tHeight + Metric.cardHeight * CGFloat(index) + Metric.divideLineHeight * CGFloat(index)
             
             let scroller = UIScrollView(frame: CGRect(x: 0.0, y: origin_y, width: width, height: Metric.cardHeight))
-            scroller.backgroundColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.80)
+            scroller.backgroundColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.00).withAlphaComponent(0.8)
             scroller.showsHorizontalScrollIndicator = false
             scroller.showsVerticalScrollIndicator = false
             let contentSizeWidth = CGFloat(section.count) * Metric.itemwidth > width ? CGFloat(section.count) * Metric.itemwidth : (width + 1.0)
@@ -165,7 +165,7 @@ public class ShareSheetView: UIView {
         }) { _ in
             UIView.animate(withDuration: Metric.defaultDuration) {
                 self.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-
+                self.shareSheetView.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.941, alpha: 1.0)
                 if #available(iOS 11, *) {
                     let margin = AppWindow.shared.window.safeAreaInsets.bottom
                     self.shareSheetView.y = Constants.Metric.screenHeight - self.shareSheetHeight - margin

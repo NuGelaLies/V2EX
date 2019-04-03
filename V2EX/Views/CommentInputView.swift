@@ -23,7 +23,7 @@ class CommentInputView: UIView {
         view.backgroundColor = Theme.Color.bgColor
         view.delegate = self
         view.textParser = MentionedParser()
-        view.tintColor = Theme.Color.globalColor
+        view.tintColor = ThemeStyle.style.value.tintColor
         var contentInset = view.contentInset
         contentInset.right = -35
         view.contentInset = contentInset
@@ -119,6 +119,7 @@ class CommentInputView: UIView {
                 self?.textView.layer.borderColor = (theme == .day ? theme.borderColor : UIColor.hex(0x19171A)).cgColor
                 self?.textView.keyboardAppearance = theme.keyboardAppeareance
                 self?.textView.textColor = theme.titleColor
+                self?.textView.tintColor = theme.tintColor
                 self?.sendBtn.tintColor = theme == .day ? theme.tintColor : .white
             }.disposed(by: rx.disposeBag)
     }
