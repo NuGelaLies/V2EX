@@ -218,6 +218,7 @@ class TopicSearchResultViewController: DataViewController, TopicService {
                 self?.searchTextField.keyboardAppearance = theme.keyboardAppeareance
                 self?.searchTextField.backgroundColor = theme.bgColor
                 self?.searchTextField.textColor = theme.titleColor
+                self?.searchTextField.tintColor = theme.tintColor
                 self?.containerView.borderBottom = Border(color: theme.borderColor)
                 self?.searchTextField.setValue(theme.dateColor, forKeyPath: "_placeholderLabel.textColor")
                 self?.segmentView.tintColor = theme.tintColor

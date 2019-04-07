@@ -152,6 +152,10 @@ open class SweetWebViewController: UIViewController {
 
         rollbackState()
     }
+    
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return ThemeStyle.style.value.statusBarStyle
+    }
 
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         switch keyPath {

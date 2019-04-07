@@ -429,6 +429,7 @@ extension LoginViewController {
             webViewVC.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "获取 Cookie", style: .plain) { [weak self] in
                 self?.analysisLoginResult(webViewVC.webView)
             }
+            webViewVC.navigationController?.navigationBar.tintColor = ThemeStyle.style.value.tintColor
         }
     }
     
