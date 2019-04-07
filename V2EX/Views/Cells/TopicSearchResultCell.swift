@@ -42,8 +42,10 @@ class TopicSearchResultCell: BaseTableViewCell {
 
             // TODO: 多个关键字应该都高亮
             if let `query` = query {
-                titleLabel.highlight(text: query, normal: nil, highlight: [NSAttributedString.Key.foregroundColor : UIColor.hex(0xD33F3F)])
-                contentLabel.highlight(text: query, normal: nil, highlight: [NSAttributedString.Key.foregroundColor : UIColor.hex(0xD33F3F)])
+                titleLabel.attributedText = titleLabel.text?.makeSubstringColor(query, color: UIColor.hex(0xD33F3F))
+                contentLabel.attributedText = contentLabel.text?.makeSubstringColor(query, color: UIColor.hex(0xD33F3F))
+//                titleLabel.highlight(text: query, normal: nil, highlight: [NSAttributedString.Key.foregroundColor : UIColor.hex(0xD33F3F)])
+//                contentLabel.highlight(text: query, normal: nil, highlight: [NSAttributedString.Key.foregroundColor : UIColor.hex(0xD33F3F)])
             }
             guard let memberName = topic.member,
                 let time = topic.created,

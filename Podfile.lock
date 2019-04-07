@@ -8,10 +8,10 @@ PODS:
   - AppCenter/Core (1.14.0)
   - AppCenter/Crashes (1.14.0):
     - AppCenter/Core
-  - Aquaman (0.0.2)
+  - Aquaman (0.0.3)
   - DeviceKit (1.13.0)
   - IQKeyboardManagerSwift (6.2.1)
-  - Kanna (4.0.3)
+  - Kanna (5.0.0)
   - Kingfisher (4.10.1)
   - MarkdownView (1.5.0)
   - "NSObject+Rx (4.4.1)":
@@ -20,15 +20,13 @@ PODS:
   - PKHUD (5.2.1)
   - PullToRefreshKit (0.8.8)
   - Reveal-SDK (20)
-  - RxAtomic (4.4.2)
-  - RxCocoa (4.4.2):
+  - RxCocoa (4.5.0):
     - RxSwift (>= 4.4.2, ~> 4.4)
   - RxOptional (3.6.2):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxSwift (4.4.2):
-    - RxAtomic (>= 4.4.2, ~> 4.4)
-  - SKPhotoBrowser (6.0.0)
+  - RxSwift (4.5.0)
+  - SKPhotoBrowser (6.1.0)
   - SnapKit (4.2.0)
   - StatefulViewController (3.0)
   - SwiftMessages (6.0.2):
@@ -75,7 +73,6 @@ SPEC REPOS:
     - PasswordExtension
     - PKHUD
     - Reveal-SDK
-    - RxAtomic
     - RxCocoa
     - RxOptional
     - RxSwift
@@ -102,10 +99,10 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AppCenter: 02c5efe08d3bbab5421ae41d5f7aa7238906b817
-  Aquaman: 90557b69a67c10ed53410b7ca0f73a9c6582e31c
+  Aquaman: 9a3a599d57c20052f37fd9bc7b2f40e0828d4099
   DeviceKit: 5a4accdb2918ce0b69e62dc3bef6e4d2cc06e2e4
   IQKeyboardManagerSwift: 0f0ae8935360b4003e6ea1ac7c19898f01e2f7c7
-  Kanna: 0ebbdd0e7e3308f0aafbd569e79c8cadc5eb877c
+  Kanna: a32875df62975f8f4b871e933b4ea1a5c3b8be0f
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   MarkdownView: 5bbee438c823db1cd189002d44c84fa909b3a896
   "NSObject+Rx": 9884a92f19b610795c431e10b4e601913b59c9e9
@@ -113,11 +110,10 @@ SPEC CHECKSUMS:
   PKHUD: 4e6162c4c39ac367c6934e9855c6b4762ee16256
   PullToRefreshKit: 7cc53e720e69f135cffa1a57784dfb534f0222ab
   Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
-  RxAtomic: d00e97c10db88c6f08540e0bf2752fc5a2404167
-  RxCocoa: 477990dc3b4c3ff55fb0ac77e1cc06244e0aaec8
+  RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
-  RxSwift: 74c29b693c8e42b0f64400e8b06564575742d649
-  SKPhotoBrowser: 76eb862685761707b5745fde7762757966565e07
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+  SKPhotoBrowser: 343de95d89dc7913763c5dda243cc6e606e4a168
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931
   SwiftMessages: 8b3cc68dba2f1c91aac1a74c90b10287aac35371
