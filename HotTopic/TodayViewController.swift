@@ -9,8 +9,26 @@
 import UIKit
 import NotificationCenter
 
+public struct Topic: Codable {
+    public let title: String
+    //    public let url: String
+    public let id: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case title = "title"
+        //        case url = "url"
+        case id = "id"
+    }
+    
+    public init(title: String, id: Int) {
+        self.title = title
+        //        self.url = url
+        self.id = id
+    }
+}
+
 class TodayViewController: UIViewController, NCWidgetProviding {
-        
+    
     @IBOutlet var tableView: UITableView!
     
     private lazy var activityView: UIActivityIndicatorView = {
@@ -22,49 +40,56 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     private var topics: [Topic] = []
     
+    
+    private let hotAPI = "https://www.v2ex.com/api/topics/hot.json"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        activityView.startAnimating()
-        view.addSubview(activityView)
-
-        NSLayoutConstraint.activate([
-            activityView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-            ])
         
         if #available(iOSApplicationExtension 10.0, *) {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         }
-
-        let hotAPI = "https://www.v2ex.com/api/topics/hot.json"
         
+        activityView.startAnimating()
+        view.addSubview(activityView)
+        
+        NSLayoutConstraint.activate([
+            activityView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            ])
+    }
+    
+    private func fetchTopics() {
         URLSession.shared.dataTask(with: URL(string: hotAPI
             )!) { [weak self] (data, respose, error) in
                 guard let topicsData = data else { return }
                 let topics = try? JSONDecoder().decode([Topic].self, from: topicsData)
                 self?.topics = topics ?? []
-                self?.tableView.reloadData()
-                self?.preferredContentSize = self?.tableView.contentSize ?? .zero
+                
                 DispatchQueue.main.async {
                     self?.activityView.stopAnimating()
+                    self?.tableView.reloadData()
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+                        self?.preferredContentSize = self?.tableView.contentSize ?? .zero
+                    })
                 }
-        }.resume()
+            }.resume()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        fetchTopics()
+    }
+    
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        // Perform any setup necessary in order to update the view.
-        
-        // If an error is encountered, use NCUpdateResult.Failed
-        // If there's no update required, use NCUpdateResult.NoData
-        // If there's an update, use NCUpdateResult.NewData
-        
         completionHandler(NCUpdateResult.newData)
     }
     
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize){
+        tableView.reloadData()
         if (activeDisplayMode == .compact) {
             preferredContentSize = maxSize
         } else {
@@ -76,6 +101,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
 extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if #available(iOSApplicationExtension 10.0, *) {
+            let isCompact = extensionContext?.widgetActiveDisplayMode == .compact
+            
+            tableView.rowHeight = isCompact ? (extensionContext?.widgetMaximumSize(for: .compact) ?? preferredContentSize).height / 3 : 44;
+        } else {
+            tableView.rowHeight = preferredContentSize.height / 4
+        }
         return topics.count
     }
     

@@ -177,9 +177,8 @@ extension UIDevice {
         }
         
         if #available(iOS 11.0, *) {
-            let groupOfAllowedDevices: [Device] = [.iPhoneX, .iPhoneXs, .iPhoneXsMax, .iPhoneXr]
-            let device = Device()
-            
+            let groupOfAllowedDevices: [Device] = [.iPhoneX, .iPhoneXS, .iPhoneXSMax, .iPhoneXR]
+            let device = Device.current
             return device.isOneOf(groupOfAllowedDevices)
         }
         return false
@@ -187,7 +186,7 @@ extension UIDevice {
 
     /// MARK: - 获取设备型号
     public static var phoneModel: String {
-        return Device().description
+        return Device.current.description
     }
 
     /// 判断是不是模拟器

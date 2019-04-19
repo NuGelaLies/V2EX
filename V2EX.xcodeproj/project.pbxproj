@@ -176,7 +176,6 @@
 		D8D9AAAF224FB144002D584B /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D9AAAE224FB144002D584B /* TodayViewController.swift */; };
 		D8D9AAB2224FB144002D584B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8D9AAB0224FB144002D584B /* MainInterface.storyboard */; };
 		D8D9AAB6224FB144002D584B /* HotTopic.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D8D9AAAA224FB144002D584B /* HotTopic.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D8D9AABC224FB5B6002D584B /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D9AABB224FB5B6002D584B /* Topic.swift */; };
 		D8DEC78E218CCA4500A2DA74 /* AppearanceSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DEC78D218CCA4500A2DA74 /* AppearanceSliderCell.swift */; };
 		D8EB38FB21C8BE27004AF8B0 /* MessageContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EB38FA21C8BE27004AF8B0 /* MessageContainerViewController.swift */; };
 		D8EB38FD21C8D948004AF8B0 /* URLSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EB38FC21C8D948004AF8B0 /* URLSchemeViewController.swift */; };
@@ -393,7 +392,6 @@
 		D8D9AAAE224FB144002D584B /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		D8D9AAB1224FB144002D584B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		D8D9AAB3224FB144002D584B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D8D9AABB224FB5B6002D584B /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		D8DEC78D218CCA4500A2DA74 /* AppearanceSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSliderCell.swift; sourceTree = "<group>"; };
 		D8EB38FA21C8BE27004AF8B0 /* MessageContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageContainerViewController.swift; sourceTree = "<group>"; };
 		D8EB38FC21C8D948004AF8B0 /* URLSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSchemeViewController.swift; sourceTree = "<group>"; };
@@ -874,7 +872,6 @@
 				D8D9AAAE224FB144002D584B /* TodayViewController.swift */,
 				D8D9AAB0224FB144002D584B /* MainInterface.storyboard */,
 				D8D9AAB3224FB144002D584B /* Info.plist */,
-				D8D9AABB224FB5B6002D584B /* Topic.swift */,
 			);
 			path = HotTopic;
 			sourceTree = "<group>";
@@ -1273,7 +1270,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8D9AAAF224FB144002D584B /* TodayViewController.swift in Sources */,
-				D8D9AABC224FB5B6002D584B /* Topic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

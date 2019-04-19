@@ -9,7 +9,7 @@ PODS:
   - AppCenter/Crashes (1.14.0):
     - AppCenter/Core
   - Aquaman (0.0.3)
-  - DeviceKit (1.13.0)
+  - DeviceKit (2.0.0)
   - IQKeyboardManagerSwift (6.2.1)
   - Kanna (5.0.0)
   - Kingfisher (4.10.1)
@@ -100,7 +100,7 @@ SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AppCenter: 02c5efe08d3bbab5421ae41d5f7aa7238906b817
   Aquaman: 9a3a599d57c20052f37fd9bc7b2f40e0828d4099
-  DeviceKit: 5a4accdb2918ce0b69e62dc3bef6e4d2cc06e2e4
+  DeviceKit: 72d36709552d4b3582abd76a53949148acad9811
   IQKeyboardManagerSwift: 0f0ae8935360b4003e6ea1ac7c19898f01e2f7c7
   Kanna: a32875df62975f8f4b871e933b4ea1a5c3b8be0f
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
