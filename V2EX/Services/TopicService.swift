@@ -132,6 +132,18 @@ protocol TopicService: HTMLParseService {
                      success: Action?,
                      failure: Failure?)
     
+    /// 取消忽略主题
+    ///
+    /// - Parameters:
+    ///   - topicID: 主题id
+    ///   - once: 凭证
+    ///   - success: 成功
+    ///   - failure: 失败
+    func unignoreTopic(topicID: String,
+                     once: String,
+                     success: Action?,
+                     failure: Failure?)
+    
     /// 收藏主题
     ///
     /// - Parameters:
@@ -344,9 +356,15 @@ extension TopicService {
             var topic = TopicModel(member: member, node: node, title: title, href: "")
 
             // 获取 token
-            if let csrfTokenPath = html.xpath("//*[@id='Wrapper']/div[@class='content']/div/div[@class='inner']//a[1]").first?["href"] {
+            if let atags = html.at_xpath("//*[@id='Wrapper']/div[@class='content']/div/div[@class='inner']"),
+                let csrfTokenPath = atags.at_xpath(".//a[1]")?["href"] {
                 let csrfToken = URLComponents(string: csrfTokenPath)?["t"]
                 let isFavorite = csrfTokenPath.hasPrefix("/unfavorite")
+                
+                if let ignore = atags.at_xpath(".//a[last()]")?["onclick"] {
+                    topic.isIgnore = ignore.contains("/unignore/topic/")
+                }
+                
                 topic.token = csrfToken
 
                 // 如果是登录状态 检查是否已经感谢和收藏
@@ -384,7 +402,6 @@ extension TopicService {
             success?(topic, comments, maxPage)
         }, failure: failure)
     }
-
 
     func topicMoreComment(
         topicID: String,
@@ -499,6 +516,15 @@ extension TopicService {
                      success: Action?,
                      failure: Failure?) {
         Network.htmlRequest(target: .ignoreTopic(topicID: topicID, once: once), success: { html in
+            success?()
+        }, failure: failure)
+    }
+    
+    func unignoreTopic(topicID: String,
+                     once: String,
+                     success: Action?,
+                     failure: Failure?) {
+        Network.htmlRequest(target: .unignoreTopic(topicID: topicID, once: once), success: { html in
             success?()
         }, failure: failure)
     }

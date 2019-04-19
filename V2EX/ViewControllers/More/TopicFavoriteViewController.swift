@@ -4,15 +4,19 @@ class TopicFavoriteViewController: BaseTopicsViewController, AccountService {
 
     // MARK: - Setup
 
-    override func setupRefresh() {
+    override func setupHeaderRefresh() {
         tableView.addHeaderRefresh { [weak self] in
             self?.fetchFavoriteTopic()
         }
+    }
+    
+    override func setupFooterRefresh() {
         tableView.addFooterRefresh { [weak self] in
             self?.fetchMoreFavoriteTopic()
         }
     }
 
+    
     init() {
         super.init(href: "")
     }

@@ -28,6 +28,7 @@ struct TopicModel {
     var token: String?
     var isFavorite: Bool = false
     var isThank: Bool = false
+    var isIgnore = false
     var readStatus: ReadStatus = .unread
     
     var reportToken: String?

@@ -111,6 +111,8 @@ enum API {
     case thankTopic(topicID: String, token: String)
     // 忽略主题
     case ignoreTopic(topicID: String, once: String)
+    // 取消忽略主题
+    case unignoreTopic(topicID: String, once: String)
     // 感谢回复
     case thankReply(replyID: String, token: String)
     // 忽略回复
@@ -252,6 +254,8 @@ extension API: TargetType {
             return .get("/report/topic/\(topicID)?t=\(token)")
         case let .ignoreTopic(topicID, once):
             return .get("/ignore/topic/\(topicID)?once=\(once)")
+        case let .unignoreTopic(topicID, once):
+            return .get("/unignore/topic/\(topicID)?once=\(once)")
         case let .thankReply(replyID, token):
             return .post("/thank/reply/\(replyID)?t=\(token)")
         case let .ignoreReply(replyID, once):

@@ -787,7 +787,12 @@ extension TopicDetailViewController {
                 ShareItem(icon: #imageLiteral(resourceName: "alreadyThank"), title: "感谢", type: .thank)
 
             section1.append(thankItem)
-            section1.append(ShareItem(icon: #imageLiteral(resourceName: "ignore"), title: "忽略", type: .ignore))
+            
+            let ignoreItem = (topic?.isIgnore ?? false) ?
+                ShareItem(icon: #imageLiteral(resourceName: "ignore"), title: "取消忽略", type: .ignore) :
+                ShareItem(icon: #imageLiteral(resourceName: "ignore"), title: "忽略", type: .ignore)
+            section1.append(ignoreItem)
+//            section1.append(ShareItem(icon: #imageLiteral(resourceName: "ignore"), title: "忽略", type: .ignore))
             section1.append(ShareItem(icon: #imageLiteral(resourceName: "report"), title: "举报", type: .report))
             if let _ = topic?.reportToken {
                 section1.append(ShareItem(icon: #imageLiteral(resourceName: "report"), title: "报告主题", type: .reportTopic))
@@ -1174,6 +1179,17 @@ extension TopicDetailViewController {
             let once = topic.once ?? AccountModel.getOnce() else {
                 HUD.showError("操作失败")
                 return
+        }
+        
+        if topic.isIgnore {
+            unignoreTopic(topicID: topicID, once: once, success: { [weak self] in
+                HUD.showSuccess("已取消忽略该主题")
+                self?.topic?.isIgnore = false
+            }) { error in
+                HUD.showError(error)
+            }
+            
+            return
         }
 
         ignoreTopic(topicID: topicID, once: once, success: { [weak self] in
