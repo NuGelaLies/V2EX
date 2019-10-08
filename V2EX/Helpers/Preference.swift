@@ -85,6 +85,16 @@ class Preference {
         }
     }
     
+    // 根据系统主题自动切换主题
+    var autoSwitchThemeForSystem: Bool {
+        set {
+            UserDefaults.save(at: newValue, forKey: Constants.Keys.autoSwitchThemeForSystem)
+        }
+        get {
+            return (UserDefaults.get(forKey: Constants.Keys.autoSwitchThemeForSystem) as? Bool) ?? false
+        }
+    }
+    
     // 自动切换夜间模式下的 “夜间主题”
     var nightTheme: Theme {
         set {

@@ -65,6 +65,8 @@ struct Constants {
         
         static let autoSwitchThemeForTime = "autoSwitchThemeForTime"
         
+        static let autoSwitchThemeForSystem = "autoSwitchThemeForSystem"
+        
         static let nightTheme = "nightTheme"
 
         // 摇一摇

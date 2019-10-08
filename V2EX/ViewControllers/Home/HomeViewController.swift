@@ -48,6 +48,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
             let resultVC = TopicSearchResultViewController()
             let nav = NavigationViewController(rootViewController: resultVC)
             nav.modalTransitionStyle = .crossDissolve
+            nav.modalPresentationStyle = .fullScreen
             self?.present(nav, animated: true, completion: nil)
         }
     }

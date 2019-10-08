@@ -187,8 +187,12 @@ class OCRConfigViewController: BaseViewController {
         
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
-                self?.apiKeyTextField.setValue(theme.dateColor, forKeyPath: "_placeholderLabel.textColor")
-                self?.secretKeyField.setValue(theme.dateColor, forKeyPath: "_placeholderLabel.textColor")
+                self?.apiKeyTextField.attributedPlaceholder = NSAttributedString(string: self?.apiKeyTextField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: theme.dateColor])
+                self?.secretKeyField.attributedPlaceholder = NSAttributedString(string: self?.secretKeyField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: theme.dateColor])
+
+//                self?.apiKeyTextField.setValue(theme.dateColor, forKeyPath: "_placeholderLabel.textColor")
+//                self?.secretKeyField.setValue(theme.dateColor, forKeyPath: "_placeholderLabel.textColor")
+                
                 self?.apiKeyTextField.backgroundColor = theme == .day ? theme.whiteColor : theme.cellBackgroundColor
                 self?.secretKeyField.backgroundColor = theme == .day ? theme.whiteColor : theme.cellBackgroundColor
                 self?.secretKeyField.textColor = theme.titleColor

@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: UI
-    private var window: UIWindow {
+    private var window: DarkWindow {
         return AppWindow.shared.window
     }
 

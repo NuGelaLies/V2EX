@@ -2,16 +2,38 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+
+class DarkWindow: UIWindow {
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+         guard
+             #available(iOS 13.0, *),
+             traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection)
+             else { return
+        }
+        
+        switch self.traitCollection.userInterfaceStyle {
+        case .dark:
+            ThemeStyle.style.value = Preference.shared.nightTheme
+        case .light:
+            ThemeStyle.style.value = .day
+        default:
+            break
+        }
+    }
+}
+
 public final class AppWindow {
     
     static let shared = AppWindow()
 
     private var bag = DisposeBag()
 
-    var window: UIWindow
+    var window: DarkWindow
 
     private init() {
-        window = UIWindow(frame: UIScreen.main.bounds)
+        window = DarkWindow(frame: UIScreen.main.bounds)
         window.backgroundColor = .white
     }
 

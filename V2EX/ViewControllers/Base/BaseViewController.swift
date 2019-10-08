@@ -70,4 +70,6 @@ class BaseViewController: ViewController, InteractivePopProtocol {
     func dismiss() {
         dismiss(animated: true, completion: nil)
     }
+    
+//    traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
 }

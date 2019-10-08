@@ -99,7 +99,7 @@ class DataViewController: ViewController, StatefulViewController, ErrorViewDeleg
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return ThemeStyle.style.value.statusBarStyle
     }
-
+    
     // MARK: Layout Constraints
     override func updateViewConstraints() {
         if !didSetupConstraints {

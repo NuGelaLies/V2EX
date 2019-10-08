@@ -9,7 +9,7 @@ class AppearanceViewController: BaseTableViewController {
     }
     
     private enum RowItemType {
-        case switchThemeForBrightness, switchThemeForTime
+        case switchThemeForBrightness, switchThemeForTime, switchThemeForSystem
     }
     
     private enum Section {
@@ -78,11 +78,18 @@ class AppearanceViewController: BaseTableViewController {
         var sections: [Section]  = [
             .sample,
             .adjustFont,
-            .theme(Theme.allCases),
-            .autoSwitchTheme([RowItem(title: "屏幕变暗时自动开启夜间模式", type: .switchThemeForBrightness, rightType: .switch),
-                              RowItem(title: "根据时间自动切换夜间模式", type: .switchThemeForTime, rightType: .switch)
-                              ])
+            .theme(Theme.allCases)
         ]
+        
+        var switchThemeRows = [
+            RowItem(title: "屏幕变暗时自动开启夜间模式", type: .switchThemeForBrightness, rightType: .switch),
+            RowItem(title: "根据时间自动切换夜间模式", type: .switchThemeForTime, rightType: .switch)
+        ]
+        if #available(iOS 13.0, *) {
+            switchThemeRows.insert(RowItem(title: "跟随系统", type: .switchThemeForSystem, rightType: .switch), at: 0)
+        }
+        sections.append(Section.autoSwitchTheme(switchThemeRows))
+        
         if #available(iOS 10.3, *), UIApplication.shared.supportsAlternateIcons {
             sections.insert(.icons, at: 0)
         }
@@ -143,7 +150,17 @@ extension AppearanceViewController {
             cell.textLabel?.text = item.title
             cell.rightType = .switch
             cell.selectionStyle = .none
-            cell.switchView.isOn = item.type == .switchThemeForBrightness ? Preference.shared.autoSwitchThemeForBrightness : Preference.shared.autoSwitchThemeForTime
+            
+            var isOn = false
+            switch item.type {
+            case .switchThemeForBrightness:
+                isOn = Preference.shared.autoSwitchThemeForBrightness
+            case .switchThemeForTime:
+                isOn = Preference.shared.autoSwitchThemeForTime
+            case .switchThemeForSystem:
+                isOn = Preference.shared.autoSwitchThemeForSystem
+            }
+            cell.switchView.isOn = isOn
             return cell
         }
     }
@@ -181,18 +198,24 @@ extension AppearanceViewController {
             case .switchThemeForBrightness:
 
                 if cell.switchView.isOn.not {
+                    
+                    let callback: ((Theme) -> Void) = { [weak tableView] theme in
+                        Preference.shared.nightTheme = theme
+                        cell.switchView.setOn(true, animated: true)
+                        Preference.shared.autoSwitchThemeForBrightness = true
+                        Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : theme
+
+                        // 互斥
+                        Preference.shared.autoSwitchThemeForSystem = false
+                        tableView?.reloadSections(IndexSet(integer: indexPath.section), with: .none)
+                    }
+                    
                     let alertC = UIAlertController(title: "当您的设备屏幕变暗时自动切换主题", message: "选择一个主题，当您的设备屏幕亮度低于 25% 时，自动切换到该模式", preferredStyle: .actionSheet)
                     alertC.addAction(UIAlertAction(title: Theme.night.description, style: .default, handler: { action in
-                        Preference.shared.nightTheme = .night
-                        cell.switchView.setOn(true, animated: true)
-                        Preference.shared.autoSwitchThemeForBrightness = true
-                        Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : .night
+                        callback(.night)
                     }))
                     alertC.addAction(UIAlertAction(title: Theme.black.description, style: .default, handler: { action in
-                        Preference.shared.nightTheme = .black
-                        cell.switchView.setOn(true, animated: true)
-                        Preference.shared.autoSwitchThemeForBrightness = true
-                        Preference.shared.theme = UIScreen.main.brightness > 0.25 ? .day : .black
+                        callback(.black)
                     }))
                     alertC.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                     if let indexPath = tableView.indexPathForSelectedRow,
@@ -204,6 +227,7 @@ extension AppearanceViewController {
                 } else {
                     cell.switchView.setOn(!cell.switchView.isOn, animated: true)
                     Preference.shared.autoSwitchThemeForBrightness = cell.switchView.isOn
+                    
                 }
                 
             case .switchThemeForTime:
@@ -211,11 +235,36 @@ extension AppearanceViewController {
                 Preference.shared.autoSwitchThemeForTime = cell.switchView.isOn
                 
                 if cell.switchView.isOn {
-                    GCD.delay(0.5) {
+                    // 互斥
+                    Preference.shared.autoSwitchThemeForSystem = false
+                    tableView.reloadSections(IndexSet(integer: indexPath.section), with: .none)
+                    
+                    GCD.delay(0.3) {
                         let datePickerVC = DatePickerViewController()
                         self.navigationController?.pushViewController(datePickerVC, animated: true)
                     }
                 } else {
+                }
+            case .switchThemeForSystem:
+                guard #available(iOS 13.0, *) else { return }
+                
+                cell.switchView.setOn(!cell.switchView.isOn, animated: true)
+                Preference.shared.autoSwitchThemeForSystem = cell.switchView.isOn
+                
+                if cell.switchView.isOn {
+                    Preference.shared.autoSwitchThemeForTime = false
+                    Preference.shared.autoSwitchThemeForBrightness = false
+                    
+                    switch self.traitCollection.userInterfaceStyle {
+                    case .dark:
+                        ThemeStyle.style.value = Preference.shared.nightTheme
+                    case .light:
+                        ThemeStyle.style.value = .day
+                    default:
+                        break
+                    }
+                    
+                    tableView.reloadSections(IndexSet(arrayLiteral: indexPath.section, indexPath.section - 1), with: .none)
                 }
             }
             

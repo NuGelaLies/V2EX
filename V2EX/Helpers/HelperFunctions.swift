@@ -65,16 +65,17 @@ func showImageBrowser(imageType: PhotoBrowserType) {
 /// 需要设置的页面需要重载此方法
 /// - Parameter color: 颜色
 func setStatusBarBackground(_ color: UIColor, borderColor: UIColor = .clear) {
-
-    guard let statusBarWindow = UIApplication.shared.value(forKey: "statusBarWindow") as? UIView,
-        let statusBar = statusBarWindow.value(forKey: "statusBar") as? UIView,
-        statusBar.responds(to:#selector(setter: UIView.backgroundColor)) else { return }
+//    guard let statusBarWindow = UIApplication.shared.value(forKey: "statusBarWindow") as? UIView,
+//        let statusBar = statusBarWindow.value(forKey: "statusBar") as? UIView,
+//        statusBar.responds(to:#selector(setter: UIView.backgroundColor)) else { return }
+//    
+//    if statusBar.backgroundColor == color { return }
+//    
+//    statusBar.backgroundColor = color
+//    statusBar.layer.borderColor = borderColor.cgColor
+//    statusBar.layer.borderWidth = 0.5
     
-    if statusBar.backgroundColor == color { return }
     
-    statusBar.backgroundColor = color
-    statusBar.layer.borderColor = borderColor.cgColor
-    statusBar.layer.borderWidth = 0.5
 //    statusBar.borderBottom = Border(color: borderColor)
 
 //    DispatchQueue.once(token: "com.v2er.statusBar") {

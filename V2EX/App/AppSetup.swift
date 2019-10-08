@@ -70,6 +70,19 @@ extension AppSetup {
     }
     
     public static func checkTheme() {
+        
+        if #available(iOS 13.0, *), Preference.shared.autoSwitchThemeForSystem {
+            switch AppWindow.shared.window.traitCollection.userInterfaceStyle {
+            case .dark:
+                ThemeStyle.style.value = Preference.shared.nightTheme
+            case .light:
+                ThemeStyle.style.value = .day
+            default:
+                break
+            }
+            return
+        }
+        
         guard Preference.shared.autoSwitchThemeForTime else { return }
         
         let fromDate = defaults[.fromTime]

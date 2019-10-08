@@ -106,7 +106,11 @@ enum Theme: Int, CaseIterable {
     var statusBarStyle: UIStatusBarStyle {
         //        return .lightContent
         switch self {
-        case .day: return .default
+        case .day:
+            if #available(iOS 13.0, *) {
+                return .darkContent
+            }
+            return .default
         case .night: return .lightContent
         case .black: return .lightContent
         }
