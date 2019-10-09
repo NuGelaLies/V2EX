@@ -120,7 +120,7 @@ extension TabBarViewController {
     private func bounceAnimation(selectedController: UIViewController) {
         guard let index = children.firstIndex(of: selectedController),
             let tabBarButtonClass = NSClassFromString("UITabBarButton") else { return }
-        var tabBarButtons = tabBar.subviews.filter { $0.isKind(of: tabBarButtonClass) }
+        let tabBarButtons = tabBar.subviews.filter { $0.isKind(of: tabBarButtonClass) }
 
         tabBarButtons[index].layer.removeAllAnimations()
         tabBarButtons[index].layer.add(bounceAnimation, forKey: nil)

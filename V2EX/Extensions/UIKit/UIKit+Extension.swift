@@ -171,19 +171,6 @@ extension UIDevice {
         return UIDevice.current.userInterfaceIdiom == .pad
     }
 
-    public var isiPhoneX: Bool {
-        if UIDevice.current.userInterfaceIdiom != .phone {
-            return false
-        }
-        
-        if #available(iOS 11.0, *) {
-            let groupOfAllowedDevices: [Device] = [.iPhoneX, .iPhoneXS, .iPhoneXSMax, .iPhoneXR]
-            let device = Device.current
-            return device.isOneOf(groupOfAllowedDevices)
-        }
-        return false
-    }
-
     /// MARK: - 获取设备型号
     public static var phoneModel: String {
         return Device.current.description

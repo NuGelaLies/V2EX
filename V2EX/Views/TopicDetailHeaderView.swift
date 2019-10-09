@@ -104,6 +104,7 @@ class TopicDetailHeaderView: UIView {
         view.scrollView.isScrollEnabled = false
         view.isOpaque = false
         view.navigationDelegate = self
+        view.scrollView.scrollsToTop = false
         return view
     }()
 

@@ -8,7 +8,7 @@ extension UILabel {
             return self.font.pointSize
         }
         set {
-            font = UIFont.systemFont(ofSize: fontSize)
+            font = UIFont.systemFont(ofSize: newValue)
         }
     }
 

@@ -271,7 +271,7 @@ class CreateTopicViewController: BaseViewController, TopicService {
                       NotificationCenter.default.rx.notification(UIResponder.keyboardDidHideNotification)).merge()
             .subscribeNext { [weak self] notification in
                 guard let `self` = self else { return }
-                guard var userInfo = notification.userInfo,
+                guard let userInfo = notification.userInfo,
                     let keyboardRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
                 let convertedFrame = self.view.convert(keyboardRect, from: nil)
                 let heightOffset = self.view.bounds.size.height - convertedFrame.origin.y

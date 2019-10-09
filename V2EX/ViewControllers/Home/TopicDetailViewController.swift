@@ -17,6 +17,7 @@ class TopicDetailViewController: DataViewController, TopicService {
         view.rowHeight = UITableView.automaticDimension
         view.estimatedRowHeight = 80
         view.backgroundColor = .clear
+        view.scrollsToTop = true
 //        view.keyboardDismissMode = .onDrag
         view.register(cellWithClass: TopicCommentCell.self)
         var inset = view.contentInset
@@ -420,7 +421,7 @@ class TopicDetailViewController: DataViewController, TopicService {
                       NotificationCenter.default.rx.notification(UIResponder.keyboardDidHideNotification)).merge()
             .subscribeNext { [weak self] notification in
                 guard let `self` = self else { return }
-                guard var userInfo = notification.userInfo,
+                guard let userInfo = notification.userInfo,
                     let keyboardRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
                 let convertedFrame = self.view.convert(keyboardRect, from: nil)
                 let heightOffset = self.view.bounds.size.height - convertedFrame.origin.y

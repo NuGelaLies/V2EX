@@ -76,7 +76,7 @@ class NotificationViewController: BaseViewController, AccountService {
                 completion(true)
             }
         } else {
-            completion(UIApplication.shared.currentUserNotificationSettings?.types != .none)
+            completion(UIApplication.shared.currentUserNotificationSettings?.types.contains(.alert) ?? false)
         }
     }
     

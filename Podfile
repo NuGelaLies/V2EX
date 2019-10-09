@@ -47,6 +47,7 @@ target 'V2EX' do
 
     # Debug only
 #    pod 'Bagel', :configurations => ['Debug']
+    pod 'LookinServer', :configurations => ['Debug']
     pod 'Reveal-SDK', '~> 20', :configurations => ['Debug']
 end
 

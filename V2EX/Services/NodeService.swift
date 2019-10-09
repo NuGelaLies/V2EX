@@ -214,7 +214,7 @@ extension NodeService {
 
         GCD.runOnBackgroundThread {
 
-            var `nodes` = nodes
+            let `nodes` = nodes
 
             let tempInitial = nodes[0].title.pinYingString.firstLetter
             let currentGroup = NodeCategoryModel(id: 0, name: tempInitial, nodes: [])

@@ -65,15 +65,24 @@ func showImageBrowser(imageType: PhotoBrowserType) {
 /// 需要设置的页面需要重载此方法
 /// - Parameter color: 颜色
 func setStatusBarBackground(_ color: UIColor, borderColor: UIColor = .clear) {
-//    guard let statusBarWindow = UIApplication.shared.value(forKey: "statusBarWindow") as? UIView,
-//        let statusBar = statusBarWindow.value(forKey: "statusBar") as? UIView,
-//        statusBar.responds(to:#selector(setter: UIView.backgroundColor)) else { return }
-//    
-//    if statusBar.backgroundColor == color { return }
-//    
-//    statusBar.backgroundColor = color
-//    statusBar.layer.borderColor = borderColor.cgColor
-//    statusBar.layer.borderWidth = 0.5
+    if #available(iOS 13.0, *) {
+        // https://stackoverflow.com/questions/56651245/how-to-change-the-status-bar-background-color-and-text-color-on-ios-13
+//        let app = UIApplication.shared
+//        let statusBarHeight: CGFloat = app.statusBarFrame.size.height
+//
+//        let statusbarView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: statusBarHeight))
+//        statusbarView.backgroundColor = UIColor.red
+//        view.addSubview(statusbarView)
+    } else {
+        guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView,
+            statusBar.responds(to:#selector(setter: UIView.backgroundColor)) else { return }
+        
+        if statusBar.backgroundColor == color { return }
+        
+        statusBar.backgroundColor = color
+        statusBar.layer.borderColor = borderColor.cgColor
+        statusBar.layer.borderWidth = 0.5
+    }
     
     
 //    statusBar.borderBottom = Border(color: borderColor)
