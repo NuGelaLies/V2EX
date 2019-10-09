@@ -243,7 +243,6 @@ extension AppearanceViewController {
                         let datePickerVC = DatePickerViewController()
                         self.navigationController?.pushViewController(datePickerVC, animated: true)
                     }
-                } else {
                 }
             case .switchThemeForSystem:
                 guard #available(iOS 13.0, *) else { return }
@@ -252,19 +251,37 @@ extension AppearanceViewController {
                 Preference.shared.autoSwitchThemeForSystem = cell.switchView.isOn
                 
                 if cell.switchView.isOn {
-                    Preference.shared.autoSwitchThemeForTime = false
-                    Preference.shared.autoSwitchThemeForBrightness = false
-                    
-                    switch self.traitCollection.userInterfaceStyle {
-                    case .dark:
-                        ThemeStyle.style.value = Preference.shared.nightTheme
-                    case .light:
-                        ThemeStyle.style.value = .day
-                    default:
-                        break
+                    let callback: ((Theme) -> Void) = { [weak tableView] theme in
+                        Preference.shared.nightTheme = theme
+                        Preference.shared.autoSwitchThemeForTime = false
+                        Preference.shared.autoSwitchThemeForBrightness = false
+                        
+                        switch self.traitCollection.userInterfaceStyle {
+                        case .dark:
+                            ThemeStyle.style.value = Preference.shared.nightTheme
+                        case .light:
+                            ThemeStyle.style.value = .day
+                        default:
+                            break
+                        }
+                        
+                        tableView?.reloadSections(IndexSet(arrayLiteral: indexPath.section, indexPath.section - 1), with: .none)
                     }
                     
-                    tableView.reloadSections(IndexSet(arrayLiteral: indexPath.section, indexPath.section - 1), with: .none)
+                    let alertC = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                    alertC.addAction(UIAlertAction(title: Theme.night.description, style: .default, handler: { action in
+                        callback(.night)
+                    }))
+                    alertC.addAction(UIAlertAction(title: Theme.black.description, style: .default, handler: { action in
+                        callback(.black)
+                    }))
+                    alertC.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                    if let indexPath = tableView.indexPathForSelectedRow,
+                        let cell = tableView.cellForRow(at: indexPath) {
+                        alertC.popoverPresentationController?.sourceView = cell
+                        alertC.popoverPresentationController?.sourceRect = cell.bounds
+                    }
+                    present(alertC, animated: true, completion: nil)
                 }
             }
             

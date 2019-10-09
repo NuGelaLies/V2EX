@@ -96,7 +96,7 @@ CHECKOUT OPTIONS:
     :commit: 7a081162cdca151b038e5a5f52eb520e02eb4f99
     :git: https://github.com/aidevjoe/PullToRefreshKit.git
   YYText:
-    :commit: 2fc81bb251bc36c7c7d016cb6ca3da0b44469e49
+    :commit: 04deccfd4da6ddbdfd281722a0d3e16e6fc2d04a
     :git: https://github.com/aidevjoe/YYText
 
 SPEC CHECKSUMS:
