@@ -179,13 +179,11 @@ extension AppearanceViewController {
         let section = sections[indexPath.section]
         switch section {
         case .theme(let themes):
-            tableView.reloadData()
             
             let theme = themes[indexPath.row]
             Preference.shared.theme = theme
-
-            cell.accessoryType = .checkmark
-
+            
+            tableView.reloadData()
         case .autoSwitchTheme(let items):
             
             if #available(iOS 10.0, *) {
@@ -227,7 +225,6 @@ extension AppearanceViewController {
                 } else {
                     cell.switchView.setOn(!cell.switchView.isOn, animated: true)
                     Preference.shared.autoSwitchThemeForBrightness = cell.switchView.isOn
-                    
                 }
                 
             case .switchThemeForTime:
@@ -247,15 +244,14 @@ extension AppearanceViewController {
             case .switchThemeForSystem:
                 guard #available(iOS 13.0, *) else { return }
                 
-                cell.switchView.setOn(!cell.switchView.isOn, animated: true)
-                Preference.shared.autoSwitchThemeForSystem = cell.switchView.isOn
-                
-                if cell.switchView.isOn {
+                if cell.switchView.isOn == false {
                     let callback: ((Theme) -> Void) = { [weak tableView] theme in
+                        cell.switchView.setOn(!cell.switchView.isOn, animated: true)
                         Preference.shared.nightTheme = theme
                         Preference.shared.autoSwitchThemeForTime = false
                         Preference.shared.autoSwitchThemeForBrightness = false
-                        
+                        Preference.shared.autoSwitchThemeForSystem = cell.switchView.isOn
+
                         switch self.traitCollection.userInterfaceStyle {
                         case .dark:
                             ThemeStyle.style.value = Preference.shared.nightTheme
@@ -264,8 +260,7 @@ extension AppearanceViewController {
                         default:
                             break
                         }
-                        
-                        tableView?.reloadSections(IndexSet(arrayLiteral: indexPath.section, indexPath.section - 1), with: .none)
+                        tableView?.reloadData()
                     }
                     
                     let alertC = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -282,6 +277,9 @@ extension AppearanceViewController {
                         alertC.popoverPresentationController?.sourceRect = cell.bounds
                     }
                     present(alertC, animated: true, completion: nil)
+                } else {
+                    cell.switchView.setOn(!cell.switchView.isOn, animated: true)
+                    Preference.shared.autoSwitchThemeForSystem = cell.switchView.isOn
                 }
             }
             
