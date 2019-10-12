@@ -163,7 +163,7 @@ extension API: TargetType {
         case .search:
             return "https://www.sov2ex.com/api/search"
         case .uploadPicture:
-            return "https://sm.ms/api"
+            return "https://sm.ms/api/v2"
         case .baiduAccessToken, .baiduOCRRecognize:
             return "https://aip.baidubce.com"
         case .addUser, .userStatus, .userLogout:

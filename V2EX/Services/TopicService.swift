@@ -451,7 +451,15 @@ extension TopicService {
             guard (resultDict["code"] as? String) == "success",
             let dataDict = resultDict["data"] as? [String: Any],
             let url = dataDict["url"] as? String else {
-                failure?("上传失败")
+                let msg = resultDict["message"] as? String ?? "上传失败"
+                // 重复上传同样的图片
+                if msg.contains("Image upload repeated limit"),
+                    let url = msg.components(separatedBy: "at:").last?.trimmed,
+                    url.hasPrefix("http") {
+                    success?(url)
+                } else {
+                    failure?(msg)
+                }
                 return
             }
             success?(url)
