@@ -60,6 +60,7 @@ class NodesViewController: DataViewController, NodeService {
             resultVC.title = "搜索节点"
             let nav = NavigationViewController(rootViewController: resultVC)
             nav.modalTransitionStyle = .crossDissolve
+            nav.modalPresentationStyle = .fullScreen
             self?.present(nav, animated: true, completion: nil)
         }
         navigationItem.rightBarButtonItem?.tintColor = ThemeStyle.style.value.tintColor

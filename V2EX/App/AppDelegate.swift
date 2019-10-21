@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppSetup.prepare()
         SQLiteDatabase.initDatabase()
         
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        
         MSAppCenter.start("806fb492-298b-4e30-9ab1-03d990487d11", withServices:[
             MSAnalytics.self,
             MSCrashes.self
@@ -80,6 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             resultVC.autoDisplayKeyboard = false
             let nav = NavigationViewController(rootViewController: resultVC)
             nav.modalTransitionStyle = .crossDissolve
+            nav.modalPresentationStyle = .fullScreen
             resultVC.search(query: query)
             (AppWindow.shared.window.rootViewController as? TabBarViewController)?.selectedViewController?.present(nav, animated: true, completion: nil)
         }
