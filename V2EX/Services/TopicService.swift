@@ -481,7 +481,7 @@ extension TopicService {
                 }
             }
             guard let once = self.parseOnce(html: html) else {
-                failure("操作失败，无法获取 once")
+                failure("操作失败，无法获取 once，请尝试重新登录")
                 return
             }
             let params = [

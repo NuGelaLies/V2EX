@@ -47,6 +47,15 @@ class MessageContainerViewController: DataViewController {
                 replyViewController.username = AccountModel.current?.username ?? ""
                 self?.endLoading()
             }).disposed(by: rx.disposeBag)
+    
+        ThemeStyle.style.asObservable()
+            .subscribeNext { [weak self] theme in
+                if #available(iOS 13.0, *) {
+                    self?.segmentedControl.selectedSegmentTintColor = theme.tintColor
+                } else {
+                    self?.segmentedControl.tintColor = theme.tintColor
+                }
+        }.disposed(by: rx.disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {

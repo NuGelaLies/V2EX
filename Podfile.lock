@@ -1,16 +1,16 @@
 PODS:
-  - Alamofire (4.9.0)
-  - AppCenter (2.4.0):
-    - AppCenter/Analytics (= 2.4.0)
-    - AppCenter/Crashes (= 2.4.0)
-  - AppCenter/Analytics (2.4.0):
+  - Alamofire (4.9.1)
+  - AppCenter (2.5.0):
+    - AppCenter/Analytics (= 2.5.0)
+    - AppCenter/Crashes (= 2.5.0)
+  - AppCenter/Analytics (2.5.0):
     - AppCenter/Core
-  - AppCenter/Core (2.4.0)
-  - AppCenter/Crashes (2.4.0):
+  - AppCenter/Core (2.5.0)
+  - AppCenter/Crashes (2.5.0):
     - AppCenter/Core
-  - Aquaman (0.0.5)
+  - Aquaman (0.0.6)
   - DeviceKit (2.3.0)
-  - IQKeyboardManagerSwift (6.5.1)
+  - IQKeyboardManagerSwift (6.5.2)
   - Kanna (5.0.0)
   - Kingfisher (4.10.1)
   - LookinServer (0.9.4)
@@ -100,11 +100,11 @@ CHECKOUT OPTIONS:
     :git: https://github.com/aidevjoe/YYText
 
 SPEC CHECKSUMS:
-  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
-  AppCenter: 49a9ffe114c00e2bf5374aeda816d47eabf1978a
-  Aquaman: b28d227e51129ef8ce43f467fc6e8fc68ca65d25
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  AppCenter: 637f180deefc61e8ab3f94223869ee50f61dabea
+  Aquaman: d7ba7151dd3b93e2f07f6ab3dacd72b43f5243c9
   DeviceKit: da103891aa928d89f64ea8dd8aca738c5f3d8ac0
-  IQKeyboardManagerSwift: 9ac7524fad9f9fe9a3b98c927e7772471ca546d2
+  IQKeyboardManagerSwift: c75366f1f19590e8caeae45fcd5815c9289d6099
   Kanna: a32875df62975f8f4b871e933b4ea1a5c3b8be0f
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   LookinServer: 54eb99921647bda4068ff8776d842285e2bf0adb

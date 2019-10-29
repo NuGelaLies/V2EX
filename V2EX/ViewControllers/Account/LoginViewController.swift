@@ -396,7 +396,7 @@ extension LoginViewController {
     private func googleLoginHandle() {
         
         guard let once = AccountModel.getOnce() else {
-            HUD.showError("无法获取 once")
+            HUD.showError("操作失败，无法获取 once，请尝试重新登录")
             return
         }
         

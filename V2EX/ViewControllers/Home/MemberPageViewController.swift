@@ -80,6 +80,10 @@ class MemberPageViewController: AquamanPageViewController, MemberService, Accoun
         view.selectedSegmentIndex = 0
         view.sizeToFit()
         view.tintColor = .clear
+        
+        if #available(iOS 13.0, *) {
+            view.ensureiOS12Style()
+        }
         view.setTitleTextAttributes([
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
             NSAttributedString.Key.foregroundColor: UIColor.gray
@@ -353,6 +357,25 @@ extension MemberPageViewController {
         }) { [weak self] error in
             self?.followBtn.isLoading = false
             HUD.showError(error)
+        }
+    }
+}
+
+
+extension UISegmentedControl {
+    /// Tint color doesn't have any effect on iOS 13.
+    func ensureiOS12Style() {
+        if #available(iOS 13, *) {
+            let tintColorImage = UIImage(color: tintColor)
+            // Must set the background image for normal to something (even clear) else the rest won't work
+            setBackgroundImage(UIImage(color: backgroundColor ?? .clear), for: .normal, barMetrics: .default)
+            setBackgroundImage(tintColorImage, for: .selected, barMetrics: .default)
+            setBackgroundImage(UIImage(color: tintColor.withAlphaComponent(0.2)), for: .highlighted, barMetrics: .default)
+            setBackgroundImage(tintColorImage, for: [.highlighted, .selected], barMetrics: .default)
+            setTitleTextAttributes([.foregroundColor: tintColor ?? .clear, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13, weight: .regular)], for: .normal)
+            setDividerImage(tintColorImage, forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+            layer.borderWidth = 1
+            layer.borderColor = tintColor.cgColor
         }
     }
 }

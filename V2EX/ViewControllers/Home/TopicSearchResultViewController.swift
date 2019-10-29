@@ -222,7 +222,11 @@ class TopicSearchResultViewController: DataViewController, TopicService {
                 self?.containerView.borderBottom = Border(color: theme.borderColor)
                 self?.searchTextField.attributedPlaceholder = NSAttributedString(string: self?.searchTextField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: theme.dateColor])
 //                self?.searchTextField.setValue(theme.dateColor, forKeyPath: "_placeholderLabel.textColor")
-                self?.segmentView.tintColor = theme.tintColor
+                if #available(iOS 13.0, *) {
+                    self?.segmentView.selectedSegmentTintColor = theme.tintColor
+                } else {
+                    self?.segmentView.tintColor = theme.tintColor
+                }
             }.disposed(by: rx.disposeBag)
     }
 
