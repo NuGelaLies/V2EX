@@ -38,7 +38,10 @@ class TopicSearchResultViewController: DataViewController, TopicService {
 
     private lazy var segmentView: UISegmentedControl = {
         let view = UISegmentedControl(items: ["权重", "时间"])
-        view.tintColor = Theme.Color.globalColor
+        if #available(iOS 13.0, *) {
+        } else {
+            view.tintColor = Theme.Color.globalColor
+        }
         view.selectedSegmentIndex = 0
         self.containerView.addSubview(view)
         return view
@@ -223,7 +226,6 @@ class TopicSearchResultViewController: DataViewController, TopicService {
                 self?.searchTextField.attributedPlaceholder = NSAttributedString(string: self?.searchTextField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: theme.dateColor])
 //                self?.searchTextField.setValue(theme.dateColor, forKeyPath: "_placeholderLabel.textColor")
                 if #available(iOS 13.0, *) {
-                    self?.segmentView.selectedSegmentTintColor = theme.tintColor
                 } else {
                     self?.segmentView.tintColor = theme.tintColor
                 }
