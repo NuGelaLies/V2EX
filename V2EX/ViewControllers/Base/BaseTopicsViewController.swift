@@ -1,6 +1,7 @@
 import UIKit
+import SegementSlide
 
-class BaseTopicsViewController: DataViewController, TopicService, NodeService {
+class BaseTopicsViewController: DataViewController, TopicService, NodeService, SegementSlideContentScrollViewDelegate {
 
     private struct Misc {
         static let allHrefName = "/?tab=all"
@@ -57,7 +58,11 @@ class BaseTopicsViewController: DataViewController, TopicService, NodeService {
 
         setupRefresh()
     }
-
+    
+    @objc var scrollView: UIScrollView {
+        return tableView
+    }
+    
     func setupRefresh() {
         setupHeaderRefresh()
         setupFooterRefresh()

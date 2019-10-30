@@ -166,6 +166,7 @@
 		D84AC13121A6ACA60088B888 /* AlternateIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D84AC13021A6ACA60088B888 /* AlternateIcons.xcassets */; };
 		D84B4E63217AE71D006DF65B /* black.css in Resources */ = {isa = PBXBuildFile; fileRef = D84B4E62217AE71D006DF65B /* black.css */; };
 		D87BC22B218DCFB000ACA653 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87BC22A218DCFB000ACA653 /* Pods_V2EX.framework */; };
+		D87C04B52369910400337DE8 /* BaseSegementSlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C04B42369910400337DE8 /* BaseSegementSlideViewController.swift */; };
 		D881675721FB16C100A3F56D /* PagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D881675621FB16C100A3F56D /* PagesController.swift */; };
 		D8A1331721BA59E100BB7C18 /* Defaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1331521BA59E100BB7C18 /* Defaults+.swift */; };
 		D8A1331D21BA5D3B00BB7C18 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1331B21BA5D3B00BB7C18 /* DatePickerViewController.swift */; };
@@ -381,6 +382,7 @@
 		D84AC13021A6ACA60088B888 /* AlternateIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AlternateIcons.xcassets; sourceTree = "<group>"; };
 		D84B4E62217AE71D006DF65B /* black.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = black.css; sourceTree = "<group>"; };
 		D87BC22A218DCFB000ACA653 /* Pods_V2EX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_V2EX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D87C04B42369910400337DE8 /* BaseSegementSlideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseSegementSlideViewController.swift; sourceTree = "<group>"; };
 		D881675621FB16C100A3F56D /* PagesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagesController.swift; sourceTree = "<group>"; };
 		D8A1331521BA59E100BB7C18 /* Defaults+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Defaults+.swift"; sourceTree = "<group>"; };
 		D8A1331B21BA5D3B00BB7C18 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -803,6 +805,7 @@
 		BFCB67441F8F495F00D05A90 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				D87C04B42369910400337DE8 /* BaseSegementSlideViewController.swift */,
 				BFCB67451F8F498900D05A90 /* HomeViewController.swift */,
 				BF45FCCC1F906E0D006B2C2F /* TopicDetailViewController.swift */,
 				BFE8CB281FA051E2007E2F02 /* ViewDialogViewController.swift */,
@@ -1105,6 +1108,7 @@
 				770FFD142000BA7C000F3CA9 /* FilterNil.swift in Sources */,
 				BF5A6B8B1F99E9DB00CF6BA1 /* ReplyCell.swift in Sources */,
 				BF9EC8201F95C39A00E7AA02 /* MemberPageViewController.swift in Sources */,
+				D87C04B52369910400337DE8 /* BaseSegementSlideViewController.swift in Sources */,
 				D81E02FC218DBCFE0065E40D /* AppearanceIconsCell.swift in Sources */,
 				BF45E00A1F9F08A90001BEB2 /* DataViewController.swift in Sources */,
 				BFCB675B1F8F51DD00D05A90 /* Networking.swift in Sources */,

@@ -95,6 +95,14 @@ enum Theme: Int, CaseIterable {
         }
     }
     
+    var blackColor: UIColor {
+        switch self {
+        case .day: return .black
+        case .night: return .white
+        case .black: return .white
+        }
+    }
+    
     var dateColor: UIColor {
         switch self {
         case .day: return #colorLiteral(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)

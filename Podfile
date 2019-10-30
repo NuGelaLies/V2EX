@@ -27,6 +27,7 @@ target 'V2EX' do
     pod 'SKPhotoBrowser'
     pod 'PullToRefreshKit' , git: 'https://github.com/aidevjoe/PullToRefreshKit.git'
     pod 'Aquaman'
+    pod 'SegementSlide' , git: 'https://github.com/aidevjoe/SegementSlide.git'
 
     # Parse
     pod 'Kanna'

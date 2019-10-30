@@ -2,12 +2,11 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import SegementSlide
 
-class HomeViewController: BaseViewController, AccountService, TopicService, NodeService {
+class HomeViewController: BaseSegementSlideViewController, AccountService, TopicService, NodeService {
 
     // MARK: - UI
-
-    private var segmentView: SegmentView?
 
     // MARK: - Propertys
     
@@ -18,17 +17,27 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
     
     private var isRefreshing: Bool = false
 
-    private var pagesController: PagesController?
-
     // MARK: - View Life Cycle...
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupSegmentView()
+        nodes = homeNodes()
+        setupSubviews()
+        setupRx()
         switchTheme()
+        
+        reloadData()
+        scrollToSlide(at: 0, animated: false)
+        
+        setupSwitcherTheme()
     }
-
+    
+    // MARK: Status Bar Style
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return ThemeStyle.style.value.statusBarStyle
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -36,11 +45,53 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
         navigationController?.navigationBar.shadowImage = UIImage()
     }
     
+    override var bouncesType: BouncesType {
+        return .child
+    }
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .slide
+    }
+    
+    private var config: SegementSlideSwitcherConfig = ConfigManager.shared.switcherConfig
+    
+    override var switcherConfig: SegementSlideSwitcherConfig {
+//        var config = super.switcherConfig
+        config.type = .segement
+        return config
+    }
+    
+    override var titlesInSwitcher: [String] {
+        return nodes.map { $0.title }
+    }
+    
+    override func segementSlideContentViewController(at index: Int) -> SegementSlideContentScrollViewDelegate? {
+        let viewController = BaseTopicsViewController(node: nodes[index])
+//        viewController.refreshHandler = { [weak self] in
+//            guard let self = self else { return }
+//            self.badges[index] = BadgeType.random
+//            self.reloadBadgeInSwitcher()
+//        }
+        return viewController
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView, isParent: Bool) {
+        guard !isParent else { return }
+        guard let navigationController = navigationController else { return }
+        let translationY = -scrollView.panGestureRecognizer.translation(in: scrollView).y
+        if translationY > 0 {
+            guard !navigationController.isNavigationBarHidden else { return }
+            navigationController.setNavigationBarHidden(true, animated: true)
+        } else {
+            guard !scrollView.isTracking else { return }
+            guard navigationController.isNavigationBarHidden else { return }
+            navigationController.setNavigationBarHidden(false, animated: true)
+        }
+    }
     
     // MARK: - Setup
 
-    override func setupSubviews() {
-        super.setupSubviews()
+    func setupSubviews() {
 
         navigationItem.title = "V2EX"
 
@@ -53,57 +104,7 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
         }
     }
 
-    private func setupSegmentView() {
-        nodes = homeNodes()
-
-        let segmentV = SegmentView(frame: CGRect(x: 0, y: 0, width: view.width, height: 40),
-                                   titles: nodes.compactMap { $0.title })
-        segmentV.backgroundColor = .white
-        segmentView = segmentV
-        view.addSubview(segmentV)
-
-        segmentV.valueChange = { [weak self] index in
-            guard let `self` = self else { return }
-            self.pagesController?.goTo(index)
-        }
-
-        segmentV.snp.makeConstraints {
-            $0.left.top.right.equalToSuperview()
-            $0.height.equalTo(40)
-        }
-
-        let viewControllers = nodes.map { BaseTopicsViewController(node: $0) }
-        let pagesController = PagesController(viewControllers)
-        pagesController.pagesDelegate = self
-        addChild(pagesController)
-        view.addSubview(pagesController.view)
-        //        pagesController.view.pin(to: view)
-        
-        
-        pagesController.view.snp.makeConstraints {
-            $0.top.equalTo(segmentV.snp.bottom)
-            $0.left.right.equalToSuperview()
-            if #available(iOS 11.0, *) {
-                $0.bottom.equalTo(view.safeAreaInsets)
-            } else {
-                $0.bottom.equalTo(bottomLayoutGuide.snp.top)
-            }
-        }
-        
-        pagesController.didMove(toParent: self)
-        self.pagesController = pagesController
-        
-        ThemeStyle.style.asObservable()
-            .subscribeNext { [weak self] theme in
-                segmentV.backgroundColor = theme.navColor
-                segmentV.style = theme.segmentViewStyle
-                AppWindow.shared.window.backgroundColor = theme.whiteColor
-                self?.navigationItem.rightBarButtonItem?.tintColor = theme.tintColor
-                self?.setNeedsStatusBarAppearanceUpdate()
-            }.disposed(by: rx.disposeBag)
-    }
-
-    override func setupRx() {
+    func setupRx() {
         NotificationCenter.default.rx
             .notification(Notification.Name.V2.TwoStepVerificationName)
             .subscribeNext { [weak self] _ in
@@ -129,9 +130,8 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
         NotificationCenter.default.rx
             .notification(Notification.Name.V2.DidSelectedHomeTabbarItemName)
             .subscribeNext { [weak self] _ in
-                guard let `self` = self, let `segmentView` = self.segmentView else { return }
-                let willShowVC = self.pagesController?.pages[segmentView.selectIndex]
-                if let tableView = willShowVC?.view.subviews.first as? UITableView, tableView.numberOfRows(inSection: 0) > 0 {
+                guard let `self` = self else { return }
+                if let tableView = self.currentSegementSlideContentViewController?.scrollView as? UITableView {
                     let indexPath = IndexPath(row: 0, section: 0)
                     if tableView.indexPathsForVisibleRows?.first == indexPath, !self.isRefreshing {
                         self.isRefreshing = true
@@ -214,12 +214,27 @@ class HomeViewController: BaseViewController, AccountService, TopicService, Node
             .subscribeNext { [weak self] _ in
                 self?.switchTheme()
         }.disposed(by: rx.disposeBag)
+        
+        ThemeStyle.style.asObservable()
+            .subscribeNext { [weak self] theme in
+                AppWindow.shared.window.backgroundColor = theme.whiteColor
+                self?.navigationItem.rightBarButtonItem?.tintColor = theme.tintColor
+                self?.setNeedsStatusBarAppearanceUpdate()
+                self?.setupSwitcherTheme()
+            }.disposed(by: rx.disposeBag)
     }
 
 }
 
 // MARK: - Actions
 extension HomeViewController {
+    
+    private func setupSwitcherTheme() {
+        config.switcherBackgroundColor = ThemeStyle.style.value.navColor
+        config.selectedTitleColor = ThemeStyle.style.value.blackColor
+        config.indicatorColor = ThemeStyle.style.value.blackColor
+        reloadThemeInSwitcher()
+    }
 
     private func switchTheme() {
         guard Preference.shared.autoSwitchThemeForBrightness else { return }
@@ -255,11 +270,5 @@ extension HomeViewController {
             log.info(error)
             HUD.showTest(error)
         }
-    }
-}
-
-extension HomeViewController: PagesControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController, setViewController viewController: UIViewController, atPage page: Int) {
-        segmentView?.setSelectIndex(index: page)
     }
 }

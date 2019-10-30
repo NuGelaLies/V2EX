@@ -27,6 +27,7 @@ PODS:
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
   - RxSwift (4.5.0)
+  - SegementSlide (2.2.1)
   - SKPhotoBrowser (6.1.0)
   - SnapKit (4.2.0)
   - StatefulViewController (3.0)
@@ -54,6 +55,7 @@ DEPENDENCIES:
   - RxCocoa (~> 4.0)
   - RxOptional
   - RxSwift (~> 4.0)
+  - SegementSlide (from `https://github.com/aidevjoe/SegementSlide.git`)
   - SKPhotoBrowser
   - SnapKit
   - StatefulViewController
@@ -88,6 +90,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   PullToRefreshKit:
     :git: https://github.com/aidevjoe/PullToRefreshKit.git
+  SegementSlide:
+    :git: https://github.com/aidevjoe/SegementSlide.git
   YYText:
     :git: https://github.com/aidevjoe/YYText
 
@@ -95,6 +99,9 @@ CHECKOUT OPTIONS:
   PullToRefreshKit:
     :commit: 7a081162cdca151b038e5a5f52eb520e02eb4f99
     :git: https://github.com/aidevjoe/PullToRefreshKit.git
+  SegementSlide:
+    :commit: 0ec7cd283dc2ea70e457401349ec2a86b8007b1f
+    :git: https://github.com/aidevjoe/SegementSlide.git
   YYText:
     :commit: 04deccfd4da6ddbdfd281722a0d3e16e6fc2d04a
     :git: https://github.com/aidevjoe/YYText
@@ -117,6 +124,7 @@ SPEC CHECKSUMS:
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+  SegementSlide: ef8ab4951d14197c95d4413d718c6eca0702762e
   SKPhotoBrowser: 343de95d89dc7913763c5dda243cc6e606e4a168
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931
@@ -124,6 +132,6 @@ SPEC CHECKSUMS:
   "UIView+Positioning": 6e7236a429053ade11051fab7ff9053af36c77a8
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 803d55a35c154c2154d0b125014d244e4016fd2f
+PODFILE CHECKSUM: f07ee7e8d85e74b2666174d91895ebd085f6c1af
 
 COCOAPODS: 1.8.3
