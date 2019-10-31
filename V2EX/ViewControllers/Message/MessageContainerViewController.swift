@@ -1,11 +1,14 @@
 import UIKit
+import SegementSlide
 
 class MessageContainerViewController: DataViewController {
-
-    private lazy var segmentedControl: UISegmentedControl = {
-        let view = UISegmentedControl(items: ["我的消息", "我的回复"])
-        view.selectedSegmentIndex = 0
-        view.addTarget(self, action: #selector(segmentedControlValueChanaeAction), for: .valueChanged)
+    
+    private var config: SegementSlideSwitcherConfig = ConfigManager.shared.switcherConfig
+    
+    private lazy var segementSlideSwitcherView: SegementSlideSwitcherView = {
+        let view = SegementSlideSwitcherView()
+        view.delegate = self
+        view.config = self.config
         return view
     }()
     
@@ -23,7 +26,17 @@ class MessageContainerViewController: DataViewController {
         
         let controllers = [MessageViewController(), replyViewController]
         
-        navigationItem.titleView = segmentedControl
+        navigationItem.titleView = segementSlideSwitcherView
+        
+        segementSlideSwitcherView.translatesAutoresizingMaskIntoConstraints = false
+        segementSlideSwitcherView.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        segementSlideSwitcherView.widthAnchor.constraint(equalToConstant: 172).isActive = true
+//        segementSlideSwitcherView.centerXAnchor.constraint(equalTo: navigationController!.navigationBar.centerXAnchor).isActive = true
+        
+        setupSwitcherTheme()
+        
+        segementSlideSwitcherView.selectSwitcher(at: 0, animated: true)
+        segementSlideSwitcherView.reloadData()
         
         let pagesController = PagesController(controllers)
         pagesController.pagesDelegate = self
@@ -47,6 +60,11 @@ class MessageContainerViewController: DataViewController {
                 replyViewController.username = AccountModel.current?.username ?? ""
                 self?.endLoading()
             }).disposed(by: rx.disposeBag)
+        
+        ThemeStyle.style.asObservable()
+            .subscribeNext { [weak self] theme in
+                self?.setupSwitcherTheme()
+            }.disposed(by: rx.disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,8 +79,8 @@ class MessageContainerViewController: DataViewController {
     override func loadData() {}
     
     override func hasContent() -> Bool {
-        segmentedControl.isEnabled = AccountModel.isLogin
-        pagesController?.view.isHidden = segmentedControl.isEnabled.not
+        segementSlideSwitcherView.isUserInteractionEnabled = AccountModel.isLogin
+        pagesController?.view.isHidden = segementSlideSwitcherView.isUserInteractionEnabled.not
         return AccountModel.isLogin
     }
     
@@ -72,20 +90,33 @@ class MessageContainerViewController: DataViewController {
         presentLoginVC()
     }
     
-    override func emptyView(_ emptyView: EmptyView, didTapActionButton sender: UIButton) {
-    }
+    override func emptyView(_ emptyView: EmptyView, didTapActionButton sender: UIButton) {}
 }
 
-extension MessageContainerViewController {
-    @objc private func segmentedControlValueChanaeAction() {
-        
-        let index = segmentedControl.selectedSegmentIndex
+extension MessageContainerViewController: SegementSlideSwitcherViewDelegate {
+    
+    private func setupSwitcherTheme() {
+        config.switcherBackgroundColor = ThemeStyle.style.value.navColor
+        config.selectedTitleColor = ThemeStyle.style.value.blackColor
+        config.indicatorColor = ThemeStyle.style.value.blackColor
+        segementSlideSwitcherView.reloadTheme()
+    }
+    
+    func segementSwitcherView(_ segementSlideSwitcherView: SegementSlideSwitcherView, didSelectAtIndex index: Int, animated: Bool) {
         pagesController?.goTo(index)
+    }
+    
+    func segementSwitcherView(_ segementSlideSwitcherView: SegementSlideSwitcherView, showBadgeAtIndex index: Int) -> BadgeType {
+        return .none
+    }
+    
+    var titlesInSegementSlideSwitcherView: [String] {
+        return ["我的消息", "我的回复"]
     }
 }
 
 extension MessageContainerViewController: PagesControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, setViewController viewController: UIViewController, atPage page: Int) {
-        segmentedControl.selectedSegmentIndex = page
+        segementSlideSwitcherView.selectSwitcher(at: page, animated: true)
     }
 }
