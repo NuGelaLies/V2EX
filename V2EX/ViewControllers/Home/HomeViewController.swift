@@ -23,7 +23,7 @@ class HomeViewController: BaseSegementSlideViewController, AccountService, Topic
         super.viewDidLoad()
         
         nodes = homeNodes()
-        setupSubviews()
+        setupNavigation()
         setupRx()
         switchTheme()
         
@@ -33,11 +33,6 @@ class HomeViewController: BaseSegementSlideViewController, AccountService, Topic
         setupSwitcherTheme()
     }
     
-    // MARK: Status Bar Style
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return ThemeStyle.style.value.statusBarStyle
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -45,12 +40,15 @@ class HomeViewController: BaseSegementSlideViewController, AccountService, Topic
         navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    override var bouncesType: BouncesType {
-        return .child
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .slide
+    // MARK: - Segment Slide
+    
+    override var bouncesType: BouncesType {
+        return .child
     }
     
     private var config: SegementSlideSwitcherConfig = ConfigManager.shared.switcherConfig
@@ -66,13 +64,7 @@ class HomeViewController: BaseSegementSlideViewController, AccountService, Topic
     }
     
     override func segementSlideContentViewController(at index: Int) -> SegementSlideContentScrollViewDelegate? {
-        let viewController = BaseTopicsViewController(node: nodes[index])
-//        viewController.refreshHandler = { [weak self] in
-//            guard let self = self else { return }
-//            self.badges[index] = BadgeType.random
-//            self.reloadBadgeInSwitcher()
-//        }
-        return viewController
+        return BaseTopicsViewController(node: nodes[index])
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView, isParent: Bool) {
@@ -89,9 +81,18 @@ class HomeViewController: BaseSegementSlideViewController, AccountService, Topic
         }
     }
     
+    // MARK: Status Bar Style
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return ThemeStyle.style.value.statusBarStyle
+    }
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .slide
+    }
+    
     // MARK: - Setup
 
-    func setupSubviews() {
+    func setupNavigation() {
 
         navigationItem.title = "V2EX"
 
@@ -124,7 +125,6 @@ class HomeViewController: BaseSegementSlideViewController, AccountService, Topic
             .subscribeNext { [weak self] _ in
                 HUD.showSuccess("登录成功")
                 self?.dailyRewardMission()
-                self?.loginHandle()
             }.disposed(by: rx.disposeBag)
 
         NotificationCenter.default.rx
@@ -191,22 +191,22 @@ class HomeViewController: BaseSegementSlideViewController, AccountService, Topic
 //                }
 //            }.disposed(by: rx.disposeBag)
 
-        NotificationCenter.default.rx
-            .notification(Notification.Name.V2.ReceiveRemoteNewMessageName)
-            .subscribeNext { [weak self] notification in
-                guard let userInfo = notification.object as? [String: Any],
-                    let link = userInfo["link"] as? String else { return }
-                self?.tabBarController?.selectedIndex = 2
-                if let action = userInfo["action"] as? String,
-                    action == "msg" {
-                    return
-                }
-                let topic = TopicModel(member: nil, node: nil, title: "", href: link)
-                guard let topicID = topic.topicID else { return }
-                let topicDetailVC = TopicDetailViewController(topicID: topicID)
-                topicDetailVC.anchor = topic.anchor
-                self?.navigationController?.pushViewController(topicDetailVC, animated: true)
-            }.disposed(by: rx.disposeBag)
+//        NotificationCenter.default.rx
+//            .notification(Notification.Name.V2.ReceiveRemoteNewMessageName)
+//            .subscribeNext { [weak self] notification in
+//                guard let userInfo = notification.object as? [String: Any],
+//                    let link = userInfo["link"] as? String else { return }
+//                self?.tabBarController?.selectedIndex = 2
+//                if let action = userInfo["action"] as? String,
+//                    action == "msg" {
+//                    return
+//                }
+//                let topic = TopicModel(member: nil, node: nil, title: "", href: link)
+//                guard let topicID = topic.topicID else { return }
+//                let topicDetailVC = TopicDetailViewController(topicID: topicID)
+//                topicDetailVC.anchor = topic.anchor
+//                self?.navigationController?.pushViewController(topicDetailVC, animated: true)
+//            }.disposed(by: rx.disposeBag)
         
         NotificationCenter.default.rx
             .notification(UIScreen.brightnessDidChangeNotification)
@@ -223,11 +223,6 @@ class HomeViewController: BaseSegementSlideViewController, AccountService, Topic
                 self?.setupSwitcherTheme()
             }.disposed(by: rx.disposeBag)
     }
-
-}
-
-// MARK: - Actions
-extension HomeViewController {
     
     private func setupSwitcherTheme() {
         config.switcherBackgroundColor = ThemeStyle.style.value.navColor
@@ -236,6 +231,11 @@ extension HomeViewController {
         reloadThemeInSwitcher()
     }
 
+}
+
+// MARK: - Actions
+extension HomeViewController {
+    
     private func switchTheme() {
         guard Preference.shared.autoSwitchThemeForBrightness else { return }
         
@@ -255,20 +255,6 @@ extension HomeViewController {
         }) { error in
             HUD.showTest(error)
             log.error(error)
-        }
-    }
-
-    private func loginHandle() {
-        guard AccountModel.isLogin, let account = AccountModel.current else { return }
-
-        userStatus(username: account.username, success: { isOpen in
-            guard isOpen else { return }
-//            JPUSHService.setAlias(account.username, completion: { (resCode, alia, seq) in
-//                log.info(resCode, alia ?? "None", seq)
-//            }, seq: 2)
-        }) { error in
-            log.info(error)
-            HUD.showTest(error)
         }
     }
 }

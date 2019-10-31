@@ -8,7 +8,6 @@ PODS:
   - AppCenter/Core (2.5.0)
   - AppCenter/Crashes (2.5.0):
     - AppCenter/Core
-  - Aquaman (0.0.6)
   - DeviceKit (2.3.0)
   - IQKeyboardManagerSwift (6.5.2)
   - Kanna (5.0.0)
@@ -40,7 +39,6 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - AppCenter
-  - Aquaman
   - DeviceKit
   - IQKeyboardManagerSwift
   - Kanna
@@ -67,7 +65,6 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AppCenter
-    - Aquaman
     - DeviceKit
     - IQKeyboardManagerSwift
     - Kanna
@@ -109,7 +106,6 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppCenter: 637f180deefc61e8ab3f94223869ee50f61dabea
-  Aquaman: d7ba7151dd3b93e2f07f6ab3dacd72b43f5243c9
   DeviceKit: da103891aa928d89f64ea8dd8aca738c5f3d8ac0
   IQKeyboardManagerSwift: c75366f1f19590e8caeae45fcd5815c9289d6099
   Kanna: a32875df62975f8f4b871e933b4ea1a5c3b8be0f
@@ -132,6 +128,6 @@ SPEC CHECKSUMS:
   "UIView+Positioning": 6e7236a429053ade11051fab7ff9053af36c77a8
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: f07ee7e8d85e74b2666174d91895ebd085f6c1af
+PODFILE CHECKSUM: f447ec194f73ede0db3a17aba1ff3a8ad3e50606
 
 COCOAPODS: 1.8.3

@@ -1,11 +1,7 @@
 import UIKit
-import Aquaman
+import SegementSlide
 
-class MyReplyViewController: DataViewController, MemberService, AquamanChildViewController{
-    func aquamanChildScrollView() -> UIScrollView {
-        return tableView
-    }
-    
+class MyReplyViewController: DataViewController, MemberService, SegementSlideContentScrollViewDelegate {
 
     // MARK: - UI
 
@@ -84,6 +80,10 @@ class MyReplyViewController: DataViewController, MemberService, AquamanChildView
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    @objc var scrollView: UIScrollView {
+        return tableView
     }
 
     // MARK: State Handle

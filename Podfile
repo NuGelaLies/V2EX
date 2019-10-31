@@ -26,7 +26,7 @@ target 'V2EX' do
     pod 'StatefulViewController'
     pod 'SKPhotoBrowser'
     pod 'PullToRefreshKit' , git: 'https://github.com/aidevjoe/PullToRefreshKit.git'
-    pod 'Aquaman'
+#    pod 'Aquaman'
     pod 'SegementSlide' , git: 'https://github.com/aidevjoe/SegementSlide.git'
 
     # Parse

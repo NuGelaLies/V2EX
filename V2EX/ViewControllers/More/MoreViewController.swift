@@ -71,7 +71,7 @@ class MoreViewController: BaseViewController, AccountService, MemberService {
             MoreItem(icon: #imageLiteral(resourceName: "topicCollect"), title: "主题收藏", type: .myFavorites, rightType: .arrow),
 //            MoreItem(icon: #imageLiteral(resourceName: "concern"), title: "特别关注", type: .follow, rightType: .arrow),
             MoreItem(icon: #imageLiteral(resourceName: "topic"), title: "我的主题", type: .myTopic, rightType: .arrow),
-            MoreItem(icon: #imageLiteral(resourceName: "myReply"), title: "我的回复", type: .myReply, rightType: .arrow),
+//            MoreItem(icon: #imageLiteral(resourceName: "myReply"), title: "我的回复", type: .myReply, rightType: .arrow),
             MoreItem(icon: #imageLiteral(resourceName: "blocked"), title: "屏蔽名单", type: .blockList, rightType: .arrow),
             MoreItem(icon: #imageLiteral(resourceName: "history"), title: "浏览历史", type: .readHistory, rightType: .arrow)
         ],

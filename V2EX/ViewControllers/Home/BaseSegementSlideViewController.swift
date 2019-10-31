@@ -96,7 +96,6 @@ class BaseSegementSlideViewController: SegementSlideViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         debugPrint("\(type(of: self)) - \(String(format: "%p", self)) - \(#function)")
-        view.backgroundColor = .white
     }
     
 }

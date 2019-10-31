@@ -1,12 +1,6 @@
 import UIKit
-import Aquaman
 
-class MyTopicsViewController: BaseTopicsViewController, MemberService, AquamanChildViewController {
-    
-    func aquamanChildScrollView() -> UIScrollView {
-        return tableView
-    }
-    
+class MyTopicsViewController: BaseTopicsViewController, MemberService {
 
     // MARK: - Propertys
 

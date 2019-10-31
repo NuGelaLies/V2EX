@@ -1,15 +1,17 @@
 import UIKit
 import SnapKit
-import Aquaman
+import SegementSlide
 
-class MemberPageViewController: AquamanPageViewController, MemberService, AccountService {
+class MemberPageViewController: TransparentSlideViewController, MemberService, AccountService, InteractivePopProtocol {
 
     // MARK: - UI
 
-    private lazy var headerView: UIImageView = {
+    private lazy var headerContainerView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleToFill
         view.isUserInteractionEnabled = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: 260).isActive = true
         return view
     }()
 
@@ -65,36 +67,15 @@ class MemberPageViewController: AquamanPageViewController, MemberService, Accoun
         return view
     }()
     
-    private lazy var segmentViewContainer: UIView = {
-        let view = UIView()
-        view.backgroundColor = ThemeStyle.style.value.cellBackgroundColor
-        return view
-    }()
-
-    private lazy var segmentView: UISegmentedControl = {
-        let view = UISegmentedControl(items: [
-            "发布的主题",
-            "最近的回复"
-            ])
-//        view.tintColor = ThemeStyle.style.value.tintColor
-        view.selectedSegmentIndex = 0
-        view.sizeToFit()
-        view.tintColor = .clear
-        
-        if #available(iOS 13.0, *) {
-            view.ensureiOS12Style()
-        }
-        view.setTitleTextAttributes([
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
-            NSAttributedString.Key.foregroundColor: UIColor.gray
-            ], for: .normal)
-        view.setTitleTextAttributes(
-            [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15),
-             NSAttributedString.Key.foregroundColor: Theme.Color.globalColor
-            ], for: .selected)
-        return view
-    }()
+    // 禁止全屏返回手势
+    var disabled: Bool {
+        return true
+    }
     
+    override var headerView: UIView {
+        return headerContainerView
+    }
+
     private lazy var titleLabel: UILabel = {
         let view = UILabel()
         view.textColor = .white
@@ -115,7 +96,7 @@ class MemberPageViewController: AquamanPageViewController, MemberService, Accoun
             titleLabel.text = usernameLabel.text
             titleLabel.sizeToFit()
             joinTimeLabel.text = member.joinTime
-            headerView.setImage(urlString: member.avatarSrc, placeholder: #imageLiteral(resourceName: "avatar"))
+            headerContainerView.setImage(urlString: member.avatarSrc, placeholder: #imageLiteral(resourceName: "avatar"))
             blockBtn.isSelected = member.isBlock
             followBtn.isSelected = member.isFollow
             
@@ -153,23 +134,22 @@ class MemberPageViewController: AquamanPageViewController, MemberService, Accoun
         
         loadData()
         
-        if #available(iOS 11.0, *) {
-            mainScrollView.contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false
-        }
+        reloadData()
+        scrollToSlide(at: 0, animated: false)
+        setupSwitcherTheme()
         
         navigationItem.leftBarButtonItem?.tintColor = .white
         
-         navigationItem.titleView = titleLabel
+        navigationItem.titleView = titleLabel
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //        navigationController?.navigationBar.shadowImage = UIImage()
+        
         navBarBgAlpha = 0
         navigationController?.navigationBar.isTranslucent = true
         //        navBarTintColor = UIColor.defaultNavBarTintColor
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -178,7 +158,6 @@ class MemberPageViewController: AquamanPageViewController, MemberService, Accoun
         navigationController?.navigationBar.isTranslucent = true
         //        navBarTintColor = UIColor.defaultNavBarTintColor
     }
-    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -193,11 +172,11 @@ class MemberPageViewController: AquamanPageViewController, MemberService, Accoun
         navBarBgAlpha = 1
         navigationController?.navigationBar.isTranslucent = false
     }
+    
     // MARK: - Setup
     
     func setupSubviews() {
-        segmentViewContainer.addSubview(segmentView)
-        headerView.addSubviews(blurView, avatarView, usernameLabel, joinTimeLabel, followBtn, blockBtn)
+        headerContainerView.addSubviews(blurView, avatarView, usernameLabel, joinTimeLabel, followBtn, blockBtn)
     }
 
     func setupConstraints() {
@@ -208,7 +187,7 @@ class MemberPageViewController: AquamanPageViewController, MemberService, Accoun
 
         avatarView.snp.makeConstraints {
             $0.left.equalToSuperview().inset(15)
-            $0.top.equalTo(navigationController?.navigationBar.bottom ?? 64)
+            $0.top.equalTo(88)
             $0.size.equalTo(80)
         }
 
@@ -235,20 +214,9 @@ class MemberPageViewController: AquamanPageViewController, MemberService, Accoun
             $0.right.equalToSuperview().inset(15)
             $0.top.equalTo(usernameLabel.snp.bottom).offset(10)
         }
-
-        segmentView.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(20)
-            $0.top.bottom.equalToSuperview().inset(8)
-        }
     }
 
     func setupRx() {
-        segmentView.rx
-            .controlEvent(.valueChanged)
-            .subscribeNext { [weak self] in
-                guard let `self` = self else { return }
-                self.setSelect(index: self.segmentView.selectedSegmentIndex, animation: true)
-            }.disposed(by: rx.disposeBag)
 
         blockBtn.rx
             .tap
@@ -265,45 +233,51 @@ class MemberPageViewController: AquamanPageViewController, MemberService, Accoun
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 self?.view.backgroundColor = theme.bgColor
-                self?.segmentViewContainer.borderBottom = Border(color: theme.borderColor)
-        
-                self?.segmentView.setTitleTextAttributes(
-                    [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15),
-                     NSAttributedString.Key.foregroundColor: theme == .day ? Theme.Color.globalColor : .white
-                    ], for: .selected)
-                self?.segmentViewContainer.backgroundColor = theme.cellBackgroundColor
+                self?.setupSwitcherTheme()
             }.disposed(by: rx.disposeBag)
     }
     
-    override func headerViewFor(_ pageController: AquamanPageViewController) -> UIView {
-        return headerView
+    private func setupSwitcherTheme() {
+        config.switcherBackgroundColor = ThemeStyle.style.value.navColor
+        config.selectedTitleColor = ThemeStyle.style.value.blackColor
+        config.indicatorColor = ThemeStyle.style.value.blackColor
+        reloadThemeInSwitcher()
     }
     
-    override func headerViewHeightFor(_ pageController: AquamanPageViewController) -> CGFloat {
-        return 260
+    override var titlesInSwitcher: [String] {
+        return  ["发布的主题","最近的回复"]
     }
     
-    override func numberOfViewControllers(in pageController: AquamanPageViewController) -> Int {
-        return 2
+    override var bouncesType: BouncesType {
+        return .child
     }
     
-    override func pageController(_ pageController: AquamanPageViewController, viewControllerAt index: Int) -> (UIViewController & AquamanChildViewController) {
+    private var config: SegementSlideSwitcherConfig = ConfigManager.shared.switcherConfig
+    
+    override var switcherConfig: SegementSlideSwitcherConfig {
+        config.type = .tab
+        return config
+    }
+    
+    override func segementSlideContentViewController(at index: Int) -> SegementSlideContentScrollViewDelegate? {
         return index == 0 ? MyTopicsViewController(username: memberName) : MyReplyViewController(username: memberName)
     }
     
-    override func menuViewFor(_ pageController: AquamanPageViewController) -> UIView {
-        return segmentViewContainer
+    override func scrollViewDidScroll(_ scrollView: UIScrollView, isParent: Bool) {
+        super.scrollViewDidScroll(scrollView, isParent: isParent)
+        guard isParent else { return }
+        updateNavigationBarStyle(scrollView)
     }
     
-    override func menuViewHeightFor(_ pageController: AquamanPageViewController) -> CGFloat {
-        return 44
-    }
-
-    override func menuViewPinHeightFor(_ pageController: AquamanPageViewController) -> CGFloat {
-        return UIApplication.shared.statusBarFrame.height + 44.0
-    }
-    
-    override func pageController(_ pageController: AquamanPageViewController, mainScrollViewDidScroll scrollView: UIScrollView) {
+    private func updateNavigationBarStyle(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > headerStickyHeight {
+            slideSwitcherView.layer.applySketchShadow(color: .black, alpha: 0.03, x: 0, y: 2.5, blur: 5)
+            slideSwitcherView.layer.add(generateFadeAnimation(), forKey: "reloadSwitcherView")
+        } else {
+            slideSwitcherView.layer.applySketchShadow(color: .clear, alpha: 0, x: 0, y: 0, blur: 0)
+            slideSwitcherView.layer.add(generateFadeAnimation(), forKey: "reloadSwitcherView")
+        }
+        
         let rate = (UIApplication.shared.statusBarFrame.height * 3.0)
         let alpha = min(scrollView.contentOffset.y / rate, 1.0)
         joinTimeLabel.alpha = 1 - alpha
@@ -311,13 +285,13 @@ class MemberPageViewController: AquamanPageViewController, MemberService, Accoun
         titleLabel.alpha = alpha
     }
     
-    override func pageController(_ pageController: AquamanPageViewController,
-                                 contentScrollViewDidEndScroll scrollView: UIScrollView) {
-        let offsetX = scrollView.contentOffset.x
-        let index = Int(offsetX / scrollView.width)
-        
-        segmentView.selectedSegmentIndex = index
+    private func generateFadeAnimation() -> CATransition {
+        let fadeTextAnimation = CATransition()
+        fadeTextAnimation.duration = 0.25
+        fadeTextAnimation.type = .fade
+        return fadeTextAnimation
     }
+    
 }
 
 
