@@ -147,27 +147,10 @@ class MemberPageViewController: TransparentSlideViewController, MemberService, A
         super.viewWillAppear(animated)
         
         navBarBgAlpha = 0
-        navigationController?.navigationBar.isTranslucent = true
-        //        navBarTintColor = UIColor.defaultNavBarTintColor
-
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navBarBgAlpha = 0
-        navigationController?.navigationBar.isTranslucent = true
-        //        navBarTintColor = UIColor.defaultNavBarTintColor
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        navBarBgAlpha = 1
-        navigationController?.navigationBar.isTranslucent = false
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         navBarBgAlpha = 1
         navigationController?.navigationBar.isTranslucent = false
@@ -249,7 +232,7 @@ class MemberPageViewController: TransparentSlideViewController, MemberService, A
     }
     
     override var bouncesType: BouncesType {
-        return .child
+        return .parent
     }
     
     private var config: SegementSlideSwitcherConfig = ConfigManager.shared.switcherConfig

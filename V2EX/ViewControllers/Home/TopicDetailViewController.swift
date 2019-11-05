@@ -134,7 +134,6 @@ class TopicDetailViewController: DataViewController, TopicService {
         
         guard let topic = self.topic else { return }
         let offsetY = Int(self.tableView.contentOffset.y)
-        //        SQLiteDatabase.instance?.setAnchor(topicID: topicID, anchor: y)
         
         if let topicID = topicID.int, let username = topic.member?.username, let avatarSrc = topic.member?.avatarSrc {
             SQLiteDatabase.instance?.addHistory(tid: topicID, title: topic.title, username: username, avatarURL: avatarSrc, offsetY: offsetY, replyCount: replyCount)
@@ -144,10 +143,8 @@ class TopicDetailViewController: DataViewController, TopicService {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let isShow = showInputView {
-            if isShow == false {
-                commentInputView.isHidden = true
-            }
+        if showInputView == false {
+            commentInputView.isHidden = true
         }
     }
     
@@ -157,11 +154,6 @@ class TopicDetailViewController: DataViewController, TopicService {
         commentInputView.textView.resignFirstResponder()
         isShowToolBarVariable.value = false
         setStatusBarBackground(.clear)
-        
-//        guard let topicID = topicID.int else { return }
-//        let y = Int(self.tableView.contentOffset.y)
-//        SQLiteDatabase.instance?.setAnchor(topicID: topicID, anchor: y)
-        
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -352,7 +344,7 @@ class TopicDetailViewController: DataViewController, TopicService {
         ThemeStyle.style.asObservable()
             .subscribeNext { [weak self] theme in
                 setStatusBarBackground(theme.navColor, borderColor: .clear)
-                self?.headerView.topic = self?.topic
+                self?.headerView.topic = self?.topic // reload
             }.disposed(by: rx.disposeBag)
         
         NotificationCenter.default.rx
@@ -368,7 +360,6 @@ class TopicDetailViewController: DataViewController, TopicService {
                 self?.fetchTopicDetail()
             }.disposed(by: rx.disposeBag)
 
-
         backTopBtn.rx.tap
             .subscribeNext { [weak self] in
                 guard let `self` = self else { return }
@@ -376,13 +367,7 @@ class TopicDetailViewController: DataViewController, TopicService {
                 if self.backTopBtn.isSelected {
                     self.tableView.setContentOffset(CGPoint(x: 0, y: -self.tableView.contentInset.top), animated: true)
                 } else {
-                    // 会导致UI卡顿, 原因未知
-//                    if self.dataSources.count.boolValue {
-//                        let indexPath = IndexPath(row: self.dataSources.count - 1, section: 0)
-//                        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//                    } else {
-                        self.tableView.scrollToBottom()
-//                    }
+                    self.tableView.scrollToBottom()
                 }
         }.disposed(by: rx.disposeBag)
         
@@ -414,7 +399,6 @@ class TopicDetailViewController: DataViewController, TopicService {
                 alertController.show(self, sourceView: self.backTopBtn)
         }.disposed(by: rx.disposeBag)
     
-        
         Observable.of(NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification),
                       NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification),
                       NotificationCenter.default.rx.notification(UIResponder.keyboardDidShowNotification),
@@ -435,13 +419,6 @@ class TopicDetailViewController: DataViewController, TopicService {
                 }
             }.disposed(by: rx.disposeBag)
         
-//        NotificationCenter.default.rx
-//            .notification(.UIApplicationUserDidTakeScreenshot)
-//            .subscribeNext { noti in
-//                guard let img = AppWindow.shared.window.screenshot else { return }
-//                showImageBrowser(imageType: .image(img))
-//        }.disposed(by: rx.disposeBag)
-
         isSelectedVariable.asObservable()
             .distinctUntilChanged()
             .subscribeNext { [weak self] isSelected in
@@ -458,19 +435,11 @@ class TopicDetailViewController: DataViewController, TopicService {
                 self?.setTabBarHiddn(isShow)
             }.disposed(by: rx.disposeBag)
         
-//        tableView.rx.tapGesture
-//            .subscribeNext { [weak self] gesture in
-//                guard let `self` = self else { return }
-//                let point = gesture.location(in: self.tableView)
-//                guard let indexPath = self.tableView.indexPathForRow(at: point) else { return }
-//                self.didSelectRowAt(indexPath, point: point)
-//        }.disposed(by: rx.disposeBag)
-        
         NotificationCenter.default.rx
             .notification(UIMenuController.didHideMenuNotification)
             .subscribeNext { [weak self] _ in
                 guard let selectIndexPath = self?.tableView.indexPathForSelectedRow else { return }
-                GCD.delay(0.3, block: {
+                GCD.delay(0.1, block: {
                     if UIMenuController.shared.isMenuVisible.not {
                         self?.tableView.deselectRow(at: selectIndexPath, animated: false)
                     }

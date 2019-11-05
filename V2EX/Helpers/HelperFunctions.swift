@@ -11,12 +11,6 @@ public typealias Action = () -> Void
 
 
 func clearAccount() {
-//    JPUSHService.deleteAlias({ (code, alia, seq) in }, seq: 1)
-    
-    if let username = AccountModel.current?.username {
-        Network.request(target: API.userLogout(username: username), success: nil, failure: nil)
-    }
-    
     AccountModel.delete()
     HTTPCookieStorage.shared.cookies?.forEach { HTTPCookieStorage.shared.deleteCookie($0) }
     URLCache.shared.removeAllCachedResponses()

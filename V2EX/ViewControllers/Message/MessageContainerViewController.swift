@@ -3,11 +3,12 @@ import SegementSlide
 
 class MessageContainerViewController: DataViewController {
     
-    private var config: SegementSlideSwitcherConfig = ConfigManager.shared.switcherConfig
+    private var config: SegementSlideSwitcherConfig = SegementSlideSwitcherConfig()
     
     private lazy var segementSlideSwitcherView: SegementSlideSwitcherView = {
         let view = SegementSlideSwitcherView()
         view.delegate = self
+        self.config.horizontalMargin = 0
         view.config = self.config
         return view
     }()
@@ -30,7 +31,7 @@ class MessageContainerViewController: DataViewController {
         
         segementSlideSwitcherView.translatesAutoresizingMaskIntoConstraints = false
         segementSlideSwitcherView.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        segementSlideSwitcherView.widthAnchor.constraint(equalToConstant: 172).isActive = true
+        segementSlideSwitcherView.widthAnchor.constraint(equalToConstant: 156).isActive = true
 //        segementSlideSwitcherView.centerXAnchor.constraint(equalTo: navigationController!.navigationBar.centerXAnchor).isActive = true
         
         setupSwitcherTheme()

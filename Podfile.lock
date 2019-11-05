@@ -12,7 +12,7 @@ PODS:
   - IQKeyboardManagerSwift (6.5.2)
   - Kanna (5.0.0)
   - Kingfisher (4.10.1)
-  - LookinServer (0.9.4)
+  - LookinServer (1.0.0)
   - MarkdownView (1.5.0)
   - "NSObject+Rx (4.4.1)":
     - RxSwift (~> 4.3)
@@ -110,7 +110,7 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: c75366f1f19590e8caeae45fcd5815c9289d6099
   Kanna: a32875df62975f8f4b871e933b4ea1a5c3b8be0f
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
-  LookinServer: 54eb99921647bda4068ff8776d842285e2bf0adb
+  LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
   MarkdownView: 5bbee438c823db1cd189002d44c84fa909b3a896
   "NSObject+Rx": 9884a92f19b610795c431e10b4e601913b59c9e9
   PasswordExtension: cd45d17fc92e0defc5ee630795d916f453c6ba12
