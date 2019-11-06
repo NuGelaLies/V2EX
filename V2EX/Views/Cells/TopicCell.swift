@@ -42,12 +42,16 @@ class TopicCell: BaseTableViewCell {
         return view
     }()
     
-    private lazy var replayCountLabel: UIButton = {
+    private lazy var replayCountView: UIButton = {
         let view = UIButton()
         view.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         view.setImage(#imageLiteral(resourceName: "message"), for: .normal)
         view.setTitleColor(UIColor.hex(0xBCB8BD), for: .normal)
         view.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        view.isUserInteractionEnabled = false
+        view.titleLabel?.adjustsFontSizeToFitWidth = true
+        view.titleLabel?.numberOfLines = 1
+        view.titleLabel?.lineBreakMode = .byClipping
         return view
     }()
 
@@ -63,7 +67,7 @@ class TopicCell: BaseTableViewCell {
             titleLabel,
             lastReplyLabel,
             nodeLabel,
-            replayCountLabel
+            replayCountView
         )
 
         avatarView.rx
@@ -116,15 +120,14 @@ class TopicCell: BaseTableViewCell {
             $0.bottom.equalToSuperview().inset(15)
         }
         
-        replayCountLabel.snp.makeConstraints {
+        replayCountView.snp.makeConstraints {
             $0.right.equalToSuperview().inset(15)
             $0.top.equalTo(avatarView)
-            replayCountLabel.sizeToFit()
         }
         
         nodeLabel.snp.makeConstraints {
-            $0.right.equalTo(replayCountLabel.snp.left).offset(-10)
-            $0.centerY.equalTo(replayCountLabel)
+            $0.right.equalTo(replayCountView.snp.left).offset(-10)
+            $0.centerY.equalTo(replayCountView)
         }
     }
     
@@ -136,7 +139,7 @@ class TopicCell: BaseTableViewCell {
             usernameLabel.text = user.username
             titleLabel.text = topic.title
             lastReplyLabel.text = topic.lastReplyTime
-            replayCountLabel.setTitle(" " + topic.replyCount, for: .normal)
+            replayCountView.setTitle(" " + topic.replyCount, for: .normal)
             nodeLabel.text = topic.node?.title
             nodeLabel.isHidden = nodeLabel.text?.isEmpty ?? true
 
