@@ -144,7 +144,7 @@ class HomeViewController: BaseSegementSlideViewController, AccountService, Topic
                         GCD.delay(1, block: {
                             self.isRefreshing = false
                         })
-                    } else {
+                    } else if tableView.numberOfSections > 0 && tableView.indexPaths(section: 0).count > 0 {
                         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                     }
                 }

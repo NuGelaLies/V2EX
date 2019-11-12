@@ -235,7 +235,7 @@ class MemberPageViewController: TransparentSlideViewController, MemberService, A
         return .parent
     }
     
-    private var config: SegementSlideSwitcherConfig = ConfigManager.shared.switcherConfig
+    private var config: SegementSlideSwitcherConfig = SegementSlideSwitcherConfig()
     
     override var switcherConfig: SegementSlideSwitcherConfig {
         config.type = .tab
