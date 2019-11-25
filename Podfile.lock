@@ -1,15 +1,15 @@
 PODS:
   - Alamofire (4.9.1)
-  - AppCenter (2.5.0):
-    - AppCenter/Analytics (= 2.5.0)
-    - AppCenter/Crashes (= 2.5.0)
-  - AppCenter/Analytics (2.5.0):
+  - AppCenter (2.5.1):
+    - AppCenter/Analytics (= 2.5.1)
+    - AppCenter/Crashes (= 2.5.1)
+  - AppCenter/Analytics (2.5.1):
     - AppCenter/Core
-  - AppCenter/Core (2.5.0)
-  - AppCenter/Crashes (2.5.0):
+  - AppCenter/Core (2.5.1)
+  - AppCenter/Crashes (2.5.1):
     - AppCenter/Core
   - DeviceKit (2.3.0)
-  - IQKeyboardManagerSwift (6.5.2)
+  - IQKeyboardManagerSwift (6.5.4)
   - Kanna (5.0.0)
   - Kingfisher (4.10.1)
   - LookinServer (1.0.0)
@@ -97,7 +97,7 @@ CHECKOUT OPTIONS:
     :commit: 7a081162cdca151b038e5a5f52eb520e02eb4f99
     :git: https://github.com/aidevjoe/PullToRefreshKit.git
   SegementSlide:
-    :commit: 0ec7cd283dc2ea70e457401349ec2a86b8007b1f
+    :commit: 1d9a435518c8a7356d5dcf7e6fe6958e498c0b7d
     :git: https://github.com/aidevjoe/SegementSlide.git
   YYText:
     :commit: 04deccfd4da6ddbdfd281722a0d3e16e6fc2d04a
@@ -105,9 +105,9 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  AppCenter: 637f180deefc61e8ab3f94223869ee50f61dabea
+  AppCenter: fddcbac6e4baae3d93a196ceb0bfe0e4ce407dec
   DeviceKit: da103891aa928d89f64ea8dd8aca738c5f3d8ac0
-  IQKeyboardManagerSwift: c75366f1f19590e8caeae45fcd5815c9289d6099
+  IQKeyboardManagerSwift: 2dde0fc70110e8eac7ccce2a46fdbec6a850b414
   Kanna: a32875df62975f8f4b871e933b4ea1a5c3b8be0f
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e

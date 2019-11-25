@@ -8,6 +8,36 @@ class FenCiViewController: UICollectionViewController {
         static let toolBarHeight: CGFloat = 55
     }
     
+    enum SearchEngineType {
+        case google, baidu, bing, magi
+        
+        func url(text: String) -> String {
+            switch self {
+            case .google:
+                return "https://www.google.com/search?q=\(text)"
+            case .baidu:
+                return "https://www.baidu.com/s?wd=\(text)"
+            case .bing:
+                return "https://cn.bing.com/search?q=\(text)"
+            case .magi:
+                return "https://magi.com/search?q=\(text)"
+            }
+        }
+        
+        var title: String {
+            switch self {
+            case .google:
+                return "Google"
+            case .baidu:
+                return "百度"
+            case .bing:
+                return "Bing"
+            case .magi:
+                return "Magi"
+            }
+        }
+    }
+    
     // MARK: - UI
     
     private lazy var toolBarView: UIView = {
@@ -138,7 +168,7 @@ class FenCiViewController: UICollectionViewController {
                     HUD.showError("当前没有选择内容")
                     return
                 }
-                openWebView(url: "https://m.baidu.com/s?wd=\(text)")
+                self?.selectSearchEngine(text: text)
             }.disposed(by: rx.disposeBag)
         
         ThemeStyle.style.asObservable()
@@ -147,6 +177,33 @@ class FenCiViewController: UICollectionViewController {
                 self?.copyBtn.setTitleColor(self?.searchBtn.titleColor(for: .normal), for: .normal)
                 self?.collectionView?.layer.borderColor = theme == .day ? theme.borderColor.cgColor : UIColor.black.withAlphaComponent(0.3).cgColor
         }.disposed(by: rx.disposeBag)
+    }
+    
+    private func selectSearchEngine(text: String) {
+        let alertView = UIAlertController(title: "选择搜索引擎", message: nil, preferredStyle: .actionSheet)
+        
+        alertView.addAction(UIAlertAction(title: SearchEngineType.google.title, style: .default, handler: { action in
+            openWebView(url: SearchEngineType.google.url(text: text))
+        }))
+
+        alertView.addAction(UIAlertAction(title: SearchEngineType.baidu.title, style: .default, handler: { action in
+            openWebView(url: SearchEngineType.baidu.url(text: text))
+        }))
+
+        alertView.addAction(UIAlertAction(title: SearchEngineType.bing.title, style: .default, handler: { action in
+            openWebView(url: SearchEngineType.bing.url(text: text))
+        }))
+        
+        alertView.addAction(UIAlertAction(title: SearchEngineType.magi.title, style: .default, handler: { action in
+            openWebView(url: SearchEngineType.magi.url(text: text))
+        }))
+
+        alertView.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        
+        alertView.popoverPresentationController?.sourceView = toolBarView
+        alertView.popoverPresentationController?.sourceRect = toolBarView.bounds
+        
+        present(alertView, animated: true, completion: nil)
     }
 }
 

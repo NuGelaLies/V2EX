@@ -99,7 +99,7 @@ class CreateTopicViewController: BaseViewController, TopicService {
         let view = UIButton()
         view.setImage(#imageLiteral(resourceName: "selectNode").withRenderingMode(.alwaysTemplate), for: .normal)
         view.setImage(#imageLiteral(resourceName: "selectNode").withRenderingMode(.alwaysTemplate), for: .selected)
-        view.setTitle("选择节点", for: .normal)
+        view.setTitle(" 选择节点", for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         view.setTitleColor(.black, for: .normal)
         view.sizeToFit()
@@ -108,6 +108,9 @@ class CreateTopicViewController: BaseViewController, TopicService {
         view.setCornerRadius = 15
         view.layer.borderColor = Theme.Color.globalColor.cgColor
         view.layer.borderWidth = 0.5
+        view.titleLabel?.adjustsFontSizeToFitWidth = true
+        view.titleLabel?.numberOfLines = 1
+        view.titleLabel?.lineBreakMode = .byClipping
         return view
     }()
 
