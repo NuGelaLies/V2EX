@@ -1,18 +1,18 @@
 PODS:
-  - Alamofire (4.9.1)
-  - AppCenter (2.5.1):
-    - AppCenter/Analytics (= 2.5.1)
-    - AppCenter/Crashes (= 2.5.1)
-  - AppCenter/Analytics (2.5.1):
+  - Alamofire (4.8.2)
+  - AppCenter (2.2.0):
+    - AppCenter/Analytics (= 2.2.0)
+    - AppCenter/Crashes (= 2.2.0)
+  - AppCenter/Analytics (2.2.0):
     - AppCenter/Core
-  - AppCenter/Core (2.5.1)
-  - AppCenter/Crashes (2.5.1):
+  - AppCenter/Core (2.2.0)
+  - AppCenter/Crashes (2.2.0):
     - AppCenter/Core
-  - DeviceKit (2.3.0)
-  - IQKeyboardManagerSwift (6.5.4)
+  - DeviceKit (2.0.0)
+  - IQKeyboardManagerSwift (6.4.0)
   - Kanna (5.0.0)
   - Kingfisher (4.10.1)
-  - LookinServer (1.0.0)
+  - LookinServer (0.9.3)
   - MarkdownView (1.5.0)
   - "NSObject+Rx (4.4.1)":
     - RxSwift (~> 4.3)
@@ -30,15 +30,15 @@ PODS:
   - SKPhotoBrowser (6.1.0)
   - SnapKit (4.2.0)
   - StatefulViewController (3.0)
-  - SwiftMessages (7.0.1):
-    - SwiftMessages/App (= 7.0.1)
-  - SwiftMessages/App (7.0.1)
+  - SwiftMessages (7.0.0):
+    - SwiftMessages/App (= 7.0.0)
+  - SwiftMessages/App (7.0.0)
   - "UIView+Positioning (1.6)"
   - YYText (1.0.7)
 
 DEPENDENCIES:
   - Alamofire
-  - AppCenter
+  - AppCenter (~> 2.2.0)
   - DeviceKit
   - IQKeyboardManagerSwift
   - Kanna
@@ -62,7 +62,7 @@ DEPENDENCIES:
   - YYText (from `https://github.com/aidevjoe/YYText`)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - AppCenter
     - DeviceKit
@@ -104,13 +104,13 @@ CHECKOUT OPTIONS:
     :git: https://github.com/aidevjoe/YYText
 
 SPEC CHECKSUMS:
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  AppCenter: fddcbac6e4baae3d93a196ceb0bfe0e4ce407dec
-  DeviceKit: da103891aa928d89f64ea8dd8aca738c5f3d8ac0
-  IQKeyboardManagerSwift: 2dde0fc70110e8eac7ccce2a46fdbec6a850b414
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  AppCenter: c809e69d93218b9861b4f8e54ded8dcf4d2131e7
+  DeviceKit: 72d36709552d4b3582abd76a53949148acad9811
+  IQKeyboardManagerSwift: ed9b04ee0e3067ffba543283462d619f944b05e5
   Kanna: a32875df62975f8f4b871e933b4ea1a5c3b8be0f
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
-  LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
+  LookinServer: 44f1b5f32743dc61068a156ff86b5b47d0a82943
   MarkdownView: 5bbee438c823db1cd189002d44c84fa909b3a896
   "NSObject+Rx": 9884a92f19b610795c431e10b4e601913b59c9e9
   PasswordExtension: cd45d17fc92e0defc5ee630795d916f453c6ba12
@@ -124,10 +124,10 @@ SPEC CHECKSUMS:
   SKPhotoBrowser: 343de95d89dc7913763c5dda243cc6e606e4a168
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931
-  SwiftMessages: b577dc7043be8b299857ab35bb663dbff6483bd0
+  SwiftMessages: a952f7a9103d9aeab93730a2861d2d8fcdd8758f
   "UIView+Positioning": 6e7236a429053ade11051fab7ff9053af36c77a8
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: f447ec194f73ede0db3a17aba1ff3a8ad3e50606
+PODFILE CHECKSUM: e2fe0165d6757175248c768bed147f52742bcf6f
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4

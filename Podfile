@@ -1,4 +1,5 @@
 platform :ios, '9.0'
+source 'https://github.com/CocoaPods/Specs.git'
 
 target 'V2EX' do
     use_frameworks!
@@ -42,7 +43,7 @@ target 'V2EX' do
     pod 'DeviceKit'
     
     # Analytics And Crashes
-    pod 'AppCenter'
+    pod 'AppCenter', '~> 2.2.0'
     
 #    pod 'JPush'
 
